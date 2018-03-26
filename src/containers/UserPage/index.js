@@ -1,14 +1,21 @@
 import React, {Component} from 'react';
+
 import SongCarousel from '../../components/SongCarousel';
 import {Track} from '../../spotify/models';
+import SpotifyWebApi from '../../spotify';
 
 class UserPage extends Component {
-
     constructor (props) {
         super(props);
-        this.state = {
-            tracks: [] //TODO Request the user's recently played tracks
-        }
+        this.spotifyWebApi = new SpotifyWebApi();
+    }
+
+    componentWillMount() {
+        this.spotifyWebApi.getRecentlyPlayedTracks().then(tracks => {
+            this.state = {
+                tracks: tracks.map(track => new Track(track.track))
+            }
+        })
     }
 
     render() {

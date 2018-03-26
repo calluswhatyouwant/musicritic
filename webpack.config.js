@@ -11,7 +11,11 @@ module.exports = {
     },
     devServer: {
         port: 3000,
-        contentBase: __dirname + '/dist'
+        contentBase: __dirname + '/dist',
+        historyApiFallback: true
+    },
+    stats: {
+        errorDetails: true
     },
     module: {
         rules: [

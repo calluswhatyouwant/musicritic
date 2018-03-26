@@ -3,8 +3,16 @@ import React, {Component} from 'react';
 import LoginButton from '../../components/LoginButton';
 
 class LoginPage extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
-        return (<LoginButton/>);
+        return (
+            <div>
+                <LoginButton />
+            </div>
+        );
     }
 }
 
