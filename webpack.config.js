@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: __dirname + '/src/index.js',
+    devtool: 'source-map',
     output: {
         path: __dirname + '/dist',
         filename: 'app.bundle.js'
@@ -20,8 +21,7 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env', 'react'],
-                        plugins: []
+                        presets: ['env', 'react', 'stage-2']
                     }
                 },
             }, {
@@ -29,7 +29,7 @@ module.exports = {
                 use: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader" })
             },
             { 
-                test: /\.(ttf|eot|svg|woff|woff2|png)$/, 
+                test: /\.(ttf|eot|svg|woff|woff2|png|gif)$/, 
                 use: 'url-loader?limit=10000'
             }
         ]

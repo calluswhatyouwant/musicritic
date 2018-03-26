@@ -1,0 +1,21 @@
+.slick-slide {
+    padding: 5px;
+}
+
+.slick-prev:before {
+    color: gray;
+}
+
+.slick-next:before {
+    color: gray;
+}
+
+.image {
+    background: linear-gradient(to top, rgba(0,0,0,0), rgba(0,0,0,0.5));
+    color: white;
+    font-size: 20px;
+    font-weight: 300;
+    padding: 10px;
+    opacity: 1;
+    transition: opacity 0.1s;
+}

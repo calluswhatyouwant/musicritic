@@ -1,31 +1,47 @@
 import React from 'react';
+import PropTypes, {instanceOf} from 'prop-types';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const SongCarousel = () => {
-    const settings = {
-        dots: true,
-        lazyLoad: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        initialSlide: 2
-    };
-    const imageUrl = 'https://is4-ssl.mzstatic.com/image/thumb/Music111/v4/2f/25/9f/2f259f40-e735-d94e-2814-00ee84420cd5/075679897121.jpg/600x600bf.jpg';
+import {Track} from '../../spotify/models';
+import './style.css';
+
+const sliderSettings = {
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    adaptiveHeight: false,
+    lazyLoad: true
+};
+
+const SongCarousel = ({tracks, onSelectTrack}) => {
+    const slide = (key, track) => <div key={key}><SongCarouselItem track={track}/></div>
+    const slides = tracks.map((track, index) => slide(index, track));
     return (
-        <div>
-        <h2> Lazy Load</h2>
-        <Slider {...settings}>
-            <div><img src={imageUrl} /></div>
-            <div><img src={imageUrl} /></div>
-            <div><img src={imageUrl} /></div>
-            <div><img src={imageUrl} /></div>
+        <Slider {...sliderSettings}>
+            {slides}
         </Slider>
-        </div>
-    );   
+    );
 }
+
+const SongCarouselItem = ({track}) => (
+    <div className="card text-center">
+        <img className="card-img-top" src={track.album.imageUrl} />
+        <div className="card-body">
+            <h6 className="card-subtitle mb-2 text-muted">{track.name}</h6>
+            <p className="card-text">{track.stringArtists}</p>
+        </div>
+    </div>
+);
+
+SongCarousel.propTypes = {
+    tracks: PropTypes.arrayOf(instanceOf(Track)).isRequired,
+    onSelectTrack: PropTypes.func
+};
+
+SongCarouselItem.propTypes = {
+    track: PropTypes.object.isRequired
+};
 
 export default SongCarousel;
