@@ -10,7 +10,7 @@ class LoginPage extends Component {
     render() {
         return (
             <div>
-                <LoginButton />
+                <LoginButton url="http://localhost:5000/auth/login" />
             </div>
         );
     }

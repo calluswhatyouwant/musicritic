@@ -7,14 +7,13 @@ class Auth extends Component {
     }
 
     componentWillMount() {
-        console.log(this.props.match);
         localStorage.setItem('token', this.props.match.params.token);
         localStorage.setItem('refresh', this.props.match.params.refresh);
         this.props.history.replace('/home');
     }
     
     render() {
-        return (<div>This shouldn't be showing.</div>);
+        return null;
     }
 }
 
