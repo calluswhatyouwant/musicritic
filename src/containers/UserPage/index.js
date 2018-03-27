@@ -14,8 +14,9 @@ class UserPage extends Component {
     }
 
     componentWillMount() {
-        this.spotifyWebApi.getRecentlyPlayedTracks().then(tracks => {
-            this.setState({...this.state, tracks: tracks.map(track => new Track(track.track))})
+        this.spotifyWebApi.getRecentlyPlayedTracks().then(results => {
+            const tracks = results.map(result => new Track(result.track));
+            this.setState({ tracks: tracks })
         })
     }
 
