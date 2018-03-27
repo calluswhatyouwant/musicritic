@@ -11,7 +11,10 @@ class SpotifyWebApi {
     }
 
     getRecentlyPlayedTracks() {
-        return this.axios.get('/me/player/recently-played').then(response => response.data.items);
+        const params = {params: {limit: 50}};
+        return this.axios.get('/me/player/recently-played', params).then(response =>
+            response.data.items
+        );
     }
 }
 

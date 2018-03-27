@@ -7,7 +7,8 @@ module.exports = {
     devtool: 'source-map',
     output: {
         path: __dirname + '/dist',
-        filename: 'app.bundle.js'
+        filename: 'app.bundle.js',
+        publicPath: '/'
     },
     devServer: {
         port: 3000,
