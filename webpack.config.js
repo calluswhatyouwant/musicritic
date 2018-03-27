@@ -7,11 +7,16 @@ module.exports = {
     devtool: 'source-map',
     output: {
         path: __dirname + '/dist',
-        filename: 'app.bundle.js'
+        filename: 'app.bundle.js',
+        publicPath: '/'
     },
     devServer: {
         port: 3000,
-        contentBase: __dirname + '/dist'
+        contentBase: __dirname + '/dist',
+        historyApiFallback: true
+    },
+    stats: {
+        errorDetails: true
     },
     module: {
         rules: [
