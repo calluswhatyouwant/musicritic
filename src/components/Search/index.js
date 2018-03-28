@@ -16,17 +16,17 @@ class Search extends Component {
     }
 
     searchItems(event) {
-        this.context.history.push('/search/' + this.state.query);
+        this.props.history.push('/search/' + this.state.query);
     }
 
     handleChange(event) {
-        this.setState({ ...this.state, query: event.target.value });
+        this.setState({ query: event.target.value });
     }
 
     render() {
         return (
             <div className="input-group mb-3">
-                <SearchInput query={this.state.query} handleChange={this.handleChange}  />
+                <SearchInput query={this.state.query} handleChange={this.handleChange} />
                 <div className="input-group-append">
                     <SearchButton searchItems={this.searchItems} />
                 </div>

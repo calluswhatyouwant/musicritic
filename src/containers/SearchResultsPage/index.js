@@ -1,32 +1,45 @@
 import React, {Component} from 'react';
 
 import SpotifyWebApi from '../../spotify';
-import SearchResultList from '../../components/SearchResult';
-
-import { Track } from '../../spotify/models';
+import SearchResultTable from '../../components/SearchResult';
 
 class SearchResultsPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            query: '',
             results: []
         }
         this.spotifyWebApi = new SpotifyWebApi();
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const query = this.props.match.params.query;
-        this.spotifyWebApi.searchItems(query).then(results => {
-            const searchResults = results.map(result => new Track(result));
-            this.setState({ results: searchResults });
-        })
+        this.updateResults(query);
+    }
+    
+    componentWillReceiveProps(nextProps) {
+        const receivedQuery = nextProps.match.params.query;
+        const currentQuery = this.state.query;
+
+        if (receivedQuery !== currentQuery) {
+            this.setState({ query: receivedQuery });
+            this.updateResults(receivedQuery);
+        }
+    }
+
+    updateResults(query) {
+        this.spotifyWebApi.searchItems(query).then(response => {
+            const tracks = response.tracks.items;
+            console.log(tracks);
+            this.setState({ ...this.state, results: tracks });
+        });
     }
 
     render() {
-        console.log(this.state.results)
         return (
             <div className="container">
-                <SearchResultList results={this.state.results} />
+                <SearchResultTable results={this.state.results} />
             </div>
         );
     }
