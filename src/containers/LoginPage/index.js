@@ -10,7 +10,7 @@ class LoginPage extends Component {
     render() {
         return (
             <div>
-                <LoginButton urlToAuth="http://localhost:5000/auth/login" />
+                <LoginButton urlToAuth="https://idontknowmyname.herokuapp.com/auth/login" />
             </div>
         );
     }
