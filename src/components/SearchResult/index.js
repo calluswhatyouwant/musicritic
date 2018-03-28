@@ -5,39 +5,58 @@ import {Track} from '../../spotify/models';
 
 import './style.css';
 
-const SearchResultList = ({results}) => {
-    const searchResultItem = (result, key) => <SearchResultItem key={key} result={result}/>;
-    const searchResultList = results.map((result, index) => searchResultItem(result, index));
+const SearchResultTable = ({results}) => {
     return (
         <table className="table table-striped">
-            <thead>
-                <tr>
-                <th scope="col">Image</th>
-                <th scope="col">Track</th>
-                <th scope="col">Song</th>
-                </tr>
-            </thead>
-            <tbody>
-                {searchResultList}
-            </tbody>
+            <SearchResultTableHead elements={['Track', 'Artist']} />
+            <SearchResultTableBody results={results} />
         </table>
     );
 }
 
-const SearchResultItem = ({result}) => (
-    <tr>
-      <td className="align-middle"><img src={result.album.imageUrl} /></td>
-      <td className="align-middle">{result.name}</td>
-      <td className="align-middle">{result.stringArtists}</td>
-    </tr>
-);
+const SearchResultTableBody = ({results}) => {
+    const row = (result, key) => {
+        const imageUrl = result.album.images[0].url;
+        const name = result.name;
+        const artist = result.artists[0].name;
+        const textInfo = [name, artist];
 
-SearchResultList.propTypes = {
-    results: PropTypes.arrayOf(instanceOf(Track)).isRequired
+        return <SearchResultTableRow key={key} imageUrl={imageUrl} textInfo={textInfo} />
+    }
+    
+    const rows = results.map((result, index) => row(result, index));
+    
+    return <tbody>{rows}</tbody>;
+}
+
+const SearchResultTableHead = ({elements}) => {
+    const header = (name, key) => <SearchResultTableHeader name={name} key={key}/> ;
+    const headers = elements.map((name, index) => header(name, index));
+
+    return (
+        <thead>
+            <tr>
+                <th width="5%" scope="col"></th>
+                {headers}
+            </tr>
+        </thead>
+    );
+}
+
+const SearchResultTableHeader = ({name}) => <th scope="col">{name}</th>;
+
+const SearchResultTableRow = ({imageUrl, textInfo}) => {
+    const cells = textInfo.map((data, index) =>
+        <SearchResultTableCell key={index} data={data} />);
+
+    return (
+        <tr>
+            <td className="align-middle"><img src={imageUrl} /></td>
+            {cells}
+        </tr>
+    )
 };
 
-SearchResultItem.propTypes = {
-    result: PropTypes.object.isRequired
-};
+const SearchResultTableCell = ({data}) => <td className="align-middle">{data}</td>;
 
-export default SearchResultList;
+export default SearchResultTable;
