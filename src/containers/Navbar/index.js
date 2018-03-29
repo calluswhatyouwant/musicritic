@@ -11,7 +11,7 @@ class Navbar extends Component {
     render() {
         return (
             <div>
-                <Route path='/' component={Search} />
+                <Search />
             </div>
         );
     }

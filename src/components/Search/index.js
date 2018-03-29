@@ -16,7 +16,7 @@ class Search extends Component {
     }
 
     searchItems(event) {
-        this.props.history.push('/search/' + this.state.query);
+        this.props.history.push('/search/track/' + this.state.query);
     }
 
     handleChange(event) {
@@ -45,4 +45,4 @@ const SearchButton = ({searchItems}) => (
     </button>
 );
 
-export default Search;
+export default withRouter(Search);
