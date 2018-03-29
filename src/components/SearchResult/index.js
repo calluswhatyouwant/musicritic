@@ -1,62 +1,55 @@
 import React from 'react';
 import PropTypes, {instanceOf} from 'prop-types';
 
-import {Track} from '../../spotify/models';
-
 import './style.css';
 
-const SearchResultTable = ({results}) => {
-    return (
-        <table className="table table-striped">
-            <SearchResultTableHead elements={['Track', 'Artist']} />
-            <SearchResultTableBody results={results} />
-        </table>
-    );
-}
+const SearchResultsTable = ({headers, results, type}) => (
+    <table className="table table-striped">
+        <SearchResultsTableHead headElements={headers} />
+        <SearchResultsTableBody results={results} />
+    </table>
+);
 
-const SearchResultTableBody = ({results}) => {
-    const row = (result, key) => {
-        const imageUrl = result.album.images[0].url;
-        const name = result.name;
-        const artist = result.artists[0].name;
-        const textInfo = [name, artist];
-
-        return <SearchResultTableRow key={key} imageUrl={imageUrl} textInfo={textInfo} />
-    }
-    
-    const rows = results.map((result, index) => row(result, index));
-    
-    return <tbody>{rows}</tbody>;
-}
-
-const SearchResultTableHead = ({elements}) => {
-    const header = (name, key) => <SearchResultTableHeader name={name} key={key}/> ;
-    const headers = elements.map((name, index) => header(name, index));
+const SearchResultsTableHead = ({headElements}) => {
+    const header = (name, key) => <SearchResultsTableHeader name={name} key={key} />;
+    const headers = headElements.map((name, index) => header(name, index + 1));
+    const imageHeader = <SearchResultsTableHeader key={0} width="1%" />;
+    headers.unshift(imageHeader);
 
     return (
         <thead>
-            <tr>
-                <th width="5%" scope="col"></th>
-                {headers}
-            </tr>
+            <tr>{headers}</tr>
         </thead>
     );
 }
 
-const SearchResultTableHeader = ({name}) => <th scope="col">{name}</th>;
+const SearchResultsTableHeader = ({name, width}) => (
+    <th scope="col" width={width || "50%"}>{name}</th>
+);
 
-const SearchResultTableRow = ({imageUrl, textInfo}) => {
+const SearchResultsTableBody = ({results}) => {
+    const row = (result, key) => {
+        const type = result.type;
+        const [imageUrl, ...textInfo] = result.values;
+        return <SearchResultsTableRow key={key} imageUrl={imageUrl} textInfo={textInfo} />;
+    };
+    const rows = results.map((result, index) => row(result, index));
+
+    return <tbody>{rows}</tbody>;
+}
+
+const SearchResultsTableRow = ({imageUrl, textInfo}) => {
     const cells = textInfo.map((data, index) =>
-        <SearchResultTableCell key={index} data={data} />);
+        <SearchResultsTableCell key={index + 1} data={data} />);
+    const imageCell = <SearchResultsTableCell key={0} data={imageUrl} image />;
+    cells.unshift(imageCell);
 
-    return (
-        <tr>
-            <td className="align-middle"><img src={imageUrl} /></td>
-            {cells}
-        </tr>
-    )
+    return <tr>{cells}</tr>;
 };
 
-const SearchResultTableCell = ({data}) => <td className="align-middle">{data}</td>;
+const SearchResultsTableCell = ({data, image}) => {
+    if (image) data = <img className="img-search" src={data} />;
+    return <td className="align-middle">{data}</td>;
+};
 
-export default SearchResultTable;
+export default SearchResultsTable;
