@@ -1,12 +1,12 @@
 import React from 'react';
-import PropTypes, {instanceOf} from 'prop-types';
+import PropTypes, { instanceOf } from 'prop-types';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import {Track} from '../../spotify/models';
-import './style.css';
+import { Track } from '../../../spotify/models';
+import './carousel.css';
 
 const sliderSettings = {
     slidesToShow: 5,

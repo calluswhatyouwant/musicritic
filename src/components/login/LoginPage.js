@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import LoginButton from '../../components/LoginButton';
+import LoginButton from './LoginButton';
 
 class LoginPage extends Component {
     constructor(props) {

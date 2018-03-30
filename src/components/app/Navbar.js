@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Route, withRouter} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Route, withRouter } from 'react-router-dom';
 
-import Search from '../../components/Search';
+import Search from '../search/Search';
 
 class Navbar extends Component {
     constructor(props) {
@@ -15,9 +15,7 @@ class Navbar extends Component {
 
     render() {
         return (
-            <div>
-                <Search handleSearch={this.handleSearch} />
-            </div>
+            <Search handleSearch={this.handleSearch} />
         );
     }
 }

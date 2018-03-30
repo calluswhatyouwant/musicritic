@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 class Auth extends Component {
     constructor(props) {
@@ -9,11 +9,10 @@ class Auth extends Component {
     componentWillMount() {
         localStorage.setItem('token', this.props.match.params.token);
         localStorage.setItem('refresh', this.props.match.params.refresh);
-        this.props.history.replace('/home');
     }
     
     render() {
-        return null;
+        return <Redirect to={'/home'}/>;
     }
 }
 

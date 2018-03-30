@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes, {instanceOf} from 'prop-types';
+import PropTypes, { instanceOf } from 'prop-types';
 
-import './style.css';
+import './search.css';
 
 const SearchResultsTable = ({headers, results, type}) => (
     <table className="table table-striped">
