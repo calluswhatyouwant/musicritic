@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
-import SearchResultsTable from '../../components/SearchResult';
+import SearchResultsTable from './SearchResult';
 import SpotifyWebApi from '../../spotify';
 
 class SearchResultsPage extends Component {

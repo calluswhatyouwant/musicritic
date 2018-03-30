@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './style.css';
+import './login.css';
 
 const LoginButton = ({urlToAuth}) => (
     <a href={urlToAuth} className="btn btn-lg spotify-button">
