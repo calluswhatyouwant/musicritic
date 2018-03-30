@@ -19,7 +19,7 @@ class Search extends Component {
     }
 
     searchTracks() {
-        this.props.redirectTo('/search/track/' + this.state.query);
+        this.props.handleSearch(this.state.query);
     }
 
     render() {

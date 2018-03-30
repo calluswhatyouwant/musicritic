@@ -6,17 +6,17 @@ import Search from '../../components/Search';
 class Navbar extends Component {
     constructor(props) {
         super(props);
-        this.redirectTo = this.redirectTo.bind(this);        
+        this.handleSearch = this.handleSearch.bind(this);        
     }
 
-    redirectTo(url) {
-        this.props.history.push(url);
+    handleSearch(query) {
+        this.props.history.push('/search/track/' + query);
     }
 
     render() {
         return (
             <div>
-                <Search redirectTo={this.redirectTo} />
+                <Search handleSearch={this.handleSearch} />
             </div>
         );
     }
