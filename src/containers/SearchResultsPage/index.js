@@ -27,7 +27,7 @@ class SearchResultsPage extends Component {
         const oldType = this.props.match.params.type;
         const newType = nextProps.match.params.type;
         
-        if (oldQuery !== newQuery || oldType !== newType) {
+        if (oldQuery != newQuery || oldType != newType) {
             this.updateResults(newQuery, newType);
         }
     }
