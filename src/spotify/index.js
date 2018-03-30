@@ -10,11 +10,11 @@ class SpotifyWebApi {
         this.axios = axios.create(config);
     }
 
-    getRecentlyPlayedTracks() {
+    async getRecentlyPlayedTracks() {
         const params = {params: {limit: 50}};
-        return this.axios.get('/me/player/recently-played', params).then(response =>
-            response.data.items
-        );
+        const response = await this.axios('/me/player/recently-played', params);
+        return response.data.items;
+        
     }
 }
 

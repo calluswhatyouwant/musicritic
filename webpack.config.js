@@ -26,7 +26,13 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env', 'react', 'stage-2']
+                        presets: ['env', 'react', 'stage-2'],
+                        plugins: [
+                            ["transform-runtime", {
+                                "polyfill": false,
+                                "regenerator": true
+                            }]
+                        ]
                     }
                 },
             }, {
