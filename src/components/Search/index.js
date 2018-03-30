@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
 
 import SpotifyWebApi from '../../spotify';
 
@@ -11,38 +10,48 @@ class Search extends Component {
             query: ''
         };
 
-        this.searchItems = this.searchItems.bind(this);
+        this.searchTracks = this.searchTracks.bind(this);
         this.handleChange = this.handleChange.bind(this);
-    }
-
-    searchItems(event) {
-        this.props.history.push('/search/track/' + this.state.query);
     }
 
     handleChange(event) {
         this.setState({ query: event.target.value });
     }
 
+    searchTracks() {
+        this.props.redirectTo('/search/track/' + this.state.query);
+    }
+
     render() {
         return (
             <div className="input-group mb-3">
-                <SearchInput query={this.state.query} handleChange={this.handleChange} />
+                <SearchInput query={this.state.query} handleChange={this.handleChange}
+                    searchTracks={this.searchTracks} />
                 <div className="input-group-append">
-                    <SearchButton searchItems={this.searchItems} />
+                    <SearchButton searchTracks={this.searchTracks} />
                 </div>
             </div>
         );
     }
 }
 
-const SearchInput = ({query, handleChange}) => (
-    <input className="form-control" type="text" placeholder="Search" value={query} onChange={handleChange} />       
-);
+const SearchInput = ({query, handleChange, searchTracks}) => {
+    const handleSearch = (event) => {
+        if (event.key == 'Enter') searchTracks();
+    }
 
-const SearchButton = ({searchItems}) => (
-    <button className="btn btn-outline-secondary" onClick={() => searchItems()}>
-        <i className="fa fa-search" />
-    </button>
-);
+    return (
+        <input className="form-control" type="text" placeholder="Search"
+            value={query} onChange={handleChange} onKeyPress={handleSearch} />       
+    )
+};
 
-export default withRouter(Search);
+const SearchButton = ({searchTracks}) => {
+    return (
+        <button className="btn btn-outline-secondary" onClick={() => searchTracks()}>
+            <i className="fa fa-search" />
+        </button>
+    );
+};
+
+export default Search;
