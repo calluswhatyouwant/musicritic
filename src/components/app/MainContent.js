@@ -12,8 +12,8 @@ class MainContent extends Component {
             <Switch>
                 <Route exact path='/' component={LoginPage} />
                 <Route exact path='/home' component={UserPage} />
-                <Route path='/auth/:token/:refresh' component={Auth} />
-                <Route path='/search/:type/:query' component={SearchResultsPage} />
+                <Route exact path='/auth/:token/:refresh' component={Auth} />
+                <Route exact path='/search/(tracks|artists|playlists|albums)/:query' component={SearchResultsPage} />
             </Switch>
         );
     }
