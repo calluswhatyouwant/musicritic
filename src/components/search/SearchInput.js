@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { InputGroup, InputGroupAddon, Input, Button } from 'reactstrap';
 
+import './search.css';
+
 class SearchInput extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +23,7 @@ class SearchInput extends Component {
 
     render() {
         return (
-            <Input placeholder="Search..." value={this.state.query} 
+            <input type="text" placeholder="Search..." value={this.state.query} className="search-input"
                 onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
         );
     }

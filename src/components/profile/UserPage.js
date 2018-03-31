@@ -22,9 +22,7 @@ class UserPage extends Component {
 
     render() {
         return (
-            <div className="container">
-                <SongCarousel tracks={this.state.tracks} />
-            </div>
+            <SongCarousel tracks={this.state.tracks} />
         );
     }
 }
