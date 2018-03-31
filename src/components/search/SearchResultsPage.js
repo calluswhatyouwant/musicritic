@@ -33,11 +33,10 @@ class SearchResultsPage extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div>
                 <SearchResultsNav query={this.props.match.params.query} />
-                <div className="container">
-                    {this.state.results.albums? <SearchResult results={this.state.results} /> : null}
-                </div>
+                {this.state.results.albums? <SearchResult results={this.state.results} /> : null}
+
             </div>
         );
     }

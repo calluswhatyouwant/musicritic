@@ -1,8 +1,7 @@
 {
-  "name": "idontknowmyname",
+  "name": "musicritic",
   "version": "0.0.1-alpha",
-  "description": "I don't know my name... I don't play by the rules of the game.",
-  "repository": "https://github.com/joserenan/idontknowmyname.git",
+  "repository": "https://github.com/calluswhatyouwant/musicritic.git",
   "author": "JRobsonJr <jrobsonjr16@gmail.com>, José Renan <joserenansl99@gmail.com>",
   "scripts": {
     "start": "webpack-dev-server --progress --colors --inline --hot",

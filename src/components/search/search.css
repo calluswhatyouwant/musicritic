@@ -4,3 +4,38 @@
     height: 15vh;
     width: 15vh;
 }
+
+.search-input {
+    background-color: #5C6BC0;
+    border: none;
+    border-radius: 5px;
+    padding: 3px 10px 3px 10px;
+    color: white;
+    font-size: 15px;
+}
+
+.search-input:hover {
+    border: none;
+    background-color: #6b77bf;
+}
+
+.search-input:focus {
+    border: none;
+    background-color: #6b77bf;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: #BFCDFF;
+    font-size: 15px;
+}
+
+.search-input:-ms-input-placeholder {
+    color: #7B8FC3;
+    font-size: 15px;
+}
+
+.search-input::-ms-input-placeholder {
+    color: #7B8FC3;
+    font-size: 15px;
+}

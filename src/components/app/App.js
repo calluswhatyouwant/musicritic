@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import './app.css';
+
 import Navbar from './Navbar';
 import MainContent from './MainContent';
 
@@ -8,7 +10,9 @@ class App extends Component {
         return (
             <div>
                 <Navbar />
-                <MainContent />
+                <div className="container main">
+                    <MainContent />
+                </div>
             </div>
         );
     }
