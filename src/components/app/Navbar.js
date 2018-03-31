@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 
-import Search from '../search/Search';
+import SearchInput from '../search/SearchInput';
 
 class Navbar extends Component {
     constructor(props) {
@@ -10,12 +10,12 @@ class Navbar extends Component {
     }
 
     handleSearch(query) {
-        this.props.history.push('/search/track/' + query);
+        this.props.history.push('/search/tracks/' + query);
     }
 
     render() {
         return (
-            <Search handleSearch={this.handleSearch} />
+            <SearchInput handleSearch={this.handleSearch} />
         );
     }
 }
