@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import './results.css';
 import TrackCard from '../../common/track/TrackCard';
 import { Track } from '../../../spotify/models';
 
+import './results.css';
+
 class TrackResult extends Component {
-    
     constructor(props) {
         super(props);      
         this.state = {
@@ -21,9 +21,9 @@ class TrackResult extends Component {
         })});
     }
     
-    render () {
+    render() {
         const listResults = this.state.tracks.map((track, index) => (
-            <div key={index} className="col-3 track-result">
+            <div key={index} className="col-3 result">
                 <TrackCard track={track}/>
             </div>
         ));

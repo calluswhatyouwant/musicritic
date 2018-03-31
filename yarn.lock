@@ -244,10 +244,6 @@ aws4@^1.2.1:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
 
-axios-progress-bar@^1.1.8:
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/axios-progress-bar/-/axios-progress-bar-1.1.8.tgz#ce81f1dcf09884f8c0f76d156c3f05291f29c20d"
-
 axios@^0.18.0:
   version "0.18.0"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
@@ -4109,7 +4105,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1:
+prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
   dependencies:
@@ -4246,12 +4242,6 @@ react-popper@^0.8.3:
   dependencies:
     popper.js "^1.12.9"
     prop-types "^15.6.0"
-
-react-redux-loading-bar@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/react-redux-loading-bar/-/react-redux-loading-bar-3.1.2.tgz#7d65c7558db22115b2999e47d9f2aae962ae2c33"
-  dependencies:
-    prop-types "^15.5.6"
 
 react-router-dom@^4.2.2:
   version "4.2.2"
