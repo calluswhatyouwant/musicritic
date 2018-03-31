@@ -1,0 +1,6 @@
+.img-search {
+    object-fit: cover;
+    overflow: hidden;
+    height: 15vh;
+    width: 15vh;
+}

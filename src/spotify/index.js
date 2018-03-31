@@ -16,6 +16,12 @@ class SpotifyWebApi {
         return response.data.items;
         
     }
+
+    async search(query) {
+        const params = {params: {q: query, type: 'track,artist,album,playlist'}};
+        const response = await this.axios.get('/search', params);
+        return response.data;
+    }
 }
 
 export default SpotifyWebApi;

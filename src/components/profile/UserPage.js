@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import SongCarousel from '../../components/SongCarousel';
-import {Track} from '../../spotify/models';
+import SongCarousel from '../common/SongCarousel/SongCarousel';
+import { Track } from '../../spotify/models';
 import SpotifyWebApi from '../../spotify';
 
 class UserPage extends Component {

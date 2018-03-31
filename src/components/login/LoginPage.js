@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import LoginButton from '../../components/LoginButton';
+import LoginButton from './LoginButton';
 
 class LoginPage extends Component {
     constructor(props) {
@@ -9,7 +9,8 @@ class LoginPage extends Component {
 
     render() {
         return (
-            <div>
+            <div className="text-center">
+                <h1>Login to Spotify</h1>
                 <LoginButton urlToAuth="https://idontknowmyname.herokuapp.com/auth/login" />
             </div>
         );
