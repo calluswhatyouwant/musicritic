@@ -8,7 +8,7 @@ const TrackCard = ({track}) => (
         <img className="card-img-top" src={track.album.imageUrl} />
         <div className="card-body">
             <h6 className="card-subtitle mb-2 text-muted text-truncate">{track.name}</h6>
-            <p className="card-text">{track.stringArtists}</p>
+            <p className="card-text text-truncate">{track.stringArtists}</p>
         </div>
     </div>
 );
