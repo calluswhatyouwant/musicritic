@@ -8,7 +8,7 @@ class SignupPage extends Component {
     render() {
         return (
             <div className="row justify-content-center">
-                <div className="col-5 col-sm-12 col-md-7 col-lg-5">
+                <div className="signup-page col-sm-12 col-md-7 col-lg-5">
                     <h1 className="text-center">Signup with</h1>
                     <SignupButtonGroup />
                     <Separator />
