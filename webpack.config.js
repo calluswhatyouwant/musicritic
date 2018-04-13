@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const config = require('./config');
 
 module.exports = {
     entry: __dirname + '/src/index.js',
@@ -45,8 +46,12 @@ module.exports = {
             }
         ]
     },
-    plugins: [new ExtractTextPlugin('style.bundle.css'), new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: __dirname + '/src/index.html'
-    })]
+    plugins: [
+        new ExtractTextPlugin('style.bundle.css'),
+        new webpack.EnvironmentPlugin(config),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: __dirname + '/src/index.html'
+        })         
+    ]
 }
