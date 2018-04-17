@@ -11,7 +11,7 @@ class LoginPage extends Component {
         return (
             <div className="text-center">
                 <h1>Login to Spotify</h1>
-                <LoginButton urlToAuth="https://idontknowmyname.herokuapp.com/auth/login" />
+                <LoginButton urlToAuth={`${process.env.SERVER_BASE_URI}/auth/login`} />
             </div>
         );
     }
