@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 import './app.css';
 
@@ -10,6 +11,7 @@ class App extends Component {
         return (
             <div>
                 <Navbar />
+                <ToastContainer />
                 <div className="container main">
                     <MainContent />
                 </div>
