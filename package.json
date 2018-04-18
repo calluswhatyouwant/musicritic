@@ -20,6 +20,7 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
     "font-awesome": "^4.7.0",
+    "formik": "^0.11.11",
     "html-webpack-plugin": "^3.1.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.1",
@@ -28,11 +29,13 @@
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
     "react-slick": "^0.22.2",
+    "react-toastify": "^4.0.0-rc.4",
     "reactstrap": "^5.0.0",
     "slick-carousel": "^1.8.1",
     "style-loader": "^0.20.3",
     "url-loader": "^1.0.1",
-    "webpack": "^3.11.0"
+    "webpack": "^3.11.0",
+    "yup": "^0.24.1"
   },
   "devDependencies": {
     "webpack-dev-server": "^2.9.7"

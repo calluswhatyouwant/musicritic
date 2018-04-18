@@ -5,6 +5,11 @@ import './signup.css';
 import SignupForm from './SignupForm';
 
 class SignupPage extends Component {
+
+    constructor (props) {
+        super(props);
+    }
+
     render() {
         return (
             <div className="row justify-content-center">
