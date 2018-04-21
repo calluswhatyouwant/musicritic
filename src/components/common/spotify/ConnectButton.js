@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './login.css';
+import './spotify.css';
 
-const LoginButton = ({urlToAuth}) => (
+const ConnectButton = ({urlToAuth}) => (
     <a href={urlToAuth} className="btn btn-lg spotify-button">
         <i className="fa fa-spotify"/>
     </a>
 );
 
-LoginButton.propTypes = {
+ConnectButton.propTypes = {
     urlToAuth: PropTypes.string.isRequired
 }
 
-export default LoginButton;
+export default ConnectButton;
