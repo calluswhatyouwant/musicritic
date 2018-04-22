@@ -11,7 +11,3 @@ export const createUser = user => {
             throw error.response.data;
         });
 }
-
-export const authenticateUser = user => {
-    return;
-}
