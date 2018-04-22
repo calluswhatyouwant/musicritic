@@ -1,0 +1,27 @@
+.btn-facebook {
+    background-color: #3b5998 !important;
+    border-color: #3b5998 !important;
+}
+
+.btn-google {
+    background-color: #dd4b39 !important;
+    border-color: #dd4b39 !important;
+}
+
+.btn-twitter {
+    background-color: #1dcaff !important;
+    border-color: #1dcaff !important;
+}
+
+.btn-spotify {
+    background-color: #1ED760 !important;
+    border-color: #1ED760 !important;
+}
+
+.btn-social {
+    font-size: 20px !important;
+}
+
+.fa {
+    color: white;
+}

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import SongCarousel from '../common/SongCarousel/SongCarousel';
 import { Track } from '../../spotify/models';
 import SpotifyWebApi from '../../spotify';
-import ConnectButton from './../common/spotify/ConnectButton';
+import SocialButton from './../common/SocialButton';
 
 class UserPage extends Component {
     constructor (props) {
@@ -31,9 +31,11 @@ class UserPage extends Component {
 }
 
 const SpotifyConnect = (props) => (
-    <div className="text-center">
-        <h1>Connect to Spotify:</h1>
-        <ConnectButton urlToAuth={`${process.env.SERVER_BASE_URI}/auth/login`} />
+    <div className="row justify-content-center">
+        <div className="col-sm-12 col-md-7 col-lg-5">
+            <h1 className="text-center">Connect to Spotify:</h1>
+            <SocialButton name="spotify" url={`${process.env.SERVER_BASE_URI}/auth/login`} />
+        </div>
     </div>
 );
 
