@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 
 import LoginForm from './LoginForm';
+import SocialButton from './../common/SocialButton';
 
 class LoginPage extends Component {
     constructor(props) {
@@ -25,21 +26,15 @@ class LoginPage extends Component {
 const LoginButtonGroup = () => (
     <div className="signup-btn-group row">
         <div className="col-4">
-            <LoginButton name={'facebook'} />
+            <SocialButton name={'facebook'} />
         </div>
         <div className="col-4">
-            <LoginButton name={'twitter'} />
+            <SocialButton name={'twitter'} />
         </div>
         <div className="col-4">
-            <LoginButton name={'google'} />
+            <SocialButton name={'google'} />
         </div>
     </div>
-);
-
-const LoginButton = ({name}) => (
-    <Button className={`btn btn-block btn-signup btn-signup-${name} text-center`}>
-        <span className={`fa fa-${name}`} />
-    </Button>
 );
 
 const Separator = () => (
