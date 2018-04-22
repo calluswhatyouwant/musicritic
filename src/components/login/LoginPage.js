@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import LoginButton from './LoginButton';
-
 class LoginPage extends Component {
     constructor(props) {
         super(props);
@@ -10,8 +8,7 @@ class LoginPage extends Component {
     render() {
         return (
             <div className="text-center">
-                <h1>Login to Spotify</h1>
-                <LoginButton urlToAuth={`${process.env.SERVER_BASE_URI}/auth/login`} />
+                <h1>Not implemented yet...</h1>
             </div>
         );
     }
