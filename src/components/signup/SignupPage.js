@@ -3,9 +3,9 @@ import { Button } from 'reactstrap';
 
 import './signup.css';
 import SignupForm from './SignupForm';
+import SocialButton from './../common/SocialButton';
 
 class SignupPage extends Component {
-
     constructor (props) {
         super(props);
     }
@@ -27,21 +27,15 @@ class SignupPage extends Component {
 const SignupButtonGroup = () => (
     <div className="signup-btn-group row">
         <div className="col-4">
-            <SignupButton name={'facebook'} />
+            <SocialButton name={'facebook'} />
         </div>
         <div className="col-4">
-            <SignupButton name={'twitter'} />
+            <SocialButton name={'twitter'} />
         </div>
         <div className="col-4">
-            <SignupButton name={'google'} />
+            <SocialButton name={'google'} />
         </div>
     </div>
-);
-
-const SignupButton = ({name}) => (
-    <Button className={`btn btn-block btn-signup btn-signup-${name} text-center`}>
-        <span className={`fa fa-${name}`} />
-    </Button>
 );
 
 const Separator = () => (

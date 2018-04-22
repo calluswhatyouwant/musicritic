@@ -1,22 +1,3 @@
-.btn-signup-facebook {
-    background-color: #3b5998 !important;
-    border-color: #3b5998 !important;
-}
-
-.btn-signup-google {
-    background-color: #dd4b39 !important;
-    border-color: #dd4b39 !important;
-}
-
-.btn-signup-twitter {
-    background-color: #1dcaff !important;
-    border-color: #1dcaff !important;
-}
-
-.btn-signup {
-    font-size: 20px !important;
-}
-
 .signup-btn-group {
     margin-top: 30px;
 }
