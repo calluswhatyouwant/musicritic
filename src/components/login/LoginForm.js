@@ -5,7 +5,7 @@ import { withFormik } from 'formik';
 import { toast } from 'react-toastify';
 
 import { FormField } from '../common/form/form-field';
-import { signIn } from '../../firebase/auth';
+import { signInWithEmailAndPassword } from '../../firebase/auth';
 
 const LoginForm = ({ values, handleChange, isSubmitting, handleSubmit }) => (
     <Form onSubmit={handleSubmit}>
@@ -20,7 +20,7 @@ const LoginForm = ({ values, handleChange, isSubmitting, handleSubmit }) => (
 export default withFormik({
     mapPropsToValues: props => ({ email: '', password: '' }),
     handleSubmit: (values, { props, setSubmitting }) => {
-        signIn(values.email, values.password)
+        signInWithEmailAndPassword(values.email, values.password)
             .then(userAuth => props.onLogin())
             .catch(error => {
                 setSubmitting(false);
