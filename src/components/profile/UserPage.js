@@ -2,20 +2,19 @@ import React, { Component } from 'react';
 
 import SongCarousel from '../common/SongCarousel/SongCarousel';
 import { Track } from '../../spotify/models';
-import SpotifyWebApi from '../../spotify';
+import { getRecentlyPlayedTracks } from '../../spotify';
 import SocialButton from './../common/SocialButton';
 
 class UserPage extends Component {
     constructor (props) {
         super(props);
-        this.spotifyWebApi = new SpotifyWebApi();
         this.state = {
             tracks: []
         }
     }
 
     componentWillMount() {
-        this.spotifyWebApi.getRecentlyPlayedTracks().then(results => {
+        getRecentlyPlayedTracks().then(results => {
             const tracks = results.map(result => new Track(result.track));
             this.setState({ tracks: tracks })
         })

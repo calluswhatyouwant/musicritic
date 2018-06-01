@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import SearchResult from './SearchResult';
-import SpotifyWebApi from '../../spotify';
+import { search } from '../../spotify';
 
 class SearchResultsPage extends Component {
     constructor(props) {
         super(props);
         this.state = { results: {} };
-        this.spotifyWebApi = new SpotifyWebApi();
     }
 
     componentDidMount() {
@@ -24,7 +23,7 @@ class SearchResultsPage extends Component {
     }
 
     updateResults(query) {
-        this.spotifyWebApi.search(query).then(results => {
+        search(query).then(results => {
             this.setState(prevState => ({
                 results: results
             }));
