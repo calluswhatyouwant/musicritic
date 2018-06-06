@@ -7,24 +7,20 @@ import './results.css';
 
 class ArtistResult extends Component {
     constructor(props) {
-        super(props);      
+        super(props);
         this.state = {
-            artists: this.props.results.map(artist => {
-                return new Artist(artist)
-            })
-        }
+            artists: this.props.results.map(artist => new Artist(artist)),
+        };
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({artists: nextProps.results.map(artist => {
-            return new Artist(artist)
-        })});
+        this.setState({ artists: nextProps.results.map(artist => new Artist(artist)) });
     }
-    
+
     render() {
         const listResults = this.state.artists.map((artist, index) => (
             <div key={index} className="col-3 result">
-                <ArtistCard artist={artist}/>
+                <ArtistCard artist={artist} />
             </div>
         ));
         return (

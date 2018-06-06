@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AlbumCard = ({album}) => (
+const AlbumCard = ({ album }) => (
     <div className="card text-center">
         <img className="card-img-top" src={album.imageUrl} />
         <div className="card-body">

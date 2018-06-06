@@ -1,7 +1,7 @@
 import React from 'react';
 import { Playlist } from '../../../spotify/models';
 
-const PlaylistCard = ({playlist}) => (
+const PlaylistCard = ({ playlist }) => (
     <div className="card text-center">
         <img className="card-img-top" src={playlist.imageUrl} />
         <div className="card-body">

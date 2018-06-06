@@ -23,8 +23,14 @@ class SearchInput extends Component {
 
     render() {
         return (
-            <input type="text" placeholder="Search..." value={this.state.query} className="search-input"
-                onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <input
+              type="text"
+              placeholder="Search..."
+              value={this.state.query}
+              className="search-input"
+              onChange={this.handleChange}
+              onKeyPress={this.handleKeyPress}
+            />
         );
     }
 }

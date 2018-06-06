@@ -36,7 +36,13 @@ module.exports = {
                         ]
                     }
                 },
-            }, {
+            }, 
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: ['eslint-loader']
+            },
+            {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader" })
             },

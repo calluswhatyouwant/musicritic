@@ -6,9 +6,9 @@ const equalTo = (ref, msg) => Yup.mixed().test({
     params: {
         reference: ref.path,
     },
-    test: function (value) {
+    test(value) {
         return value === this.resolve(ref);
-    }
+    },
 });
 
 Yup.addMethod(Yup.string, 'equalTo', equalTo);
@@ -27,6 +27,6 @@ export const passwordValidator = () => Yup.string()
     .min(6, 'Password must have at least ${min} characters.')
     .max(12, 'Password must have up to ${max} characters.');
 
-export const passwordConfirmationValidator = (passwordRef) => Yup.string()
+export const passwordConfirmationValidator = passwordRef => Yup.string()
     .equalTo(passwordRef, 'Passwords must match.');
 

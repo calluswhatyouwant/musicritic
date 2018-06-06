@@ -11,11 +11,11 @@ class MainContent extends Component {
     render() {
         return (
             <Switch>
-                <Route exact path='/' component={LoginPage} />
-                <Route exact path='/home' component={UserPage} />
-                <Route exact path='/signup' component={SignupPage} />
-                <Route exact path='/auth/:token/:refresh' component={Auth} />
-                <Route exact path='/search/(tracks|artists|playlists|albums)/:query' component={SearchResultsPage} />
+                <Route exact path="/" component={LoginPage} />
+                <Route exact path="/home" component={UserPage} />
+                <Route exact path="/signup" component={SignupPage} />
+                <Route exact path="/auth/:token/:refresh" component={Auth} />
+                <Route exact path="/search/(tracks|artists|playlists|albums)/:query" component={SearchResultsPage} />
             </Switch>
         );
     }

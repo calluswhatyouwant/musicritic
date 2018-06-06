@@ -3,7 +3,7 @@ import PropTypes, { instanceOf } from 'prop-types';
 
 import { Track } from '../../../spotify/models';
 
-const TrackCard = ({track}) => (
+const TrackCard = ({ track }) => (
     <div className="card text-center">
         <img className="card-img-top" src={track.album.imageUrl} />
         <div className="card-body">

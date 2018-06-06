@@ -13,7 +13,7 @@ class SearchResultsPage extends Component {
     componentDidMount() {
         this.updateResults(this.props.match.params.query);
     }
-    
+
     componentWillReceiveProps(nextProps) {
         const oldQuery = this.props.match.params.query;
         const newQuery = nextProps.match.params.query;
@@ -23,9 +23,9 @@ class SearchResultsPage extends Component {
     }
 
     updateResults(query) {
-        search(query).then(results => {
+        search(query).then((results) => {
             this.setState(prevState => ({
-                results: results
+                results,
             }));
         });
     }
@@ -34,14 +34,14 @@ class SearchResultsPage extends Component {
         return (
             <div>
                 <SearchResultsNav query={this.props.match.params.query} />
-                {this.state.results.albums? <SearchResult results={this.state.results} /> : null}
+                {this.state.results.albums ? <SearchResult results={this.state.results} /> : null}
 
             </div>
         );
     }
 }
 
-const SearchResultsNav = ({query}) => (
+const SearchResultsNav = ({ query }) => (
     <ul className="nav justify-content-center">
         <li className="nav-item">
             <NavLink className="nav-link" to={`/search/tracks/${query}`}>Tracks</NavLink>
