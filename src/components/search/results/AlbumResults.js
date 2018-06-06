@@ -14,7 +14,9 @@ class AlbumResult extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ albums: nextProps.results.map(album => new Album(album)) });
+        this.setState({
+            albums: nextProps.results.map(album => new Album(album)),
+        });
     }
 
     render() {

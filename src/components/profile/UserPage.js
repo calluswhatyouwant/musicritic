@@ -28,11 +28,14 @@ class UserPage extends Component {
     }
 }
 
-const SpotifyConnect = props => (
+const SpotifyConnect = () => (
     <div className="row justify-content-center">
         <div className="col-sm-12 col-md-7 col-lg-5">
             <h1 className="text-center">Connect to Spotify:</h1>
-            <SocialButton name="spotify" url={`${process.env.SERVER_BASE_URI}/auth/login`} />
+            <SocialButton
+              name="spotify"
+              url={`${process.env.SERVER_BASE_URI}/auth/login`}
+            />
         </div>
     </div>
 );

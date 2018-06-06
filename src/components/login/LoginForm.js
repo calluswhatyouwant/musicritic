@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
-import { Form, FormGroup, Label, Input, Button, FormFeedback } from 'reactstrap';
-import Yup from 'yup';
+import React from 'react';
+import { Form, Button } from 'reactstrap';
 import { withFormik } from 'formik';
-import { toast } from 'react-toastify';
 
 import { FormField } from '../common/form/form-field';
 
@@ -25,7 +23,9 @@ const LoginForm = ({
           onChange={handleChange}
           type="password"
         />
-        <Button type="submit" disabled={isSubmitting} block>Log in to Musicritic</Button>
+        <Button type="submit" disabled={isSubmitting} block>
+            Log in to Musicritic
+        </Button>
     </Form>
 );
 

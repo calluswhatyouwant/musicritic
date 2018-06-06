@@ -14,7 +14,9 @@ class ArtistResult extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ artists: nextProps.results.map(artist => new Artist(artist)) });
+        this.setState({
+            artists: nextProps.results.map(artist => new Artist(artist)),
+        });
     }
 
     render() {

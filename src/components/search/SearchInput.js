@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { InputGroup, InputGroupAddon, Input, Button } from 'reactstrap';
 
 import './search.css';
 
@@ -16,7 +15,7 @@ class SearchInput extends Component {
     }
 
     handleKeyPress(event) {
-        if (event.key == 'Enter') {
+        if (event.key === 'Enter') {
             this.props.handleSearch(this.state.query);
         }
     }
