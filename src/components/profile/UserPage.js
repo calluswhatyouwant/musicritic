@@ -6,30 +6,29 @@ import { getRecentlyPlayedTracks } from '../../spotify';
 import SocialButton from './../common/SocialButton';
 
 class UserPage extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         this.state = {
-            tracks: []
-        }
+            tracks: [],
+        };
     }
 
     componentWillMount() {
-        getRecentlyPlayedTracks().then(results => {
+        getRecentlyPlayedTracks().then((results) => {
             const tracks = results.map(result => new Track(result.track));
-            this.setState({ tracks: tracks })
-        })
+            this.setState({ tracks });
+        });
     }
 
     render() {
         if (localStorage.getItem('token')) {
             return <SongCarousel tracks={this.state.tracks} />;
-        } else {
-            return <SpotifyConnect />;
         }
+        return <SpotifyConnect />;
     }
 }
 
-const SpotifyConnect = (props) => (
+const SpotifyConnect = props => (
     <div className="row justify-content-center">
         <div className="col-sm-12 col-md-7 col-lg-5">
             <h1 className="text-center">Connect to Spotify:</h1>

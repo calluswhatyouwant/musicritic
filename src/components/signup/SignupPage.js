@@ -6,7 +6,7 @@ import SignupForm from './SignupForm';
 import SocialButton from './../common/SocialButton';
 
 class SignupPage extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
     }
 
@@ -27,13 +27,13 @@ class SignupPage extends Component {
 const SignupButtonGroup = () => (
     <div className="signup-btn-group row">
         <div className="col-4">
-            <SocialButton name={'facebook'} />
+            <SocialButton name="facebook" />
         </div>
         <div className="col-4">
-            <SocialButton name={'twitter'} />
+            <SocialButton name="twitter" />
         </div>
         <div className="col-4">
-            <SocialButton name={'google'} />
+            <SocialButton name="google" />
         </div>
     </div>
 );

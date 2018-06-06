@@ -7,24 +7,20 @@ import './results.css';
 
 class PlaylistResult extends Component {
     constructor(props) {
-        super(props);      
+        super(props);
         this.state = {
-            playlists: this.props.results.map(playlist => {
-                return new Playlist(playlist)
-            })
-        }
+            playlists: this.props.results.map(playlist => new Playlist(playlist)),
+        };
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({playlists: nextProps.results.map(playlist => {
-            return new Playlist(playlist)
-        })});
+        this.setState({ playlists: nextProps.results.map(playlist => new Playlist(playlist)) });
     }
-    
+
     render() {
         const listResults = this.state.playlists.map((playlist, index) => (
             <div key={index} className="col-3 result">
-                <PlaylistCard playlist={playlist}/>
+                <PlaylistCard playlist={playlist} />
             </div>
         ));
         return (

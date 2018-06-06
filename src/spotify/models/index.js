@@ -30,7 +30,7 @@ export class Album {
 
 export class Artist {
     constructor(artistJson) {
-        if (artistJson.images && artistJson.images.length > 0) {	
+        if (artistJson.images && artistJson.images.length > 0) {
             this.imageUrl = artistJson.images[0].url;
         } else {
             this.imageUrl = 'https://image.freepik.com/free-icon/male-user-shadow_318-34042.jpg';
@@ -41,10 +41,10 @@ export class Artist {
     }
 }
 
-export class Playlist {	
-    constructor (playlistJson) {	
-        this.imageUrl = playlistJson.images[0].url;	
-        this.name = playlistJson.name;	
-        this.owner = playlistJson.owner.display_name || playlistJson.owner.id;	
+export class Playlist {
+    constructor(playlistJson) {
+        this.imageUrl = playlistJson.images[0].url;
+        this.name = playlistJson.name;
+        this.owner = playlistJson.owner.display_name || playlistJson.owner.id;
     }
 }

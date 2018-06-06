@@ -10,9 +10,9 @@ class Auth extends Component {
         localStorage.setItem('token', this.props.match.params.token);
         localStorage.setItem('refresh', this.props.match.params.refresh);
     }
-    
+
     render() {
-        return <Redirect to={'/home'}/>;
+        return <Redirect to="/home" />;
     }
 }
 

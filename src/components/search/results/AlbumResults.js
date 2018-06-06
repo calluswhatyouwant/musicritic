@@ -7,24 +7,20 @@ import './results.css';
 
 class AlbumResult extends Component {
     constructor(props) {
-        super(props);      
+        super(props);
         this.state = {
-            albums: this.props.results.map(album => {
-                return new Album(album)
-            })
-        }
+            albums: this.props.results.map(album => new Album(album)),
+        };
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({albums: nextProps.results.map(album => {
-            return new Album(album)
-        })});
+        this.setState({ albums: nextProps.results.map(album => new Album(album)) });
     }
-    
+
     render() {
         const listResults = this.state.albums.map((album, index) => (
             <div key={index} className="col-3 result">
-                <AlbumCard album={album}/>
+                <AlbumCard album={album} />
             </div>
         ));
         return (
