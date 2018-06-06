@@ -9,12 +9,16 @@ class PlaylistResult extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            playlists: this.props.results.map(playlist => new Playlist(playlist)),
+            playlists: this.props.results
+                .map(playlist => new Playlist(playlist)),
         };
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ playlists: nextProps.results.map(playlist => new Playlist(playlist)) });
+        this.setState({
+            playlists: nextProps.results
+                .map(playlist => new Playlist(playlist)),
+        });
     }
 
     render() {

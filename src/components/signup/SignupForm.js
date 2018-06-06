@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Form, FormGroup, Label, Input, Button, FormFeedback } from 'reactstrap';
+import React from 'react';
+import { Form, Button } from 'reactstrap';
 import Yup from 'yup';
 import { withFormik } from 'formik';
 import { toast } from 'react-toastify';
@@ -55,7 +55,9 @@ const SignupForm = ({
           onChange={handleChange}
           type="password"
         />
-        <Button type="submit" disabled={isSubmitting} block>Sign up for Musicritic</Button>
+        <Button type="submit" disabled={isSubmitting} block>
+            Sign up for Musicritic
+        </Button>
     </Form>
 );
 

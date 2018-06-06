@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 
-export const FormField = ({
+const FormField = ({
     name, errors, touched, placeholder, value, onChange, label, type = 'text',
 }) => (
     <FormGroup>
@@ -17,3 +17,5 @@ export const FormField = ({
         <FormFeedback>{errors}</FormFeedback>
     </FormGroup>
 );
+
+export default FormField;

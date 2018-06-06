@@ -1,15 +1,13 @@
-export class Track {
-    constructor(trackJson) {
-        this.album = new Album(trackJson.album);
-        this.artists = trackJson.artists.map(artist => new Artist(artist));
-        this.durationInMillis = trackJson.duration_ms;
-        this.id = trackJson.id;
-        this.name = trackJson.name;
-    }
+export class Artist {
+    constructor(artistJson) {
+        if (artistJson.images && artistJson.images.length > 0) {
+            this.imageUrl = artistJson.images[0].url;
+        } else {
+            this.imageUrl = '';
+        }
 
-    get stringArtists() {
-        const artistNames = this.artists.map(artist => artist.name);
-        return artistNames.join(', ');
+        this.id = artistJson.id;
+        this.name = artistJson.name;
     }
 }
 
@@ -28,16 +26,18 @@ export class Album {
     }
 }
 
-export class Artist {
-    constructor(artistJson) {
-        if (artistJson.images && artistJson.images.length > 0) {
-            this.imageUrl = artistJson.images[0].url;
-        } else {
-            this.imageUrl = 'https://image.freepik.com/free-icon/male-user-shadow_318-34042.jpg';
-        }
+export class Track {
+    constructor(trackJson) {
+        this.album = new Album(trackJson.album);
+        this.artists = trackJson.artists.map(artist => new Artist(artist));
+        this.durationInMillis = trackJson.duration_ms;
+        this.id = trackJson.id;
+        this.name = trackJson.name;
+    }
 
-        this.id = artistJson.id;
-        this.name = artistJson.name;
+    get stringArtists() {
+        const artistNames = this.artists.map(artist => artist.name);
+        return artistNames.join(', ');
     }
 }
 

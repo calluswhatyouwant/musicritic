@@ -34,7 +34,8 @@ class SearchResultsPage extends Component {
         return (
             <div>
                 <SearchResultsNav query={this.props.match.params.query} />
-                {this.state.results.albums ? <SearchResult results={this.state.results} /> : null}
+                {this.state.results.albums ?
+                    <SearchResult results={this.state.results} /> : null}
 
             </div>
         );
@@ -44,16 +45,24 @@ class SearchResultsPage extends Component {
 const SearchResultsNav = ({ query }) => (
     <ul className="nav justify-content-center">
         <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/tracks/${query}`}>Tracks</NavLink>
+            <NavLink className="nav-link" to={`/search/tracks/${query}`}>
+                Tracks
+            </NavLink>
         </li>
         <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/albums/${query}`}>Albums</NavLink>
+            <NavLink className="nav-link" to={`/search/albums/${query}`}>
+                Albums
+            </NavLink>
         </li>
         <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/artists/${query}`}>Artists</NavLink>
+            <NavLink className="nav-link" to={`/search/artists/${query}`}>
+                Artists
+            </NavLink>
         </li>
         <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/playlists/${query}`}>Playlists</NavLink>
+            <NavLink className="nav-link" to={`/search/playlists/${query}`}>
+                Playlists
+            </NavLink>
         </li>
     </ul>
 );

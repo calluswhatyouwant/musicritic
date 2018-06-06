@@ -14,7 +14,9 @@ class TrackResult extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ tracks: nextProps.results.map(track => new Track(track)) });
+        this.setState({
+            tracks: nextProps.results.map(track => new Track(track)),
+        });
     }
 
     render() {
