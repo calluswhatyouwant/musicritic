@@ -1,3 +1,5 @@
+/* @flow */
+
 import React, { Component } from 'react';
 
 import SongCarousel from '../common/SongCarousel/SongCarousel';

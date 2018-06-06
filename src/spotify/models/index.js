@@ -1,3 +1,5 @@
+/* @flow */
+
 export class Artist {
     constructor(artistJson) {
         if (artistJson.images && artistJson.images.length > 0) {

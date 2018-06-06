@@ -1,3 +1,5 @@
+/* @flow */
+
 import Yup from 'yup';
 
 const equalTo = (ref, msg) => {

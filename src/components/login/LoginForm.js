@@ -1,3 +1,5 @@
+/* @flow */
+
 import React from 'react';
 import { Form, Button } from 'reactstrap';
 import { withFormik } from 'formik';

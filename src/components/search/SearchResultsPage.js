@@ -1,3 +1,5 @@
+/* @flow */
+
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -42,7 +44,11 @@ class SearchResultsPage extends Component {
     }
 }
 
-const SearchResultsNav = ({ query }) => (
+type Props = {
+    query: string,
+}
+
+const SearchResultsNav = ({ query }: Props) => (
     <ul className="nav justify-content-center">
         <li className="nav-item">
             <NavLink className="nav-link" to={`/search/tracks/${query}`}>
