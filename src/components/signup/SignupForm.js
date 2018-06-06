@@ -64,7 +64,7 @@ const SignupForm = ({
 );
 
 export default withFormik({
-    mapPropsToValues: props => ({
+    mapPropsToValues: () => ({
         username: '', email: '', password: '', passwordConfirm: '',
     }),
     validationSchema: Yup.object().shape({
@@ -73,8 +73,8 @@ export default withFormik({
         password: passwordValidator(),
         passwordConfirm: passwordConfirmationValidator(Yup.ref('password')),
     }),
-    handleSubmit: (values, { props, setSubmitting }) => {
-        createUser(values).then((newUser) => {
+    handleSubmit: (values, { setSubmitting }) => {
+        createUser(values).then(() => {
             setSubmitting(false);
             toast.success('User successfully created!');
         }).catch((error) => {

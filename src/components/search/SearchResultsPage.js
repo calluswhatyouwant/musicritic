@@ -26,7 +26,7 @@ class SearchResultsPage extends Component {
 
     updateResults(query) {
         search(query).then((results) => {
-            this.setState(prevState => ({
+            this.setState(() => ({
                 results,
             }));
         });

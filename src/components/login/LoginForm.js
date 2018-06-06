@@ -32,5 +32,5 @@ const LoginForm = ({
 );
 
 export default withFormik({
-    mapPropsToValues: props => ({ username: '', password: '' }),
+    mapPropsToValues: () => ({ username: '', password: '' }),
 })(LoginForm);
