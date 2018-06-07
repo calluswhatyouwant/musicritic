@@ -6,7 +6,7 @@ import './social-button.css';
 
 type Props = {
     name: string,
-    url: string,
+    url?: string,
 };
 
 const SocialButton = ({ name, url }: Props) => (

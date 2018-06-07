@@ -8,6 +8,10 @@ import AlbumResults from './results/AlbumResults';
 import ArtistResults from './results/ArtistResults';
 import PlaylistResults from './results/PlaylistResults';
 
+type Props = {
+    results: Array<any>;
+};
+
 const SearchResult = ({ results }) => (
     <Switch>
         <Route

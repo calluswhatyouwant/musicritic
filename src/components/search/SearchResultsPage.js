@@ -6,7 +6,15 @@ import { NavLink } from 'react-router-dom';
 import SearchResult from './SearchResult';
 import { search } from '../../spotify';
 
-class SearchResultsPage extends Component {
+type Props = {
+    match: any;
+};
+
+type State = {
+    results: any,
+};
+
+class SearchResultsPage extends Component<Props, State> {
     constructor(props) {
         super(props);
         this.state = { results: {} };
@@ -16,7 +24,7 @@ class SearchResultsPage extends Component {
         this.updateResults(this.props.match.params.query);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: Props) {
         const oldQuery = this.props.match.params.query;
         const newQuery = nextProps.match.params.query;
         if (oldQuery !== newQuery) {
@@ -44,7 +52,7 @@ class SearchResultsPage extends Component {
     }
 }
 
-type Props = {
+type SearchResultsNavProps = {
     query: string,
 }
 

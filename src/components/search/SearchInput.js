@@ -4,8 +4,16 @@ import React, { Component } from 'react';
 
 import './search.css';
 
-class SearchInput extends Component {
-    constructor(props) {
+type Props = {
+    handleSearch: string => void,
+};
+
+type State = {
+    query: string,
+};
+
+class SearchInput extends Component<Props, State> {
+    constructor(props: Props) {
         super(props);
         this.state = { query: '' };
         this.handleKeyPress = this.handleKeyPress.bind(this);

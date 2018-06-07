@@ -2,7 +2,7 @@
 
 import Yup from 'yup';
 
-const equalTo = (ref, msg) => {
+const equalTo = (ref: any, msg: any) => {
     const { path } = ref.path;
     return Yup.mixed().test({
         name: 'equalTo',
