@@ -7,8 +7,16 @@ import { Playlist } from '../../../spotify/models';
 
 import './results.css';
 
-class PlaylistResult extends Component {
-    constructor(props) {
+type Props = {
+    results: Array<any>;
+};
+
+type State = {
+    playlists: Array<Playlist>;
+};
+
+class PlaylistResult extends Component<Props, State> {
+    constructor(props: Props) {
         super(props);
         this.state = {
             playlists: this.props.results
@@ -16,7 +24,7 @@ class PlaylistResult extends Component {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: Props) {
         this.setState({
             playlists: nextProps.results
                 .map(playlist => new Playlist(playlist)),

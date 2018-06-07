@@ -5,13 +5,17 @@ import { withRouter, NavLink } from 'react-router-dom';
 
 import SearchInput from '../search/SearchInput';
 
-class Navbar extends Component {
+type Props = {
+    history: any,
+};
+
+class Navbar extends Component<Props> {
     constructor(props) {
         super(props);
         this.handleSearch = this.handleSearch.bind(this);
     }
 
-    handleSearch(query) {
+    handleSearch = (query: string) => {
         this.props.history.push(`/search/tracks/${query}`);
     }
 

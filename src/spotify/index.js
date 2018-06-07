@@ -3,9 +3,10 @@
 import axios from 'axios';
 
 const getAxiosInstance = () => {
+    const token = localStorage.getItem('token') || '';
     const config = {
         baseURL: 'https://api.spotify.com/v1',
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        headers: { Authorization: `Bearer ${token}` },
     };
 
     return axios.create(config);
@@ -18,7 +19,7 @@ export const getRecentlyPlayedTracks = async () => {
     return response.data.items;
 };
 
-export const search = async (query) => {
+export const search = async (query: string) => {
     const params = {
         params: { q: query, type: 'track,artist,album,playlist' },
     };

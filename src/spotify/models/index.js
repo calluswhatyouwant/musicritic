@@ -5,7 +5,7 @@ export class Artist {
     imageUrl: string = '';
     name: string;
 
-    constructor(artistJson) {
+    constructor(artistJson: any) {
         if (artistJson.images && artistJson.images.length > 0) {
             this.imageUrl = artistJson.images[0].url;
         }
@@ -22,7 +22,7 @@ export class Album {
     name: string;
     releaseDate: string;
 
-    constructor(albumJson) {
+    constructor(albumJson: any) {
         this.artists = albumJson.artists.map(artist => new Artist(artist));
         this.id = albumJson.id;
         this.imageUrl = albumJson.images[0].url;
@@ -44,7 +44,7 @@ export class Track {
     imageUrl: string;
     name: string;
 
-    constructor(trackJson) {
+    constructor(trackJson: any) {
         this.album = new Album(trackJson.album);
         this.artists = trackJson.artists.map(artist => new Artist(artist));
         this.durationInMillis = trackJson.duration_ms;
@@ -62,8 +62,8 @@ export class Playlist {
     imageUrl: string;
     name: string;
     owner: string;
-    
-    constructor(playlistJson) {
+
+    constructor(playlistJson: any) {
         this.imageUrl = playlistJson.images[0].url;
         this.name = playlistJson.name;
         this.owner = playlistJson.owner.display_name || playlistJson.owner.id;

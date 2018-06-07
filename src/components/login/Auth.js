@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
 type Props = {
-    
+    match: any;
 };
 
 class Auth extends Component<Props> {

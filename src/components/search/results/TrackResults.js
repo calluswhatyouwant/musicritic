@@ -7,15 +7,23 @@ import { Track } from '../../../spotify/models';
 
 import './results.css';
 
-class TrackResult extends Component {
-    constructor(props) {
+type Props = {
+    results: Array<any>;
+};
+
+type State = {
+    tracks: Array<Track>;
+};
+
+class TrackResult extends Component<Props, State> {
+    constructor(props: Props) {
         super(props);
         this.state = {
             tracks: this.props.results.map(track => new Track(track)),
         };
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: Props) {
         this.setState({
             tracks: nextProps.results.map(track => new Track(track)),
         });

@@ -11,9 +11,14 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 
 import App from './components/app/App';
 
-ReactDOM.render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>,
-    document.getElementById('root'),
-);
+const root = document.getElementById('root');
+
+if (root) {
+    ReactDOM.render(
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>,
+        root,
+    );
+}
+

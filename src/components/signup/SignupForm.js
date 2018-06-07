@@ -7,7 +7,7 @@ import { withFormik } from 'formik';
 import { toast } from 'react-toastify';
 
 import { createUser } from '../../api/users';
-import { FormField } from '../common/form/form-field';
+import FormField from '../common/form/form-field';
 import {
     usernameValidator,
     emailValidator,

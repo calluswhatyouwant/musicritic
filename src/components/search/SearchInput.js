@@ -16,15 +16,15 @@ class SearchInput extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = { query: '' };
-        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
-    handleChange(event) {
+    handleChange = (event: any) => {
         this.setState({ query: event.target.value });
     }
 
-    handleKeyPress(event) {
+    handleKeyPress = (event: any) => {
         if (event.key === 'Enter') {
             this.props.handleSearch(this.state.query);
         }

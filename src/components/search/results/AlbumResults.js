@@ -7,15 +7,23 @@ import { Album } from '../../../spotify/models';
 
 import './results.css';
 
-class AlbumResult extends Component {
-    constructor(props) {
+type Props = {
+    results: Array<any>;
+};
+
+type State = {
+    albums: Array<Album>;
+};
+
+class AlbumResult extends Component<Props, State> {
+    constructor(props: Props) {
         super(props);
         this.state = {
             albums: this.props.results.map(album => new Album(album)),
         };
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: Props) {
         this.setState({
             albums: nextProps.results.map(album => new Album(album)),
         });

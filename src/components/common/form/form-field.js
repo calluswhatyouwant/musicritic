@@ -3,9 +3,20 @@
 import React from 'react';
 import { FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 
+type Props = {
+    name: string,
+    errors?: boolean,
+    touched?: boolean,
+    placeholder: string,
+    value: string,
+    onChange: () => void,
+    label: string,
+    type?: string,
+};
+
 const FormField = ({
     name, errors, touched, placeholder, value, onChange, label, type = 'text',
-}) => (
+}: Props) => (
     <FormGroup>
         <Label for={name}>{label}</Label>
         <Input

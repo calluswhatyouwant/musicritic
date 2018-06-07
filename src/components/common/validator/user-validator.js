@@ -40,6 +40,6 @@ export const passwordValidator = () => {
         .max(12, `Password must have up to ${max} characters.`);
 };
 
-export const passwordConfirmationValidator = passwordRef => Yup.string()
+export const passwordConfirmationValidator = (passwordRef: any) => Yup.string()
     .equalTo(passwordRef, 'Passwords must match.');
 

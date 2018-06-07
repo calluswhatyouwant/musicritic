@@ -1,9 +1,9 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 
 import SearchResult from './SearchResult';
+import SearchResultsNav from './SearchResultsNav';
 import { search } from '../../spotify';
 
 type Props = {
@@ -15,7 +15,7 @@ type State = {
 };
 
 class SearchResultsPage extends Component<Props, State> {
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
         this.state = { results: {} };
     }
@@ -32,7 +32,7 @@ class SearchResultsPage extends Component<Props, State> {
         }
     }
 
-    updateResults(query) {
+    updateResults(query: string) {
         search(query).then((results) => {
             this.setState(() => ({
                 results,
@@ -51,34 +51,5 @@ class SearchResultsPage extends Component<Props, State> {
         );
     }
 }
-
-type SearchResultsNavProps = {
-    query: string,
-}
-
-const SearchResultsNav = ({ query }: Props) => (
-    <ul className="nav justify-content-center">
-        <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/tracks/${query}`}>
-                Tracks
-            </NavLink>
-        </li>
-        <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/albums/${query}`}>
-                Albums
-            </NavLink>
-        </li>
-        <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/artists/${query}`}>
-                Artists
-            </NavLink>
-        </li>
-        <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/playlists/${query}`}>
-                Playlists
-            </NavLink>
-        </li>
-    </ul>
-);
 
 export default SearchResultsPage;

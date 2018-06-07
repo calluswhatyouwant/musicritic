@@ -38,16 +38,20 @@ class UserPage extends Component<Props, State> {
     }
 }
 
-const SpotifyConnect = () => (
-    <div className="row justify-content-center">
-        <div className="col-sm-12 col-md-7 col-lg-5">
-            <h1 className="text-center">Connect to Spotify:</h1>
-            <SocialButton
-              name="spotify"
-              url={`${process.env.SERVER_BASE_URI}/auth/login`}
-            />
+const SpotifyConnect = () => {
+    const serverBaseUri = process.env.SERVER_BASE_URI || '';
+
+    return (
+        <div className="row justify-content-center">
+            <div className="col-sm-12 col-md-7 col-lg-5">
+                <h1 className="text-center">Connect to Spotify:</h1>
+                <SocialButton
+                  name="spotify"
+                  url={`${serverBaseUri}/auth/login`}
+                />
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default UserPage;

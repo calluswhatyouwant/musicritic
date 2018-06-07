@@ -9,10 +9,10 @@ import ArtistResults from './results/ArtistResults';
 import PlaylistResults from './results/PlaylistResults';
 
 type Props = {
-    results: Array<any>;
+    results: any;
 };
 
-const SearchResult = ({ results }) => (
+const SearchResult = ({ results }: Props) => (
     <Switch>
         <Route
           path="/search/tracks/**"
