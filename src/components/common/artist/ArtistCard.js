@@ -2,7 +2,13 @@
 
 import React from 'react';
 
-const ArtistCard = ({ artist }) => (
+import { Artist } from '../../../spotify/models';
+
+type Props = {
+    artist: Artist,
+};
+
+const ArtistCard = ({ artist }: Props) => (
     <div className="card text-center">
         <img className="card-img-top" src={artist.imageUrl} alt="Card top" />
         <div className="card-body">

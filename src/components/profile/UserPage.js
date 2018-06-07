@@ -7,8 +7,16 @@ import { Track } from '../../spotify/models';
 import { getRecentlyPlayedTracks } from '../../spotify';
 import SocialButton from './../common/SocialButton';
 
-class UserPage extends Component {
-    constructor(props) {
+type Props = {
+
+};
+
+type State = {
+    tracks: Array<Track>,
+};
+
+class UserPage extends Component<Props, State> {
+    constructor(props: Props) {
         super(props);
         this.state = {
             tracks: [],
@@ -18,7 +26,7 @@ class UserPage extends Component {
     componentWillMount() {
         getRecentlyPlayedTracks().then((results) => {
             const tracks = results.map(result => new Track(result.track));
-            this.setState({ tracks });
+            this.setState({ tracks: tracks });
         });
     }
 

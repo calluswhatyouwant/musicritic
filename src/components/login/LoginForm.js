@@ -4,7 +4,7 @@ import React from 'react';
 import { Form, Button } from 'reactstrap';
 import { withFormik } from 'formik';
 
-import { FormField } from '../common/form/form-field';
+import FormField from '../common/form/form-field';
 
 const LoginForm = ({
     values, handleChange, isSubmitting, handleSubmit,

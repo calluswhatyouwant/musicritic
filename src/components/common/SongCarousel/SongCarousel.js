@@ -18,7 +18,11 @@ const sliderSettings = {
     lazyLoad: true,
 };
 
-const SongCarousel = ({ tracks }) => {
+type Props = {
+    tracks: Array<Track>,
+};
+
+const SongCarousel = ({ tracks }: Props) => {
     const slide = (key, track) => (
         <div key={key}><TrackCard track={track} /></div>
     );
@@ -28,10 +32,6 @@ const SongCarousel = ({ tracks }) => {
             {slides}
         </Slider>
     );
-};
-
-SongCarousel.propTypes = {
-    tracks: PropTypes.arrayOf(instanceOf(Track)).isRequired,
 };
 
 export default SongCarousel;

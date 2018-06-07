@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
-class Auth extends Component {
+class Auth extends Component<Props, State = void> {
     componentWillMount() {
         localStorage.setItem('token', this.props.match.params.token);
         localStorage.setItem('refresh', this.props.match.params.refresh);

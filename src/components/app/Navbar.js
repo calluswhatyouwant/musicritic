@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 import SearchInput from '../search/SearchInput';
 
@@ -46,27 +45,27 @@ class Navbar extends Component {
     }
 }
 
-const NavbarItem = ({ text, href }) => (
+type NavbarItemProps = {
+    text: string,
+    href: string,
+};
+
+const NavbarItem = ({ href, text }: NavbarItemProps) => (
     <li className="nav-item">
         <NavbarLink href={href} text={text} />
     </li>
 );
 
-NavbarItem.propTypes = {
-    text: PropTypes.string.isRequired,
-    href: PropTypes.string.isRequired,
+type NavbarLinkProps = {
+    text: string,
+    href: string,
+    brand?: boolean,
 };
 
-const NavbarLink = ({ text, href, brand }) => (
+const NavbarLink = ({ text, href, brand }: NavbarLinkProps) => (
     <NavLink className={brand ? 'navbar-brand brand' : 'nav-link'} to={href}>
         {text}
     </NavLink>
 );
-
-NavbarLink.propTypes = {
-    text: PropTypes.string.isRequired,
-    href: PropTypes.string.isRequired,
-    brand: PropTypes.string.isRequired,
-};
 
 export default withRouter(Navbar);

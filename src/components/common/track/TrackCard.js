@@ -2,7 +2,13 @@
 
 import React from 'react';
 
-const TrackCard = ({ track }) => (
+import { Track } from '../../../spotify/models';
+
+type Props = {
+    track: Track,
+};
+
+const TrackCard = ({ track }: Props) => (
     <div className="card text-center">
         <img className="card-img-top" src={track.album.imageUrl} alt="Top" />
         <div className="card-body">
