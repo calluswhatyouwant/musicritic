@@ -30,8 +30,8 @@ class ArtistResult extends Component<Props, State> {
     }
 
     render() {
-        const listResults = this.state.artists.map((artist, index) => (
-            <div key={index} className="col-3 result">
+        const listResults = this.state.artists.map(artist => (
+            <div key={artist.id} className="col-3 result">
                 <ArtistCard artist={artist} />
             </div>
         ));

@@ -30,8 +30,8 @@ class AlbumResult extends Component<Props, State> {
     }
 
     render() {
-        const listResults = this.state.albums.map((album, index) => (
-            <div key={index} className="col-3 result">
+        const listResults = this.state.albums.map(album => (
+            <div key={album.id} className="col-3 result">
                 <AlbumCard album={album} />
             </div>
         ));

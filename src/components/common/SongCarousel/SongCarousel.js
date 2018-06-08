@@ -1,7 +1,6 @@
 /* @flow */
 
 import React from 'react';
-import PropTypes, { instanceOf } from 'prop-types';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';

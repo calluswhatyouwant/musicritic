@@ -32,8 +32,8 @@ class PlaylistResult extends Component<Props, State> {
     }
 
     render() {
-        const listResults = this.state.playlists.map((playlist, index) => (
-            <div key={index} className="col-3 result">
+        const listResults = this.state.playlists.map(playlist => (
+            <div key={playlist.id} className="col-3 result">
                 <PlaylistCard playlist={playlist} />
             </div>
         ));

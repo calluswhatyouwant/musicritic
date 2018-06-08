@@ -1,7 +1,7 @@
 /* @flow */
 
 export class Artist {
-    id: number;
+    id: string;
     imageUrl: string = '';
     name: string;
 
@@ -17,7 +17,7 @@ export class Artist {
 
 export class Album {
     artists: Array<Artist>;
-    id: number;
+    id: string;
     imageUrl: string;
     name: string;
     releaseDate: string;
@@ -40,7 +40,7 @@ export class Track {
     album: Album;
     artists: Array<Artist>;
     durationInMillis: number;
-    id: number;
+    id: string;
     imageUrl: string;
     name: string;
 
@@ -59,11 +59,13 @@ export class Track {
 }
 
 export class Playlist {
+    id: string;
     imageUrl: string;
     name: string;
     owner: string;
 
     constructor(playlistJson: any) {
+        this.id = playlistJson.id;
         this.imageUrl = playlistJson.images[0].url;
         this.name = playlistJson.name;
         this.owner = playlistJson.owner.display_name || playlistJson.owner.id;

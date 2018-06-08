@@ -15,9 +15,18 @@ import {
     passwordConfirmationValidator,
 } from '../common/validator/user-validator';
 
+type Props = {
+    touched: any,
+    errors: any,
+    values: any,
+    handleChange: () => void,
+    isSubmitting: boolean,
+    handleSubmit: () => void,
+};
+
 const SignupForm = ({
     touched, errors, values, handleChange, isSubmitting, handleSubmit,
-}) => (
+}: Props) => (
     <Form onSubmit={handleSubmit}>
         <FormField
           name="username"

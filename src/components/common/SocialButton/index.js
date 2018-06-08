@@ -15,4 +15,8 @@ const SocialButton = ({ name, url }: Props) => (
     </a>
 );
 
+SocialButton.defaultProps = {
+    url: '',
+};
+
 export default SocialButton;

@@ -30,8 +30,8 @@ class TrackResult extends Component<Props, State> {
     }
 
     render() {
-        const listResults = this.state.tracks.map((track, index) => (
-            <div key={index} className="col-3 result">
+        const listResults = this.state.tracks.map(track => (
+            <div key={track.id} className="col-3 result">
                 <TrackCard track={track} />
             </div>
         ));

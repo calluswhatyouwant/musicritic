@@ -26,7 +26,7 @@ class UserPage extends Component<Props, State> {
     componentWillMount() {
         getRecentlyPlayedTracks().then((results) => {
             const tracks = results.map(result => new Track(result.track));
-            this.setState({ tracks: tracks });
+            this.setState({ tracks });
         });
     }
 

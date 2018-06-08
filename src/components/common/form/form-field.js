@@ -5,8 +5,8 @@ import { FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 
 type Props = {
     name: string,
-    errors?: boolean,
-    touched?: boolean,
+    errors?: any,
+    touched?: any,
     placeholder: string,
     value: string,
     onChange: () => void,
@@ -30,5 +30,11 @@ const FormField = ({
         <FormFeedback>{errors}</FormFeedback>
     </FormGroup>
 );
+
+FormField.defaultProps = {
+    errors: null,
+    touched: null,
+    type: 'text',
+};
 
 export default FormField;

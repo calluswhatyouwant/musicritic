@@ -6,9 +6,16 @@ import { withFormik } from 'formik';
 
 import FormField from '../common/form/form-field';
 
+type Props = {
+    values: any,
+    handleChange: () => void,
+    isSubmitting: boolean,
+    handleSubmit: () => void,
+};
+
 const LoginForm = ({
     values, handleChange, isSubmitting, handleSubmit,
-}) => (
+}: Props) => (
     <Form onSubmit={handleSubmit}>
         <FormField
           name="username"
