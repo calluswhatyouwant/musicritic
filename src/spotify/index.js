@@ -1,27 +1,29 @@
+/* @flow */
+
 import axios from 'axios';
 
-const config = {
-    baseURL: 'https://api.spotify.com/v1',
-    headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+const getAxiosInstance = () => {
+    const token = localStorage.getItem('token') || '';
+    const config = {
+        baseURL: 'https://api.spotify.com/v1',
+        headers: { Authorization: `Bearer ${token}` },
+    };
+
+    return axios.create(config);
 };
 
-class SpotifyWebApi {
-    constructor() {
-        this.axios = axios.create(config);
-    }
+export const getRecentlyPlayedTracks = async () => {
+    const params = { params: { limit: 50 } };
+    const response = await getAxiosInstance()
+        .get('/me/player/recently-played', params);
+    return response.data.items;
+};
 
-    async getRecentlyPlayedTracks() {
-        const params = {params: {limit: 50}};
-        const response = await this.axios('/me/player/recently-played', params);
-        return response.data.items;
-        
-    }
-
-    async search(query) {
-        const params = {params: {q: query, type: 'track,artist,album,playlist'}};
-        const response = await this.axios.get('/search', params);
-        return response.data;
-    }
-}
-
-export default SpotifyWebApi;
+export const search = async (query: string) => {
+    const params = {
+        params: { q: query, type: 'track,artist,album,playlist' },
+    };
+    const response = await getAxiosInstance()
+        .get('/search', params);
+    return response.data;
+};

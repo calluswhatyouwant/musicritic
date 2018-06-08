@@ -1,21 +1,30 @@
+/* @flow */
+
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 
 import SearchResult from './SearchResult';
-import SpotifyWebApi from '../../spotify';
+import SearchResultsNav from './SearchResultsNav';
+import { search } from '../../spotify';
 
-class SearchResultsPage extends Component {
-    constructor(props) {
+type Props = {
+    match: any;
+};
+
+type State = {
+    results: any,
+};
+
+class SearchResultsPage extends Component<Props, State> {
+    constructor(props: Props) {
         super(props);
         this.state = { results: {} };
-        this.spotifyWebApi = new SpotifyWebApi();
     }
 
     componentDidMount() {
         this.updateResults(this.props.match.params.query);
     }
-    
-    componentWillReceiveProps(nextProps) {
+
+    componentWillReceiveProps(nextProps: Props) {
         const oldQuery = this.props.match.params.query;
         const newQuery = nextProps.match.params.query;
         if (oldQuery !== newQuery) {
@@ -23,10 +32,10 @@ class SearchResultsPage extends Component {
         }
     }
 
-    updateResults(query) {
-        this.spotifyWebApi.search(query).then(results => {
-            this.setState(prevState => ({
-                results: results
+    updateResults(query: string) {
+        search(query).then((results) => {
+            this.setState(() => ({
+                results,
             }));
         });
     }
@@ -35,28 +44,12 @@ class SearchResultsPage extends Component {
         return (
             <div>
                 <SearchResultsNav query={this.props.match.params.query} />
-                {this.state.results.albums? <SearchResult results={this.state.results} /> : null}
+                {this.state.results.albums ?
+                    <SearchResult results={this.state.results} /> : null}
 
             </div>
         );
     }
 }
-
-const SearchResultsNav = ({query}) => (
-    <ul className="nav justify-content-center">
-        <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/tracks/${query}`}>Tracks</NavLink>
-        </li>
-        <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/albums/${query}`}>Albums</NavLink>
-        </li>
-        <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/artists/${query}`}>Artists</NavLink>
-        </li>
-        <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/playlists/${query}`}>Playlists</NavLink>
-        </li>
-    </ul>
-);
 
 export default SearchResultsPage;

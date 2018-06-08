@@ -1,30 +1,45 @@
+/* @flow */
+
 import React, { Component } from 'react';
-import { InputGroup, InputGroupAddon, Input, Button } from 'reactstrap';
 
 import './search.css';
 
-class SearchInput extends Component {
-    constructor(props) {
+type Props = {
+    handleSearch: string => void,
+};
+
+type State = {
+    query: string,
+};
+
+class SearchInput extends Component<Props, State> {
+    constructor(props: Props) {
         super(props);
         this.state = { query: '' };
-        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
-    handleChange(event) {
+    handleChange = (event: any) => {
         this.setState({ query: event.target.value });
     }
 
-    handleKeyPress(event) {
-        if (event.key == 'Enter') {
+    handleKeyPress = (event: any) => {
+        if (event.key === 'Enter') {
             this.props.handleSearch(this.state.query);
         }
     }
 
     render() {
         return (
-            <input type="text" placeholder="Search..." value={this.state.query} className="search-input"
-                onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <input
+              type="text"
+              placeholder="Search..."
+              value={this.state.query}
+              className="search-input"
+              onChange={this.handleChange}
+              onKeyPress={this.handleKeyPress}
+            />
         );
     }
 }

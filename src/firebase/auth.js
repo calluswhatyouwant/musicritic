@@ -1,4 +1,4 @@
-import { auth } from './firebase-config';
+import auth from './firebase-config';
 
 export const signInWithEmailAndPassword = (email, password) =>
     auth().signInWithEmailAndPassword(email, password);
@@ -11,11 +11,11 @@ export const signInWithFacebook = () => {
     auth().signInWithRedirect(facebookProvider).then(() => {
         auth().getRedirectResult().then((result) => {
             if (result.credential) {
-                const token = result.credential.accessToken;
+                // const token = result.credential.accessToken;
             }
-            const user = result.user;
+            // const user = result.user;
         }).catch(error => console.log(error.code));
     });
-}
+};
 
 export const getAccessToken = () => getCurrentUser().getIdToken();

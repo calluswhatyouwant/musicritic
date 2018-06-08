@@ -1,16 +1,21 @@
+/* @flow */
+
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
 
 import LoginForm from './LoginForm';
 import SocialButton from './../common/SocialButton';
 
-class LoginPage extends Component {
-    constructor(props) {
+type Props = {
+    history: any;
+};
+
+class LoginPage extends Component<Props> {
+    constructor(props: Props) {
         super(props);
         this.handleLogin = this.handleLogin.bind(this);
     }
 
-    handleLogin() {
+    handleLogin = () => {
         this.props.history.push('/home');
     }
 
@@ -31,13 +36,13 @@ class LoginPage extends Component {
 const LoginButtonGroup = () => (
     <div className="signup-btn-group row">
         <div className="col-4">
-            <SocialButton name={'facebook'}  />
+            <SocialButton name="facebook" />
         </div>
         <div className="col-4">
-            <SocialButton name={'twitter'} />
+            <SocialButton name="twitter" />
         </div>
         <div className="col-4">
-            <SocialButton name={'google'} />
+            <SocialButton name="google" />
         </div>
     </div>
 );
