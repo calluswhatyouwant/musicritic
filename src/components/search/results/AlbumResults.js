@@ -1,3 +1,5 @@
+/* @flow */
+
 import React, { Component } from 'react';
 
 import AlbumCard from '../../common/album/AlbumCard';
@@ -5,26 +7,32 @@ import { Album } from '../../../spotify/models';
 
 import './results.css';
 
-class AlbumResult extends Component {
-    constructor(props) {
-        super(props);      
+type Props = {
+    results: Array<any>;
+};
+
+type State = {
+    albums: Array<Album>;
+};
+
+class AlbumResult extends Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
         this.state = {
-            albums: this.props.results.map(album => {
-                return new Album(album)
-            })
-        }
+            albums: this.props.results.map(album => new Album(album)),
+        };
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({albums: nextProps.results.map(album => {
-            return new Album(album)
-        })});
+    componentWillReceiveProps(nextProps: Props) {
+        this.setState({
+            albums: nextProps.results.map(album => new Album(album)),
+        });
     }
-    
+
     render() {
-        const listResults = this.state.albums.map((album, index) => (
-            <div key={index} className="col-3 result">
-                <AlbumCard album={album}/>
+        const listResults = this.state.albums.map(album => (
+            <div key={album.id} className="col-3 result">
+                <AlbumCard album={album} />
             </div>
         ));
         return (
