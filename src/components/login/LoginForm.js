@@ -4,6 +4,7 @@ import React from 'react';
 import { Form, Button } from 'reactstrap';
 import { withFormik } from 'formik';
 
+import { signInWithEmailAndPassword } from '../../firebase/auth';
 import FormField from '../common/form/form-field';
 
 type Props = {
@@ -39,5 +40,13 @@ const LoginForm = ({
 );
 
 export default withFormik({
-    mapPropsToValues: () => ({ username: '', password: '' }),
+    mapPropsToValues: () => ({ email: '', password: '' }),
+    handleSubmit: (values, { props, setSubmitting }) => {
+        signInWithEmailAndPassword(values.email, values.password)
+            .then(() => props.onLogin())
+            .catch((error) => {
+                setSubmitting(false);
+                console.log(error);
+            });
+    },
 })(LoginForm);
