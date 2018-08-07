@@ -19,10 +19,10 @@ const LoginForm = ({
 }: Props) => (
     <Form onSubmit={handleSubmit}>
         <FormField
-          name="username"
-          label="Username"
-          placeholder="Username"
-          value={values.username}
+          name="email"
+          label="Email"
+          placeholder="name@example.com"
+          value={values.email}
           onChange={handleChange}
         />
         <FormField
