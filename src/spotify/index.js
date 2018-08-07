@@ -19,6 +19,13 @@ export const getRecentlyPlayedTracks = async () => {
     return response.data.items;
 };
 
+export const getTopPlayedTracks = async () => {
+    const params = { params: { limit: 50, time_range: 'short_term' } };
+    const response = await getAxiosInstance()
+        .get('/me/top/tracks', params);
+    return response.data.items;
+};
+
 export const search = async (query: string) => {
     const params = {
         params: { q: query, type: 'track,artist,album,playlist' },
