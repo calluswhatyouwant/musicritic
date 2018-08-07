@@ -6,20 +6,20 @@ import './social-button.css';
 
 type Props = {
     name: string,
-    onClick?: () => void,
+    url?: string,
 };
 
-const SocialButton = ({ name, onClick }: Props) => (
-    <button
+const SocialButton = ({ name, url }: Props) => (
+    <a
       className={`btn btn-block btn-social btn-${name} text-center`}
-      onClick={onClick}
+      href={url}
     >
         <span className={`fa fa-${name}`} />
-    </button>
+    </a>
 );
 
 SocialButton.defaultProps = {
-    onClick: () => {},
+    url: '',
 };
 
 export default SocialButton;
