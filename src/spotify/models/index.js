@@ -43,13 +43,17 @@ export class Track {
     id: string;
     imageUrl: string;
     name: string;
+    explicit: boolean;
 
     constructor(trackJson: any) {
-        this.album = new Album(trackJson.album);
-        this.artists = trackJson.artists.map(artist => new Artist(artist));
-        this.durationInMillis = trackJson.duration_ms;
-        this.id = trackJson.id;
-        this.name = trackJson.name;
+        if (trackJson) {
+            this.album = new Album(trackJson.album);
+            this.artists = trackJson.artists.map(artist => new Artist(artist));
+            this.durationInMillis = trackJson.duration_ms;
+            this.id = trackJson.id;
+            this.name = trackJson.name;
+            this.explicit = trackJson.explicit;
+        }
     }
 
     get stringArtists() {
