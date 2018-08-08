@@ -1,0 +1,29 @@
+.header {
+    position: relative;
+    height: 50vh;
+    width: 100%;
+}
+
+.background {
+    height: 100%;
+    width: 100%;
+    filter: grayscale(30%);
+    background-size: 100%;
+    opacity: 0.3;
+    background-position-y: 30%;
+    filter: blur(3px);
+}
+
+.content {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.center-image {
+    display: block;
+    margin: 0 auto;
+    width: 30vh;
+}
