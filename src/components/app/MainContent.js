@@ -8,6 +8,7 @@ import UserPage from '../profile/UserPage';
 import Auth from '../login/Auth';
 import SearchResultsPage from '../search/SearchResultsPage';
 import SignupPage from '../signup/SignupPage';
+import TrackPage from '../track/TrackPage';
 
 const MainContent = () => (
     <Switch>
@@ -20,6 +21,7 @@ const MainContent = () => (
           path="/search/(tracks|artists|playlists|albums)/:query"
           component={SearchResultsPage}
         />
+        <Route exact path="/track/:id" component={TrackPage} />
     </Switch>
 );
 
