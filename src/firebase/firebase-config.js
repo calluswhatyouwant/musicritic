@@ -10,6 +10,6 @@ if (!firebase.apps.length) {
     firebase.initializeApp(config);
 }
 
-const auth = { auth: firebase.auth };
+const auth = firebase.auth();
 
 export default auth;
