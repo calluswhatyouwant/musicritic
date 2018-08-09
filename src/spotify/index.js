@@ -40,3 +40,9 @@ export const getTrackInfo = async (id: string) => {
         .get(`/tracks/${id}`);
     return response.data;
 };
+
+export const getAudioFeatures = async (id: string) => {
+    const response = await getAxiosInstance()
+        .get(`/audio-features/${id}`);
+    return response.data;
+};
