@@ -1,6 +1,6 @@
 .header {
     position: relative;
-    height: 50vh;
+    height: 70vh;
     width: 100%;
 }
 
@@ -26,4 +26,13 @@
     display: block;
     margin: 0 auto;
     width: 30vh;
+}
+
+.padding {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.rating-title {
+    font-weight: 300;
 }
