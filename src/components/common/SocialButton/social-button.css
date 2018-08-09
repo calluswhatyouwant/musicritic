@@ -24,6 +24,10 @@
     font-weight: 300;
 }
 
+.fit-content {
+    width: fit-content;
+}
+
 .fa {
     color: white;
 }
