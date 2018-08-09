@@ -75,6 +75,21 @@ export class Track {
         }
         return '';
     }
+
+    get releaseYear() {
+        return this.album.releaseDate.substring(0, 4);
+    }
+
+    get length() {
+        const minutes = Math.floor(this.durationInMillis / 60000);
+        const seconds = Math.floor((this.durationInMillis % 60000) / 1000);
+
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }
+
+    get albumTitle() {
+        return this.album.name;
+    }
 }
 
 export class Playlist {
