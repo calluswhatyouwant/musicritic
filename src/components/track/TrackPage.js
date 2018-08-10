@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 import { Track, AudioFeatures } from '../../spotify/models';
 import { getTrackInfo, getAudioFeatures } from '../../spotify';
 
-import Header from './TrackPageHeader';
-import Body from './TrackPageBody';
+import TrackPageHeader from './TrackPageHeader';
+import TrackPageBody from './TrackPageBody';
 
 import './TrackPage.css';
 
@@ -30,7 +30,7 @@ class TrackPage extends Component<Props, State> {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         getTrackInfo(this.state.trackId).then(trackJson => (
             this.setState({ ...this.state, track: new Track(trackJson) })
         ));
@@ -50,8 +50,8 @@ class TrackPage extends Component<Props, State> {
 
         return (
             <div>
-                <Header track={track} />
-                <Body
+                <TrackPageHeader track={track} />
+                <TrackPageBody
                   audioFeatures={audioFeatures}
                   userRating={4.5}
                   averageRating={3.7}
