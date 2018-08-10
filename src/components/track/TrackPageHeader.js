@@ -36,7 +36,7 @@ const HeaderContent = ({ track }: Props) => (
 );
 
 const TrackInfo = ({ track }: Props) => (
-    <div className="text-center">
+    <div className="text-center text-light">
         <h1>{ track.name }</h1>
         <h4>by { track.stringArtists }</h4>
         <p>
@@ -51,7 +51,7 @@ type SpotifyButtonProps = {
 };
 
 const SpotifyButton = ({ trackUrl }: SpotifyButtonProps) => (
-    <SocialButton name="spotify" url={trackUrl} content="PLAY IT ON SPOTIFY" />
+    <SocialButton name="spotify" url={trackUrl} content="PLAY TRACK" />
 );
 
 export default Header;
