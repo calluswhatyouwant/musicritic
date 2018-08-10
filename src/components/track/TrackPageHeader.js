@@ -9,7 +9,7 @@ type Props = {
     track: Track,
 };
 
-const Header = ({ track }: Props) => (
+const TrackPageHeader = ({ track }: Props) => (
     <div className="header">
         <HeaderBackground imageUrl={track.album.imageUrl} />
         <HeaderContent track={track} />
@@ -54,4 +54,4 @@ const SpotifyButton = ({ trackUrl }: SpotifyButtonProps) => (
     <SocialButton name="spotify" url={trackUrl} content="PLAY TRACK" />
 );
 
-export default Header;
+export default TrackPageHeader;

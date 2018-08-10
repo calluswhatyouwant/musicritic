@@ -11,7 +11,7 @@ type Props = {
     averageRating: number,
 };
 
-const Body = ({ audioFeatures, userRating, averageRating }: Props) => (
+const TrackPageBody = ({ audioFeatures, userRating, averageRating }: Props) => (
     <div className="container">
         <AudioFeatureTagList audioFeatures={audioFeatures} />
         <TrackRating userRating={userRating} averageRating={averageRating} />
@@ -82,4 +82,4 @@ const TrackRatingColumn = ({ rating, title }: TrackRatingColumnProps) => (
     </div>
 );
 
-export default Body;
+export default TrackPageBody;
