@@ -7,11 +7,39 @@
 .background {
     height: 100%;
     width: 100%;
-    filter: grayscale(30%);
     background-size: 100%;
-    opacity: 0.3;
     background-position-y: 30%;
-    filter: blur(3px);
+    opacity: 0.9;
+}
+
+.background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0.9;
+    /* Gradient made with https://larsenwork.com/easing-gradients/ */
+    background: linear-gradient(
+        to bottom,
+        hsla(0, 0%, 100%, 0.15) 0%,
+        hsla(0, 0%, 98.73%, 0.161) 7.7%,
+        hsla(0, 0%, 95.14%, 0.191) 14%,
+        hsla(0, 0%, 89.6%, 0.238) 19.3%,
+        hsla(0, 0%, 82.46%, 0.299) 23.9%,
+        hsla(0, 0%, 74.07%, 0.37) 27.9%,
+        hsla(0, 0%, 64.8%, 0.449) 31.7%,
+        hsla(0, 0%, 54.99%, 0.533) 35.6%,
+        hsla(0, 0%, 45.01%, 0.617) 39.8%,
+        hsla(0, 0%, 35.2%, 0.701) 44.5%,
+        hsla(0, 0%, 25.93%, 0.78) 50.1%,
+        hsla(0, 0%, 17.54%, 0.851) 56.8%,
+        hsla(0, 0%, 10.4%, 0.912) 64.8%,
+        hsla(0, 0%, 4.86%, 0.959) 74.5%,
+        hsla(0, 0%, 1.27%, 0.989) 86.2%,
+        hsl(0, 0%, 0%) 100%
+    );
 }
 
 .content {
@@ -26,6 +54,7 @@
     display: block;
     margin: 0 auto;
     width: 30vh;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 }
 
 .padding {
