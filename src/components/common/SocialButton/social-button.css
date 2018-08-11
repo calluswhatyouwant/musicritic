@@ -20,6 +20,13 @@
 
 .btn-social {
     font-size: 20px !important;
+    color: white;
+    font-weight: 300;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+}
+
+.fit-content {
+    width: fit-content;
 }
 
 .fa {

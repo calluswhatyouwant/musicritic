@@ -11,7 +11,7 @@ import { getRecentlyPlayedTracks, getTopPlayedTracks } from '../../spotify';
 import './UserPage.css';
 
 type Props = {
-
+    history: any,
 };
 
 type State = {
@@ -28,7 +28,7 @@ class UserPage extends Component<Props, State> {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         getRecentlyPlayedTracks().then((results) => {
             const recentTracks = results
                 .map(result => new Track(result.track));
@@ -47,9 +47,15 @@ class UserPage extends Component<Props, State> {
             return (
                 <div className="text-center">
                     <h1>Recently played tracks</h1>
-                    <SongCarousel tracks={this.state.recentTracks} />
+                    <SongCarousel
+                      history={this.props.history}
+                      tracks={this.state.recentTracks}
+                    />
                     <h1>Top played tracks</h1>
-                    <SongCarousel tracks={this.state.topTracks} />
+                    <SongCarousel
+                      history={this.props.history}
+                      tracks={this.state.topTracks}
+                    />
                 </div>
             );
         }

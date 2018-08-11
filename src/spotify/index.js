@@ -34,3 +34,15 @@ export const search = async (query: string) => {
         .get('/search', params);
     return response.data;
 };
+
+export const getTrackInfo = async (id: string) => {
+    const response = await getAxiosInstance()
+        .get(`/tracks/${id}`);
+    return response.data;
+};
+
+export const getAudioFeatures = async (id: string) => {
+    const response = await getAxiosInstance()
+        .get(`/audio-features/${id}`);
+    return response.data;
+};

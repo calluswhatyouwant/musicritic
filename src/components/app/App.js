@@ -12,7 +12,7 @@ const App = () => (
     <div>
         <Navbar />
         <ToastContainer />
-        <div className="container main">
+        <div className="container-fluid main">
             <MainContent />
         </div>
     </div>

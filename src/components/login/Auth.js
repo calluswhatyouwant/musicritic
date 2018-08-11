@@ -8,7 +8,7 @@ type Props = {
 };
 
 class Auth extends Component<Props> {
-    componentWillMount() {
+    componentDidMount() {
         localStorage.setItem('token', this.props.match.params.token);
         localStorage.setItem('refresh', this.props.match.params.refresh);
     }

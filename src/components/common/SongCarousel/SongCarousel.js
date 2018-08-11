@@ -1,6 +1,6 @@
 /* @flow */
 
-import React from 'react';
+import React, { Component } from 'react';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
@@ -10,27 +10,47 @@ import TrackCard from '../track/TrackCard';
 import { Track } from '../../../spotify/models';
 import './carousel.css';
 
-const sliderSettings = {
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    adaptiveHeight: false,
-    lazyLoad: true,
-};
-
 type Props = {
     tracks: Array<Track>,
+    history: any,
 };
 
-const SongCarousel = ({ tracks }: Props) => {
-    const slide = (key, track) => (
-        <div key={key}><TrackCard track={track} /></div>
-    );
-    const slides = tracks.map((track, index) => slide(index, track));
-    return (
-        <Slider {...sliderSettings}>
-            {slides}
-        </Slider>
-    );
-};
+class SongCarousel extends Component<Props> {
+    constructor(props: Props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick = (track: Track) => {
+        this.props.history.push(`/track/${track.id}`);
+    }
+
+    render() {
+        const { tracks } = this.props;
+
+        const slide = (key, track) => (
+            <div key={key}>
+                <TrackCard
+                  track={track}
+                  handleClick={() => this.handleClick(track)}
+                />
+            </div>
+        );
+
+        const slides = tracks.map((track, index) => slide(index, track));
+        const sliderSettings = {
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            adaptiveHeight: false,
+            lazyLoad: true,
+        };
+
+        return (
+            <Slider {...sliderSettings}>
+                {slides}
+            </Slider>
+        );
+    }
+}
 
 export default SongCarousel;

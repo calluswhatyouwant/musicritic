@@ -8,11 +8,12 @@ import { Track } from '../../../spotify/models';
 import './results.css';
 
 type Props = {
-    results: Array<any>;
+    results: Array<any>,
+    history: any,
 };
 
 type State = {
-    tracks: Array<Track>;
+    tracks: Array<Track>,
 };
 
 class TrackResult extends Component<Props, State> {
@@ -29,10 +30,17 @@ class TrackResult extends Component<Props, State> {
         });
     }
 
+    handleClick = (track: Track) => {
+        this.props.history.push(`/track/${track.id}`);
+    }
+
     render() {
         const listResults = this.state.tracks.map(track => (
             <div key={track.id} className="col-3 result">
-                <TrackCard track={track} />
+                <TrackCard
+                  track={track}
+                  handleClick={() => this.handleClick(track)}
+                />
             </div>
         ));
         return (
