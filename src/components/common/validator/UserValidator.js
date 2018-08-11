@@ -42,4 +42,3 @@ export const passwordValidator = () => {
 
 export const passwordConfirmationValidator = (passwordRef: any) => Yup.string()
     .equalTo(passwordRef, 'Passwords must match.');
-

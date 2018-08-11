@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import './social-button.css';
+import './SocialButton.css';
 
 type Props = {
     name: string,
