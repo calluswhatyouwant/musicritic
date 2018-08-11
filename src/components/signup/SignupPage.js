@@ -2,10 +2,10 @@
 
 import React from 'react';
 
-import './signup.css';
-
 import SignupForm from './SignupForm';
-import SocialButton from './../common/SocialButton';
+import SocialButton from '../common/social-button/SocialButton';
+
+import './SignupPage.css';
 
 const SignupPage = () => (
     <div className="row justify-content-center">

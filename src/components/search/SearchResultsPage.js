@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import SearchResult from './SearchResult';
 import SearchResultsNav from './SearchResultsNav';
-import { search } from '../../spotify';
+import { search } from '../../api/SpotifyWebAPI';
 
 type Props = {
     match: any;

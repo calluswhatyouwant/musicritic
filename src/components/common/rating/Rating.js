@@ -20,7 +20,6 @@ class Rating extends Component<Props, State> {
     }
 
     handleClick = (newValue: number) => {
-        console.log(newValue);
         this.setState({ ...this.state, value: newValue });
     };
 

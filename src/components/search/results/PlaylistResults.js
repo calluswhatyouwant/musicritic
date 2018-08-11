@@ -3,9 +3,9 @@
 import React, { Component } from 'react';
 
 import PlaylistCard from '../../common/playlist/PlaylistCard';
-import { Playlist } from '../../../spotify/models';
+import Playlist from '../../../models/Playlist';
 
-import './results.css';
+import './Results.css';
 
 type Props = {
     results: Array<any>;

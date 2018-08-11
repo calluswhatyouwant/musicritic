@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { AudioFeatures } from '../../spotify/models';
+import AudioFeatures from '../../models/AudioFeatures';
 import Rating from '../common/rating/Rating';
 
 type Props = {

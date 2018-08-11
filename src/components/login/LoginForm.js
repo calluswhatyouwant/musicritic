@@ -5,7 +5,7 @@ import { Form, Button } from 'reactstrap';
 import { withFormik } from 'formik';
 
 import { signInWithEmailAndPassword } from '../../firebase/auth';
-import FormField from '../common/form/form-field';
+import FormField from '../common/form/FormField';
 
 type Props = {
     values: any,

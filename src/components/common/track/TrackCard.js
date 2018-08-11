@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Track } from '../../../spotify/models';
+import Track from '../../../models/Track';
 
 type Props = {
     track: Track,

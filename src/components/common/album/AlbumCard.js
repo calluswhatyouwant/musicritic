@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Album } from '../../../spotify/models';
+import Album from '../../../models/Album';
 
 type Props = {
     album: Album,
