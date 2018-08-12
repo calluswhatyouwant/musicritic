@@ -3,7 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = require('./config');
 
-if (process.env.NODE_ENV !== 'production') require('dotenv').config();
+require('dotenv').config();
 
 module.exports = {
     entry: __dirname + '/src/index.js',
@@ -14,7 +14,7 @@ module.exports = {
         publicPath: '/'
     },
     devServer: {
-        port: 3000,
+        port: process.env.CLIENT_PORT || 3000,
         contentBase: __dirname + '/public',
         historyApiFallback: true
     },

@@ -18,7 +18,7 @@ export const getHostUrl = (urlPath) => {
     return `${config.host.baseUri}:${config.host.port}${urlPath}`;
 };
 
-export const getClientUrl = urlPath => `${config.client.baseUri}${urlPath}`;
+export const getClientUrl = urlPath => `${config.client.baseUrl}${urlPath}`;
 
 const getApplicationToken = () => {
     const tokenToEncrypt =
