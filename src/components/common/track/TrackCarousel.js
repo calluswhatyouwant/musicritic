@@ -1,21 +1,23 @@
 /* @flow */
 
 import React, { Component } from 'react';
+
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import TrackCard from '../track/TrackCard';
-import { Track } from '../../../spotify/models';
-import './carousel.css';
+import Track from '../../../models/Track';
+
+import './TrackCarousel.css';
 
 type Props = {
     tracks: Array<Track>,
     history: any,
 };
 
-class SongCarousel extends Component<Props> {
+class TrackCarousel extends Component<Props> {
     constructor(props: Props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
@@ -53,4 +55,4 @@ class SongCarousel extends Component<Props> {
     }
 }
 
-export default SongCarousel;
+export default TrackCarousel;

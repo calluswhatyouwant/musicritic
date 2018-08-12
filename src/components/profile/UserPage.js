@@ -2,11 +2,14 @@
 
 import React, { Component } from 'react';
 
-import SongCarousel from '../common/SongCarousel/SongCarousel';
-import SocialButton from './../common/SocialButton';
+import TrackCarousel from '../common/track/TrackCarousel';
+import SocialButton from './../common/social-button/SocialButton';
 
-import { Track } from '../../spotify/models';
-import { getRecentlyPlayedTracks, getTopPlayedTracks } from '../../spotify';
+import Track from '../../models/Track';
+import {
+    getRecentlyPlayedTracks,
+    getTopPlayedTracks,
+} from '../../api/SpotifyWebAPI';
 
 import './UserPage.css';
 
@@ -47,12 +50,12 @@ class UserPage extends Component<Props, State> {
             return (
                 <div className="text-center">
                     <h1>Recently played tracks</h1>
-                    <SongCarousel
+                    <TrackCarousel
                       history={this.props.history}
                       tracks={this.state.recentTracks}
                     />
                     <h1>Top played tracks</h1>
-                    <SongCarousel
+                    <TrackCarousel
                       history={this.props.history}
                       tracks={this.state.topTracks}
                     />

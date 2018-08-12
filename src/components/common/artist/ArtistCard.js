@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Artist } from '../../../spotify/models';
+import Artist from '../../../models/Artist';
 
 type Props = {
     artist: Artist,

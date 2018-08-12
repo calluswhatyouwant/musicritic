@@ -3,9 +3,9 @@
 import React, { Component } from 'react';
 
 import AlbumCard from '../../common/album/AlbumCard';
-import { Album } from '../../../spotify/models';
+import Album from '../../../models/Album';
 
-import './results.css';
+import './Results.css';
 
 type Props = {
     results: Array<any>;

@@ -6,14 +6,14 @@ import Yup from 'yup';
 import { withFormik } from 'formik';
 import { toast } from 'react-toastify';
 
-import { createUser } from '../../api/users';
-import FormField from '../common/form/form-field';
+import { createUser } from '../../api/UserAPI';
+import FormField from '../common/form/FormField';
 import {
     usernameValidator,
     emailValidator,
     passwordValidator,
     passwordConfirmationValidator,
-} from '../common/validator/user-validator';
+} from '../common/validator/UserValidator';
 
 type Props = {
     touched: any,

@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-import { Track } from '../../spotify/models';
-import SocialButton from '../common/SocialButton';
+import Track from '../../models/Track';
+import SocialButton from '../common/social-button/SocialButton';
 
 type Props = {
     track: Track,

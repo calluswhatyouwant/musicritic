@@ -3,9 +3,9 @@
 import React, { Component } from 'react';
 
 import TrackCard from '../../common/track/TrackCard';
-import { Track } from '../../../spotify/models';
+import Track from '../../../models/Track';
 
-import './results.css';
+import './Results.css';
 
 type Props = {
     results: Array<any>,
