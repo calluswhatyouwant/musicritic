@@ -35,7 +35,8 @@
     "reactstrap": "^5.0.0",
     "request": "^2.88.0",
     "slick-carousel": "^1.8.1",
-    "yup": "^0.24.1"
+    "yup": "^0.24.1",
+    "dotenv": "^6.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

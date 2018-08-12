@@ -3,10 +3,15 @@ import http from 'http';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
 
 import config from './config';
 import authRouter from './spotify/auth/routes';
 import usersApi from './api/controllers/users';
+
+if (!config.host.production) {
+    dotenv.config({ path: '../.env' });
+}
 
 const app = express();
 
@@ -26,5 +31,5 @@ const server = http.createServer(app);
 const { host: { port } } = config;
 
 server.listen(port, () => {
-    console.log(`Listenning on port ${port}...`);
+    console.log(`Listening on port ${port}...`);
 });

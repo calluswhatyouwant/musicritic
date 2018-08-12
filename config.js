@@ -4,5 +4,8 @@
  * using the names given on the following keys.
  */
 module.exports = {
-    SERVER_BASE_URI: 'http://localhost:5000',
+    SERVER_BASE_URL: 'http://localhost:5000',
+    FIREBASE_DATABASE_URL: '',
+    FIREBASE_AUTH_DOMAIN: '',
+    FIREBASE_API_KEY: '',
 };

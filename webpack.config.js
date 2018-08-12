@@ -3,6 +3,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = require('./config');
 
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
+
 module.exports = {
     entry: __dirname + '/src/index.js',
     devtool: 'source-map',
@@ -14,13 +16,7 @@ module.exports = {
     devServer: {
         port: 3000,
         contentBase: __dirname + '/public',
-        historyApiFallback: true,
-        proxy: {
-            '/api': {
-                target: 'http://localhost:5000',
-                pathRewrite: {'^/api' : ''}
-            }
-        }
+        historyApiFallback: true
     },
     stats: {
         errorDetails: true
