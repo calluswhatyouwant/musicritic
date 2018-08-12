@@ -7,14 +7,20 @@ module.exports = {
     entry: __dirname + '/src/index.js',
     devtool: 'source-map',
     output: {
-        path: __dirname + '/dist',
+        path: __dirname + '/public',
         filename: 'app.bundle.js',
         publicPath: '/'
     },
     devServer: {
         port: 3000,
-        contentBase: __dirname + '/dist',
-        historyApiFallback: true
+        contentBase: __dirname + '/public',
+        historyApiFallback: true,
+        proxy: {
+            '/api': {
+                target: 'http://localhost:5000',
+                pathRewrite: {'^/api' : ''}
+            }
+        }
     },
     stats: {
         errorDetails: true
