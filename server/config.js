@@ -26,7 +26,7 @@ config.host = {
 };
 
 config.client = {
-    baseUrl: process.env.CLIENT_URL || 'http://localhost:3000',
+    baseUrl: process.env.CLIENT_BASE_URL || 'http://localhost:3000',
     errorPath: '/error',
     successPath: '/auth',
 };
