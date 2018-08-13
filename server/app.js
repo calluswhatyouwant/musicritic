@@ -16,7 +16,7 @@ app.use(cors());
 app.use('/auth', authRouter);
 app.use(usersApi);
 
-app.use(express.static('public'));
+app.use('/app', express.static('public'));
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
