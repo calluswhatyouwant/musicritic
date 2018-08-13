@@ -10,7 +10,7 @@
     "build-server": "babel server --out-dir dist/",
     "build": "yarn build-server && yarn build-client",
     "dev": "concurrently --names \"server,client\" --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "prestart": "yarn install --production=false && yarn build",
+    "prestart": "yarn build",
     "start": "node dist/app.js",
     "lint": "eslint ."
   },
