@@ -31,8 +31,14 @@ config.client = {
     successPath: '/auth',
 };
 
+const serviceAccount = {
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY,
+};
+
 config.firebase = {
-    serviceAccount: process.env.FIREBASE_SERVICE_ACCOUNT,
+    serviceAccount: process.env.FIREBASE_SERVICE_ACCOUNT || serviceAccount,
     databaseUrl: process.env.FIREBASE_DATABASE_URL,
 };
 
