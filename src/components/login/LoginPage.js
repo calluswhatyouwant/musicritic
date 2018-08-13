@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 
 import LoginForm from './LoginForm';
-import SocialButton from './../common/SocialButton';
+import SocialButton from '../common/social-button/SocialButton';
 
 type Props = {
     history: any;

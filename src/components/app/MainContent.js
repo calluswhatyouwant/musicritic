@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import ContainerizedRoute from './routes/ContainerizedRoute';
 
 import LoginPage from '../login/LoginPage';
 import UserPage from '../profile/UserPage';
@@ -12,15 +13,15 @@ import TrackPage from '../track/TrackPage';
 
 const MainContent = () => (
     <Switch>
-        <Route exact path="/" component={LoginPage} />
-        <Route exact path="/home" component={UserPage} />
-        <Route exact path="/signup" component={SignupPage} />
-        <Route exact path="/auth/:token/:refresh" component={Auth} />
-        <Route
+        <ContainerizedRoute exact path="/" component={LoginPage} />
+        <ContainerizedRoute exact path="/home" component={UserPage} />
+        <ContainerizedRoute exact path="/signup" component={SignupPage} />
+        <ContainerizedRoute
           exact
           path="/search/(tracks|artists|playlists|albums)/:query"
           component={SearchResultsPage}
         />
+        <Route exact path="/auth/:token/:refresh" component={Auth} />
         <Route exact path="/track/:id" component={TrackPage} />
     </Switch>
 );

@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import './search.css';
+import './SearchInput.css';
 
 type Props = {
     handleSearch: string => void,

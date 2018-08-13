@@ -2,8 +2,9 @@
 
 import React, { Component } from 'react';
 
-import { Track, AudioFeatures } from '../../spotify/models';
-import { getTrackInfo, getAudioFeatures } from '../../spotify';
+import AudioFeatures from '../../models/AudioFeatures';
+import Track from '../../models/Track';
+import { getTrackInfo, getAudioFeatures } from '../../api/SpotifyWebAPI';
 
 import TrackPageHeader from './TrackPageHeader';
 import TrackPageBody from './TrackPageBody';

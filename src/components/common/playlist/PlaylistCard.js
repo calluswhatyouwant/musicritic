@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Playlist } from '../../../spotify/models';
+import Playlist from '../../../models/Playlist';
 
 type Props = {
     playlist: Playlist,
