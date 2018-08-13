@@ -3,17 +3,19 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = require('./config');
 
+require('dotenv').config();
+
 module.exports = {
     entry: __dirname + '/src/index.js',
     devtool: 'source-map',
     output: {
-        path: __dirname + '/dist',
+        path: __dirname + '/public',
         filename: 'app.bundle.js',
         publicPath: '/'
     },
     devServer: {
-        port: 3000,
-        contentBase: __dirname + '/dist',
+        port: process.env.CLIENT_PORT || 3000,
+        contentBase: __dirname + '/public',
         historyApiFallback: true
     },
     stats: {

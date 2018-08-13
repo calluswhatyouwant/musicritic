@@ -1,9 +1,9 @@
 import * as firebase from 'firebase';
 
 const config = {
-    apiKey: '<API_KEY>',
-    authDomain: '<PROJECT_ID>.firebaseapp.com',
-    databaseURL: 'https://<DATABASE_NAME>.firebaseio.com',
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.FIREBASE_DATABASE_URL,
 };
 
 if (!firebase.apps.length) {

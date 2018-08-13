@@ -67,7 +67,7 @@ class UserPage extends Component<Props, State> {
 }
 
 const SpotifyConnect = () => {
-    const serverBaseUri = process.env.SERVER_BASE_URI || '';
+    const serverBaseUri = process.env.SERVER_BASE_URL || '';
 
     return (
         <div className="row justify-content-center">
