@@ -16,8 +16,11 @@ app.use(cors());
 app.use('/auth', authRouter);
 app.use(usersApi);
 
-app.use((err, req, res) => {
+app.use(express.static('public'));
+
+app.use((err, req, res, next) => {
     console.error(err.stack);
+    console.error(next);
     res.status(500).send('Something broke!');
 });
 

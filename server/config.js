@@ -5,6 +5,11 @@ if (process.env.NODE_ENV !== 'production') {
     dotenv.config({ path: path.join(__dirname, '..', '.env') });
 }
 
+let port;
+if (process.env.NODE_ENV === 'production') {
+    port = process.env.PORT;
+}
+
 const config = {};
 
 config.spotify = {
@@ -16,7 +21,7 @@ config.spotify = {
 
 config.host = {
     baseUri: process.env.SERVER_BASE_URI || 'http://localhost',
-    port: process.env.SERVER_PORT || 5000,
+    port: port || process.env.SERVER_PORT || 5000,
     production: process.env.NODE_ENV === 'production',
 };
 
