@@ -27,7 +27,10 @@ export const createUser = async (user: User): Promise<UserInfo> => {
     const userDatabase = await getUserByUsername(user.username);
     if (!userDatabase) {
         const createdUser = await createFirebaseUser(user);
-        await createDatabaseUser(user);
+        await createDatabaseUser({
+            uid: createdUser.uid,
+            username: user.username,
+        });
         return { ...createdUser, username: user.username };
     }
     throw new Error('Username already exists');

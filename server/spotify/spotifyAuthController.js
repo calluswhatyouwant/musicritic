@@ -29,7 +29,7 @@ router.get('/login', (req, res) => {
 
 const requestForSpotifyUserToken = (req, res) => {
     res.clearCookie(stateKey);
-    const code = req.query;
+    const { code } = req.query;
     const tokenRequestOptions = getTokenReqOptions({
         code,
         redirect_uri: getHostUrl('/auth/callback'),
@@ -66,14 +66,13 @@ const requestForSpotifyRefreshToken = (req, res, refresh) => {
     });
     request.post(tokenRequestOptions, (error, response, body) => {
         if (!error && response.statusCode === 200) {
-            res.send(200, body);
+            res.status(200).send({ token: body.access_token });
         }
     });
 };
 
-router.get('/refresh', (req, res) => {
-    const { token } = req.body;
-    requestForSpotifyRefreshToken(req, res, token);
+router.post('/refresh', (req, res) => {
+    requestForSpotifyRefreshToken(req, res, req.body.refresh_token);
 });
 
 export default router;
