@@ -1,6 +1,8 @@
+/* @flow */
+
 import config from '../config';
 
-export const generateRandomState = (length) => {
+export const generateRandomState = (length: number) => {
     let state = '';
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
         + 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -11,22 +13,26 @@ export const generateRandomState = (length) => {
 };
 
 export const getSpotifyAuthUrl =
-    urlPath => `${config.spotify.authBaseUri}${urlPath}`;
+    (urlPath: string) => `${config.spotify.authBaseUri}${urlPath}`;
 
-export const getHostUrl = (urlPath) => {
+export const getHostUrl = (urlPath: string) => {
     if (config.host.production) return `${config.host.baseUri}${urlPath}`;
     return `${config.host.baseUri}:${config.host.port}${urlPath}`;
 };
 
-export const getClientUrl = urlPath => `${config.client.baseUrl}${urlPath}`;
+export const getClientUrl = (urlPath: string) =>
+    `${config.client.baseUrl}${urlPath}`;
 
 const getApplicationToken = () => {
-    const tokenToEncrypt =
-        `${config.spotify.clientId}:${config.spotify.clientSecret}`;
+    let tokenToEncrypt = '';
+    if (config.spotify.clientId && config.spotify.clientSecret) {
+        tokenToEncrypt =
+            `${config.spotify.clientId}:${config.spotify.clientSecret}`;
+    }
     return `Basic ${Buffer.from(tokenToEncrypt).toString('base64')}`;
 };
 
-export const getTokenReqOptions = form => ({
+export const getTokenReqOptions = (form: any) => ({
     url: getSpotifyAuthUrl('/api/token'),
     headers: {
         Authorization: getApplicationToken(),

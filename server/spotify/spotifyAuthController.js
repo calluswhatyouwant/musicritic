@@ -1,3 +1,5 @@
+/* @flow */
+
 import express from 'express';
 import querystring from 'querystring';
 import request from 'request';

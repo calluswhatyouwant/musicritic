@@ -1,3 +1,5 @@
+/* @flow */
+
 import * as admin from 'firebase-admin/';
 
 import config from '../config';
