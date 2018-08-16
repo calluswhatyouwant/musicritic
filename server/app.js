@@ -4,8 +4,8 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import config from './config';
-import authRouter from './spotify/auth/routes';
-import usersApi from './api/controllers/users';
+import authRouter from './spotify/spotifyAuthController';
+import usersApi from './users/userController';
 
 const app = express();
 
@@ -17,12 +17,6 @@ app.use('/auth', authRouter);
 app.use(usersApi);
 
 app.use('/app', express.static('public'));
-
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    console.error(next);
-    res.status(500).send('Something broke!');
-});
 
 const server = http.createServer(app);
 const { port } = config.host;

@@ -22,3 +22,9 @@ jobs:
         
       - run: yarn lint
       - run: yarn flow
+
+deployment:
+  production:
+    branch: master
+    heroku:
+      appname: musicritic
