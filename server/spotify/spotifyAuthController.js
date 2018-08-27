@@ -1,8 +1,10 @@
+/* @flow */
+
 import express from 'express';
 import querystring from 'querystring';
 import request from 'request';
 
-import config from '../../config';
+import config from '../config';
 import {
     generateRandomState,
     getSpotifyAuthUrl,
@@ -55,6 +57,24 @@ router.get('/callback', (req, res) => {
     } else {
         requestForSpotifyUserToken(req, res);
     }
+});
+
+const requestForSpotifyRefreshToken = (req, res, refresh) => {
+    res.clearCookie(stateKey);
+    const tokenRequestOptions = getTokenReqOptions({
+        redirect_uri: getHostUrl('/auth/callback'),
+        grant_type: 'refresh_token',
+        refresh_token: refresh,
+    });
+    request.post(tokenRequestOptions, (error, response, body) => {
+        if (!error && response.statusCode === 200) {
+            res.status(200).send({ token: body.access_token });
+        }
+    });
+};
+
+router.post('/refresh', (req, res) => {
+    requestForSpotifyRefreshToken(req, res, req.body.refresh_token);
 });
 
 export default router;
