@@ -1,11 +1,10 @@
 /* @flow */
 
 import React from 'react';
-
-import Album from '../../../models/Album';
+import { AlbumSimplified } from 'spotify-web-sdk';
 
 type Props = {
-    album: Album,
+    album: AlbumSimplified,
 };
 
 const AlbumCard = ({ album }: Props) => (

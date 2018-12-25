@@ -1,33 +1,31 @@
 /* @flow */
 
 import React, { Component } from 'react';
+import { PlaylistSimplified } from 'spotify-web-sdk';
 
 import PlaylistCard from '../../common/playlist/PlaylistCard';
-import Playlist from '../../../models/Playlist';
 
 import './Results.css';
 
 type Props = {
-    results: Array<any>;
+    results: Array<PlaylistSimplified>,
 };
 
 type State = {
-    playlists: Array<Playlist>;
+    playlists: Array<PlaylistSimplified>,
 };
 
 class PlaylistResult extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            playlists: this.props.results
-                .map(playlist => new Playlist(playlist)),
+            playlists: this.props.results,
         };
     }
 
     componentWillReceiveProps(nextProps: Props) {
         this.setState({
-            playlists: nextProps.results
-                .map(playlist => new Playlist(playlist)),
+            playlists: nextProps.results,
         });
     }
 
@@ -37,11 +35,7 @@ class PlaylistResult extends Component<Props, State> {
                 <PlaylistCard playlist={playlist} />
             </div>
         ));
-        return (
-            <div className="row">
-                {listResults}
-            </div>
-        );
+        return <div className="row">{listResults}</div>;
     }
 }
 

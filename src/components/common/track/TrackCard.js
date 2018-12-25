@@ -1,8 +1,7 @@
 /* @flow */
 
 import React from 'react';
-
-import Track from '../../../models/Track';
+import { Track } from 'spotify-web-sdk';
 
 type Props = {
     track: Track,
@@ -20,9 +19,9 @@ const TrackCard = ({ track, handleClick }: Props) => {
     return (
         <div className="card text-center" {...clickableProps}>
             <img
-              className="card-img-top"
-              src={track.album.imageUrl}
-              alt="Top"
+                className="card-img-top"
+                src={track.album.imageUrl}
+                alt="Top"
             />
             <div className="card-body">
                 <h6 className="card-subtitle mb-2 text-muted text-truncate">

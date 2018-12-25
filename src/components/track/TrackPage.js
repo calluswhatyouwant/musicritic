@@ -1,10 +1,9 @@
 /* @flow */
 
 import React, { Component } from 'react';
+import { AudioFeatures, Track } from 'spotify-web-sdk';
 
-import AudioFeatures from '../../models/AudioFeatures';
-import Track from '../../models/Track';
-import { getTrackInfo, getAudioFeatures } from '../../api/SpotifyWebAPI';
+import { getTrack, getAudioFeaturesForTrack } from '../../api/SpotifyWebAPI';
 
 import TrackPageHeader from './TrackPageHeader';
 import TrackPageBody from './TrackPageBody';
@@ -26,37 +25,30 @@ class TrackPage extends Component<Props, State> {
         super(props);
         this.state = {
             trackId: this.props.match.params.id,
-            track: new Track(),
-            audioFeatures: new AudioFeatures(),
+            track: {},
+            audioFeatures: {},
         };
     }
 
     componentDidMount() {
-        getTrackInfo(this.state.trackId).then(trackJson => (
-            this.setState({ ...this.state, track: new Track(trackJson) })
-        ));
+        getTrack(this.state.trackId).then(track =>
+            this.setState({ ...this.state, track })
+        );
 
-        getAudioFeatures(this.state.trackId).then(audioFeaturesJson => (
-            this.setState({
-                ...this.state,
-                audioFeatures: new AudioFeatures(audioFeaturesJson),
-            })
-        ));
+        getAudioFeaturesForTrack(this.state.trackId).then(audioFeatures =>
+            this.setState({ ...this.state, audioFeatures })
+        );
     }
 
     render() {
-        const { track, audioFeatures } = this.state;
+        const { track } = this.state;
 
         if (!track.name) return <div />;
 
         return (
             <div>
                 <TrackPageHeader track={track} />
-                <TrackPageBody
-                  audioFeatures={audioFeatures}
-                  userRating={4.5}
-                  averageRating={3.7}
-                />
+                <TrackPageBody userRating={4.5} averageRating={3.7} />
             </div>
         );
     }

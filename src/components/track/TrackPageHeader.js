@@ -1,8 +1,8 @@
 /* @flow */
 
 import React from 'react';
+import { Track } from 'spotify-web-sdk';
 
-import Track from '../../models/Track';
 import SocialButton from '../common/social-button/SocialButton';
 
 type Props = {
@@ -25,7 +25,7 @@ const HeaderBackground = ({ imageUrl }: BackgroundProps) => {
         backgroundImage: `url(${imageUrl})`,
     };
 
-    return (<div className="background" style={style} />);
+    return <div className="background" style={style} />;
 };
 
 const HeaderContent = ({ track }: Props) => (
@@ -37,12 +37,13 @@ const HeaderContent = ({ track }: Props) => (
 
 const TrackInfo = ({ track }: Props) => (
     <div className="text-center text-light">
-        <h1>{ track.name }</h1>
-        <h4>by { track.stringArtists }</h4>
+        <h1>{track.name}</h1>
+        <h4>by {track.stringArtists}</h4>
         <p>
-            {track.albumTitle} &bull; {track.releaseYear} &bull; {track.length}
+            {track.albumName} &bull; {track.releaseYear} &bull;
+            {track.formattedDuration}
         </p>
-        <SpotifyButton trackUrl={track.spotifyUrl} />
+        <SpotifyButton trackUrl={track.externalUrls.spotify} />
     </div>
 );
 
