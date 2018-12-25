@@ -1,48 +1,25 @@
 /* @flow */
 
-import axios from 'axios';
+import * as spotify from 'spotify-web-sdk';
 
-const getAxiosInstance = () => {
-    const token = localStorage.getItem('token') || '';
-    const config = {
-        baseURL: 'https://api.spotify.com/v1',
-        headers: { Authorization: `Bearer ${token}` },
-    };
+const token = localStorage.getItem('token') || '';
 
-    return axios.create(config);
-};
+spotify.init(token);
 
-export const getRecentlyPlayedTracks = async () => {
-    const params = { params: { limit: 50 } };
-    const response = await getAxiosInstance()
-        .get('/me/player/recently-played', params);
-    return response.data.items;
-};
+export const getRecentlyPlayedTracks = () =>
+    spotify
+        .getCurrentUserRecentlyPlayedTracks({ limit: 50 })
+        .then(page => page.items);
 
-export const getTopPlayedTracks = async () => {
-    const params = { params: { limit: 50, time_range: 'short_term' } };
-    const response = await getAxiosInstance()
-        .get('/me/top/tracks', params);
-    return response.data.items;
-};
+export const getTopPlayedTracks = async () =>
+    spotify
+        .getCurrentUserTopTracks({ limit: 50, time_range: 'short_term' })
+        .then(page => page.items);
 
-export const search = async (query: string) => {
-    const params = {
-        params: { q: query, type: 'track,artist,album,playlist' },
-    };
-    const response = await getAxiosInstance()
-        .get('/search', params);
-    return response.data;
-};
+export const search = async (query: string) =>
+    spotify.search(query, 'album,artist,playlist,track', { limit: 50 });
 
-export const getTrackInfo = async (id: string) => {
-    const response = await getAxiosInstance()
-        .get(`/tracks/${id}`);
-    return response.data;
-};
+export const getTrack = async (id: string) => spotify.getTrack(id);
 
-export const getAudioFeatures = async (id: string) => {
-    const response = await getAxiosInstance()
-        .get(`/audio-features/${id}`);
-    return response.data;
-};
+export const getAudioFeaturesForTrack = async (id: string) =>
+    spotify.getAudioFeaturesForTrack(id);
