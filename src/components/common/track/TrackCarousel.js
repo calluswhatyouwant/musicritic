@@ -32,8 +32,8 @@ class TrackCarousel extends Component<Props> {
         const slide = (key, track) => (
             <div key={key}>
                 <TrackCard
-                    track={track}
-                    handleClick={() => this.handleClick(track)}
+                  track={track}
+                  handleClick={() => this.handleClick(track)}
                 />
             </div>
         );

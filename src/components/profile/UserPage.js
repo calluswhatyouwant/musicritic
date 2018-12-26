@@ -34,8 +34,7 @@ class UserPage extends Component<Props, State> {
 
     componentDidMount() {
         getRecentlyPlayedTracks().then(recentTracks =>
-            this.setState({ recentTracks })
-        );
+            this.setState({ recentTracks }));
 
         getTopPlayedTracks().then(topTracks => this.setState({ topTracks }));
     }
@@ -46,13 +45,13 @@ class UserPage extends Component<Props, State> {
                 <div className="">
                     <h1>Your recently played tracks</h1>
                     <RecentTracksCarousel
-                        history={this.props.history}
-                        tracks={this.state.recentTracks}
+                      history={this.props.history}
+                      tracks={this.state.recentTracks}
                     />
                     <h1>Your top played tracks</h1>
                     <TrackCarousel
-                        history={this.props.history}
-                        tracks={this.state.topTracks}
+                      history={this.props.history}
+                      tracks={this.state.topTracks}
                     />
                 </div>
             );
@@ -69,8 +68,8 @@ const SpotifyConnect = () => {
             <div className="col-sm-12 col-md-7 col-lg-5">
                 <h1 className="text-center">Connect to Spotify:</h1>
                 <SocialButton
-                    name="spotify"
-                    url={`${serverBaseUri}/auth/login`}
+                  name="spotify"
+                  url={`${serverBaseUri}/auth/login`}
                 />
             </div>
         </div>

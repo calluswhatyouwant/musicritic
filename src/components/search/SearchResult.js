@@ -16,27 +16,27 @@ type Props = {
 const SearchResult = ({ results }: Props) => (
     <Switch>
         <Route
-            path="/search/tracks/**"
-            render={props => (
-                <TrackResults {...props} results={results.tracks.items} />
+          path="/search/tracks/**"
+          render={props => (
+              <TrackResults {...props} results={results.tracks.items} />
             )}
         />
         <Route
-            path="/search/albums/**"
-            render={props => (
-                <AlbumResults {...props} results={results.albums.items} />
+          path="/search/albums/**"
+          render={props => (
+              <AlbumResults {...props} results={results.albums.items} />
             )}
         />
         <Route
-            path="/search/artists/**"
-            render={props => (
-                <ArtistResults {...props} results={results.artists.items} />
+          path="/search/artists/**"
+          render={props => (
+              <ArtistResults {...props} results={results.artists.items} />
             )}
         />
         <Route
-            path="/search/playlists/**"
-            render={props => (
-                <PlaylistResults {...props} results={results.playlists.items} />
+          path="/search/playlists/**"
+          render={props => (
+              <PlaylistResults {...props} results={results.playlists.items} />
             )}
         />
     </Switch>

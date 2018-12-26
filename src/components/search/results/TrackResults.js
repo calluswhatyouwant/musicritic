@@ -38,8 +38,8 @@ class TrackResult extends Component<Props, State> {
         const listResults = this.state.tracks.map(track => (
             <div key={track.id} className="col-3 result">
                 <TrackCard
-                    track={track}
-                    handleClick={() => this.handleClick(track)}
+                  track={track}
+                  handleClick={() => this.handleClick(track)}
                 />
             </div>
         ));

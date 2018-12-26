@@ -29,8 +29,8 @@ class RecentTracksCarousel extends Component<Props> {
         const slide = (key, playHistory) => (
             <div key={key}>
                 <RecentTrackCard
-                    playHistory={playHistory}
-                    handleClick={() => this.handleClick(playHistory.track)}
+                  playHistory={playHistory}
+                  handleClick={() => this.handleClick(playHistory.track)}
                 />
             </div>
         );

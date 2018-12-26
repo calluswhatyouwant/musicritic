@@ -40,19 +40,19 @@ class RecentTrackCard extends Component<Props, State> {
             role: 'button',
         };
 
-        const { playedAt, track } = this.props.playHistory;
+        const { track } = this.props.playHistory;
         const { contextObject } = this.state;
 
         return (
             <div className="card text-center" {...clickableProps}>
                 <img
-                    className="card-img-top"
-                    src={track.album.imageUrl}
-                    alt="Album cover"
+                  className="card-img-top"
+                  src={track.album.imageUrl}
+                  alt="Album cover"
                 />
                 <RecentTrackCardBody
-                    contextObject={contextObject}
-                    track={track}
+                  contextObject={contextObject}
+                  track={track}
                 />
                 <div className="card-footer text-muted">
                     {this.getRelativeTime()}

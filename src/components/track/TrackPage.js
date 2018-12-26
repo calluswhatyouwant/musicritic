@@ -32,12 +32,10 @@ class TrackPage extends Component<Props, State> {
 
     componentDidMount() {
         getTrack(this.state.trackId).then(track =>
-            this.setState({ ...this.state, track })
-        );
+            this.setState({ ...this.state, track }));
 
         getAudioFeaturesForTrack(this.state.trackId).then(audioFeatures =>
-            this.setState({ ...this.state, audioFeatures })
-        );
+            this.setState({ ...this.state, audioFeatures }));
     }
 
     render() {
