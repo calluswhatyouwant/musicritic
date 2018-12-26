@@ -1,25 +1,26 @@
 /* @flow */
 
 import React, { Component } from 'react';
+import { Track, PlayHistory } from 'spotify-web-sdk';
 
 import TrackCarousel from '../common/track/TrackCarousel';
 import SocialButton from './../common/social-button/SocialButton';
 
-import Track from '../../models/Track';
 import {
     getRecentlyPlayedTracks,
     getTopPlayedTracks,
 } from '../../api/SpotifyWebAPI';
 
 import './UserPage.css';
+import RecentTracksCarousel from '../common/track/RecentTracksCarousel';
 
 type Props = {
     history: any,
 };
 
 type State = {
-    recentTracks: Array<Track>,
-    topTracks: Array<Track>,
+    recentTracks: PlayHistory[],
+    topTracks: Track[],
 };
 
 class UserPage extends Component<Props, State> {
@@ -32,32 +33,26 @@ class UserPage extends Component<Props, State> {
     }
 
     componentDidMount() {
-        getRecentlyPlayedTracks().then((results) => {
-            const recentTracks = results
-                .map(result => new Track(result.track));
-            this.setState({ ...this.state, recentTracks });
-        });
+        getRecentlyPlayedTracks().then(recentTracks =>
+            this.setState({ recentTracks })
+        );
 
-        getTopPlayedTracks().then((results) => {
-            const topTracks = results
-                .map(result => new Track(result));
-            this.setState({ ...this.state, topTracks });
-        });
+        getTopPlayedTracks().then(topTracks => this.setState({ topTracks }));
     }
 
     render() {
         if (localStorage.getItem('token')) {
             return (
-                <div className="text-center">
-                    <h1>Recently played tracks</h1>
-                    <TrackCarousel
-                      history={this.props.history}
-                      tracks={this.state.recentTracks}
+                <div className="">
+                    <h1>Your recently played tracks</h1>
+                    <RecentTracksCarousel
+                        history={this.props.history}
+                        tracks={this.state.recentTracks}
                     />
-                    <h1>Top played tracks</h1>
+                    <h1>Your top played tracks</h1>
                     <TrackCarousel
-                      history={this.props.history}
-                      tracks={this.state.topTracks}
+                        history={this.props.history}
+                        tracks={this.state.topTracks}
                     />
                 </div>
             );
@@ -74,8 +69,8 @@ const SpotifyConnect = () => {
             <div className="col-sm-12 col-md-7 col-lg-5">
                 <h1 className="text-center">Connect to Spotify:</h1>
                 <SocialButton
-                  name="spotify"
-                  url={`${serverBaseUri}/auth/login`}
+                    name="spotify"
+                    url={`${serverBaseUri}/auth/login`}
                 />
             </div>
         </div>
