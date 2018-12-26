@@ -5667,6 +5667,11 @@ modelo@^4.2.0:
   resolved "https://registry.yarnpkg.com/modelo/-/modelo-4.2.3.tgz#b278588a4db87fc1e5107ae3a277c0876f38d894"
   integrity sha512-9DITV2YEMcw7XojdfvGl3gDD8J9QjZTJ7ZOUuSAkP+F3T6rDbzMJuPktxptsdHYEvZcmXrCD3LMOhdSAEq6zKA==
 
+moment@^2.23.0:
+  version "2.23.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.23.0.tgz#759ea491ac97d54bac5ad776996e2a58cc1bc225"
+  integrity sha512-3IE39bHVqFbWWaPOMHZF98Q9c3LDKGTmypMiTM2QygGXXElkFWIH7GxfmlwmY2vwa+wmNsoYZmG2iusf1ZjJoA==
+
 mri@^1.1.0:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/mri/-/mri-1.1.4.tgz#7cb1dd1b9b40905f1fac053abe25b6720f44744a"
@@ -7967,9 +7972,9 @@ split@0.3:
     through "2"
 
 spotify-web-sdk@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/spotify-web-sdk/-/spotify-web-sdk-0.2.1.tgz#b51c716103c0dc3c045c7a581913a0ca909d088f"
-  integrity sha512-vdCrPVV9lNps3+e1+ksecfQYgNb1j+Zf32k+91xbfrTCnlklFaUHoCPlcAGt+JWLjtuZcMO2WbNs4zKQYMI/JQ==
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/spotify-web-sdk/-/spotify-web-sdk-0.2.2.tgz#2247682c0bb19eb5487dcb5cdbbcc887e6c388ae"
+  integrity sha512-/6EYsnf4jQiP1uJarVOq3606oBVBWxOvuJjk1Mt/eMNhCCB5b5/E3GmLOzqAIO6RMmRFLSGt3zvCPsA6S7X8MQ==
   dependencies:
     axios "^0.18.0"
 
