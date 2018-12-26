@@ -11,15 +11,15 @@ module.exports = {
     output: {
         path: __dirname + '/public',
         filename: 'app.bundle.js',
-        publicPath: '/',
+        publicPath: '/'
     },
     devServer: {
         port: process.env.CLIENT_PORT || 3000,
         contentBase: __dirname + '/public',
-        historyApiFallback: true,
+        historyApiFallback: true
     },
     stats: {
-        errorDetails: true,
+        errorDetails: true
     },
     module: {
         rules: [
@@ -29,38 +29,37 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env', 'react', 'stage-2', 'flow'],
+                        presets: ['env', 'react', 'stage-2', "flow"],
                         plugins: [
-                            [
-                                'transform-runtime',
-                                {
-                                    polyfill: false,
-                                    regenerator: true,
-                                },
-                            ],
-                        ],
-                    },
+                            ["transform-runtime", {
+                                "polyfill": false,
+                                "regenerator": true
+                            }]
+                        ]
+                    }
                 },
+            }, 
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: ['eslint-loader']
             },
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader',
-                }),
+                use: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader" })
             },
-            {
-                test: /\.(ttf|eot|svg|woff|woff2|png|gif)$/,
-                use: 'url-loader?limit=10000',
-            },
-        ],
+            { 
+                test: /\.(ttf|eot|svg|woff|woff2|png|gif)$/, 
+                use: 'url-loader?limit=10000'
+            }
+        ]
     },
     plugins: [
         new ExtractTextPlugin('style.bundle.css'),
         new webpack.EnvironmentPlugin(config),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: __dirname + '/src/index.html',
-        }),
-    ],
-};
+            template: __dirname + '/src/index.html'
+        })         
+    ]
+}

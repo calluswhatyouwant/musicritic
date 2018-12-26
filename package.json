@@ -44,11 +44,6 @@
         "spotify-web-sdk": "^0.2.1",
         "yup": "^0.24.1"
     },
-    "husky": {
-        "hooks": {
-            "pre-commit": "pretty-quick --staged"
-        }
-    },
     "devDependencies": {
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
