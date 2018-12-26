@@ -55,7 +55,7 @@ class RecentTrackCard extends Component<Props, State> {
                     track={track}
                 />
                 <div className="card-footer text-muted">
-                    {this.getRelativeTime(playedAt)}
+                    {this.getRelativeTime()}
                 </div>
             </div>
         );
