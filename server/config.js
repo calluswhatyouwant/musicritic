@@ -15,7 +15,10 @@ if (process.env.NODE_ENV === 'production') {
 const config = {};
 
 config.spotify = {
-    scope: 'user-read-email user-read-recently-played user-top-read',
+    scope: `user-read-email
+            user-read-currently-playing
+            user-read-recently-played
+            user-top-read`,
     authBaseUri: 'https://accounts.spotify.com',
     clientId: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
