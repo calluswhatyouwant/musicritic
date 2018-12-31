@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import { Track, PlayHistory } from 'spotify-web-sdk';
+import { Track, PlayHistory, CurrentlyPlaying } from 'spotify-web-sdk';
 
 import TrackCarousel from '../common/track/TrackCarousel';
 import SocialButton from './../common/social-button/SocialButton';
@@ -9,16 +9,19 @@ import SocialButton from './../common/social-button/SocialButton';
 import {
     getRecentlyPlayedTracks,
     getTopPlayedTracks,
+    getCurrentUserCurrentlyPlayingTrack,
 } from '../../api/SpotifyWebAPI';
 
 import './UserPage.css';
 import RecentTracksCarousel from '../common/track/RecentTracksCarousel';
+import CurrentlyPlayingTrack from './CurrentlyPlayingTrack';
 
 type Props = {
     history: any,
 };
 
 type State = {
+    currentlyPlaying: CurrentlyPlaying,
     recentTracks: PlayHistory[],
     topTracks: Track[],
 };
@@ -27,12 +30,16 @@ class UserPage extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
+            currentlyPlaying: {},
             recentTracks: [],
             topTracks: [],
         };
     }
 
     componentDidMount() {
+        getCurrentUserCurrentlyPlayingTrack().then(currentlyPlaying =>
+            this.setState({ currentlyPlaying }));
+
         getRecentlyPlayedTracks().then(recentTracks =>
             this.setState({ recentTracks }));
 
@@ -40,18 +47,26 @@ class UserPage extends Component<Props, State> {
     }
 
     render() {
+        const { history } = this.props;
+        const { currentlyPlaying, recentTracks, topTracks } = this.state;
+
         if (localStorage.getItem('token')) {
             return (
-                <div className="">
-                    <h1>Your recently played tracks</h1>
-                    <RecentTracksCarousel
-                      history={this.props.history}
-                      tracks={this.state.recentTracks}
+                <div>
+                    <h1 className="display-3">You are listening to</h1>
+                    <CurrentlyPlayingTrack
+                      history={history}
+                      currentlyPlaying={currentlyPlaying}
                     />
-                    <h1>Your top played tracks</h1>
+                    <h1 className="display-3">Your recently played tracks</h1>
+                    <RecentTracksCarousel
+                      history={history}
+                      tracks={recentTracks}
+                    />
+                    <h1 className="display-3">Your top played tracks</h1>
                     <TrackCarousel
-                      history={this.props.history}
-                      tracks={this.state.topTracks}
+                      history={history}
+                      tracks={topTracks}
                     />
                 </div>
             );
