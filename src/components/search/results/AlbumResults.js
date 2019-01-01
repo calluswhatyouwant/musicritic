@@ -1,31 +1,31 @@
 /* @flow */
 
 import React, { Component } from 'react';
+import { AlbumSimplified } from 'spotify-web-sdk';
 
 import AlbumCard from '../../common/album/AlbumCard';
-import Album from '../../../models/Album';
 
 import './Results.css';
 
 type Props = {
-    results: Array<any>;
+    results: Array<AlbumSimplified>,
 };
 
 type State = {
-    albums: Array<Album>;
+    albums: Array<AlbumSimplified>,
 };
 
 class AlbumResult extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            albums: this.props.results.map(album => new Album(album)),
+            albums: this.props.results,
         };
     }
 
     componentWillReceiveProps(nextProps: Props) {
         this.setState({
-            albums: nextProps.results.map(album => new Album(album)),
+            albums: nextProps.results,
         });
     }
 
@@ -35,11 +35,7 @@ class AlbumResult extends Component<Props, State> {
                 <AlbumCard album={album} />
             </div>
         ));
-        return (
-            <div className="row">
-                {listResults}
-            </div>
-        );
+        return <div className="row">{listResults}</div>;
     }
 }
 

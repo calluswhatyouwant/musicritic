@@ -1,31 +1,31 @@
 /* @flow */
 
 import React, { Component } from 'react';
+import { Artist } from 'spotify-web-sdk';
 
 import ArtistCard from '../../common/artist/ArtistCard';
-import Artist from '../../../models/Artist';
 
 import './Results.css';
 
 type Props = {
-    results: Array<any>;
+    results: Array<Artist>,
 };
 
 type State = {
-    artists: Array<Artist>;
+    artists: Array<Artist>,
 };
 
 class ArtistResult extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            artists: this.props.results.map(artist => new Artist(artist)),
+            artists: this.props.results,
         };
     }
 
     componentWillReceiveProps(nextProps: Props) {
         this.setState({
-            artists: nextProps.results.map(artist => new Artist(artist)),
+            artists: nextProps.results,
         });
     }
 
@@ -35,11 +35,7 @@ class ArtistResult extends Component<Props, State> {
                 <ArtistCard artist={artist} />
             </div>
         ));
-        return (
-            <div className="row">
-                {listResults}
-            </div>
-        );
+        return <div className="row">{listResults}</div>;
     }
 }
 

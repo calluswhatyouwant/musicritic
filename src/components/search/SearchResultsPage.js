@@ -7,7 +7,7 @@ import SearchResultsNav from './SearchResultsNav';
 import { search } from '../../api/SpotifyWebAPI';
 
 type Props = {
-    match: any;
+    match: any,
 };
 
 type State = {
@@ -33,20 +33,16 @@ class SearchResultsPage extends Component<Props, State> {
     }
 
     updateResults(query: string) {
-        search(query).then((results) => {
-            this.setState(() => ({
-                results,
-            }));
-        });
+        search(query).then(results => this.setState({ results }));
     }
 
     render() {
         return (
             <div>
                 <SearchResultsNav query={this.props.match.params.query} />
-                {this.state.results.albums ?
-                    <SearchResult results={this.state.results} /> : null}
-
+                {this.state.results.albums ? (
+                    <SearchResult results={this.state.results} />
+                ) : null}
             </div>
         );
     }

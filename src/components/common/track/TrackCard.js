@@ -1,8 +1,7 @@
 /* @flow */
 
 import React from 'react';
-
-import Track from '../../../models/Track';
+import { Track } from 'spotify-web-sdk';
 
 type Props = {
     track: Track,

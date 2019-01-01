@@ -1,22 +1,19 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import { Track } from 'spotify-web-sdk';
-
+import { Track, PlayHistory } from 'spotify-web-sdk';
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
-import TrackCard from '../track/TrackCard';
+import RecentTrackCard from './RecentTrackCard';
 
 import './TrackCarousel.css';
 
 type Props = {
-    tracks: Array<Track>,
+    tracks: PlayHistory[],
     history: any,
 };
 
-class TrackCarousel extends Component<Props> {
+class RecentTracksCarousel extends Component<Props> {
     constructor(props: Props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
@@ -29,11 +26,11 @@ class TrackCarousel extends Component<Props> {
     render() {
         const { tracks } = this.props;
 
-        const slide = (key, track) => (
+        const slide = (key, playHistory) => (
             <div key={key}>
-                <TrackCard
-                  track={track}
-                  handleClick={() => this.handleClick(track)}
+                <RecentTrackCard
+                  playHistory={playHistory}
+                  handleClick={() => this.handleClick(playHistory.track)}
                 />
             </div>
         );
@@ -50,4 +47,4 @@ class TrackCarousel extends Component<Props> {
     }
 }
 
-export default TrackCarousel;
+export default RecentTracksCarousel;
