@@ -8004,10 +8004,8 @@ split@0.3:
   dependencies:
     through "2"
 
-spotify-web-sdk@^0.2.1:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/spotify-web-sdk/-/spotify-web-sdk-0.2.2.tgz#2247682c0bb19eb5487dcb5cdbbcc887e6c388ae"
-  integrity sha512-/6EYsnf4jQiP1uJarVOq3606oBVBWxOvuJjk1Mt/eMNhCCB5b5/E3GmLOzqAIO6RMmRFLSGt3zvCPsA6S7X8MQ==
+"spotify-web-sdk@file:../spotify-web-sdk":
+  version "0.2.0"
   dependencies:
     axios "^0.18.0"
 

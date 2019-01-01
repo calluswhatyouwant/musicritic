@@ -1,10 +1,19 @@
 /* @flow */
 
 import * as spotify from 'spotify-web-sdk';
+import { userApi } from './UserAPI';
 
 const token = localStorage.getItem('token') || '';
+const refreshToken = localStorage.getItem('refresh') || '';
+const refreshTokenFunction = async (): string => {
+    const { data } = await userApi.post('/auth/refresh', {
+        refresh_token: refreshToken,
+    });
+    localStorage.setItem('token', data.token);
+    return data.token;
+};
 
-spotify.init(token);
+spotify.init({ token, refreshToken, refreshTokenFunction });
 
 export const getRecentlyPlayedTracks = () =>
     spotify
