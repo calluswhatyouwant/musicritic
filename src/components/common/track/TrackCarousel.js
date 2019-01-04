@@ -41,9 +41,10 @@ class TrackCarousel extends Component<Props> {
         const slides = tracks.map((track, index) => slide(index, track));
         const sliderSettings = {
             slidesToShow: 4,
-            slidesToScroll: 1,
+            slidesToScroll: 4,
             adaptiveHeight: false,
             lazyLoad: true,
+            speed: 2000,
         };
 
         return <Slider {...sliderSettings}>{slides}</Slider>;
