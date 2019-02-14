@@ -36,3 +36,5 @@ export const getAudioFeaturesForTrack = async (id: string) =>
 
 export const getCurrentUserCurrentlyPlayingTrack = async () =>
     spotify.getCurrentUserCurrentlyPlayingTrack();
+
+export const getAlbum = async (id: string) => spotify.getAlbum(id);
