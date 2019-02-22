@@ -6,7 +6,7 @@
 }
 
 .search-input {
-    background-color: #5C6BC0;
+    background-color: rgb(10, 10, 10);
     border: none;
     border-radius: 5px;
     padding: 3px 10px 3px 10px;
@@ -16,17 +16,17 @@
 
 .search-input:hover {
     border: none;
-    background-color: #6b77bf;
+    background-color: rgb(70, 70, 70);
 }
 
 .search-input:focus {
     border: none;
-    background-color: #6b77bf;
+    background-color: rgb(70, 70, 70);
     outline: none;
 }
 
 .search-input::placeholder {
-    color: #BFCDFF;
+    color: whitesmoke;
     font-size: 15px;
 }
 

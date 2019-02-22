@@ -21,7 +21,7 @@ class Navbar extends Component<Props> {
 
     render() {
         return (
-            <nav className="navbar navbar-expand-md navbar-dark color-navbar">
+            <nav className="navbar navbar-expand-md navbar-dark sticky-top">
                 <div className="container">
                     <NavbarLink href="/" text="Musicritic" brand />
                     <button
