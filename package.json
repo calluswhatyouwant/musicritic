@@ -31,6 +31,7 @@
         "font-awesome": "^4.7.0",
         "formik": "^0.11.11",
         "jquery": "^3.3.1",
+        "lodash": "^4.17.11",
         "moment": "^2.23.0",
         "popper.js": "^1.14.1",
         "querystring": "^0.2.0",
@@ -42,7 +43,7 @@
         "reactstrap": "^5.0.0",
         "request": "^2.88.0",
         "slick-carousel": "^1.8.1",
-        "spotify-web-sdk": "^0.3.0",
+        "spotify-web-sdk": "^0.3.1",
         "yup": "^0.24.1"
     },
     "devDependencies": {
