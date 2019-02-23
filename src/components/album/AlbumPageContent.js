@@ -3,6 +3,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Album } from 'spotify-web-sdk';
+import _ from 'lodash';
 
 type Props = {
     album: Album,
@@ -50,7 +51,7 @@ const AlbumContentSwitch = ({ album }: Props) => (
 );
 
 const TracklistTable = ({ album }: Props) => {
-    const body = album.tracks ? album.tracks.items.map((track, index) => (
+    const body = _.get(album, 'tracks.items', []).map((track, index) => (
         <tr>
             <th className="text-muted text-right" scope="row" width="1%">
                 {`${index + 1}`}
@@ -62,7 +63,7 @@ const TracklistTable = ({ album }: Props) => {
                 {track.length}
             </td>
         </tr>
-    )) : '';
+    ));
 
     return (
         <table className="table table-striped border" cellPadding="0">

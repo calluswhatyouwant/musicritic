@@ -3,6 +3,7 @@
 import React from 'react';
 import { ArtistSimplified, AlbumSimplified } from 'spotify-web-sdk';
 import { withRouter } from 'react-router-dom';
+import _ from 'lodash';
 
 type Props = {
     artist: ArtistSimplified,
@@ -21,10 +22,10 @@ const ArtistAlbumsGrid = ({
           history={history}
         />
     ));
-    const nextAlbumUrl = artistAlbums[5] ? artistAlbums[5].imageUrl : '';
-    const moreAlbumsButton = nextAlbumUrl
-        ? <MoreAlbumsButton artist={artist} nextAlbum={nextAlbumUrl} />
-        : '';
+
+    const nextAlbumUrl = _.get(artistAlbums, '[5].imageUrl', '');
+    const moreAlbumsButton =
+        <MoreAlbumsButton artist={artist} nextAlbum={nextAlbumUrl} />;
 
     return (
         <div className="bg-dark text-uppercase">
@@ -33,7 +34,7 @@ const ArtistAlbumsGrid = ({
             </h5>
             <div className="row ml-0 mr-2 mb-n2">
                 {albums}
-                {moreAlbumsButton}
+                {nextAlbumUrl ? moreAlbumsButton : null}
             </div>
         </div>
     );
