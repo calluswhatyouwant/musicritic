@@ -1,0 +1,52 @@
+.album-data {
+    position: relative;
+    margin: .25rem;
+}
+
+.album-data__cover {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 75%;
+}
+
+.album-data__text {
+    padding-top: 1rem;
+    text-align: center;
+}
+
+.album-ratings {
+    justify-content: space-around;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.album-rating {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-style: solid;
+    border-width: 1px;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+
+.album-rating--positive {
+    border-image: linear-gradient(120deg, limegreen, green) 1;
+}
+
+.album-rating--mixed {
+    border-image: linear-gradient(120deg, gold, goldenrod) 1;
+}
+
+.album-rating--negative {
+    border-image: linear-gradient(120deg, orangered, darkred) 1;
+}
+
+.album-rating__title {
+    text-transform: uppercase;
+    font-size: .8rem;
+    margin-bottom: .25rem;
+}
+
+.album-rating__value {
+    margin-bottom: 0;
+}

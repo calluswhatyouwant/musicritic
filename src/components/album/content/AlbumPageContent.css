@@ -1,0 +1,8 @@
+.album-content-tab {
+    border-radius: 0;
+    margin-right: .25rem;
+}
+
+.album-content-tab:last-of-type {
+    margin-right: 0;
+}

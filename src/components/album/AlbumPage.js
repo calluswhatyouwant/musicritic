@@ -6,8 +6,8 @@ import _ from 'lodash';
 
 import { getAlbum, getArtistAlbums } from '../../api/SpotifyWebAPI';
 
-import AlbumSummary from './AlbumSummary';
-import AlbumPageContent from './AlbumPageContent';
+import AlbumSummary from './summary/AlbumSummary';
+import AlbumPageContent from './content/AlbumPageContent';
 
 import './AlbumPage.css';
 
@@ -55,17 +55,19 @@ class AlbumPage extends Component<Props, State> {
     }
 
     render() {
+        const wrapComponent = (SomeComponent: any, props) => (
+            <section className="album-page-section col-lg-6">
+                <SomeComponent {...props} />
+            </section>
+        );
+
         const { album, artistAlbums, mainArtist } = this.state;
         return (
-            <div className="album-page border container shadow-sm p-4 my-3">
-                <div className="row">
-                    <AlbumSummary
-                      album={album}
-                      artistAlbums={artistAlbums}
-                      mainArtist={mainArtist}
-                    />
-                    <AlbumPageContent album={album} />
-                </div>
+            <div className="row album-page border container shadow-sm">
+                {wrapComponent(AlbumSummary, {
+                    album, artistAlbums, mainArtist,
+                })}
+                {wrapComponent(AlbumPageContent, { album })}
             </div>
         );
     }

@@ -1,0 +1,13 @@
+.album-tracklist-table {
+    margin-bottom: 0;
+}
+
+.album-tracklist-tr__track-index {
+    text-align: right;
+    width: 1%;
+}
+
+.album-tracklist-tr__track-length {
+    text-align: center;
+    width: 1%;
+}

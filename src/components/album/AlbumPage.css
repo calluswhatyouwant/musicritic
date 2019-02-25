@@ -1,128 +1,22 @@
 .album-page {
+    padding: 1.5rem;
+    margin: 1rem auto;
     border-radius: .25rem;
     background-color: white;
 }
 
-.album-header {
-    border-radius: .25rem;
-    position: relative;
-    height: fit-content;
-    background-size: 200%;
-    background-position-x: 50%;
-    background-position-y: 50%;
+@media (max-width: 575.98px) { /* xs */
+    .album-page {
+        padding: 1rem 0;
+    }
 }
 
-.album-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    opacity: 0.9;
-    /* Gradient made with https://larsenwork.com/easing-gradients/ */
-    background: linear-gradient(
-        to bottom,
-        hsla(0, 0%, 100%, 0.15) 0%,
-        hsla(0, 0%, 98.73%, 0.161) 7.7%,
-        hsla(0, 0%, 95.14%, 0.191) 14%,
-        hsla(0, 0%, 89.6%, 0.238) 19.3%,
-        hsla(0, 0%, 82.46%, 0.299) 23.9%,
-        hsla(0, 0%, 74.07%, 0.37) 27.9%,
-        hsla(0, 0%, 64.8%, 0.449) 31.7%,
-        hsla(0, 0%, 54.99%, 0.533) 35.6%,
-        hsla(0, 0%, 45.01%, 0.617) 39.8%,
-        hsla(0, 0%, 35.2%, 0.701) 44.5%,
-        hsla(0, 0%, 25.93%, 0.78) 50.1%,
-        hsla(0, 0%, 17.54%, 0.851) 56.8%,
-        hsla(0, 0%, 10.4%, 0.912) 64.8%,
-        hsla(0, 0%, 4.86%, 0.959) 74.5%,
-        hsla(0, 0%, 1.27%, 0.989) 86.2%,
-        hsl(0, 0%, 0%) 100%
-    );
-}
+@media (max-width: 991.98px) { /* < lg */
+    .album-page-section {
+        margin-bottom: 1rem;
+    }
 
-.btn-album-menu {
-    background-color: transparent;
-}
-
-.btn-album-menu:hover {
-    background-color: rgba(28, 37, 155, 0.8);
-}
-
-.btn-album-play {
-    background-color: rgb(30, 215, 96, 0.5);
-}
-
-.btn-album-play:hover {
-    background-color: rgb(30, 215, 96, 0.8);
-}
-
-.album-content {
-    position: relative;
-}
-
-.artist-album, .btn-more-albums {
-    width: inherit;
-}
-
-.btn-more-albums {
-    white-space: normal;
-    width: 100%;
-}
-
-.more-albums-background {
-    background-size: 100%;
-    height: 100%;
-    width: 100%;
-    position: relative;
-    transition: background-image .15s ease-in-out;
-}
-
-.more-albums-layer {
-    background-color: rgba(0, 0, 0, 0.7);
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    transition: color .15s ease-in-out, background-color .15s ease-in-out;
-}
-
-.more-albums-layer:hover {
-    background-color: rgba(0, 0, 0, 0.9);
-    color: white;
-    cursor: pointer;
-}
-
-.artist-album:hover {
-    cursor: pointer;
-}
-
-.artist-album:hover, .current-album {
-    border: .25rem solid whitesmoke;
-}
-
-.current-album:hover {
-    cursor: default;
-}
-
-.rating-title {
-    font-size: .8rem;
-}
-
-.rating-positive, .rating-mixed, .rating-negative {
-    background-color: rgba(0, 0, 0, 0.3);
-    border-style: solid;
-    border-width: 1px;
-}
-
-.rating-positive {
-    border-image: linear-gradient(120deg, limegreen, green) 1;
-}
-
-.rating-mixed {
-    border-image: linear-gradient(120deg, gold, goldenrod) 1;
-}
-
-.rating-negative {
-    border-image: linear-gradient(120deg, orangered, darkred) 1;
+    .album-page-section:last-of-type {
+        margin-bottom: 0;
+    }
 }
