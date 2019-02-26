@@ -6,7 +6,7 @@ import { userApi } from './UserAPI';
 const token = localStorage.getItem('token') || '';
 
 const refreshToken = localStorage.getItem('refresh') || '';
-const refreshTokenFunction = async (): Promise<string> => {
+const refreshTokenFunction = async (): string => {
     const { data } = await userApi.post('/auth/refresh', {
         refresh_token: refreshToken,
     });
