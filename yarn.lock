@@ -5394,6 +5394,11 @@ lodash@^4.17.0, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4,
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
   integrity sha512-UejweD1pDoXu+AD825lWwp4ZGtSwgnpZxb3JDViD7StjQz+Nb/6l093lx4OQ0foGWNRoc19mWy7BzL+UAK2iVg==
 
+lodash@^4.17.11:
+  version "4.17.11"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
+  integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
+
 log-driver@1.2.7:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/log-driver/-/log-driver-1.2.7.tgz#63b95021f0702fedfa2c9bb0a24e7797d71871d8"
@@ -8005,9 +8010,9 @@ split@0.3:
     through "2"
 
 spotify-web-sdk@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/spotify-web-sdk/-/spotify-web-sdk-0.3.0.tgz#0bc9100fdbdcae588b58158189315e9cd8723da1"
-  integrity sha512-CscJtJXDk6sUBP5LnUkEAhjH1KLmZbBQdeM7Q6ZiuqefYqTWzHUK79dLPX+478DRKm3S5A8chLhKLrXRQTQmkQ==
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/spotify-web-sdk/-/spotify-web-sdk-0.3.1.tgz#17cf41aeac0ba60d1e26ced45402d5821417c747"
+  integrity sha512-l9eqpB/LCoEq+9IsiOVKUfINn/DNhRt8+GUTGkarK7KY9mFTsWratfxrcsjwoPDJiLkDaUALlJPT4zVyPZPhDQ==
   dependencies:
     axios "^0.18.0"
 

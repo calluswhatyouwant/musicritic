@@ -1,5 +1,12 @@
-.color-navbar {
-    background-color: #3F51B5
+body {
+    font-family: 'Lato';
+    background-color: #f0f0f0;
+}
+
+.navbar {
+    background-color: black;
+    opacity: 0.7;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 }
 
 .search {

@@ -4,8 +4,9 @@ import * as spotify from 'spotify-web-sdk';
 import { userApi } from './UserAPI';
 
 const token = localStorage.getItem('token') || '';
+
 const refreshToken = localStorage.getItem('refresh') || '';
-const refreshTokenFunction = async () => {
+const refreshTokenFunction = async (): Promise<string> => {
     const { data } = await userApi.post('/auth/refresh', {
         refresh_token: refreshToken,
     });
@@ -35,3 +36,8 @@ export const getAudioFeaturesForTrack = async (id: string) =>
 
 export const getCurrentUserCurrentlyPlayingTrack = async () =>
     spotify.getCurrentUserCurrentlyPlayingTrack();
+
+export const getAlbum = async (id: string) => spotify.getAlbum(id);
+
+export const getArtistAlbums = async (id: string, includeGroups: string[]) =>
+    spotify.getArtistAlbums(id, { includeGroups });
