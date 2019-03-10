@@ -8,11 +8,12 @@ import AlbumCard from '../../common/album/AlbumCard';
 import './Results.css';
 
 type Props = {
-    results: Array<AlbumSimplified>,
+    history: any,
+    results: AlbumSimplified[],
 };
 
 type State = {
-    albums: Array<AlbumSimplified>,
+    albums: AlbumSimplified[],
 };
 
 class AlbumResult extends Component<Props, State> {
@@ -29,10 +30,17 @@ class AlbumResult extends Component<Props, State> {
         });
     }
 
+    handleClick = (album: AlbumSimplified) => {
+        this.props.history.push(`/album/${album.id}/`);
+    }
+
     render() {
         const listResults = this.state.albums.map(album => (
             <div key={album.id} className="col-3 result">
-                <AlbumCard album={album} />
+                <AlbumCard
+                  album={album}
+                  handleClick={() => this.handleClick(album)}
+                />
             </div>
         ));
         return <div className="row">{listResults}</div>;
