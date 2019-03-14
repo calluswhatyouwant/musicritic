@@ -1,0 +1,25 @@
+.currently-playing-track {
+    border-radius: .25rem;
+    background-color: white;
+    height: fit-content;
+    padding: 1rem;
+}
+
+.currently-playing-track-image {
+    height: auto;
+    width: 100%;
+}
+
+.currently-playing-track-image__container {
+    padding-left: 0;
+    padding-right: 1rem;
+}
+
+.currently-playing-track-info {
+    align-self: center;
+}
+
+.currently-playing-track-info__article {
+    text-align: center;
+    padding: 1rem;
+}

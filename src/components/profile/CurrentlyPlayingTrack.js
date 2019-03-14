@@ -3,6 +3,8 @@
 import React from 'react';
 import { CurrentlyPlaying, Track } from 'spotify-web-sdk';
 
+import './CurrentlyPlayingTrack.css';
+
 type Props = {
     currentlyPlaying: CurrentlyPlaying,
     history: any,
@@ -18,9 +20,12 @@ const CurrentlyPlayingTrack = ({ currentlyPlaying, history }: Props) => {
         };
 
         return (
-            <div className="border row" {...clickableProps}>
+            <div
+              className="currently-playing-track border shadow-sm row"
+              {...clickableProps}
+            >
                 <CurrentlyPlayingTrackImage
-                  imageUrl={currentlyPlaying.item.album.imageUrl}
+                  track={currentlyPlaying.item}
                 />
                 <CurrentlyPlayingTrackInfo
                   track={currentlyPlaying.item}
@@ -33,12 +38,16 @@ const CurrentlyPlayingTrack = ({ currentlyPlaying, history }: Props) => {
 };
 
 type ImageProps = {
-    imageUrl: string,
+    track: Track,
 };
 
-const CurrentlyPlayingTrackImage = ({ imageUrl }: ImageProps) => (
-    <div className="current-track-img text-center col-xl-3 col-lg-4 col-md-5">
-        <img className="current-track" src={imageUrl} alt="Top" />
+const CurrentlyPlayingTrackImage = ({ track }: ImageProps) => (
+    <div className="currently-playing-track-image__container col-xl-3 col-md-4">
+        <img
+          className="currently-playing-track-image"
+          src={track.album.imageUrl}
+          alt={track.name}
+        />
     </div>
 );
 
@@ -47,8 +56,8 @@ type InfoProps = {
 };
 
 const CurrentlyPlayingTrackInfo = ({ track }: InfoProps) => (
-    <div className="align-self-center col-xl-9 col-lg-8 col-md-7">
-        <article className="current-track-info text-center">
+    <div className="currently-playing-track-info col-xl-9 col-md-8">
+        <article className="currently-playing-track-info__article">
             <h3 className="text-truncate">
                 {track.stringArtists}
             </h3>
