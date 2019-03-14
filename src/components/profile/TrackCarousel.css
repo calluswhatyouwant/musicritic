@@ -1,0 +1,11 @@
+.slick-slide {
+    padding: 5px;
+}
+
+.slick-prev:before {
+    color: gray;
+}
+
+.slick-next:before {
+    color: gray;
+}
