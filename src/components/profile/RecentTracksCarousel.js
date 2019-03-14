@@ -2,9 +2,13 @@
 
 import React, { Component } from 'react';
 import { Track, PlayHistory } from 'spotify-web-sdk';
-import Slider from 'react-slick';
+import moment from 'moment';
 
-import RecentTrackCard from './RecentTrackCard';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+import TrackCard from '../common/track/TrackCard';
 
 import './TrackCarousel.css';
 
@@ -26,10 +30,11 @@ class RecentTracksCarousel extends Component<Props> {
     render() {
         const { tracks } = this.props;
 
-        const slide = (key, playHistory) => (
+        const slide = (key: number, playHistory: PlayHistory) => (
             <div key={key}>
-                <RecentTrackCard
-                  playHistory={playHistory}
+                <TrackCard
+                  track={playHistory.track}
+                  relativeTime={moment(playHistory.playedAt).fromNow()}
                   handleClick={() => this.handleClick(playHistory.track)}
                 />
             </div>
@@ -44,7 +49,11 @@ class RecentTracksCarousel extends Component<Props> {
             speed: 2000,
         };
 
-        return <Slider {...sliderSettings}>{slides}</Slider>;
+        return (
+            <Slider {...sliderSettings}>
+                {slides}
+            </Slider>
+        );
     }
 }
 
