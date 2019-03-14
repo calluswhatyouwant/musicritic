@@ -32,7 +32,7 @@ const TrackCard = ({
 };
 
 TrackCard.defaultProps = {
-    rank: null,
+    rank: undefined,
     relativeTime: '',
 };
 
@@ -55,7 +55,7 @@ const TrackCardTop = ({ track, rank }: TrackCardTopProps) => (
 );
 
 TrackCardTop.defaultProps = {
-    rank: null,
+    rank: undefined,
 };
 
 type TrackCardBodyProps = {
