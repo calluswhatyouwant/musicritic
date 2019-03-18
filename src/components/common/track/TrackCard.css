@@ -12,9 +12,7 @@
     border-radius: 50%;
     position: relative;
     width: 3rem;
-    margin-bottom: 0;
-    margin-left: auto;
-    margin-right: .5rem;
+    margin: 0 .5rem 0 auto;
     top: -3.5rem;
     font-size: 1.5rem;
     font-weight: 500;
