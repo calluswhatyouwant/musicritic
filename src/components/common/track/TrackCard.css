@@ -1,0 +1,33 @@
+.track-card-top--with-rank {
+    margin-bottom: -3rem;
+}
+
+.track-card-top__img {
+    height: auto;
+    width: 100%;
+}
+
+.track-card-top__rank {
+    background: linear-gradient(120deg, #000000ee, #434343ee);
+    border-radius: 50%;
+    position: relative;
+    width: 3rem;
+    margin: 0 .5rem 0 auto;
+    top: -3.5rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 3rem;
+    text-align: center;
+}
+
+.track-card-body, .track-card-footer {
+    text-align: center;
+}
+
+.track-card-body__name {
+    margin-bottom: .5rem;
+}
+
+.track-card-body__artists {
+    margin-bottom: 0;
+}

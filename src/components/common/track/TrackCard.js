@@ -3,12 +3,18 @@
 import React from 'react';
 import { Track } from 'spotify-web-sdk';
 
+import './TrackCard.css';
+
 type Props = {
     track: Track,
     handleClick: (track: Track) => void,
+    rank?: number,
+    relativeTime?: string,
 };
 
-const TrackCard = ({ track, handleClick }: Props) => {
+const TrackCard = ({
+    track, handleClick, rank, relativeTime,
+}: Props) => {
     const clickableProps = {
         onClick: handleClick,
         tabIndex: 0,
@@ -17,20 +23,64 @@ const TrackCard = ({ track, handleClick }: Props) => {
     };
 
     return (
-        <div className="card text-center" {...clickableProps}>
-            <img
-              className="card-img-top"
-              src={track.album.imageUrl}
-              alt="Top"
-            />
-            <div className="card-body">
-                <h6 className="card-subtitle mb-2 text-muted text-truncate">
-                    {track.name}
-                </h6>
-                <p className="card-text text-truncate">{track.stringArtists}</p>
-            </div>
+        <div className="card" {...clickableProps}>
+            <TrackCardTop track={track} rank={rank} />
+            <TrackCardBody track={track} />
+            {relativeTime && <TrackCardFooter relativeTime={relativeTime} />}
         </div>
     );
 };
+
+TrackCard.defaultProps = {
+    rank: undefined,
+    relativeTime: '',
+};
+
+type TrackCardTopProps = {
+    track: Track,
+    rank?: number,
+};
+
+const TrackCardTop = ({ track, rank }: TrackCardTopProps) => (
+    <div className={rank ? 'track-card-top--with-rank' : ''}>
+        <img
+          className="track-card-top__img"
+          src={track.album.imageUrl}
+          alt={track.name}
+        />
+        <p className="track-card-top__rank text-light shadow">
+            {rank}
+        </p>
+    </div>
+);
+
+TrackCardTop.defaultProps = {
+    rank: undefined,
+};
+
+type TrackCardBodyProps = {
+    track: Track,
+};
+
+const TrackCardBody = ({ track }: TrackCardBodyProps) => (
+    <article className="card-body track-card-body">
+        <h6 className="track-card-body__name card-subtitle text-truncate">
+            {track.name}
+        </h6>
+        <p className="track-card-body__artists text-muted text-truncate">
+            {track.stringArtists}
+        </p>
+    </article>
+);
+
+type TrackCardFooterProps = {
+    relativeTime: string,
+};
+
+const TrackCardFooter = ({ relativeTime }: TrackCardFooterProps) => (
+    <div className="track-card-footer card-footer text-muted">
+        {relativeTime}
+    </div>
+);
 
 export default TrackCard;
