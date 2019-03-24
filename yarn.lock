@@ -374,6 +374,11 @@
     "@types/node" "*"
     "@types/request" "*"
 
+"@types/lodash@^4.14.121":
+  version "4.14.123"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.123.tgz#39be5d211478c8dd3bdae98ee75bb7efe4abfe4d"
+  integrity sha512-pQvPkc4Nltyx7G1Ww45OjVqUsJP4UsZm+GWJpigXgkikZqJgRm4c48g027o6tdgubWHwFRF15iFd+Y4Pmqv6+Q==
+
 "@types/long@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.0.tgz#719551d2352d301ac8b81db732acb6bdc28dbdef"
@@ -8009,12 +8014,14 @@ split@0.3:
   dependencies:
     through "2"
 
-spotify-web-sdk@^0.3.0:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/spotify-web-sdk/-/spotify-web-sdk-0.3.1.tgz#17cf41aeac0ba60d1e26ced45402d5821417c747"
-  integrity sha512-l9eqpB/LCoEq+9IsiOVKUfINn/DNhRt8+GUTGkarK7KY9mFTsWratfxrcsjwoPDJiLkDaUALlJPT4zVyPZPhDQ==
+spotify-web-sdk@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/spotify-web-sdk/-/spotify-web-sdk-0.5.0.tgz#db6efd854f4e76aa281c2059898b109abc5263c6"
+  integrity sha512-iyQUZad5Ekrn5vxareGxuR1TWLlQqocZKJhh5VAKbR9WayvskAWWxnx4Dvpa9WS03jjCTL9CVRpVKqAwSdLZXg==
   dependencies:
+    "@types/lodash" "^4.14.121"
     axios "^0.18.0"
+    lodash "^4.17.11"
 
 sprintf-js@~1.0.2:
   version "1.0.3"
