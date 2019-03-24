@@ -7,12 +7,12 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import TrackCard from '../track/TrackCard';
+import TrackCard from '../common/track/TrackCard';
 
 import './TrackCarousel.css';
 
 type Props = {
-    tracks: Array<Track>,
+    tracks: Track[],
     history: any,
 };
 
@@ -34,6 +34,7 @@ class TrackCarousel extends Component<Props> {
                 <TrackCard
                   track={track}
                   handleClick={() => this.handleClick(track)}
+                  rank={key + 1}
                 />
             </div>
         );
@@ -47,7 +48,11 @@ class TrackCarousel extends Component<Props> {
             speed: 2000,
         };
 
-        return <Slider {...sliderSettings}>{slides}</Slider>;
+        return (
+            <Slider {...sliderSettings}>
+                {slides}
+            </Slider>
+        );
     }
 }
 

@@ -3,18 +3,19 @@
 import React, { Component } from 'react';
 import { Track, PlayHistory, CurrentlyPlaying } from 'spotify-web-sdk';
 
-import TrackCarousel from '../common/track/TrackCarousel';
-import SocialButton from './../common/social-button/SocialButton';
-
 import {
     getRecentlyPlayedTracks,
     getTopPlayedTracks,
     getCurrentUserCurrentlyPlayingTrack,
 } from '../../api/SpotifyWebAPI';
 
+import CurrentlyPlayingTrackSection from './CurrentlyPlayingTrackSection';
+import RecentTracksSection from './RecentTracksSection';
+import TopTracksSection from './TopTracksSection';
+
+import SocialButton from '../common/social-button/SocialButton';
+
 import './UserPage.css';
-import RecentTracksCarousel from '../common/track/RecentTracksCarousel';
-import CurrentlyPlayingTrack from './CurrentlyPlayingTrack';
 
 type Props = {
     history: any,
@@ -43,7 +44,8 @@ class UserPage extends Component<Props, State> {
         getRecentlyPlayedTracks().then(recentTracks =>
             this.setState({ recentTracks }));
 
-        getTopPlayedTracks().then(topTracks => this.setState({ topTracks }));
+        getTopPlayedTracks().then(topTracks =>
+            this.setState({ topTracks }));
     }
 
     render() {
@@ -52,28 +54,26 @@ class UserPage extends Component<Props, State> {
 
         if (localStorage.getItem('token')) {
             return (
-                <div>
-                    <h1 className="display-3">You are listening to</h1>
-                    <CurrentlyPlayingTrack
+                <React.Fragment>
+                    <CurrentlyPlayingTrackSection
                       history={history}
                       currentlyPlaying={currentlyPlaying}
                     />
-                    <h1 className="display-3">Your recently played tracks</h1>
-                    <RecentTracksCarousel
+                    <TopTracksSection
                       history={history}
-                      tracks={recentTracks}
+                      topTracks={topTracks}
                     />
-                    <h1 className="display-3">Your top played tracks</h1>
-                    <TrackCarousel
+                    <RecentTracksSection
                       history={history}
-                      tracks={topTracks}
+                      recentTracks={recentTracks}
                     />
-                </div>
+                </React.Fragment>
             );
         }
         return <SpotifyConnect />;
     }
 }
+
 
 const SpotifyConnect = () => {
     const serverBaseUri = process.env.SERVER_BASE_URL || '';
