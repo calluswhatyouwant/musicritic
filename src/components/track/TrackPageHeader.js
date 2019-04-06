@@ -3,45 +3,36 @@
 import React from 'react';
 import { Track } from 'spotify-web-sdk';
 
+import CustomPalette from '../common/palette/CustomPalette';
 import SocialButton from '../common/social-button/SocialButton';
+
+import './TrackPageHeader.css';
 
 type Props = {
     track: Track,
 };
 
 const TrackPageHeader = ({ track }: Props) => (
-    <div className="header">
-        <HeaderBackground imageUrl={track.album.imageUrl} />
-        <HeaderContent track={track} />
-    </div>
-);
-
-type BackgroundProps = {
-    imageUrl: string,
-};
-
-const HeaderBackground = ({ imageUrl }: BackgroundProps) => {
-    const style = {
-        backgroundImage: `url(${imageUrl})`,
-    };
-
-    return <div className="background" style={style} />;
-};
-
-const HeaderContent = ({ track }: Props) => (
-    <div className="content">
-        <img alt="Album" className="center-image" src={track.album.imageUrl} />
-        <TrackInfo track={track} />
-    </div>
+    <CustomPalette imageUrl={track.album.imageUrl}>
+        <div className="track-page-header">
+            <div className="track-page-header__data">
+                <img
+                  alt="Album"
+                  className="track-page-header__cover shadow-lg"
+                  src={track.album.imageUrl}
+                />
+                <TrackInfo track={track} />
+            </div>
+        </div>
+    </CustomPalette>
 );
 
 const TrackInfo = ({ track }: Props) => (
-    <div className="text-center text-light">
+    <div className="text-center track-info">
         <h1>{track.name}</h1>
         <h4>by {track.stringArtists}</h4>
         <p>
-            {track.albumName} &bull; {track.releaseYear} &bull;
-            {track.formattedDuration}
+            {track.albumName} &bull; {track.releaseYear} &bull; {track.length}
         </p>
         <SpotifyButton trackUrl={track.externalUrls.spotify} />
     </div>
