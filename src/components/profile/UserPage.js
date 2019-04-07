@@ -65,10 +65,11 @@ class UserPage extends Component<Props, State> {
         if (localStorage.getItem('token')) {
             return (
                 <Fragment>
-                    <CurrentlyPlayingTrackSection
-                      history={history}
-                      currentlyPlaying={currentlyPlaying}
-                    />
+                    {currentlyPlaying.isPlaying &&
+                        <CurrentlyPlayingTrackSection
+                          history={history}
+                          currentlyPlaying={currentlyPlaying}
+                        />}
                     <UserTracksSection
                       display={display}
                       history={history}
