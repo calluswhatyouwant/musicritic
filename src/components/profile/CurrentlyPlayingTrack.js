@@ -3,6 +3,8 @@
 import React from 'react';
 import { CurrentlyPlaying, Track } from 'spotify-web-sdk';
 
+import CustomPalette from '../common/palette/CustomPalette';
+
 import './CurrentlyPlayingTrack.css';
 
 type Props = {
@@ -20,17 +22,19 @@ const CurrentlyPlayingTrack = ({ currentlyPlaying, history }: Props) => {
         };
 
         return (
-            <div
-              className="currently-playing-track border shadow-sm row"
-              {...clickableProps}
-            >
-                <CurrentlyPlayingTrackImage
-                  track={currentlyPlaying.item}
-                />
-                <CurrentlyPlayingTrackInfo
-                  track={currentlyPlaying.item}
-                />
-            </div>
+            <CustomPalette imageUrl={currentlyPlaying.item.album.imageUrl}>
+                <div
+                  className="currently-playing-track shadow row"
+                  {...clickableProps}
+                >
+                    <CurrentlyPlayingTrackImage
+                      track={currentlyPlaying.item}
+                    />
+                    <CurrentlyPlayingTrackInfo
+                      track={currentlyPlaying.item}
+                    />
+                </div>
+            </CustomPalette>
         );
     }
 
@@ -64,7 +68,7 @@ const CurrentlyPlayingTrackInfo = ({ track }: InfoProps) => (
             <h1 className="display-4 text-truncate">
                 {track.name}
             </h1>
-            <h4 className="text-muted text-truncate">
+            <h4 className="text-truncate">
                 From the album <i>{track.album.name}</i>
             </h4>
         </article>
