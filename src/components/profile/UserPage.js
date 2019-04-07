@@ -50,7 +50,7 @@ class UserPage extends Component<Props, State> {
             this.setState({ topTracks }));
     }
 
-    handleClick() {
+    handleClick = () => {
         const invertDisplay = (this.state.display === 'TOP' ? 'RECENT' : 'TOP');
         this.setState({ display: invertDisplay });
     }
@@ -71,6 +71,7 @@ class UserPage extends Component<Props, State> {
                     />
                     <UserTracksSection
                       display={display}
+                      history={history}
                       onClick={this.handleClick}
                       tracks={tracks}
                     />

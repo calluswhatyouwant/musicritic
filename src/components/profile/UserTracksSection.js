@@ -11,7 +11,7 @@ import './UserTracksSection.css';
 type Props = {
     display: string,
     history: any,
-    onClick: (display: string) => {},
+    onClick: (display: string) => void,
     tracks: Track[] | PlayHistory[],
 };
 
