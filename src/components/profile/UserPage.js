@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Track, PlayHistory, CurrentlyPlaying } from 'spotify-web-sdk';
 
 import {
@@ -10,8 +10,7 @@ import {
 } from '../../api/SpotifyWebAPI';
 
 import CurrentlyPlayingTrackSection from './CurrentlyPlayingTrackSection';
-import RecentTracksSection from './RecentTracksSection';
-import TopTracksSection from './TopTracksSection';
+import UserTracksSection from './UserTracksSection';
 
 import SocialButton from '../common/social-button/SocialButton';
 
@@ -23,6 +22,7 @@ type Props = {
 
 type State = {
     currentlyPlaying: CurrentlyPlaying,
+    display: 'TOP' | 'RECENT',
     recentTracks: PlayHistory[],
     topTracks: Track[],
 };
@@ -32,9 +32,11 @@ class UserPage extends Component<Props, State> {
         super(props);
         this.state = {
             currentlyPlaying: {},
+            display: 'TOP',
             recentTracks: [],
             topTracks: [],
         };
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
@@ -48,26 +50,33 @@ class UserPage extends Component<Props, State> {
             this.setState({ topTracks }));
     }
 
+    handleClick = () => {
+        const invertDisplay = (this.state.display === 'TOP' ? 'RECENT' : 'TOP');
+        this.setState({ display: invertDisplay });
+    }
+
     render() {
         const { history } = this.props;
-        const { currentlyPlaying, recentTracks, topTracks } = this.state;
+        const {
+            currentlyPlaying, display, recentTracks, topTracks,
+        } = this.state;
+        const tracks = (display === 'TOP' ? topTracks : recentTracks);
 
         if (localStorage.getItem('token')) {
             return (
-                <React.Fragment>
-                    <CurrentlyPlayingTrackSection
+                <Fragment>
+                    {currentlyPlaying.isPlaying &&
+                        <CurrentlyPlayingTrackSection
+                          history={history}
+                          currentlyPlaying={currentlyPlaying}
+                        />}
+                    <UserTracksSection
+                      display={display}
                       history={history}
-                      currentlyPlaying={currentlyPlaying}
+                      onClick={this.handleClick}
+                      tracks={tracks}
                     />
-                    <TopTracksSection
-                      history={history}
-                      topTracks={topTracks}
-                    />
-                    <RecentTracksSection
-                      history={history}
-                      recentTracks={recentTracks}
-                    />
-                </React.Fragment>
+                </Fragment>
             );
         }
         return <SpotifyConnect />;

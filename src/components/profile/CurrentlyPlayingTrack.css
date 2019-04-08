@@ -1,8 +1,40 @@
 .currently-playing-track {
-    border-radius: .25rem;
-    background-color: white;
+    border-radius: 1rem;
+    position: relative;
     height: fit-content;
     padding: 1rem;
+}
+
+.currently-playing-track::before {
+    border-radius: 1rem;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0.5;
+    /* Gradient made with https://larsenwork.com/easing-gradients/ */
+    background:
+        linear-gradient(
+          to right,
+          hsla(0, 0%, 0%, 0.8) 0%,
+          hsla(0, 0%, 0%, 0.79) 8.1%,
+          hsla(0, 0%, 0%, 0.761) 15.5%,
+          hsla(0, 0%, 0%, 0.717) 22.5%,
+          hsla(0, 0%, 0%, 0.66) 29%,
+          hsla(0, 0%, 0%, 0.593) 35.3%,
+          hsla(0, 0%, 0%, 0.518) 41.2%,
+          hsla(0, 0%, 0%, 0.44) 47.1%,
+          hsla(0, 0%, 0%, 0.36) 52.9%,
+          hsla(0, 0%, 0%, 0.282) 58.8%,
+          hsla(0, 0%, 0%, 0.207) 64.7%,
+          hsla(0, 0%, 0%, 0.14) 71%,
+          hsla(0, 0%, 0%, 0.083) 77.5%,
+          hsla(0, 0%, 0%, 0.039) 84.5%,
+          hsla(0, 0%, 0%, 0.01) 91.9%,
+          hsla(0, 0%, 0%, 0) 100%
+        );
 }
 
 .currently-playing-track-image {
