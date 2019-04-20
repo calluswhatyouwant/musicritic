@@ -53,9 +53,8 @@ Access [Firebase](https://console.firebase.google.com/) with your Google Account
 3. Click in the symbol `</>`
 4. Copy your `apiKey`, `authDomain`, `databaseURL` and put it in the the `.env`
 5. Go to *Project Configuration > Service Accounts*
-6. Click in Create a new Private Key and save the file where you want
-7. Place the path to your file at the `FIREBASE_SERVICE_ACCOUNT` fild in `.env`
-
+6. Click in *Create a new Private Key* and save the file in a safe place, please don't commit this file
+7. Place the *full path* to your file at the `FIREBASE_SERVICE_ACCOUNT` fild in `.env`
 
 With both configured, you're ready to run **Musicritic**!
 
