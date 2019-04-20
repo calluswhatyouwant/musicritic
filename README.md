@@ -49,7 +49,7 @@ Access [Spotify Developer](https://developer.spotify.com/dashboard/) with your *
 Access [Firebase](https://console.firebase.google.com/) with your Google Account and follow these steps:
 
 1. Add a new project
-2. Go to *Project Overfiw*
+2. Go to *Project Overview*
 3. Click in the symbol `</>`
 4. Copy your `apiKey`, `authDomain`, `databaseURL` and put it in the the `.env`
 5. Go to *Project Configuration > Service Accounts*
