@@ -28,13 +28,54 @@ Please, note that we have a [Code of Conduct](.github/CODE_OF_CONDUCT.md), which
 
 ### Installation and Usage
 
-After cloning this repository, you'll need to install the dependencies. We suggest using yarn, so you should run `yarn install`.
+Before getting to run **Musicritic** itself, you'll need to set up some environment variables. For this purpose, you'll need to create two integrations: one with [Spotify](https://developer.spotify.com/dashboard/) and the other one with [Firebase](https://console.firebase.google.com/). Both are very simple to configure, so don't let these additional steps scare you out!
 
-Before getting to run Musicritic itself, you'll need to set up some environment variables. For this purpose, you'll need to create two integrations: one with [Spotify](https://developer.spotify.com/dashboard/) and the other one with [Firebase](https://console.firebase.google.com/). Both are very simple to configure, so don't let these additional steps scare you out!
+#### Configure Spotify and Firebase
 
-With both configured, you'll just have to create a .env file in the root folder of Musicritic and fill it with information to link your applications with Musicritic. Check .env.example and simply fill in the required fields. Now, you should be ready to go... If you got stuck in the middle of the process, make sure to contact us at calluswhatuwant@gmail.com so that we can help you out!
+Create a new file named `.env` with the same fields as the `.env.example` file. You're going to fill this file with information to link Spotify and Firebase with **Musicritic**.
 
-With everything set, all that is left to do is run Musicritic. We suggest running `yarn dev`, which runs both client and server concurrently. If you'd rather run each one separately, `yarn client` and `yarn server`, respectively, are your go-to commands.
+##### Spotify
+
+Access [Spotify Developer](https://developer.spotify.com/dashboard/) with your *Spotify Account* and follow these steps:
+
+1. Create a new `Client ID` in *DashBoard*
+2. Fill the information that Spotify asks
+3. After created, put the `Client ID` and `Client Secret ID` in the `.env`
+4. Go to **Edit Settings** at your Spotify Client ID
+5. Set the **Redirect URLs** to `http://localhost:5000/auth/callback`
+
+##### Firebase
+
+Access [Firebase](https://console.firebase.google.com/) with your Google Account and follow these steps:
+
+1. Add a new project
+2. Go to *Project Overfiw*
+3. Click in the symbol `</>`
+4. Copy your `apiKey`, `authDomain`, `databaseURL` and put it in the the `.env`
+5. Go to *Project Configuration > Service Accounts*
+6. Click in Create a new Private Key and save the file where you want
+7. Place the path to your file at the `FIREBASE_SERVICE_ACCOUNT` fild in `.env`
+
+
+With both configured, you're ready to run **Musicritic**!
+
+#### Staring Musicritic
+
+With *Firebase* and *Spotify* configured, now you'll need to install the dependencies. We suggest using [*yarn*](https://yarnpkg.com/en/):
+
+```sh
+yarn install
+```
+
+With everything set, to run both **client** and **server**, use:
+
+```sh
+yarn dev
+```
+
+Access your http://localhost:3000 and Voila! If you got stuck in the middle of the process, make sure to contact us at calluswhatuwant@gmail.com so that we can help you out!
+
+> If you'd rather run each one separately, `yarn client` and `yarn server`, respectively, are your go-to commands.
 
 This is it! Now, if you make any modifications, the application should update itself automatically.
 
