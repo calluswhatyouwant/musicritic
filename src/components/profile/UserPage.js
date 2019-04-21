@@ -1,12 +1,11 @@
 /* @flow */
 
 import React, { Component, Fragment } from 'react';
-import { Track, PlayHistory, CurrentlyPlaying } from 'spotify-web-sdk';
+import { Track, PlayHistory } from 'spotify-web-sdk';
 
 import {
     getRecentlyPlayedTracks,
     getTopPlayedTracks,
-    getCurrentUserCurrentlyPlayingTrack,
 } from '../../api/SpotifyWebAPI';
 
 import CurrentlyPlayingTrackSection from './CurrentlyPlayingTrackSection';
@@ -21,7 +20,6 @@ type Props = {
 };
 
 type State = {
-    currentlyPlaying: CurrentlyPlaying,
     display: 'TOP' | 'RECENT',
     recentTracks: PlayHistory[],
     topTracks: Track[],
@@ -31,7 +29,6 @@ class UserPage extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            currentlyPlaying: {},
             display: 'TOP',
             recentTracks: [],
             topTracks: [],
@@ -40,9 +37,6 @@ class UserPage extends Component<Props, State> {
     }
 
     componentDidMount() {
-        getCurrentUserCurrentlyPlayingTrack().then(currentlyPlaying =>
-            this.setState({ currentlyPlaying }));
-
         getRecentlyPlayedTracks().then(recentTracks =>
             this.setState({ recentTracks }));
 
@@ -58,18 +52,16 @@ class UserPage extends Component<Props, State> {
     render() {
         const { history } = this.props;
         const {
-            currentlyPlaying, display, recentTracks, topTracks,
+            display, recentTracks, topTracks,
         } = this.state;
         const tracks = (display === 'TOP' ? topTracks : recentTracks);
 
         if (localStorage.getItem('token')) {
             return (
                 <Fragment>
-                    {currentlyPlaying.isPlaying &&
-                        <CurrentlyPlayingTrackSection
-                          history={history}
-                          currentlyPlaying={currentlyPlaying}
-                        />}
+                    <CurrentlyPlayingTrackSection
+                      history={history}
+                    />
                     <UserTracksSection
                       display={display}
                       history={history}
