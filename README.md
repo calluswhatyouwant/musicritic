@@ -55,6 +55,8 @@ Access [Firebase](https://console.firebase.google.com/) with your Google Account
 5. Go to *Project Configuration > Service Accounts*
 6. Click in *Create a new Private Key* and save the file in a safe place, please don't commit this file
 7. Place the *full path* to your file at the `FIREBASE_SERVICE_ACCOUNT` fild in `.env`
+8. On the sidebar menu, click on "Authentication", "Sign-in Method" tab and enable "Email/password" (same could be done with Google, Facebook and Twitter).
+9. Let's create our user! Select "Users" tab, click on "Add User". Set "Email" and "Password". Use this credentials to log in on the application.
 
 With both configured, you're ready to run **Musicritic**!
 
@@ -72,7 +74,7 @@ With everything set, to run both **client** and **server**, use:
 yarn dev
 ```
 
-Access your http://localhost:3000 and Voila! If you got stuck in the middle of the process, make sure to contact us at calluswhatuwant@gmail.com so that we can help you out!
+Access your http://localhost:3000, use the credentials you've configured on below steps and Voila! If you got stuck in the middle of the process, make sure to contact us at calluswhatuwant@gmail.com so that we can help you out!
 
 > If you'd rather run each one separately, `yarn client` and `yarn server`, respectively, are your go-to commands.
 
