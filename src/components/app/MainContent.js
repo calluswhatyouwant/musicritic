@@ -14,14 +14,21 @@ import TrackPage from '../track/TrackPage';
 
 const MainContent = () => (
     <Switch>
-        <ContainerizedRoute exact path="/" component={LoginPage} />
-        <ContainerizedRoute exact path="/home" component={UserPage} />
-        <ContainerizedRoute exact path="/signup" component={SignupPage} />
+        <ContainerizedRoute exact path="/">
+            <LoginPage />
+        </ContainerizedRoute>
+        <ContainerizedRoute exact path="/home">
+            <UserPage />
+        </ContainerizedRoute>
+        <ContainerizedRoute exact path="/signup">
+            <SignupPage />
+        </ContainerizedRoute>
         <ContainerizedRoute
           exact
           path="/search/(tracks|artists|playlists|albums)/:query"
-          component={SearchResultsPage}
-        />
+        >
+            <SearchResultsPage />
+        </ContainerizedRoute>
         <Route exact path="/auth/:token/:refresh" component={Auth} />
         <Route exact path="/album/:id/(reviews|)" component={AlbumPage} />
         <Route exact path="/track/:id" component={TrackPage} />

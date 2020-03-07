@@ -1,51 +1,25 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import SearchResult from './SearchResult';
 import SearchResultsNav from './SearchResultsNav';
 import { search } from '../../api/SpotifyWebAPI';
+import { usePromise } from '../../utils/hooks';
 
-type Props = {
-    match: any,
+const SearchResultsPage = () => {
+    const { query } = useParams();
+    const [results, error, loading] = usePromise(search(query), {}, [query]);
+
+    return (
+        <div>
+            <SearchResultsNav query={query} />
+            {loading && !error ? null : (
+                <SearchResult results={results} />
+            )}
+        </div>
+    );
 };
-
-type State = {
-    results: any,
-};
-
-class SearchResultsPage extends Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = { results: {} };
-    }
-
-    componentDidMount() {
-        this.updateResults(this.props.match.params.query);
-    }
-
-    componentWillReceiveProps(nextProps: Props) {
-        const oldQuery = this.props.match.params.query;
-        const newQuery = nextProps.match.params.query;
-        if (oldQuery !== newQuery) {
-            this.updateResults(newQuery);
-        }
-    }
-
-    updateResults(query: string) {
-        search(query).then(results => this.setState({ results }));
-    }
-
-    render() {
-        return (
-            <div>
-                <SearchResultsNav query={this.props.match.params.query} />
-                {this.state.results.albums ? (
-                    <SearchResult results={this.state.results} />
-                ) : null}
-            </div>
-        );
-    }
-}
 
 export default SearchResultsPage;
