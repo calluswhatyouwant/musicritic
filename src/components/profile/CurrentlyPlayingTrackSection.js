@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, Fragment } from 'react';
 import { getCurrentUserCurrentlyPlayingTrack } from '../../api/SpotifyWebAPI';
-import useInterval from '../../utils/hooks';
+import { useInterval } from '../../utils/hooks';
 import CurrentlyPlayingTrack from './CurrentlyPlayingTrack';
 
 type CurrentlyPlayingTrackSectionProps = {

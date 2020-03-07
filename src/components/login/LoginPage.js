@@ -1,37 +1,29 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import LoginForm from './LoginForm';
 import SocialButton from '../common/social-button/SocialButton';
 
-type Props = {
-    history: any;
-};
+const LoginPage = () => {
+    const history = useHistory();
 
-class LoginPage extends Component<Props> {
-    constructor(props: Props) {
-        super(props);
-        this.handleLogin = this.handleLogin.bind(this);
-    }
+    const handleLogin = () => {
+        history.push('/home');
+    };
 
-    handleLogin = () => {
-        this.props.history.push('/home');
-    }
-
-    render() {
-        return (
-            <div className="row justify-content-center">
-                <div className="col-sm-12 col-md-7 col-lg-5">
-                    <h1 className="text-center">Login with</h1>
-                    <LoginButtonGroup onLogin={this.handleLogin} />
-                    <Separator />
-                    <LoginForm onLogin={this.handleLogin} />
-                </div>
+    return (
+        <div className="row justify-content-center">
+            <div className="col-sm-12 col-md-7 col-lg-5">
+                <h1 className="text-center">Login with</h1>
+                <LoginButtonGroup onLogin={handleLogin} />
+                <Separator />
+                <LoginForm onLogin={handleLogin} />
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 const LoginButtonGroup = () => (
     <div className="signup-btn-group row">

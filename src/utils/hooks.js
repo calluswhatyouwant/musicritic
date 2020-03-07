@@ -1,7 +1,25 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
+
+export const usePromise = (promise, initialData, deps) => {
+    const [data, setData] = useState(initialData);
+    const [error, setError] = useState();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        promise.then((result) => {
+            setData(result);
+        }).catch((e) => {
+            setError(e);
+        }).finally(() => {
+            setLoading(false);
+        });
+    }, deps);
+
+    return [data, error, loading];
+};
 
 // Made by Dan Abramov.
-export default function useInterval(callback, delay) {
+export const useInterval = (callback, delay) => {
     const savedCallback = useRef();
 
     // Remember the latest callback.
@@ -21,4 +39,4 @@ export default function useInterval(callback, delay) {
 
         return null;
     }, [delay]);
-}
+};

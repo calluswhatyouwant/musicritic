@@ -1,7 +1,6 @@
 /* @flow */
-
-import React, { Component, Fragment } from 'react';
-import { Track, PlayHistory } from 'spotify-web-sdk';
+import React, { Fragment, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import {
     getRecentlyPlayedTracks,
@@ -14,66 +13,37 @@ import UserTracksSection from './UserTracksSection';
 import SocialButton from '../common/social-button/SocialButton';
 
 import './UserPage.css';
+import { usePromise } from '../../utils/hooks';
 
-type Props = {
-    history: any,
+const UserPage = () => {
+    const [display, setDisplay] = useState('TOP');
+    const [recentTracks] = usePromise(getRecentlyPlayedTracks(), [], []);
+    const [topTracks] = usePromise(getTopPlayedTracks(), [], []);
+
+    const history = useHistory();
+
+    const handleClick = () => {
+        setDisplay(display === 'TOP' ? 'RECENT' : 'TOP');
+    };
+
+    const tracks = (display === 'TOP' ? topTracks : recentTracks);
+
+    if (localStorage.getItem('token')) {
+        return (
+            <Fragment>
+                <CurrentlyPlayingTrackSection history={history} />
+                <UserTracksSection
+                  display={display}
+                  history={history}
+                  onClick={handleClick}
+                  tracks={tracks}
+                />
+            </Fragment>
+        );
+    }
+
+    return <SpotifyConnect />;
 };
-
-type State = {
-    display: 'TOP' | 'RECENT',
-    recentTracks: PlayHistory[],
-    topTracks: Track[],
-};
-
-class UserPage extends Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = {
-            display: 'TOP',
-            recentTracks: [],
-            topTracks: [],
-        };
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    componentDidMount() {
-        getRecentlyPlayedTracks().then(recentTracks =>
-            this.setState({ recentTracks }));
-
-        getTopPlayedTracks().then(topTracks =>
-            this.setState({ topTracks }));
-    }
-
-    handleClick = () => {
-        const invertDisplay = (this.state.display === 'TOP' ? 'RECENT' : 'TOP');
-        this.setState({ display: invertDisplay });
-    }
-
-    render() {
-        const { history } = this.props;
-        const {
-            display, recentTracks, topTracks,
-        } = this.state;
-        const tracks = (display === 'TOP' ? topTracks : recentTracks);
-
-        if (localStorage.getItem('token')) {
-            return (
-                <Fragment>
-                    <CurrentlyPlayingTrackSection
-                      history={history}
-                    />
-                    <UserTracksSection
-                      display={display}
-                      history={history}
-                      onClick={this.handleClick}
-                      tracks={tracks}
-                    />
-                </Fragment>
-            );
-        }
-        return <SpotifyConnect />;
-    }
-}
 
 
 const SpotifyConnect = () => {

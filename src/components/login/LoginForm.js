@@ -44,9 +44,8 @@ export default withFormik({
     handleSubmit: (values, { props, setSubmitting }) => {
         signInWithEmailAndPassword(values.email, values.password)
             .then(() => props.onLogin())
-            .catch((error) => {
+            .catch(() => {
                 setSubmitting(false);
-                console.log(error);
             });
     },
 })(LoginForm);

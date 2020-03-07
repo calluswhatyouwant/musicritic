@@ -6,18 +6,21 @@ import { Route } from 'react-router-dom';
 import './ContainerizedRoute.css';
 
 type Props = {
-    component: any,
+    children: any,
 };
 
-const wrapComponent = (Component: any, props: any) => (
-    <div className="main container"><Component {...props} /></div>
+const Container = ({ children }: any) => (
+    <div className="main container">
+        {children}
+    </div>
 );
 
-const ContainerizedRoute = ({ component, ...rest }: Props) => (
-    <Route
-      {...rest}
-      render={props => wrapComponent(component, props)}
-    />
+const ContainerizedRoute = ({ children, ...args }: Props) => (
+    <Route {...args}>
+        <Container>
+            {children}
+        </Container>
+    </Route>
 );
 
 export default ContainerizedRoute;
