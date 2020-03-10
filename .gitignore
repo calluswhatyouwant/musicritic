@@ -1,7 +1,6 @@
-/dist/
-/public/
-/node_modules/
-/.vscode/
-/.idea/
+dist/
+node_modules/
+.vscode/
+.idea/
 *.log
 .env
