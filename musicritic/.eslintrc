@@ -1,29 +1,19 @@
 {
     "parser": "babel-eslint",
-    "extends": "airbnb",
+    "extends": ["airbnb", "prettier", "prettier/react"],
     "env": {
         "browser": true,
         "node": true
     },
-    "plugins": [
-        "react",
-        "flowtype",
-        "jsx-a11y",
-        "import"
-    ],
+    "plugins": ["react", "flowtype", "jsx-a11y", "import"],
     "rules": {
-        "max-len": ["error", {
-            "code": 80
-        }],
         "linebreak-style": 0,
         "react/jsx-filename-extension": [1, {
-                "extensions": [".js", ".jsx"]
-            }
-        ],
+            "extensions": [".js", ".jsx"]
+        }],
         "react/prefer-stateless-function": [2, {
-                "ignorePureComponents": true
-            }
-        ],
+            "ignorePureComponents": true
+        }],
         "react/forbid-prop-types": [0, {
             "forbid": []
         }],
@@ -31,14 +21,9 @@
             "svg": "always"
         }],
         "import/no-extraneous-dependencies": ["error", {
-                "devDependencies": true,
-                "optionalDependencies": false,
-                "peerDependencies": false
-            }
-        ],
-        "indent": ["error", 4, {
-            "ignoredNodes": ["JSXElement *", "JSXElement"]
-        }],
-        "react/jsx-indent": ["error", 4]
+            "devDependencies": true,
+            "optionalDependencies": false,
+            "peerDependencies": false
+        }]
     }
 }

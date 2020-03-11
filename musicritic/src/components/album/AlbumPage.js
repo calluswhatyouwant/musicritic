@@ -44,13 +44,14 @@ class AlbumPage extends Component<Props, State> {
     }
 
     updateAlbumData(id: string) {
-        getAlbum(id).then((album) => {
+        getAlbum(id).then(album => {
             const mainArtist = album.artists[0];
             this.setState({ album, mainArtist });
             getArtistAlbums(mainArtist.id, ['album']).then(artistAlbums =>
                 this.setState({
                     artistAlbums: _.uniqBy(artistAlbums.items, 'name'),
-                }));
+                })
+            );
         });
     }
 
@@ -65,7 +66,9 @@ class AlbumPage extends Component<Props, State> {
         return (
             <div className="row album-page border container shadow-sm">
                 {wrapComponent(AlbumSummary, {
-                    album, artistAlbums, mainArtist,
+                    album,
+                    artistAlbums,
+                    mainArtist,
                 })}
                 {wrapComponent(AlbumPageContent, { album })}
             </div>

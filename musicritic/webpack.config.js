@@ -3,20 +3,23 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = require('./config');
 const path = require('path');
+const dotenv = require('dotenv');
 
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+    dotenv.config({ path: path.join(__dirname, '..', '.env') });
+}
 
 module.exports = {
-    entry: path.join(__dirname, '/src/index.js'),
+    entry: path.join(__dirname, 'src/index.js'),
     devtool: 'source-map',
     output: {
-        path: path.join(__dirname, '/dist'),
+        path: path.join(__dirname, 'dist/'),
         filename: 'app.bundle.js',
         publicPath: '/',
     },
     devServer: {
         port: process.env.CLIENT_PORT || 3000,
-        contentBase: path.join(__dirname, '/dist'),
+        contentBase: path.join(__dirname, 'dist/'),
         historyApiFallback: true,
     },
     stats: {
@@ -49,11 +52,6 @@ module.exports = {
                 },
             },
             {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: ['eslint-loader'],
-            },
-            {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
@@ -71,7 +69,7 @@ module.exports = {
         new webpack.EnvironmentPlugin(config),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: path.join(__dirname, '/public/index.html'),
+            template: path.join(__dirname, 'public/index.html'),
         }),
     ],
 };

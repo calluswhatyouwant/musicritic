@@ -21,7 +21,8 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
         
       - run: yarn lint
-      - run: yarn flow
+      - run: yarn check-flow
+      - run: yarn check-format
 
 deployment:
   production:
