@@ -76,7 +76,7 @@ yarn start
 
 Access your http://localhost:3000, use the credentials you've configured on below steps and Voila! If you got stuck in the middle of the process, make sure to contact us at calluswhatuwant@gmail.com so that we can help you out!
 
-> If you'd rather run each one separately, you can run `yarn start` on `musicritic/` folder for the client and on `server/` folder for the server.
+> If you'd rather run each one separately, you can run `yarn start` in the `musicritic/` folder for the client and in the `server/` folder for the server.
 
 This is it! Now, if you make any modifications, the application should update itself automatically.
 
