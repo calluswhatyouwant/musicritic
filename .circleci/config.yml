@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
 
     working_directory: ~/repo
 
@@ -21,7 +21,8 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
         
       - run: yarn lint
-      - run: yarn flow
+      - run: yarn check-flow
+      - run: yarn check-format
 
 deployment:
   production:

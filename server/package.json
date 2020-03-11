@@ -1,0 +1,32 @@
+{
+    "name": "musicritic-server",
+    "version": "0.0.1-alpha",
+    "repository": "https://github.com/calluswhatyouwant/musicritic.git",
+    "contributors": [
+        "José Renan <joserenansl99@gmail.com> (https://github.com/JoseRenan)",
+        "Robson Junior <jrobsonjr16@gmail.com> (https://github.com/JRobsonJr)"
+    ],
+    "scripts": {
+        "start": "nodemon src/index.js --exec babel-node",
+        "build": "babel src --out-dir dist/ --ignore node_modules/",
+        "check-flow": "flow check .",
+        "format": "lerna run format --stream",
+        "check-format": "prettier -c src/**"
+    },
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "cookie-parser": "^1.4.3",
+        "cors": "^2.8.4",
+        "express": "^4.16.3",
+        "firebase-admin": "^6.0.0",
+        "lodash": "^4.17.13",
+        "querystring": "^0.2.0",
+        "request": "^2.88.0",
+        "spotify-web-sdk": "^0.5.0"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.0.0",
+        "@babel/node": "^7.8.7",
+        "nodemon": "^2.0.2"
+    }
+}

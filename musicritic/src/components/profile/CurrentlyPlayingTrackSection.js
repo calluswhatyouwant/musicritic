@@ -16,32 +16,31 @@ const CurrentlyPlayingTrackSection = ({
 
     useEffect(() => {
         getCurrentUserCurrentlyPlayingTrack().then(track =>
-            setCurrentlyPlaying(track));
+            setCurrentlyPlaying(track)
+        );
     }, []);
 
     useInterval(() => {
         getCurrentUserCurrentlyPlayingTrack().then(track =>
-            setCurrentlyPlaying(track));
+            setCurrentlyPlaying(track)
+        );
     }, 15000);
 
     return (
         <Fragment>
-            { currentlyPlaying.isPlaying &&
-                <div
-                  className="user-page-section__container
-            border container shadow-sm px-4"
-                >
+            {currentlyPlaying.isPlaying && (
+                <div className="user-page-section__container border container shadow-sm px-4">
                     <section className="user-page-section">
                         <h2 className="user-page-section__title">
-                        You are listening to
+                            You are listening to
                         </h2>
                         <CurrentlyPlayingTrack
-                          history={history}
-                          currentlyPlaying={currentlyPlaying}
+                            history={history}
+                            currentlyPlaying={currentlyPlaying}
                         />
                     </section>
                 </div>
-            }
+            )}
         </Fragment>
     );
 };
