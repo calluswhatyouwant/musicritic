@@ -1,47 +1,31 @@
 /* @flow */
-
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import './SearchInput.css';
 
-type Props = {
-    handleSearch: string => void,
-};
+const SearchInput = ({ handleSearch }) => {
+    const [query, setQuery] = useState('');
 
-type State = {
-    query: string,
-};
+    const handleChange = event => {
+        setQuery(event.target.value);
+    };
 
-class SearchInput extends Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = { query: '' };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleKeyPress = this.handleKeyPress.bind(this);
-    }
-
-    handleChange = (event: any) => {
-        this.setState({ query: event.target.value });
-    }
-
-    handleKeyPress = (event: any) => {
+    const handleKeyPress = event => {
         if (event.key === 'Enter') {
-            this.props.handleSearch(this.state.query);
+            handleSearch(query);
         }
-    }
+    };
 
-    render() {
-        return (
-            <input
-              type="text"
-              placeholder="Search..."
-              value={this.state.query}
-              className="search-input"
-              onChange={this.handleChange}
-              onKeyPress={this.handleKeyPress}
-            />
-        );
-    }
-}
+    return (
+        <input
+            type="text"
+            placeholder="Search..."
+            value={query}
+            className="search-input"
+            onChange={handleChange}
+            onKeyPress={handleKeyPress}
+        />
+    );
+};
 
 export default SearchInput;
