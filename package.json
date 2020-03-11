@@ -15,6 +15,7 @@
         "start": "lerna run start --stream",
         "install": "lerna bootstrap",
         "build": "lerna run build --stream",
+        "lint": "lerna run lint --stream",
         "check-format": "lerna run check-format --stream",
         "format": "prettier src/** --write",
         "check-flow": "lerna run check-flow --stream"
