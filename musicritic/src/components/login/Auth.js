@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 const Auth = props => {
     useEffect(() => {
         localStorage.setItem('token', props.match.params.token);
-        localStorage.setItem('refresh', this.props.match.params.refresh);
+        localStorage.setItem('refresh', props.match.params.refresh);
     }, []);
 
     return <Redirect to="home" />;

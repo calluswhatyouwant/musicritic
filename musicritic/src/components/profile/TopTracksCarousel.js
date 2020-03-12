@@ -10,9 +10,9 @@ import TrackCard from '../common/track/TrackCard';
 
 import './TrackCarousel.css';
 
-const TrackCarousel = ({ tracks }) => {
+const TrackCarousel = ({ tracks, history }) => {
     const handleClick = track => {
-        this.props.history.push(`/track/${track.id}`);
+        history.push(`/track/${track.id}`);
     };
 
     const slide = (key, track) => (

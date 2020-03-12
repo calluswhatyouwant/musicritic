@@ -9,13 +9,13 @@ const TrackPage = props => {
     const [track, setTrack] = useState({});
 
     useEffect(() => {
+        async function getTrackFromAPI() {
+            const trackResponse = await getTrack(props.match.params.id);
+            setTrack(trackResponse);
+        }
+
         getTrackFromAPI();
     }, []);
-
-    async function getTrackFromAPI() {
-        const track = await getTrack(props.match.params.id);
-        setTrack(track);
-    }
 
     return track.name ? <TrackPageHeader track={track} /> : <div />;
 };

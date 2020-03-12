@@ -5,7 +5,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 
 import SearchInput from '../search/SearchInput';
 
-const Navbar = props => {
+const Navbar = () => {
     const history = useHistory();
 
     const handleSearch = query => {

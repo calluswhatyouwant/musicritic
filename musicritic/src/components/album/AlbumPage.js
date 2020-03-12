@@ -22,27 +22,27 @@ function AlbumPage(props) {
     const [mainArtist, setMainArtist] = useState({});
 
     useEffect(() => {
+        async function updateAlbumData(id) {
+            try {
+                const albumResponse = await getAlbum(id);
+                const mainArtistResponse = albumResponse.artists[0];
+
+                setAlbum(albumResponse);
+                setMainArtist(mainArtistResponse);
+
+                const artistAlbumsResponse = await getArtistAlbums(
+                    mainArtistResponse.id,
+                    ['album']
+                );
+
+                setArtistsAlbum(_.uniqBy(artistAlbumsResponse.items, 'name'));
+            } catch (error) {
+                // Handle error on getAlbum or getArtistAlbums
+            }
+        }
+
         updateAlbumData(props.match.params.id);
     }, []);
-
-    async function updateAlbumData(id) {
-        try {
-            const album = await getAlbum(id);
-            const mainArtist = album.artists[0];
-
-            setAlbum(album);
-            setMainArtist(mainArtist);
-
-            const artistAlbums = await getArtistAlbums(mainArtist.id, [
-                'album',
-            ]);
-
-            setArtistsAlbum(_.uniqBy(artistAlbums.items, 'name'));
-        } catch (error) {
-            // Handle error on getAlbum or getArtistAlbums
-            console.log(error);
-        }
-    }
 
     return (
         <div className="row album-page border container shadow-sm">
