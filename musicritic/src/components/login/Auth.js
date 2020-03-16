@@ -1,21 +1,21 @@
 /* @flow */
 
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Redirect, useParams } from 'react-router-dom';
+import { signInWithToken } from '../../firebase/auth';
+import { useSession } from '../app/App';
 
-type Props = {
-    match: any;
+const Auth = () => {
+    const { token, refresh, musicritic } = useParams();
+    const user = useSession();
+
+    useEffect(() => {
+        localStorage.setItem('token', token);
+        localStorage.setItem('refresh', refresh);
+        signInWithToken(atob(musicritic));
+    }, []);
+
+    return user ? <Redirect to="/home" /> : <div>Logging in...</div>;
 };
-
-class Auth extends Component<Props> {
-    componentDidMount() {
-        localStorage.setItem('token', this.props.match.params.token);
-        localStorage.setItem('refresh', this.props.match.params.refresh);
-    }
-
-    render() {
-        return <Redirect to="/home" />;
-    }
-}
 
 export default Auth;

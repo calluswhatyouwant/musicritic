@@ -16,9 +16,11 @@ const config = {};
 
 config.spotify = {
     scope: `user-read-email
+            user-read-private
             user-read-currently-playing
             user-read-recently-played
             user-top-read`,
+    baseUri: 'https://api.spotify.com/v1',
     authBaseUri: 'https://accounts.spotify.com',
     clientId: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,

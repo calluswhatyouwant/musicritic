@@ -24,12 +24,15 @@ const MainContent = () => (
             <SignupPage />
         </ContainerizedRoute>
         <ContainerizedRoute
-          exact
-          path="/search/(tracks|artists|playlists|albums)/:query"
-        >
+            exact
+            path="/search/(tracks|artists|playlists|albums)/:query">
             <SearchResultsPage />
         </ContainerizedRoute>
-        <Route exact path="/auth/:token/:refresh" component={Auth} />
+        <Route
+            exact
+            path="/auth/:token/:refresh/:musicritic"
+            component={Auth}
+        />
         <Route exact path="/album/:id/(reviews|)" component={AlbumPage} />
         <Route exact path="/track/:id" component={TrackPage} />
     </Switch>

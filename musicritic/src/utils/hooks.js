@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
+import auth from '../firebase/firebase-config';
 
 export const usePromise = (promise, initialData, deps) => {
     const [data, setData] = useState(initialData);
@@ -6,13 +7,16 @@ export const usePromise = (promise, initialData, deps) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        promise.then((result) => {
-            setData(result);
-        }).catch((e) => {
-            setError(e);
-        }).finally(() => {
-            setLoading(false);
-        });
+        promise
+            .then(result => {
+                setData(result);
+            })
+            .catch(e => {
+                setError(e);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, deps);
 
     return [data, error, loading];

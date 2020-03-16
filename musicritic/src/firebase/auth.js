@@ -1,8 +1,9 @@
+/* @flow */
+
 import auth from './firebase-config';
 
-export const signInWithEmailAndPassword = (email, password) =>
+export const signInWithEmailAndPassword = (email: string, password: string) =>
     auth.signInWithEmailAndPassword(email, password);
 
-export const getCurrentUser = () => auth().currentUser;
-
-export const getAccessToken = () => getCurrentUser().getIdToken();
+export const signInWithToken = (token: string) =>
+    auth.signInWithCustomToken(token);
