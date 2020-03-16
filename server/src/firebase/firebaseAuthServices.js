@@ -1,12 +1,24 @@
 /* @flow */
 
 import { auth } from './firebaseAdmin';
+import { getCurrentUser } from '../spotify/util';
 
 type FirebaseUser = {
     uid: string | null,
     email: string,
     displayName: string,
-}
+};
+
+export const loginWithSpotify = async (userToken: string): Promise<string> => {
+    const userSpotify = await getCurrentUser(userToken);
+    try {
+        await auth.getUser(userSpotify.uid);
+    } catch {
+        await auth.createUser(userSpotify);
+    } finally {
+        return await auth.createCustomToken(userSpotify.uid);
+    }
+};
 
 const userRecordToJson = (userRecord): FirebaseUser => ({
     uid: userRecord.uid,

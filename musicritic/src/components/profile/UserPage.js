@@ -1,5 +1,5 @@
 /* @flow */
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import {
@@ -19,24 +19,23 @@ const UserPage = () => {
     const [display, setDisplay] = useState('TOP');
     const [recentTracks] = usePromise(getRecentlyPlayedTracks(), [], []);
     const [topTracks] = usePromise(getTopPlayedTracks(), [], []);
-
     const history = useHistory();
 
     const handleClick = () => {
         setDisplay(display === 'TOP' ? 'RECENT' : 'TOP');
     };
 
-    const tracks = (display === 'TOP' ? topTracks : recentTracks);
+    const tracks = display === 'TOP' ? topTracks : recentTracks;
 
     if (localStorage.getItem('token')) {
         return (
             <Fragment>
                 <CurrentlyPlayingTrackSection history={history} />
                 <UserTracksSection
-                  display={display}
-                  history={history}
-                  onClick={handleClick}
-                  tracks={tracks}
+                    display={display}
+                    history={history}
+                    onClick={handleClick}
+                    tracks={tracks}
                 />
             </Fragment>
         );
@@ -44,7 +43,6 @@ const UserPage = () => {
 
     return <SpotifyConnect />;
 };
-
 
 const SpotifyConnect = () => {
     const serverBaseUri = process.env.SERVER_BASE_URL || '';
@@ -54,8 +52,8 @@ const SpotifyConnect = () => {
             <div className="col-sm-12 col-md-7 col-lg-5">
                 <h1 className="text-center">Connect to Spotify:</h1>
                 <SocialButton
-                  name="spotify"
-                  url={`${serverBaseUri}/auth/login`}
+                    name="spotify"
+                    url={`${serverBaseUri}/auth/login`}
                 />
             </div>
         </div>
