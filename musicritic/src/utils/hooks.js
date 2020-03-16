@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState } from 'react';
-import auth from '../firebase/firebase-config';
 
 export const usePromise = (promise, initialData, deps) => {
     const [data, setData] = useState(initialData);
