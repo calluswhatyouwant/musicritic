@@ -1,12 +1,13 @@
 /* @flow */
 
 import React, { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 
-const Auth = props => {
+const Auth = () => {
+    const { token, refresh } = useParams();
     useEffect(() => {
-        localStorage.setItem('token', props.match.params.token);
-        localStorage.setItem('refresh', props.match.params.refresh);
+        localStorage.setItem('token', token);
+        localStorage.setItem('refresh', refresh);
     }, []);
 
     return <Redirect to="home" />;
