@@ -1,12 +1,14 @@
 /* @flow */
 
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import _ from 'lodash';
 
 import { getAlbum, getArtistAlbums } from '../../api/SpotifyWebAPI';
 
 import AlbumSummary from './summary/AlbumSummary';
 import AlbumPageContent from './content/AlbumPageContent';
+import { usePromise } from '../../utils/hooks';
 
 import './AlbumPage.css';
 
@@ -16,33 +18,32 @@ const wrapComponent = (SomeComponent, props) => (
     </section>
 );
 
-function AlbumPage(props) {
-    const [album, setAlbum] = useState({});
-    const [artistAlbums, setArtistsAlbum] = useState([]);
+function AlbumPage() {
+    const { id } = useParams();
+    const [album] = usePromise(getAlbum(id), {}, [id]);
     const [mainArtist, setMainArtist] = useState({});
-
-    useEffect(() => {
-        async function updateAlbumData(id) {
-            try {
-                const albumResponse = await getAlbum(id);
-                const mainArtistResponse = albumResponse.artists[0];
-
-                setAlbum(albumResponse);
-                setMainArtist(mainArtistResponse);
-
+    const [artistAlbums] = usePromise(
+        (async () => {
+            if (mainArtist.id) {
                 const artistAlbumsResponse = await getArtistAlbums(
-                    mainArtistResponse.id,
+                    mainArtist.id,
                     ['album']
                 );
-
-                setArtistsAlbum(_.uniqBy(artistAlbumsResponse.items, 'name'));
-            } catch (error) {
-                // Handle error on getAlbum or getArtistAlbums
+                return _.uniqBy(artistAlbumsResponse.items, 'name');
             }
+            return [];
+        })(),
+        [],
+        [mainArtist]
+    );
+
+    useEffect(() => {
+        function setAlbumMainArtist() {
+            if (album.artists) setMainArtist(album.artists[0]);
         }
 
-        updateAlbumData(props.match.params.id);
-    }, []);
+        setAlbumMainArtist();
+    }, [album]);
 
     return (
         <div className="row album-page border container shadow-sm">
