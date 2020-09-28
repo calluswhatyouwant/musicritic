@@ -1,6 +1,7 @@
 /* @flow */
 
 import React from 'react';
+import { Track } from 'spotify-web-sdk';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -10,7 +11,12 @@ import TrackCard from '../common/track/TrackCard';
 
 import './TrackCarousel.css';
 
-const TrackCarousel = ({ tracks, history }) => {
+type Props = {
+    tracks: Track[],
+    history: any,
+}
+
+const TrackCarousel = ({ tracks, history }: Props) => {
     const handleClick = track => {
         history.push(`/track/${track.id}`);
     };

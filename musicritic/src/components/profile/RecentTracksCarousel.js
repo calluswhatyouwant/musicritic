@@ -2,6 +2,7 @@
 
 import React from 'react';
 import moment from 'moment';
+import { PlayHistory } from 'spotify-web-sdk';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -11,7 +12,12 @@ import TrackCard from '../common/track/TrackCard';
 
 import './TrackCarousel.css';
 
-const RecentTracksCarousel = ({ tracks, history }) => {
+type Props = {
+    tracks: PlayHistory[],
+    history: any,
+}
+
+const RecentTracksCarousel = ({ tracks, history }: Props) => {
     const handleClick = track => {
         history.push(`/track/${track.id}`);
     };

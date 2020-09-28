@@ -1,12 +1,17 @@
 /* @flow */
 
 import React, { useEffect, useState } from 'react';
+import { PlaylistSimplified } from 'spotify-web-sdk';
 
 import PlaylistCard from '../../common/playlist/PlaylistCard';
 
 import './Results.css';
 
-const PlaylistResult = ({ results }) => {
+type Props = {
+    results: PlaylistSimplified[],
+}
+
+const PlaylistResult = ({ results }: Props) => {
     const [playlists, setPlaylists] = useState(results);
 
     useEffect(

@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 
 import './SearchInput.css';
 
-const SearchInput = ({ handleSearch }) => {
+type Props = {
+    handleSearch: (query: string) => void,
+}
+
+const SearchInput = ({ handleSearch }: Props) => {
     const [query, setQuery] = useState('');
 
     const handleChange = event => {

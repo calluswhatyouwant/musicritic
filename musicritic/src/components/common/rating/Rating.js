@@ -2,7 +2,11 @@
 
 import React, { useState } from 'react';
 
-const Rating = props => {
+type Props = {
+    value: number,
+}
+
+const Rating = (props: Props) => {
     const [value, setValue] = useState(props.value);
 
     const handleClick = newValue => {
@@ -31,15 +35,19 @@ const clickableProps = handleClick => ({
     role: 'button',
 });
 
-const SolidStar = ({ handleClick }) => (
+type StarProps = {
+    handleClick: () => void,
+}
+
+const SolidStar = ({ handleClick }: StarProps) => (
     <i className="fas fa-star" {...clickableProps(handleClick)} />
 );
 
-const RegularStar = ({ handleClick }) => (
+const RegularStar = ({ handleClick }: StarProps) => (
     <i className="far fa-star" {...clickableProps(handleClick)} />
 );
 
-const StarHalf = ({ handleClick }) => (
+const StarHalf = ({ handleClick }: StarProps) => (
     <i className="fas fa-star-half-alt" {...clickableProps(handleClick)} />
 );
 

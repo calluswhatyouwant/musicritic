@@ -38,13 +38,24 @@ const Navbar = () => {
     );
 };
 
-const NavbarItem = ({ href, text }) => (
+type NavbarItemProps = {
+    href: string,
+    text: string,
+}
+
+const NavbarItem = ({ href, text }: NavbarItemProps) => (
     <li className="nav-item">
         <NavbarLink href={href} text={text} />
     </li>
 );
 
-const NavbarLink = ({ text, href, brand }) => (
+type NavbarLinkProps = {
+    href: string,
+    text: string,
+    brand: boolean,
+}
+
+const NavbarLink = ({ text, href, brand }: NavbarLinkProps) => (
     <NavLink className={brand ? 'navbar-brand brand' : 'nav-link'} to={href}>
         {text}
     </NavLink>

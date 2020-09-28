@@ -1,11 +1,16 @@
 /* @flow */
 import React, { useState, useEffect } from 'react';
+import { Artist } from 'spotify-web-sdk';
 
 import ArtistCard from '../../common/artist/ArtistCard';
 
 import './Results.css';
 
-const ArtistResult = ({ results }) => {
+type Props = {
+    results: Artist[],
+}
+
+const ArtistResult = ({ results }: Props) => {
     const [artists, setArtists] = useState(results);
 
     useEffect(

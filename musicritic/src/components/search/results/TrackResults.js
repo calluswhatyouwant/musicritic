@@ -1,11 +1,17 @@
 /* @flow */
 import React, { useState, useEffect } from 'react';
+import { Track } from 'spotify-web-sdk';
 
 import TrackCard from '../../common/track/TrackCard';
 
 import './Results.css';
 
-const TrackResult = ({ results, history }) => {
+type Props = {
+    results: Track[],
+    history: any,
+}
+
+const TrackResult = ({ results, history }: Props) => {
     const [tracks, setTracks] = useState();
 
     useEffect(
