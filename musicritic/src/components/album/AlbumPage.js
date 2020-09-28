@@ -1,79 +1,60 @@
 /* @flow */
 
-import React, { Component } from 'react';
-import { Album, AlbumSimplified, ArtistSimplified } from 'spotify-web-sdk';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import _ from 'lodash';
 
 import { getAlbum, getArtistAlbums } from '../../api/SpotifyWebAPI';
 
 import AlbumSummary from './summary/AlbumSummary';
 import AlbumPageContent from './content/AlbumPageContent';
+import { usePromise } from '../../utils/hooks';
 
 import './AlbumPage.css';
 
-type Props = {
-    match: any,
-};
+const wrapComponent = (SomeComponent, props) => (
+    <section className="album-page-section col-lg-6">
+        <SomeComponent {...props} />
+    </section>
+);
 
-type State = {
-    album: Album,
-    artistAlbums: AlbumSimplified[],
-    mainArtist: ArtistSimplified,
-};
+function AlbumPage() {
+    const { id } = useParams();
+    const [album] = usePromise(getAlbum(id), {}, [id]);
+    const [mainArtist, setMainArtist] = useState({});
+    const [artistAlbums] = usePromise(
+        (async () => {
+            if (mainArtist.id) {
+                const artistAlbumsResponse = await getArtistAlbums(
+                    mainArtist.id,
+                    ['album']
+                );
+                return _.uniqBy(artistAlbumsResponse.items, 'name');
+            }
+            return [];
+        })(),
+        [],
+        [mainArtist]
+    );
 
-class AlbumPage extends Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = {
-            album: {},
-            artistAlbums: [],
-            mainArtist: {},
-        };
-    }
-
-    componentDidMount() {
-        this.updateAlbumData(this.props.match.params.id);
-    }
-
-    componentWillReceiveProps(nextProps: Props) {
-        const oldId = this.props.match.params.id;
-        const newId = nextProps.match.params.id;
-        if (oldId !== newId) {
-            this.updateAlbumData(newId);
+    useEffect(() => {
+        function setAlbumMainArtist() {
+            if (album.artists) setMainArtist(album.artists[0]);
         }
-    }
 
-    updateAlbumData(id: string) {
-        getAlbum(id).then(album => {
-            const mainArtist = album.artists[0];
-            this.setState({ album, mainArtist });
-            getArtistAlbums(mainArtist.id, ['album']).then(artistAlbums =>
-                this.setState({
-                    artistAlbums: _.uniqBy(artistAlbums.items, 'name'),
-                })
-            );
-        });
-    }
+        setAlbumMainArtist();
+    }, [album]);
 
-    render() {
-        const wrapComponent = (SomeComponent: any, props) => (
-            <section className="album-page-section col-lg-6">
-                <SomeComponent {...props} />
-            </section>
-        );
-
-        const { album, artistAlbums, mainArtist } = this.state;
-        return (
-            <div className="row album-page border container shadow-sm">
-                {wrapComponent(AlbumSummary, {
-                    album,
-                    artistAlbums,
-                    mainArtist,
-                })}
-                {wrapComponent(AlbumPageContent, { album })}
-            </div>
-        );
-    }
+    return (
+        <div className="row album-page border container shadow-sm">
+            {wrapComponent(AlbumSummary, {
+                album,
+                artistAlbums,
+                mainArtist,
+            })}
+            {wrapComponent(AlbumPageContent, { album })}
+        </div>
+    );
 }
 
 export default AlbumPage;

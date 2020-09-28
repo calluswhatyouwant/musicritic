@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
+
 import { signInWithToken } from '../../firebase/auth';
 import { useSession } from '../app/App';
 

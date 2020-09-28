@@ -15,9 +15,7 @@ const SearchResultsPage = () => {
     return (
         <div>
             <SearchResultsNav query={query} />
-            {loading && !error ? null : (
-                <SearchResult results={results} />
-            )}
+            {loading && !error ? null : <SearchResult results={results} />}
         </div>
     );
 };
