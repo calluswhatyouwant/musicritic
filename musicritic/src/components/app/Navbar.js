@@ -52,7 +52,7 @@ const NavbarItem = ({ href, text }: NavbarItemProps) => (
 type NavbarLinkProps = {
     href: string,
     text: string,
-    brand: boolean,
+    brand?: boolean,
 }
 
 const NavbarLink = ({ text, href, brand }: NavbarLinkProps) => (
