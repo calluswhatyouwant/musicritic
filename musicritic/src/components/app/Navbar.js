@@ -61,4 +61,8 @@ const NavbarLink = ({ text, href, brand }: NavbarLinkProps) => (
     </NavLink>
 );
 
+NavbarLink.defaultProps = {
+    brand: false,
+}
+
 export default Navbar;
