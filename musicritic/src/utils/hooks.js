@@ -6,13 +6,16 @@ export const usePromise = (promise, initialData, deps) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        promise.then((result) => {
-            setData(result);
-        }).catch((e) => {
-            setError(e);
-        }).finally(() => {
-            setLoading(false);
-        });
+        promise
+            .then(result => {
+                setData(result);
+            })
+            .catch(e => {
+                setError(e);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, deps);
 
     return [data, error, loading];

@@ -5,6 +5,7 @@ import querystring from 'querystring';
 import request from 'request';
 
 import config from '../config';
+import { loginWithSpotify } from '../firebase/firebaseAuthServices';
 import {
     generateRandomState,
     getSpotifyAuthUrl,
@@ -19,14 +20,16 @@ const stateKey = 'spotify-auth-state';
 router.get('/login', (req, res) => {
     const state = generateRandomState(16);
     res.cookie(stateKey, state);
-    res.redirect(getSpotifyAuthUrl('/authorize?')
-        + querystring.stringify({
-            response_type: 'code',
-            client_id: config.spotify.clientId,
-            scope: config.spotify.scope,
-            redirect_uri: getHostUrl('/auth/callback'),
-            state,
-        }));
+    res.redirect(
+        getSpotifyAuthUrl('/authorize?') +
+            querystring.stringify({
+                response_type: 'code',
+                client_id: config.spotify.clientId,
+                scope: config.spotify.scope,
+                redirect_uri: getHostUrl('/auth/callback'),
+                state,
+            })
+    );
 });
 
 const requestForSpotifyUserToken = (req, res) => {
@@ -37,13 +40,22 @@ const requestForSpotifyUserToken = (req, res) => {
         redirect_uri: getHostUrl('/auth/callback'),
         grant_type: 'authorization_code',
     });
-    request.post(tokenRequestOptions, (error, response, body) => {
+    request.post(tokenRequestOptions, async (error, response, body) => {
         if (!error && response.statusCode === 200) {
-            res.redirect(getClientUrl(`${config.client.successPath}`
-                + `/${body.access_token}/${body.refresh_token}`));
+            const firebaseToken = await loginWithSpotify(body.access_token);
+            res.redirect(
+                getClientUrl(
+                    `${config.client.successPath}` +
+                        `/${body.access_token}/${
+                            body.refresh_token
+                        }/${Buffer.from(firebaseToken).toString('base64')}`
+                )
+            );
         } else {
-            res.redirect(getClientUrl(config.client.errorPath)
-                + querystring.stringify({ error: 'invalid_token' }));
+            res.redirect(
+                getClientUrl(config.client.errorPath) +
+                    querystring.stringify({ error: 'invalid_token' })
+            );
         }
     });
 };
@@ -52,8 +64,10 @@ router.get('/callback', (req, res) => {
     const { state } = req.query;
     const storedState = req.cookies ? req.cookies[stateKey] : null;
     if (!state || state !== storedState) {
-        res.redirect(getClientUrl(config.client.errorPath)
-            + querystring.stringify({ error: 'state_mismatch' }));
+        res.redirect(
+            getClientUrl(config.client.errorPath) +
+                querystring.stringify({ error: 'state_mismatch' })
+        );
     } else {
         requestForSpotifyUserToken(req, res);
     }

@@ -2814,6 +2814,13 @@ axios@^0.18.0, axios@^0.18.1:
     follow-redirects "1.5.10"
     is-buffer "^2.0.2"
 
+axios@^0.19.2:
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
+  integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
+  dependencies:
+    follow-redirects "1.5.10"
+
 axobject-query@^2.0.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/axobject-query/-/axobject-query-2.1.2.tgz#2bdffc0371e643e5f03ba99065d5179b9ca79799"
@@ -10647,7 +10654,7 @@ split@^1.0.0:
   dependencies:
     through "2"
 
-spotify-web-sdk@^0.5.0:
+spotify-web-sdk@^0.5.0, spotify-web-sdk@^0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/spotify-web-sdk/-/spotify-web-sdk-0.5.2.tgz#ae0914025239c7af89d4820c2acbf92a7f87d2e9"
   integrity sha512-dLyWj8cbRZSjZAR6KGyxYWeotoFjYImom7h5CoMboLjKw0/Vv/H7KJQia7kBhvPfgBdKlPRPBlgiu07wEeF0jg==
