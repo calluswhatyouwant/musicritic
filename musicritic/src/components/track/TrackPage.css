@@ -52,3 +52,13 @@
     width: 25%;
     border-radius: 2%;
 }
+
+.track-rating-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.track-page-body {
+    margin-top: 2.5rem;
+}

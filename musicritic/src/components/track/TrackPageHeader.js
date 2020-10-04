@@ -6,8 +6,6 @@ import { Track } from 'spotify-web-sdk';
 import CustomPalette from '../common/palette/CustomPalette';
 import SocialButton from '../common/social-button/SocialButton';
 
-import './TrackPageHeader.css';
-
 type Props = {
     track: Track,
 };
