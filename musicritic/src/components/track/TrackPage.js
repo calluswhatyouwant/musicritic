@@ -21,7 +21,8 @@ const TrackPage = () => {
         getTrackFromAPI();
     }, []);
 
-    return track.name ? <><TrackPageHeader track={track} /><TrackPageBody /></> : <div />;
+    // TODO Use actual values
+    return track.name ? <><TrackPageHeader track={track} /><TrackPageBody userRating={4} averageRating={3.5} /></> : null;
 };
 
 export default TrackPage;
