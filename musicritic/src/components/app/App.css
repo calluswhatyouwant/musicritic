@@ -12,3 +12,19 @@ body {
 .search {
     margin-left: 1rem;
 }
+
+.logout-button {
+    background-color: black;
+    border: 0.05rem solid white;
+    border-radius: 0.25rem;
+    color: white;
+    margin-left: 2rem;
+    outline: none;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease 0s;
+}
+
+.logout-button:hover {
+    color: black;
+    background-color: white;
+}
