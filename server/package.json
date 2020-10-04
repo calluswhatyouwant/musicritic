@@ -10,7 +10,7 @@
         "start": "nodemon src/index.js --exec babel-node",
         "build": "babel src --out-dir dist/ --ignore node_modules/",
         "check-flow": "flow check .",
-        "format": "lerna run format --stream",
+        "format": "prettier src/** --write",
         "check-format": "prettier -c src/**"
     },
     "dependencies": {
