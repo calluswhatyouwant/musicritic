@@ -49,7 +49,7 @@ type StarProps = {
     displayValue: number,
     setValue: (value: number) => void,
     setHoverValue: (value: number) => void,
-    displayOnly: boolean,
+    displayOnly?: boolean,
 }
 
 const RatingStar = ({ index, displayValue, setValue, setHoverValue, displayOnly }: StarProps) => {
@@ -79,6 +79,10 @@ const RatingStar = ({ index, displayValue, setValue, setHoverValue, displayOnly 
             <i className={iconClassName} />
         </div>
     );
+}
+
+RatingStar.defaultProps = {
+    displayOnly: false,
 }
 
 export default Rating;
