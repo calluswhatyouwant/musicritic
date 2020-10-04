@@ -7,3 +7,5 @@ export const signInWithEmailAndPassword = (email: string, password: string) =>
 
 export const signInWithToken = (token: string) =>
     auth.signInWithCustomToken(token);
+
+export const signOut = () => auth.signOut();

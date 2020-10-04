@@ -3,13 +3,24 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 
+import { useSession } from '../app/App';
+import { signOut } from '../../firebase/auth';
 import SearchInput from '../search/SearchInput';
 
 const Navbar = () => {
     const history = useHistory();
+    const user = useSession();
 
     const handleSearch = query => {
         history.push(`/search/tracks/${query}`);
+    };
+
+    const handleLogout = () => {
+        signOut().then(() => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('refresh');
+            history.push('/home');
+        });
     };
 
     return (
@@ -32,6 +43,7 @@ const Navbar = () => {
                     <ul className="navbar-nav ml-auto">
                         <NavbarItem text="Home" href="/home" />
                     </ul>
+                    { user && <LogoutButton handleLogout={handleLogout}/> }
                 </div>
             </div>
         </nav>
@@ -64,5 +76,14 @@ const NavbarLink = ({ text, href, brand }: NavbarLinkProps) => (
 NavbarLink.defaultProps = {
     brand: false,
 }
+
+type LogoutButtonProps = {
+    handleLogout: () => void
+};
+
+const LogoutButton = ({ handleLogout }: LogoutButtonProps) =>
+        <button type='button' className='logout-button' onClick={handleLogout}>
+            Logout
+        </button>
 
 export default Navbar;
