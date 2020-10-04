@@ -4,6 +4,7 @@ import React from 'react';
 import { Album } from 'spotify-web-sdk';
 
 import './AlbumData.css';
+import Rating from '../../common/rating/Rating';
 
 type Props = {
     album: Album,
@@ -35,44 +36,37 @@ type AlbumRatingsProps = {
     userRating: number,
 };
 
-const AlbumRatings = ({ averageRating, userRating }: AlbumRatingsProps) => {
-    const ratingEval = (rating: number) => {
-        if (rating > 3.0) return 'positive';
-        else if (rating >= 2.0) return 'mixed';
-        return 'negative';
-    };
-
-    return (
-        <div className="album-ratings row">
-            <AlbumRating
-              rating={averageRating}
-              ratingEval={ratingEval}
-              title="Average rating"
-            />
-            <AlbumRating
-              rating={userRating}
-              ratingEval={ratingEval}
-              title="Your rating"
-            />
-        </div>
-    );
-};
+const AlbumRatings = ({ averageRating, userRating }: AlbumRatingsProps) => (
+    <div className="album-ratings row">
+        <AlbumRating
+            rating={averageRating}
+            title="Average rating"
+            displayOnly
+        />
+        <AlbumRating
+            rating={userRating}
+            title="Your rating"
+        />
+    </div>
+);
 
 type AlbumRatingProps = {
     rating: number,
-    ratingEval: (number) => string,
     title: string,
+    displayOnly?: boolean,
 };
 
-const AlbumRating = ({ rating, ratingEval, title }: AlbumRatingProps) => (
-    <div className={`album-rating album-rating--${ratingEval(rating)} col-4`}>
+const AlbumRating = ({ rating, title, displayOnly }: AlbumRatingProps) => (
+    <div className="album-rating col-4">
         <p className="album-rating__title">
             {title}
         </p>
-        <h3 className="album-rating__value">
-            {rating}
-        </h3>
+        <Rating initialValue={rating} displayOnly={displayOnly} />
     </div>
 );
+
+AlbumRating.defaultProps = {
+    displayOnly: false,
+}
 
 export default AlbumData;
