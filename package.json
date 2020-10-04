@@ -17,7 +17,7 @@
         "build": "lerna run build --stream",
         "lint": "lerna run lint --stream",
         "check-format": "lerna run check-format --stream",
-        "format": "prettier src/** --write",
+        "format": "lerna run format --stream",
         "check-flow": "lerna run check-flow --stream"
     },
     "dependencies": {
