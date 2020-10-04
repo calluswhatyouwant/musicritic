@@ -1,54 +1,84 @@
 /* @flow */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import './Rating.css';
 
 type Props = {
-    value: number,
+    initialValue: number,
+    displayOnly?: boolean,
 }
 
-const Rating = (props: Props) => {
-    const [value, setValue] = useState(props.value);
-
-    const handleClick = newValue => {
-        setValue(newValue);
-    };
-
+const Rating = ({ initialValue, displayOnly }: Props) => {
+    const [value, setValue] = useState(initialValue);
+    const [hoverValue, setHoverValue] = useState(0);
+    
+    const [displayValue, setDisplayValue] = useState(initialValue);
+    useEffect(() => {
+        if (hoverValue) {
+            setDisplayValue(hoverValue);
+        } else {
+            setDisplayValue(value);
+        }
+    }, [value, hoverValue]);
+    
     const stars = [];
 
-    for (let i = 0; i < 5; i += 1) {
-        if (value >= i + 1) {
-            stars.push(<SolidStar handleClick={() => handleClick(i + 1)} />);
-        } else if (value >= i + 0.5) {
-            stars.push(<StarHalf handleClick={() => handleClick(i + 1)} />);
-        } else {
-            stars.push(<RegularStar handleClick={() => handleClick(i + 1)} />);
-        }
+    for (let index = 0; index < 5; index += 1) {
+        stars.push(
+            <RatingStar
+                key={index}
+                index={index}
+                displayValue={displayValue}
+                setValue={setValue}
+                setHoverValue={setHoverValue}
+                displayOnly={displayOnly}
+            />
+        );
     }
 
-    return <div>{stars}</div>;
+    return <div className="rating" onMouseLeave={() => setHoverValue(0)}>{stars}</div>;
 };
 
-const clickableProps = handleClick => ({
-    onClick: handleClick,
-    tabIndex: 0,
-    onKeyPress: () => {},
-    role: 'button',
-});
-
-type StarProps = {
-    handleClick: () => void,
+Rating.defaultProps = {
+    displayOnly: false,
 }
 
-const SolidStar = ({ handleClick }: StarProps) => (
-    <i className="fas fa-star" {...clickableProps(handleClick)} />
-);
+type StarProps = {
+    index: number,
+    displayValue: number,
+    setValue: (value: number) => void,
+    setHoverValue: (value: number) => void,
+    displayOnly: boolean,
+}
 
-const RegularStar = ({ handleClick }: StarProps) => (
-    <i className="far fa-star" {...clickableProps(handleClick)} />
-);
+const RatingStar = ({ index, displayValue, setValue, setHoverValue, displayOnly }: StarProps) => {
+    let iconClassName;
+    if (displayValue >= index + 1) { 
+        iconClassName = 'fas fa-star';
+    } else if (displayValue === index + 0.5) {
+        iconClassName = 'fas fa-star-half-alt';
+    } else {
+        iconClassName = 'far fa-star';
+    }
 
-const StarHalf = ({ handleClick }: StarProps) => (
-    <i className="fas fa-star-half-alt" {...clickableProps(handleClick)} />
-);
+    const starHalfProps = (modifier: number) => ({
+        onClick: () => setValue(index + modifier),
+        onMouseOver: () => setHoverValue(index + modifier),
+        className: 'rating-star-half',
+        tabIndex: 0,
+        role: 'button',
+    });
+
+    return (
+        <div className="rating-star" key={index}>
+            <div className="rating-star-container">
+                <span {...displayOnly ? {} : starHalfProps(0.5)} />
+                <span {...displayOnly ? {} : starHalfProps(1)}  />
+            </div>
+            <i className={iconClassName} />
+        </div>
+    );
+}
 
 export default Rating;
