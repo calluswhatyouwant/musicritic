@@ -17,8 +17,9 @@ const Navbar = () => {
 
     const handleLogout = () => {
         signOut().then(() => {
-            localStorage.removeItem('token');
+            localStorage.removeItem('spotifyToken');
             localStorage.removeItem('refresh');
+            localStorage.removeItem('authToken');
             history.push('/home');
         });
     };
