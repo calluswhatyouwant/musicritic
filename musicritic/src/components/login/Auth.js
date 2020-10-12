@@ -10,10 +10,11 @@ const Auth = () => {
     const { token, refresh, musicritic } = useParams();
     const user = useSession();
 
-    useEffect(() => {
-        localStorage.setItem('token', token);
+    useEffect(async () => {
+        localStorage.setItem('spotifyToken', token);
         localStorage.setItem('refresh', refresh);
-        signInWithToken(atob(musicritic));
+        const credential = await signInWithToken(atob(musicritic));
+        localStorage.setItem('authToken', await credential.user.getIdToken())
     }, []);
 
     return user ? <Redirect to="/home" /> : <div>Logging in...</div>;

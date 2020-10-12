@@ -27,7 +27,7 @@ const UserPage = () => {
 
     const tracks = display === 'TOP' ? topTracks : recentTracks;
 
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('spotifyToken')) {
         return (
             <Fragment>
                 <CurrentlyPlayingTrackSection history={history} />
