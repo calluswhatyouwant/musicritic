@@ -1,3 +1,28 @@
+.track-album-navigation {
+    padding: 1rem;
+    background-color: black;
+}
+
+.track-album-navigation-container {
+    margin-bottom: 1rem;
+    justify-content: space-evenly;
+    display: flex;
+    align-items: stretch;
+    height: 100%;
+}
+
+.track-album-navigation-button {
+    border-style: solid;
+    border-width: 1px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
 .track-page-header {
     position: relative;
     height: fit-content;
@@ -17,26 +42,25 @@
     left: 0;
     opacity: 0.9;
     /* Gradient made with https://larsenwork.com/easing-gradients/ */
-    background:
-        linear-gradient(
-          to top,
-          hsla(0, 0%, 0%, 0.8) 0%,
-          hsla(0, 0%, 0%, 0.79) 8.1%,
-          hsla(0, 0%, 0%, 0.761) 15.5%,
-          hsla(0, 0%, 0%, 0.717) 22.5%,
-          hsla(0, 0%, 0%, 0.66) 29%,
-          hsla(0, 0%, 0%, 0.593) 35.3%,
-          hsla(0, 0%, 0%, 0.518) 41.2%,
-          hsla(0, 0%, 0%, 0.44) 47.1%,
-          hsla(0, 0%, 0%, 0.36) 52.9%,
-          hsla(0, 0%, 0%, 0.282) 58.8%,
-          hsla(0, 0%, 0%, 0.207) 64.7%,
-          hsla(0, 0%, 0%, 0.14) 71%,
-          hsla(0, 0%, 0%, 0.083) 77.5%,
-          hsla(0, 0%, 0%, 0.039) 84.5%,
-          hsla(0, 0%, 0%, 0.01) 91.9%,
-          hsla(0, 0%, 0%, 0) 100%
-        );
+    background: linear-gradient(
+        to top,
+        hsla(0, 0%, 0%, 0.8) 0%,
+        hsla(0, 0%, 0%, 0.79) 8.1%,
+        hsla(0, 0%, 0%, 0.761) 15.5%,
+        hsla(0, 0%, 0%, 0.717) 22.5%,
+        hsla(0, 0%, 0%, 0.66) 29%,
+        hsla(0, 0%, 0%, 0.593) 35.3%,
+        hsla(0, 0%, 0%, 0.518) 41.2%,
+        hsla(0, 0%, 0%, 0.44) 47.1%,
+        hsla(0, 0%, 0%, 0.36) 52.9%,
+        hsla(0, 0%, 0%, 0.282) 58.8%,
+        hsla(0, 0%, 0%, 0.207) 64.7%,
+        hsla(0, 0%, 0%, 0.14) 71%,
+        hsla(0, 0%, 0%, 0.083) 77.5%,
+        hsla(0, 0%, 0%, 0.039) 84.5%,
+        hsla(0, 0%, 0%, 0.01) 91.9%,
+        hsla(0, 0%, 0%, 0) 100%
+    );
 }
 
 .track-page-header__data {
@@ -49,7 +73,7 @@
     margin-bottom: 1rem;
     display: block;
     min-width: 15rem;
-    width: 25%;
+    width: 75%;
     border-radius: 2%;
 }
 
