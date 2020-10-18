@@ -42,7 +42,11 @@ const TrackPageSidebar = ({ track, prevTrack, nextTrack }: Props) => (
     </div>
 );
 
-const TrackInfo = ({ track }: Props) => (
+type TrackInfoProps = {
+    track: Track,
+}
+
+const TrackInfo = ({ track }: TrackInfoProps) => (
     <div className="text-center track-info">
         <h1>{track.name}</h1>
         <h4>by {track.stringArtists}</h4>
