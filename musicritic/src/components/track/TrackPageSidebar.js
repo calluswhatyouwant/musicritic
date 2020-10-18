@@ -1,5 +1,3 @@
-/* @flow */
-
 import React from 'react';
 import { Track } from 'spotify-web-sdk';
 import { useHistory } from 'react-router-dom';
