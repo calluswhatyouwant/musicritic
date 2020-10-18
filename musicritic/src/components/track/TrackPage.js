@@ -28,19 +28,19 @@ const TrackPage = () => {
                 trackNumber,
                 album: { id: albumId },
             } = trackResponse;
-            const prevTrack = await getPrevAlbumTrack(
+            const prevTrackResponse = await getPrevAlbumTrack(
                 albumId,
                 discNumber,
                 trackNumber
             );
-            const nextTrack = await getNextAlbumTrack(
+            const nextTrackResponse = await getNextAlbumTrack(
                 albumId,
                 discNumber,
                 trackNumber
             );
             setTrack(trackResponse);
-            setPrevTrack(prevTrack);
-            setNextTrack(nextTrack);
+            setPrevTrack(prevTrackResponse);
+            setNextTrack(nextTrackResponse);
             setLoading(false);
         }
 
