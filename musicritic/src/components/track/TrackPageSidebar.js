@@ -46,7 +46,7 @@ const TrackInfo = ({ track }: Props) => (
     <div className="text-center track-info">
         <h1>{track.name}</h1>
         <h4>by {track.stringArtists}</h4>
-        <h5>from the album {track.albumName}</h5>
+        <h5>from the album <a className="text-light" href={`/album/${track.album.id}/`}>{track.albumName}</a></h5>
         <p>
             {track.releaseYear} &bull; {track.length}
         </p>
@@ -65,7 +65,7 @@ const TrackAlbumNavigation = ({ track, prevTrack, nextTrack }: Props) => {
     return (
         <div className="track-album-navigation text-center text-light">
             <h5 className="mb-3">
-                More from {track.albumName}:
+                More from <a className="text-light" href={`/album/${track.album.id}/`}>{track.albumName}</a>:
             </h5>
             <div className="track-album-navigation-container row">
                 {prevTrack.name && (
