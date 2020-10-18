@@ -19,12 +19,12 @@ spotify.init({ token, refreshToken, refreshTokenFunction });
 export const getRecentlyPlayedTracks = () =>
     spotify
         .getCurrentUserRecentlyPlayedTracks({ limit: 50 })
-        .then(page => page.items);
+        .then((page) => page.items);
 
 export const getTopPlayedTracks = async () =>
     spotify
         .getCurrentUserTopTracks({ limit: 50, time_range: 'short_term' })
-        .then(page => page.items);
+        .then((page) => page.items);
 
 export const search = async (query: string) =>
     spotify.search(query, 'album,artist,playlist,track', { limit: 50 });
@@ -38,6 +38,43 @@ export const getCurrentUserCurrentlyPlayingTrack = async () =>
     spotify.getCurrentUserCurrentlyPlayingTrack();
 
 export const getAlbum = async (id: string) => spotify.getAlbum(id);
+
+// TODO Deal with multiple discs
+export const getNextAlbumTrack = async (
+    id: string,
+    discNumber: number,
+    trackNumber: number
+) => {
+    if (discNumber === 1) {
+        const { items } = await spotify.getAlbumTracks(id, {
+            offset: trackNumber,
+            limit: 1,
+        });
+        if (items.length) {
+            return items[0];
+        }
+        return {};
+    }
+    return {};
+};
+
+export const getPrevAlbumTrack = async (
+    id: string,
+    discNumber: number,
+    trackNumber: number
+) => {
+    if (discNumber === 1 && trackNumber > 1) {
+        const { items } = await spotify.getAlbumTracks(id, {
+            offset: trackNumber - 2,
+            limit: 1,
+        });
+        if (items.length) {
+            return items[0];
+        }
+        return {};
+    }
+    return {};
+};
 
 export const getArtistAlbums = async (id: string, includeGroups: string[]) =>
     spotify.getArtistAlbums(id, { includeGroups });
