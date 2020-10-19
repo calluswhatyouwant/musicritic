@@ -3,14 +3,14 @@
 import * as spotify from 'spotify-web-sdk';
 import { userApi } from './UserAPI';
 
-const token = localStorage.getItem('spotifyToken') || '';
+const token = localStorage.getItem('spotifyRefresh') || '';
 
 const refreshToken = localStorage.getItem('refresh') || '';
 const refreshTokenFunction = async (): Promise<string> => {
     const { data } = await userApi.post('/auth/refresh', {
         refresh_token: refreshToken,
     });
-    localStorage.setItem('spotifyToken', data.token);
+    localStorage.setItem('spotifyRefresh', data.token);
     return data.token;
 };
 
