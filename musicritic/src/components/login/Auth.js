@@ -11,7 +11,7 @@ const Auth = () => {
     const user = useSession();
 
     useEffect(async () => {
-        localStorage.setItem('spotifyToken', token);
+        localStorage.setItem('spotifyRefresh', token);
         localStorage.setItem('refresh', refresh);
         const credential = await signInWithToken(atob(musicritic));
         localStorage.setItem('authToken', await credential.user.getIdToken())
