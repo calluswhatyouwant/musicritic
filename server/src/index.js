@@ -21,7 +21,9 @@ app.use(usersApi);
 
 app.use('/app', express.static('public'));
 
-app.get('/hello', checkAuth, (req, res) => res.send('Hello, World!'));
+app.get('/hello', checkAuth, (req, res) =>
+    res.send(`Hello, ${req.user.displayName}!`)
+);
 
 const server = http.createServer(app);
 const { port } = config.host;
