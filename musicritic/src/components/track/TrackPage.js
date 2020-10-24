@@ -8,9 +8,9 @@ import {
 } from '../../api/SpotifyWebAPI';
 
 import TrackPageSidebar from './TrackPageSidebar';
-import TrackPageBody from './TrackPageBody';
 
 import './TrackPage.css';
+import ReviewSection from '../review/ReviewSection';
 
 const TrackPage = () => {
     const [loading, setLoading] = useState(true);
@@ -49,15 +49,15 @@ const TrackPage = () => {
     // TODO Use actual values
     return !loading ? (
         <div className="row album-page container">
-            <div className="col-lg-6">
+            <div className="col-lg-4">
                 <TrackPageSidebar
                     track={track}
                     prevTrack={prevTrack}
                     nextTrack={nextTrack}
                 />
             </div>
-            <div className="col-lg-6">
-                <TrackPageBody />
+            <div className="col-lg-8">
+                <ReviewSection reviews={[]} />
             </div>
         </div>
     ) : null;
