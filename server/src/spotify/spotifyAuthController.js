@@ -17,7 +17,7 @@ import {
 const router = express.Router();
 const stateKey = 'spotify-auth-state';
 
-router.get('/login', (req, res) => {
+router.get('/auth/login', (req, res) => {
     const state = generateRandomState(16);
     res.cookie(stateKey, state);
     res.redirect(
@@ -60,7 +60,7 @@ const requestForSpotifyUserToken = (req, res) => {
     });
 };
 
-router.get('/callback', (req, res) => {
+router.get('/auth/callback', (req, res) => {
     const { state } = req.query;
     const storedState = req.cookies ? req.cookies[stateKey] : null;
     if (!state || state !== storedState) {
@@ -87,7 +87,7 @@ const requestForSpotifyRefreshToken = (req, res, refresh) => {
     });
 };
 
-router.post('/refresh', (req, res) => {
+router.post('/auth/refresh', (req, res) => {
     requestForSpotifyRefreshToken(req, res, req.body.refresh_token);
 });
 
