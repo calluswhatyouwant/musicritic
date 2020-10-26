@@ -1,0 +1,86 @@
+.bold-text {
+    font-weight: bold;
+}
+
+.round-cropped {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.compose-review-button {
+    background-color: black;
+    border: 0.05rem solid black;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 1rem;
+    opacity: 0.7;
+    outline: none;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease 0s;
+}
+
+.compose-review-button:hover {
+    color: black;
+    background-color: inherit;
+}
+
+.reviews-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 1.5rem 0 1rem;
+}
+
+.review-card {
+    border: 0.05rem solid black;
+    border-radius: 0.1rem;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.review-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+    color: white;
+    font-size: 1rem;
+    opacity: 0.7;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+}
+
+.review-user-info {
+    display: flex;
+    align-items: center;
+}
+
+.review-user-photo {
+    height: 2.5rem;
+    margin-right: 0.75rem;
+    opacity: 1;
+}
+
+.review-text-area {
+    padding: 0.5rem 1rem;
+    text-align: justify;
+}
+
+.change-text-button {
+    border: none;
+    background-color: inherit;
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+
+.change-text-button:hover {
+    text-decoration: underline;
+}
+
+.review-details-info {
+    background-color: black;
+    color: white;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+}

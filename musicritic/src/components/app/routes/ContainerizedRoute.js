@@ -9,17 +9,11 @@ type Props = {
     children: any,
 };
 
-const Container = ({ children }: any) => (
-    <div className="main container">
-        {children}
-    </div>
-);
+const Container = ({ children }: any) => <div className="main">{children}</div>;
 
 const ContainerizedRoute = ({ children, ...args }: Props) => (
     <Route {...args}>
-        <Container>
-            {children}
-        </Container>
+        <Container>{children}</Container>
     </Route>
 );
 

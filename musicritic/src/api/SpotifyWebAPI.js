@@ -5,7 +5,7 @@ import { userApi } from './UserAPI';
 
 const token = localStorage.getItem('spotifyToken') || '';
 
-const refreshToken = localStorage.getItem('refresh') || '';
+const refreshToken = localStorage.getItem('spotifyRefresh') || '';
 const refreshTokenFunction = async (): Promise<string> => {
     const { data } = await userApi.post('/auth/refresh', {
         refresh_token: refreshToken,
