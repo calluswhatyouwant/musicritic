@@ -7,11 +7,17 @@ import './Rating.css';
 type Props = {
     initialValue: number,
     displayOnly?: boolean,
+    postRating?: Function,
 }
 
-const Rating = ({ initialValue, displayOnly }: Props) => {
+const Rating = ({ initialValue, displayOnly, postRating }: Props) => {
     const [value, setValue] = useState(initialValue);
     const [hoverValue, setHoverValue] = useState(0);
+
+    const postValue = (args) => {
+        postRating(args)
+        setValue(args)
+    }
     
     const [displayValue, setDisplayValue] = useState(initialValue);
     useEffect(() => {
@@ -30,7 +36,7 @@ const Rating = ({ initialValue, displayOnly }: Props) => {
                 key={index}
                 index={index}
                 displayValue={displayValue}
-                setValue={setValue}
+                setValue={postValue}
                 setHoverValue={setHoverValue}
                 displayOnly={displayOnly}
             />

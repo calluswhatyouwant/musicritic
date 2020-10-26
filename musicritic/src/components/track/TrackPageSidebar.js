@@ -3,6 +3,7 @@ import { Track } from 'spotify-web-sdk';
 import { useHistory } from 'react-router-dom';
 
 import Rating from '../common/rating/Rating';
+import { postTrackRating } from '../../api/UserAPI';
 
 type Props = {
     track: Track,
@@ -24,7 +25,7 @@ const TrackPageSidebar = ({ track, prevTrack, nextTrack }: Props) => (
                 />
                 <TrackInfo track={track} />
             </div>
-            <TrackRatings averageRating={3.5} userRating={4} />
+            <TrackRatings averageRating={3.5} userRating={4} trackId={track.id} />
             <div className="album-menu">
                 <button
                   type="button"
@@ -90,29 +91,50 @@ const TrackAlbumNavigation = ({ track, prevTrack, nextTrack }: Props) => {
 type TrackRatingsProps = {
     averageRating: number,
     userRating: number,
+    trackId: string,
 };
 
-const TrackRatings = ({ averageRating, userRating }: TrackRatingsProps) => (
-    <div className="album-ratings row">
-        <TrackRating
-            rating={averageRating}
-            title="Average rating"
-            displayOnly
-        />
-        <TrackRating rating={userRating} title="Your rating" />
-    </div>
-);
+const TrackRatings =({ averageRating, userRating, trackId }: TrackRatingsProps) => {
+    const postRating = (rating) => {
+        postTrackRating(trackId, rating)
+    }
+
+    return (
+        <div className="album-ratings row">
+            <TrackRating
+                rating={averageRating}
+                title="Average rating"
+                displayOnly
+            />
+            <TrackRating 
+                rating={userRating}
+                title="Your rating" 
+                postRating={postRating}
+            />
+        </div>
+    )
+};
 
 type TrackRatingProps = {
     rating: number,
     title: string,
     displayOnly?: boolean,
+    postRating?: Function
 };
 
-const TrackRating = ({ rating, title, displayOnly }: TrackRatingProps) => (
+const TrackRating = ({ 
+    rating,
+    title,
+    displayOnly,
+    postRating
+}: TrackRatingProps) => (
     <div className="album-rating col-4">
         <p className="album-rating__title">{title}</p>
-        <Rating initialValue={rating} displayOnly={displayOnly} />
+        <Rating
+            initialValue={rating}
+            displayOnly={displayOnly}
+            postRating={postRating}
+        />
     </div>
 );
 
