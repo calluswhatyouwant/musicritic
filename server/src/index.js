@@ -16,14 +16,14 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
-app.use('/auth', authRouter);
-app.use(trackReviewsApi);
-
 app.use('/app', express.static('public'));
 
 app.get('/hello', checkAuth, (req, res) =>
     res.send(`Hello, ${req.user.displayName}!`)
 );
+
+app.use(authRouter);
+app.use(trackReviewsApi);
 
 const server = http.createServer(app);
 const { port } = config.host;
