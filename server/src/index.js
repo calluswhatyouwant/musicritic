@@ -7,7 +7,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import config from './config';
 import authRouter from './spotify/spotifyAuthController';
-import usersApi from './users/userController';
+import trackReviewsApi from './track-reviews/trackReviewController';
 import checkAuth from './firebase/firebaseAuthHandler';
 
 const app = express();
@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use('/auth', authRouter);
-app.use(usersApi);
+app.use(trackReviewsApi);
 
 app.use('/app', express.static('public'));
 

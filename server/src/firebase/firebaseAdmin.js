@@ -11,6 +11,5 @@ if (admin.apps.length === 0) {
     });
 }
 
-export const db = admin.database();
-export const ref = db.ref('/musicritic');
+export const db = admin.firestore();
 export const auth = admin.auth();
