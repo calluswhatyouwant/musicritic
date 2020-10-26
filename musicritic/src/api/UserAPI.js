@@ -11,3 +11,20 @@ export const createUser = (user: any) => userApi.post('/users', user)
     .catch((error) => {
         throw error.response.data;
     });
+
+export const postTrackRating = (
+    trackID: string,
+    rating: number
+    ) => {
+    userApi.post(`track/${trackID}/reviews`,
+    { rating },
+    {
+        headers: {
+            Authorization: localStorage.getItem('authToken')
+        }
+    })
+    .then(result => result.data)
+    .catch((error) => {
+        throw error.response.data
+    })
+    }
