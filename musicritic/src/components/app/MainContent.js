@@ -4,7 +4,6 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import ContainerizedRoute from './routes/ContainerizedRoute';
 
-import LoginPage from '../login/LoginPage';
 import UserPage from '../profile/UserPage';
 import Auth from '../login/Auth';
 import AlbumPage from '../album/AlbumPage';
