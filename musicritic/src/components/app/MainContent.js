@@ -15,7 +15,7 @@ import TrackPage from '../track/TrackPage';
 const MainContent = () => (
     <Switch>
         <ContainerizedRoute exact path="/">
-            <LoginPage />
+            <UserPage />
         </ContainerizedRoute>
         <ContainerizedRoute exact path="/home">
             <UserPage />
