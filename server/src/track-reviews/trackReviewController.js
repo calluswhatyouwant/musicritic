@@ -1,7 +1,6 @@
 /* @flow */
 
 import express from 'express';
-import { uniqueId } from 'lodash';
 import checkAuth from '../firebase/firebaseAuthHandler';
 import {
     createTrackReview,
