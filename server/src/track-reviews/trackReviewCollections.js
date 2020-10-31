@@ -1,6 +1,5 @@
 /* @flow */
 
-import { reduce } from 'lodash';
 import { db } from '../firebase/firebaseAdmin';
 
 type TrackReviewModel = {
