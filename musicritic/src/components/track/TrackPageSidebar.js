@@ -3,7 +3,7 @@ import { Track } from 'spotify-web-sdk';
 import { useHistory } from 'react-router-dom';
 
 import Rating from '../common/rating/Rating';
-import { postTrackRating } from '../../api/UserAPI';
+import { postTrackRating } from '../../api/TrackApi';
 
 type Props = {
     track: Track,
