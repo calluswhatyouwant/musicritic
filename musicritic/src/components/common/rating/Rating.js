@@ -6,11 +6,12 @@ import './Rating.css';
 
 type Props = {
     initialValue: number,
+    onValueChange?: function,
     displayOnly?: boolean,
     postRating?: Function,
 }
 
-const Rating = ({ initialValue, displayOnly, postRating = () => {} }: Props) => {
+const Rating = ({ initialValue, onValueChange, displayOnly }: Props) => {
     const [value, setValue] = useState(initialValue);
     const [hoverValue, setHoverValue] = useState(0);
 
@@ -27,6 +28,10 @@ const Rating = ({ initialValue, displayOnly, postRating = () => {} }: Props) => 
             setDisplayValue(value);
         }
     }, [value, hoverValue]);
+
+    useEffect(() => {
+        if (onValueChange) onValueChange(value);
+    }, [value]);
     
     const stars = [];
 
@@ -47,6 +52,7 @@ const Rating = ({ initialValue, displayOnly, postRating = () => {} }: Props) => 
 };
 
 Rating.defaultProps = {
+    onValueChange: () => {},
     displayOnly: false,
     postRating: () => {},
 }
