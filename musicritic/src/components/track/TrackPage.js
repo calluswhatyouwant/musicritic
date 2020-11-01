@@ -11,10 +11,12 @@ import TrackPageSidebar from './TrackPageSidebar';
 
 import './TrackPage.css';
 import ReviewSection from '../review/ReviewSection';
+import { getTrackReviews } from '../../api/TrackAPI';
 
 const TrackPage = () => {
     const [loading, setLoading] = useState(true);
     const [track, setTrack] = useState({});
+    const [reviews, setReviews] = useState([]);
     const [prevTrack, setPrevTrack] = useState({});
     const [nextTrack, setNextTrack] = useState({});
     const { id } = useParams();
@@ -37,9 +39,12 @@ const TrackPage = () => {
                 discNumber,
                 trackNumber
             );
+            const reviewsResponse = await getTrackReviews(id);
+            
             setTrack(trackResponse);
             setPrevTrack(prevTrackResponse);
             setNextTrack(nextTrackResponse);
+            setReviews(reviewsResponse);
             setLoading(false);
         }
 
@@ -57,7 +62,7 @@ const TrackPage = () => {
                 />
             </div>
             <div className="col-lg-8">
-                <ReviewSection reviews={[]} />
+                <ReviewSection trackId={id} reviews={reviews} />
             </div>
         </div>
     ) : null;
