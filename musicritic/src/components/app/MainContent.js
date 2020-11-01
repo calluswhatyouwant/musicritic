@@ -10,6 +10,7 @@ import AlbumPage from '../album/AlbumPage';
 import SearchResultsPage from '../search/SearchResultsPage';
 import SignupPage from '../signup/SignupPage';
 import TrackPage from '../track/TrackPage';
+import TrackReviewPage from '../track/review/TrackReviewPage';
 
 const MainContent = () => (
     <Switch>
@@ -34,6 +35,7 @@ const MainContent = () => (
         />
         <Route exact path="/album/:id/(reviews|)" component={AlbumPage} />
         <Route exact path="/track/:id" component={TrackPage} />
+        <Route exact path="/track/:id/review" component={TrackReviewPage} />
     </Switch>
 );
 
