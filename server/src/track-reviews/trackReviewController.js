@@ -6,9 +6,21 @@ import {
     createTrackReview,
     getUserTrackReview,
     updateUserTrackReview,
+    getTrackReviews
 } from './trackReviewCollections';
 
 const router = express.Router();
+
+router.get('/track/:trackId/reviews', (req, res) => {
+    const trackId = req.params.trackId;
+    getTrackReviews(trackId)
+        .then(reviews => {
+            reviews.size === 0
+                ? res.status(200).send([])
+                : res.status(200).send(reviews.docs.map(review => review.data()));
+        })
+        .catch(error => res.status(error.status).send(error));
+});
 
 router.get('/track/:trackId/reviews/me', checkAuth, (req, res) => {
     const trackId = req.params.trackId;
@@ -17,7 +29,7 @@ router.get('/track/:trackId/reviews/me', checkAuth, (req, res) => {
         .then(reviews => {
             reviews.size === 0
                 ? res.status(204).send()
-                : res.status(200).send(reviews.docs[0]);
+                : res.status(200).send(reviews.docs[0].data());
         })
         .catch(error => res.status(error.status).send(error));
 });
