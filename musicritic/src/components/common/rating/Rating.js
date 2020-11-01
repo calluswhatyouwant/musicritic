@@ -6,7 +6,7 @@ import './Rating.css';
 
 type Props = {
     initialValue: number,
-    onValueChange?: function,
+    onValueChange?: () => void,
     displayOnly?: boolean,
     postRating?: Function,
 }

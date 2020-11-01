@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import MediumEditor from 'medium-editor';
-import { getTrack } from 'spotify-web-sdk';
+import { getTrack, Track } from 'spotify-web-sdk';
 
 import { postTrackReview, updateTrackReview, getCurrentUserTrackReview } from '../../../api/TrackAPI';
 
@@ -22,11 +22,11 @@ const TrackReviewPage = () => {
   useEffect(() => {
     async function getTrackFromAPI() {
       const trackResponse = await getTrack(id);
-      const { rating, review, id: reviewId } = await getCurrentUserTrackReview(id);
-      setReviewId(reviewId);
-      setRating(rating);
-      setReview(review);
+      const reviewResponse = await getCurrentUserTrackReview(id);
       setTrack(trackResponse);
+      setReviewId(reviewResponse.id);
+      setRating(reviewResponse.rating);
+      setReview(reviewResponse.review);
       setLoading(false);
     }
 
@@ -34,7 +34,7 @@ const TrackReviewPage = () => {
   }, [id]);
 
   const handleSubmit = async () => {
-    if (reviewId.length > 0) {
+    if (reviewId && reviewId.length > 0) {
       await updateTrackReview(id, reviewId, rating, review);
     } else {
       await postTrackReview(id, rating, review);
@@ -60,7 +60,12 @@ const TrackReviewPage = () => {
   );
 }
 
-const TrackReviewRating = ({ rating, setRating }) => (
+type RatingProps = {
+  rating: number,
+  setRating: (rating: number) => void,
+};
+
+const TrackReviewRating = ({ rating, setRating }: RatingProps) => (
   <div className="d-flex">
     <h4>Your score: </h4>
     <h4 className="pl-2">
@@ -69,7 +74,11 @@ const TrackReviewRating = ({ rating, setRating }) => (
   </div>
 );
 
-const TrackReviewPageHeader = ({ track }) => (
+type HeaderProps = {
+  track: Track,
+};
+
+const TrackReviewPageHeader = ({ track }: HeaderProps) => (
   <CustomPalette imageUrl={track.album.imageUrl}>
     <div className="w-100 p-5">
       <div className="row">
@@ -91,7 +100,12 @@ const TrackReviewPageHeader = ({ track }) => (
   </CustomPalette>
 );
 
-const ReviewButtonBar = ({ handleSubmit, handleCancel }) => (
+type ButtonBarProps = {
+  handleSubmit: () => void,
+  handleCancel: () => void,
+}
+
+const ReviewButtonBar = ({ handleSubmit, handleCancel }: ButtonBarProps) => (
   <div className="d-flex flex-row-reverse pt-3">
     <button onClick={handleSubmit} className="btn btn-secondary">
       Submit Review
@@ -102,7 +116,12 @@ const ReviewButtonBar = ({ handleSubmit, handleCancel }) => (
   </div>
 );
 
-const ComposeReviewTextArea = ({ review, setReview }) => {
+type TextAreaProps = {
+  review: string,
+  setReview: (review: string) => void,
+};
+
+const ComposeReviewTextArea = ({ review, setReview }: TextAreaProps) => {
   useEffect(() => {
     const editor = new MediumEditor('.editable');
     editor.subscribe('editableInput', (event) => setReview(event.target.innerHTML));

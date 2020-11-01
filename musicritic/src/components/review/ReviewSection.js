@@ -1,7 +1,6 @@
 /* @flow */
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import SectionHeader from '../common/section-header/SectionHeader';
 
@@ -55,18 +54,16 @@ type ComposeReviewButtonProps = {
 }
 
 const ComposeReviewButton = ({ trackId }: ComposeReviewButtonProps) => (
-    <Link
-        className="compose-review-button"
-        to={`/track/${trackId}/review`}>
+    <a href={`/track/${trackId}/review`} className="compose-review-button">
         Compose Review
-    </Link>
+    </a>
 );
 
 type ReviewCardProps = {
     userName: string,
     userPhoto: string,
     rating: number,
-    text: string,
+    review: string,
     date: string,
 };
 
