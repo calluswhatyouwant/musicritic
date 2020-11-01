@@ -10,7 +10,7 @@ type Props = {
     postRating?: Function,
 }
 
-const Rating = ({ initialValue, displayOnly, postRating }: Props) => {
+const Rating = ({ initialValue, displayOnly, postRating = () => {} }: Props) => {
     const [value, setValue] = useState(initialValue);
     const [hoverValue, setHoverValue] = useState(0);
 
