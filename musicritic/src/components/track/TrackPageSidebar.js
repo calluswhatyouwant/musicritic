@@ -140,6 +140,7 @@ const TrackRating = ({
 
 TrackRating.defaultProps = {
     displayOnly: false,
+    postRating: () => {},
 };
 
 export default TrackPageSidebar;
