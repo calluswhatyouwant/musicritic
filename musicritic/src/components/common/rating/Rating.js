@@ -48,6 +48,7 @@ const Rating = ({ initialValue, displayOnly, postRating }: Props) => {
 
 Rating.defaultProps = {
     displayOnly: false,
+    postRating: () => {},
 }
 
 type StarProps = {
