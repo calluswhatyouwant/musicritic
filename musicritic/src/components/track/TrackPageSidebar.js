@@ -3,15 +3,16 @@ import { Track } from 'spotify-web-sdk';
 import { useHistory } from 'react-router-dom';
 
 import Rating from '../common/rating/Rating';
-import { postTrackRating } from '../../api/TrackApi';
 
 type Props = {
+    userRating: number,
+    postRating: (rating: number) => void,
     track: Track,
     prevTrack: Track | {},
     nextTrack: Track | {},
 };
 
-const TrackPageSidebar = ({ track, prevTrack, nextTrack }: Props) => (
+const TrackPageSidebar = ({ userRating, postRating, track, prevTrack, nextTrack }: Props) => (
     <div>
         <div
           className="album-summary text-light"
@@ -25,7 +26,7 @@ const TrackPageSidebar = ({ track, prevTrack, nextTrack }: Props) => (
                 />
                 <TrackInfo track={track} />
             </div>
-            <TrackRatings averageRating={3.5} userRating={4} trackId={track.id} />
+            <TrackRatings averageRating={3.5} userRating={userRating} postRating={postRating} />
             <div className="album-menu">
                 <button
                   type="button"
@@ -89,31 +90,25 @@ const TrackAlbumNavigation = ({ track, prevTrack, nextTrack }: Props) => {
 };
 
 type TrackRatingsProps = {
+    postRating: (rating: number) => void,
     averageRating: number,
     userRating: number,
-    trackId: string,
 };
 
-const TrackRatings =({ averageRating, userRating, trackId }: TrackRatingsProps) => {
-    const postRating = (rating) => {
-        postTrackRating(trackId, rating)
-    }
-
-    return (
-        <div className="album-ratings row">
-            <TrackRating
-                rating={averageRating}
-                title="Average rating"
-                displayOnly
-            />
-            <TrackRating 
-                rating={userRating}
-                title="Your rating" 
-                postRating={postRating}
-            />
-        </div>
-    )
-};
+const TrackRatings =({ averageRating, userRating, postRating }: TrackRatingsProps) => (
+    <div className="album-ratings row">
+        <TrackRating
+            rating={averageRating}
+            title="Average rating"
+            displayOnly
+        />
+        <TrackRating 
+            rating={userRating}
+            title="Your rating" 
+            postRating={postRating}
+        />
+    </div>
+);
 
 type TrackRatingProps = {
     rating: number,
@@ -133,7 +128,7 @@ const TrackRating = ({
         <Rating
             initialValue={rating}
             displayOnly={displayOnly}
-            postRating={postRating}
+            onValueChange={postRating}
         />
     </div>
 );

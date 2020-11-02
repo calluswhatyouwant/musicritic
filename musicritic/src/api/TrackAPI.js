@@ -12,7 +12,7 @@ export const trackApi = axios.create({
 export const postTrackReview = (
   trackID: string,
   rating: number,
-  review: string
+  review?: string
 ) => (
     trackApi.post(`track/${trackID}/reviews`, { rating, review })
       .then(result => result.data)
@@ -25,7 +25,7 @@ export const updateTrackReview = (
   trackID: string,
   reviewId: string,
   rating: number,
-  review: string
+  review?: string
 ) => (
     trackApi.put(`track/${trackID}/reviews/${reviewId}`, { rating, review })
       .then(result => result.data)
