@@ -11,10 +11,15 @@ import TrackPageSidebar from './TrackPageSidebar';
 
 import './TrackPage.css';
 import ReviewSection from '../review/ReviewSection';
-import { getTrackReviews } from '../../api/TrackAPI';
+import {
+    getTrackReviews,
+    getCurrentUserTrackReview,
+    postTrackReview
+} from '../../api/TrackAPI';
 
 const TrackPage = () => {
     const [loading, setLoading] = useState(true);
+    const [rating, setRating] = useState(0);
     const [track, setTrack] = useState({});
     const [reviews, setReviews] = useState([]);
     const [prevTrack, setPrevTrack] = useState({});
@@ -40,8 +45,10 @@ const TrackPage = () => {
                 trackNumber
             );
             const reviewsResponse = await getTrackReviews(id);
-            
+            const { rating: ratingResponse } = await getCurrentUserTrackReview(id);
+
             setTrack(trackResponse);
+            setRating(ratingResponse);
             setPrevTrack(prevTrackResponse);
             setNextTrack(nextTrackResponse);
             setReviews(reviewsResponse);
@@ -51,11 +58,17 @@ const TrackPage = () => {
         getTrackFromAPI();
     }, [id]);
 
+    const postRating = (newRating: number) => { 
+        if (newRating !== rating) postTrackReview(id, newRating);
+    }
+
     // TODO Use actual values
     return !loading ? (
         <div className="row album-page container">
             <div className="col-lg-4">
                 <TrackPageSidebar
+                    userRating={rating}
+                    postRating={postRating}
                     track={track}
                     prevTrack={prevTrack}
                     nextTrack={nextTrack}
