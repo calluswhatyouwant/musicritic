@@ -32,13 +32,14 @@ const formatDate = (date: string) => {
 };
 
 type ReviewSectionProps = {
+    trackId: string,
     reviews: Object,
 };
 
-const ReviewSection = ({ reviews }: ReviewSectionProps) => (
+const ReviewSection = ({ trackId, reviews }: ReviewSectionProps) => (
     <div className="review-section">
         <SectionHeader title="User Reviews">
-            <ComposeReviewButton />
+            <ComposeReviewButton trackId={trackId} />
         </SectionHeader>
         <div className="reviews-wrapper">
             {reviews.map(review => (
@@ -48,24 +49,21 @@ const ReviewSection = ({ reviews }: ReviewSectionProps) => (
     </div>
 );
 
-const ComposeReviewButton = () => {
-    const handleClick = () => {};
+type ComposeReviewButtonProps = {
+    trackId: string
+}
 
-    return (
-        <button
-            type="button"
-            className="compose-review-button"
-            onClick={handleClick}>
-            Compose Review
-        </button>
-    );
-};
+const ComposeReviewButton = ({ trackId }: ComposeReviewButtonProps) => (
+    <a href={`/track/${trackId}/review`} className="compose-review-button">
+        Compose Review
+    </a>
+);
 
 type ReviewCardProps = {
     userName: string,
     userPhoto: string,
     rating: number,
-    text: string,
+    review: string,
     date: string,
 };
 
@@ -73,22 +71,25 @@ const ReviewCard = ({
     userName,
     userPhoto,
     rating,
-    text,
+    review,
     date,
 }: ReviewCardProps) => {
-    const isLongReview = text.length > 500;
+    if (!review) return null;
+
+    const isLongReview = review.length > 500;
     const reviewDate = formatDate(date);
 
+    // TODO Adapt to work with HTML
     const [displayedText, setDisplayedText] = useState(
-        isLongReview ? `${text.substring(0, 497)}...` : text
+        isLongReview ? `${review.substring(0, 497)}...` : review
     );
 
     const onShowMore = () => {
-        setDisplayedText(text);
+        setDisplayedText(review);
     };
 
     const onShowLess = () => {
-        setDisplayedText(`${text.substring(0, 247)}...`);
+        setDisplayedText(`${review.substring(0, 247)}...`);
     };
 
     return (
@@ -110,13 +111,13 @@ const ReviewCard = ({
                 </span>
             </div>
             <div className="review-text-area">
-                <span className="review-text">{displayedText}</span>
-                {isLongReview && displayedText !== text && (
+                <span dangerouslySetInnerHTML={{ __html: review }} className="review-text" />
+                {isLongReview && displayedText !== review && (
                     <button className="change-text-button" onClick={onShowMore}>
                         Show More
                     </button>
                 )}
-                {isLongReview && displayedText === text && (
+                {isLongReview && displayedText === review && (
                     <button className="change-text-button" onClick={onShowLess}>
                         Show Less
                     </button>

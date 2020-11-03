@@ -1,0 +1,14 @@
+.editable {
+  width: 100%;
+  border: 1px solid grey;
+  margin-bottom: 1rem;
+  padding: .25rem;
+  min-height: 3rem;
+}
+
+.review-page-track-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

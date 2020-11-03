@@ -35,6 +35,10 @@ export const getUserTrackReview = (trackId: string, authorUid: string) => {
         .get();
 };
 
+export const getTrackReviews = (trackId: string) => {
+    return TrackReviews.where('trackId', '==', trackId).get();
+};
+
 export const updateUserTrackReview = async (
     reviewId: string,
     updatedTrackReview: TrackReviewModel

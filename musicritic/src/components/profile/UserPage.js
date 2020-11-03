@@ -1,42 +1,24 @@
 /* @flow */
-import React, { Fragment, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-
-import {
-    getRecentlyPlayedTracks,
-    getTopPlayedTracks,
-} from '../../api/SpotifyWebAPI';
+import React, { Fragment } from 'react';
 
 import CurrentlyPlayingTrackSection from './CurrentlyPlayingTrackSection';
 import UserTracksSection from './UserTracksSection';
 
 import SocialButton from '../common/social-button/SocialButton';
+import { init } from '../../api/SpotifyWebAPI';
 
 import './UserPage.css';
-import { usePromise } from '../../utils/hooks';
 
 const UserPage = () => {
-    const [display, setDisplay] = useState('TOP');
-    const [recentTracks] = usePromise(getRecentlyPlayedTracks(), [], []);
-    const [topTracks] = usePromise(getTopPlayedTracks(), [], []);
-    const history = useHistory();
-
-    const handleClick = () => {
-        setDisplay(display === 'TOP' ? 'RECENT' : 'TOP');
-    };
-
-    const tracks = display === 'TOP' ? topTracks : recentTracks;
-
-    if (localStorage.getItem('spotifyToken')) {
+    const spotifyToken = localStorage.getItem('spotifyToken');
+    const spotifyRefreshToken = localStorage.getItem('spotifyRefresh');
+    
+    if (spotifyToken && spotifyRefreshToken) {
+        init(spotifyToken, spotifyRefreshToken);
         return (
             <Fragment>
-                <CurrentlyPlayingTrackSection history={history} />
-                <UserTracksSection
-                    display={display}
-                    history={history}
-                    onClick={handleClick}
-                    tracks={tracks}
-                />
+                <CurrentlyPlayingTrackSection />
+                <UserTracksSection />
             </Fragment>
         );
     }
