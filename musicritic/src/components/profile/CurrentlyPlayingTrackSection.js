@@ -1,18 +1,15 @@
 /* @flow */
 
 import React, { useState, useEffect, Fragment } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { getCurrentUserCurrentlyPlayingTrack } from '../../api/SpotifyWebAPI';
 import { useInterval } from '../../utils/hooks';
 import CurrentlyPlayingTrack from './CurrentlyPlayingTrack';
 
-type CurrentlyPlayingTrackSectionProps = {
-    history: any,
-};
-
-const CurrentlyPlayingTrackSection = ({
-    history,
-}: CurrentlyPlayingTrackSectionProps) => {
+const CurrentlyPlayingTrackSection = () => {
     const [currentlyPlaying, setCurrentlyPlaying] = useState({});
+    const history = useHistory();
 
     useEffect(() => {
         getCurrentUserCurrentlyPlayingTrack().then(track =>
