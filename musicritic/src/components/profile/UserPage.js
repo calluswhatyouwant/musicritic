@@ -13,7 +13,7 @@ const UserPage = () => {
     const spotifyToken = localStorage.getItem('spotifyToken');
     const spotifyRefreshToken = localStorage.getItem('spotifyRefresh');
     
-    if (spotifyToken) {
+    if (spotifyToken && spotifyRefreshToken) {
         init(spotifyToken, spotifyRefreshToken);
         return (
             <Fragment>
