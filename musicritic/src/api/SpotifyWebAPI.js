@@ -3,7 +3,7 @@
 import * as spotify from 'spotify-web-sdk';
 import { userApi } from './UserAPI';
 
-const refreshTokenFunction = async (): Promise<string> => {
+const refreshTokenFunction = async (refreshToken: string): Promise<string> => {
     const { data } = await userApi.post('/auth/refresh', {
         refresh_token: refreshToken,
     });
@@ -14,7 +14,7 @@ const refreshTokenFunction = async (): Promise<string> => {
 export const init = (spotifyToken?: string, spotifyRefreshToken?: string) => {
     const token = spotifyToken || localStorage.getItem('spotifyToken') || '';
     const refreshToken = spotifyRefreshToken || localStorage.getItem('spotifyRefresh') || '';
-    spotify.init({ token, refreshToken, refreshTokenFunction });
+    spotify.init({ token, refreshToken, refreshTokenFunction: refreshTokenFunction(refreshToken) });
 };
 
 init();

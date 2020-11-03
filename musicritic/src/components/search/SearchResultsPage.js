@@ -11,12 +11,12 @@ import { usePromise } from '../../utils/hooks';
 
 const SearchResultsPage = () => {
     const { query } = useParams();
-    const [results, error, loading] = usePromise(search(query), {}, [query]);
+    const [results,, loading] = usePromise(search(query), {}, [query]);
 
     return (
         <div>
             <SearchResultsNav query={query} />
-            {loading ? <Loading /> : !error ? <SearchResult results={results} /> : null}
+            {loading ? <Loading /> : <SearchResult results={results} />}
         </div>
     );
 };
