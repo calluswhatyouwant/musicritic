@@ -7,6 +7,7 @@ import { postTrackReview, updateTrackReview, getCurrentUserTrackReview } from '.
 
 import Rating from '../../common/rating/Rating';
 import CustomPalette from '../../common/palette/CustomPalette';
+import Loading from '../../common/loading/Loading';
 
 import './TrackReviewPage.css';
 
@@ -47,7 +48,7 @@ const TrackReviewPage = () => {
     history.push(`/track/${id}`);
   }
 
-  return !loading && (
+  return !loading ? (
     <>
       <TrackReviewPageHeader track={track} />
       <div className="album-page container">
@@ -57,7 +58,7 @@ const TrackReviewPage = () => {
         <ReviewButtonBar handleSubmit={handleSubmit} handleCancel={handleCancel} />
       </div>
     </>
-  );
+  ) : <Loading />;
 }
 
 type RatingProps = {

@@ -11,6 +11,7 @@ import TrackPageSidebar from './TrackPageSidebar';
 
 import './TrackPage.css';
 import ReviewSection from '../review/ReviewSection';
+import Loading from '../common/loading/Loading';
 import {
     getTrackReviews,
     getCurrentUserTrackReview,
@@ -78,7 +79,7 @@ const TrackPage = () => {
                 <ReviewSection trackId={id} reviews={reviews} />
             </div>
         </div>
-    ) : null;
+    ) : <Loading />;
 };
 
 export default TrackPage;

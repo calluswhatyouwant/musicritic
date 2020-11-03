@@ -1,14 +1,17 @@
 /* @flow */
 
 import React, { useEffect } from 'react';
-import { Redirect, useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import { signInWithToken } from '../../firebase/auth';
 import { useSession } from '../app/App';
 
+import Loading from '../common/loading/Loading';
+
 const Auth = () => {
     const { token, refresh, musicritic } = useParams();
     const user = useSession();
+    const history = useHistory();
 
     useEffect(() => {
         const login = async () => {
@@ -23,7 +26,11 @@ const Auth = () => {
         login();
     }, []);
 
-    return user ? <Redirect to="/home" /> : <div>Logging in...</div>;
+    if (user && localStorage.getItem('spotifyToken')) { 
+        history.push('/home');
+    } 
+
+    return <Loading />;
 };
 
 export default Auth;
