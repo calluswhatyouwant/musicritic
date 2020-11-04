@@ -6,7 +6,7 @@ import SectionHeader from '../common/section-header/SectionHeader';
 
 import './ReviewSection.css';
 
-const formatDate = (date: string) => {
+const formatDate = (date: Date) => {
     const daySuffixes = ['th', 'st', 'nd', 'rd'];
     const monthNames = [
         'January',
@@ -31,9 +31,27 @@ const formatDate = (date: string) => {
     return `${month} ${d.getDate()}${daySuffix}, ${d.getFullYear()}`;
 };
 
+type Author = {
+    displayName: string,
+    avatarUrl: string,
+    authorUid: string,
+};
+
+type Review = {
+    id: string,
+    author: Author,
+    trackId: string,
+    rating: number,
+    review?: {
+        createdAt: Date,
+        updatedAt: Date,
+        content: string,
+    },
+};
+
 type ReviewSectionProps = {
     trackId: string,
-    reviews: Object,
+    reviews: Array<Review>,
 };
 
 const ReviewSection = ({ trackId, reviews }: ReviewSectionProps) => (
@@ -42,16 +60,18 @@ const ReviewSection = ({ trackId, reviews }: ReviewSectionProps) => (
             <ComposeReviewButton trackId={trackId} />
         </SectionHeader>
         <div className="reviews-wrapper">
-            {reviews.map(review => (
-                <ReviewCard key={review.id} {...review} />
-            ))}
+            {reviews
+                .filter(review => review.review)
+                .map(review => (
+                    <ReviewCard key={review.id} {...review} />
+                ))}
         </div>
     </div>
 );
 
 type ComposeReviewButtonProps = {
-    trackId: string
-}
+    trackId: string,
+};
 
 const ComposeReviewButton = ({ trackId }: ComposeReviewButtonProps) => (
     <a href={`/track/${trackId}/review`} className="compose-review-button">
@@ -60,36 +80,30 @@ const ComposeReviewButton = ({ trackId }: ComposeReviewButtonProps) => (
 );
 
 type ReviewCardProps = {
-    userName: string,
-    userPhoto: string,
     rating: number,
-    review: string,
-    date: string,
+    author: Author,
+    review: {
+        createdAt: Date,
+        updatedAt: Date,
+        content: string,
+    },
 };
 
-const ReviewCard = ({
-    userName,
-    userPhoto,
-    rating,
-    review,
-    date,
-}: ReviewCardProps) => {
-    if (!review) return null;
-
-    const isLongReview = review.length > 500;
-    const reviewDate = formatDate(date);
+const ReviewCard = ({ rating, review, author }: ReviewCardProps) => {
+    const isLongReview = review.content.length > 500;
+    const reviewDate = review ? formatDate(review.updatedAt) : null;
 
     // TODO Adapt to work with HTML
     const [displayedText, setDisplayedText] = useState(
-        isLongReview ? `${review.substring(0, 497)}...` : review
+        isLongReview ? `${review.content.substring(0, 497)}...` : review.content
     );
 
     const onShowMore = () => {
-        setDisplayedText(review);
+        setDisplayedText(review.content);
     };
 
     const onShowLess = () => {
-        setDisplayedText(`${review.substring(0, 247)}...`);
+        setDisplayedText(`${review.content.substring(0, 247)}...`);
     };
 
     return (
@@ -98,12 +112,12 @@ const ReviewCard = ({
                 <div className="review-user-info">
                     <img
                         className="review-user-photo round-cropped"
-                        src={userPhoto}
-                        alt={`${userName}`}
+                        src={author.avatarUrl}
+                        alt={`${author.displayName}`}
                     />
                     <span className="review-user-name">
-                        <span className="bold-text">{userName}</span> &apos;s
-                        review
+                        <span className="bold-text">{author.displayName}</span>{' '}
+                        &apos;s review
                     </span>
                 </div>
                 <span className="review-rating">
@@ -111,13 +125,16 @@ const ReviewCard = ({
                 </span>
             </div>
             <div className="review-text-area">
-                <span dangerouslySetInnerHTML={{ __html: review }} className="review-text" />
-                {isLongReview && displayedText !== review && (
+                <span
+                    dangerouslySetInnerHTML={{ __html: review.content }}
+                    className="review-text"
+                />
+                {isLongReview && displayedText !== review.content && (
                     <button className="change-text-button" onClick={onShowMore}>
                         Show More
                     </button>
                 )}
-                {isLongReview && displayedText === review && (
+                {isLongReview && displayedText === review.content && (
                     <button className="change-text-button" onClick={onShowLess}>
                         Show Less
                     </button>
