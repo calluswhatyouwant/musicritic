@@ -42,18 +42,27 @@ export const getTrackReviews = async (trackId: string) => {
     return getReviewersInformation(reviews);
 };
 
-const getReviewersInformation = async (reviews) => {
-    const usersIds = reviews.docs.map(review => ({ uid: review.data().authorUid }));
+const getReviewersInformation = async reviews => {
+    const usersIds = reviews.docs.map(review => ({
+        uid: review.data().authorUid,
+    }));
     const { users } = await auth.getUsers(usersIds);
-    return reviews.docs.map(
-        (review, i) => 
-        ({ ...review.data(), author: 
-            {
-                displayName: users[i].displayName,
-                avatarUrl: users[i].photoURL,
-                authorUid: users[i].uid,
-            } }));
-}
+
+    const reviewsData = reviews.docs.map(review => review.data());
+    return reviewsData.map((review, i) => ({
+        ...review,
+        review: review.review && {
+            createdAt: review.review.createdAt.toDate(),
+            updatedAt: review.review.updatedAt.toDate(),
+            content: review.review.content,
+        },
+        author: {
+            displayName: users[i].displayName,
+            avatarUrl: users[i].photoURL,
+            authorUid: users[i].uid,
+        },
+    }));
+};
 
 export const updateUserTrackReview = async (
     reviewId: string,
