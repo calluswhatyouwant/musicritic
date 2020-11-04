@@ -11,7 +11,10 @@ type ReviewModel = {
     contentType: 'track' | 'album',
 };
 
-export const Reviews = { track: db.collection('track-reviews') };
+export const Reviews = {
+    track: db.collection('track-reviews'),
+    album: db.collection('album-reviews'),
+};
 
 export const createReview = async (review: ReviewModel) => {
     const addedReviews = await getUserReview(
@@ -38,7 +41,7 @@ export const getUserReview = (
 ) => {
     return Reviews[contentType]
         .where('authorUid', '==', authorUid)
-        .where('trackId', '==', contentId)
+        .where('contentId', '==', contentId)
         .get();
 };
 

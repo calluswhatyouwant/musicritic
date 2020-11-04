@@ -1,0 +1,46 @@
+/* @flow */
+
+import express from 'express';
+import checkAuth from '../firebase/firebaseAuthHandler';
+import {
+    createReview,
+    getUserReview,
+    updateUserReview,
+} from './reviewCollections';
+
+const router = express.Router();
+
+router.get('/album/:albumId/reviews/me', checkAuth, (req, res) => {
+    const albumId = req.params.albumId;
+    const authorUid = req.user.uid;
+    getUserReview(albumId, authorUid, 'album')
+        .then(reviews => {
+            reviews.size === 0
+                ? res.status(204).send()
+                : res.status(200).send(reviews.docs[0]);
+        })
+        .catch(error => res.status(error.status).send(error));
+});
+
+router.post('/album/:albumId/reviews', checkAuth, (req, res) => {
+    const review = req.body;
+    review.contentId = req.params.albumId;
+    review.authorUid = req.user.uid;
+    review.contentType = 'album';
+    createReview(review)
+        .then(review => res.status(201).send(review))
+        .catch(error => res.status(error.status).send(error));
+});
+
+router.put('/album/:albumId/reviews/:reviewId', checkAuth, (req, res) => {
+    const review = req.body;
+    review.contentId = req.params.albumId;
+    review.id = req.params.reviewId;
+    review.authorUid = req.user.uid;
+    review.contentType = 'album';
+    updateUserReview(review.id, review)
+        .then(review => res.status(200).send(review))
+        .catch(error => res.status(error.status).send(error));
+});
+
+export default router;
