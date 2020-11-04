@@ -7,22 +7,24 @@ type TrackReviewModel = {
     authorUid: string,
     trackId: string,
     rating: number,
-    review: string | null,
+    review?: {
+        createdAt: Date,
+        updatedAt: Date,
+        content: string,
+    },
 };
 
 export const TrackReviews = db.collection('track-reviews');
 
 export const createTrackReview = async (review: TrackReviewModel) => {
-    const addedTrackReviews = await getUserTrackReview(
-        review.trackId,
-        review.authorUid
-    );
-    if (addedTrackReviews.size > 0) {
-        throw {
-            status: 500,
-            message: 'Track already reviewed by the user',
-        };
+    const addedTrackReviews = (
+        await getUserTrackReview(review.trackId, review.authorUid)
+    ).docs.map(review => review.data());
+
+    if (addedTrackReviews.length > 0) {
+        return await updateUserTrackReview(addedTrackReviews[0].id, review);
     }
+
     const ref = TrackReviews.doc();
     review.id = ref.id;
     await ref.set(review);
@@ -57,6 +59,7 @@ export const updateUserTrackReview = async (
     reviewId: string,
     updatedTrackReview: TrackReviewModel
 ) => {
+    updatedTrackReview.id = reviewId;
     const ref = TrackReviews.doc(reviewId);
     const review = (await ref.get()).data();
     if (!review)
@@ -76,6 +79,19 @@ export const updateUserTrackReview = async (
             status: 500,
             message: 'Cannot change the track which is being reviewed',
         };
+
+    console.log(review);
+    if (updatedTrackReview.review) {
+        if (
+            review.review &&
+            updatedTrackReview.review.createdAt !== review.review.createdAt
+        )
+            throw {
+                status: 500,
+                message: 'Cannot change the creation date of a review',
+            };
+        updatedTrackReview.review.updatedAt = new Date();
+    }
 
     ref.set(updatedTrackReview);
     return updatedTrackReview;

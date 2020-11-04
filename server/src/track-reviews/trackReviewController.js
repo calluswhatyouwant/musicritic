@@ -6,7 +6,7 @@ import {
     createTrackReview,
     getUserTrackReview,
     updateUserTrackReview,
-    getTrackReviews
+    getTrackReviews,
 } from './trackReviewCollections';
 
 const router = express.Router();
@@ -34,6 +34,11 @@ router.post('/track/:trackId/reviews', checkAuth, (req, res) => {
     const review = req.body;
     review.trackId = req.params.trackId;
     review.authorUid = req.user.uid;
+    if (review.review && !review.review.createdAt) {
+        review.review.createdAt = new Date();
+        review.review.updatedAt = review.review.createdAt;
+    }
+
     createTrackReview(review)
         .then(review => res.status(201).send(review))
         .catch(error => res.status(error.status).send(error));
@@ -42,9 +47,8 @@ router.post('/track/:trackId/reviews', checkAuth, (req, res) => {
 router.put('/track/:trackId/reviews/:reviewId', checkAuth, (req, res) => {
     const review = req.body;
     review.trackId = req.params.trackId;
-    review.id = req.params.reviewId;
     review.authorUid = req.user.uid;
-    updateUserTrackReview(review.id, review)
+    updateUserTrackReview(req.params.reviewId, review)
         .then(review => res.status(200).send(review))
         .catch(error => res.status(error.status).send(error));
 });
