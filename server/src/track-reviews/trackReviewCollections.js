@@ -1,6 +1,6 @@
 /* @flow */
 
-import { db } from '../firebase/firebaseAdmin';
+import { db, auth } from '../firebase/firebaseAdmin';
 
 type TrackReviewModel = {
     id: string | null,
@@ -35,9 +35,23 @@ export const getUserTrackReview = (trackId: string, authorUid: string) => {
         .get();
 };
 
-export const getTrackReviews = (trackId: string) => {
-    return TrackReviews.where('trackId', '==', trackId).get();
+export const getTrackReviews = async (trackId: string) => {
+    const reviews = await TrackReviews.where('trackId', '==', trackId).get();
+    return getReviwersInformation(reviews);
 };
+
+const getReviwersInformation = async (reviews) => {
+    const usersIds = reviews.docs.map(review => ({ uid: review.data().authorUid }));
+    const { users } = await auth.getUsers(usersIds);
+    return reviews.docs.map(
+        (review, i) => 
+        ({ ...review.data(), author: 
+            {
+                displayName: users[i].displayName,
+                avatarUrl: users[i].photoURL,
+                authorUid: users[i].uid,
+            } }));
+}
 
 export const updateUserTrackReview = async (
     reviewId: string,

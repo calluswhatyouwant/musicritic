@@ -14,11 +14,7 @@ const router = express.Router();
 router.get('/track/:trackId/reviews', (req, res) => {
     const trackId = req.params.trackId;
     getTrackReviews(trackId)
-        .then(reviews => {
-            reviews.size === 0
-                ? res.status(200).send([])
-                : res.status(200).send(reviews.docs.map(review => review.data()));
-        })
+        .then(reviews => res.status(200).send(reviews))
         .catch(error => res.status(error.status).send(error));
 });
 
