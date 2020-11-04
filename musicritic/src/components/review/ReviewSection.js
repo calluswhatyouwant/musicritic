@@ -62,7 +62,7 @@ const ComposeReviewButton = ({ trackId }: ComposeReviewButtonProps) => (
 type Author = {
     displayName: string,
     avatarUrl: string,
-    authorUid: String,
+    authorUid: string,
 }
 
 type ReviewCardProps = {
