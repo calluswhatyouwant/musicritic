@@ -3,17 +3,17 @@
 import express from 'express';
 import checkAuth from '../firebase/firebaseAuthHandler';
 import {
-    createTrackReview,
-    getUserTrackReview,
-    updateUserTrackReview,
-} from './trackReviewCollections';
+    createReview,
+    getUserReview,
+    updateUserReview,
+} from './reviewCollections';
 
 const router = express.Router();
 
 router.get('/track/:trackId/reviews/me', checkAuth, (req, res) => {
     const trackId = req.params.trackId;
     const authorUid = req.user.uid;
-    getUserTrackReview(trackId, authorUid)
+    getUserReview(trackId, authorUid, 'track')
         .then(reviews => {
             reviews.size === 0
                 ? res.status(204).send()
@@ -24,19 +24,21 @@ router.get('/track/:trackId/reviews/me', checkAuth, (req, res) => {
 
 router.post('/track/:trackId/reviews', checkAuth, (req, res) => {
     const review = req.body;
-    review.trackId = req.params.trackId;
+    review.contentId = req.params.trackId;
     review.authorUid = req.user.uid;
-    createTrackReview(review)
+    review.contentType = 'track';
+    createReview(review)
         .then(review => res.status(201).send(review))
         .catch(error => res.status(error.status).send(error));
 });
 
 router.put('/track/:trackId/reviews/:reviewId', checkAuth, (req, res) => {
     const review = req.body;
-    review.trackId = req.params.trackId;
+    review.contentId = req.params.trackId;
     review.id = req.params.reviewId;
     review.authorUid = req.user.uid;
-    updateUserTrackReview(review.id, review)
+    review.contentType = 'track';
+    updateUserReview(review.id, review)
         .then(review => res.status(200).send(review))
         .catch(error => res.status(error.status).send(error));
 });
