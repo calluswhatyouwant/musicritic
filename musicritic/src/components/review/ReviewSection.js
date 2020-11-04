@@ -59,20 +59,24 @@ const ComposeReviewButton = ({ trackId }: ComposeReviewButtonProps) => (
     </a>
 );
 
+type Author = {
+    displayName: string,
+    avatarUrl: string,
+    authorUid: String,
+}
+
 type ReviewCardProps = {
-    userName: string,
-    userPhoto: string,
     rating: number,
     review: string,
     date: string,
+    author: Author,
 };
 
 const ReviewCard = ({
-    userName,
-    userPhoto,
     rating,
     review,
     date,
+    author,
 }: ReviewCardProps) => {
     if (!review) return null;
 
@@ -98,11 +102,11 @@ const ReviewCard = ({
                 <div className="review-user-info">
                     <img
                         className="review-user-photo round-cropped"
-                        src={userPhoto}
-                        alt={`${userName}`}
+                        src={author.avatarUrl}
+                        alt={`${author.displayName}`}
                     />
                     <span className="review-user-name">
-                        <span className="bold-text">{userName}</span> &apos;s
+                        <span className="bold-text">{author.displayName}</span> &apos;s
                         review
                     </span>
                 </div>
