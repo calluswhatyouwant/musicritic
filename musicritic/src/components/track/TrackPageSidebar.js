@@ -12,12 +12,17 @@ type Props = {
     nextTrack: Track | {},
 };
 
-const TrackPageSidebar = ({ userRating, postRating, track, prevTrack, nextTrack }: Props) => (
+const TrackPageSidebar = ({
+    userRating,
+    postRating,
+    track,
+    prevTrack,
+    nextTrack,
+}: Props) => (
     <div>
         <div
-          className="album-summary text-light"
-          style={{ backgroundImage: `url(${track.album.imageUrl})` }}
-        >
+            className="album-summary text-light"
+            style={{ backgroundImage: `url(${track.album.imageUrl})` }}>
             <div className="track-page-header__data">
                 <img
                     alt="Album"
@@ -26,31 +31,43 @@ const TrackPageSidebar = ({ userRating, postRating, track, prevTrack, nextTrack 
                 />
                 <TrackInfo track={track} />
             </div>
-            <TrackRatings averageRating={3.5} userRating={userRating} postRating={postRating} />
+            <TrackRatings
+                averageRating={3.5}
+                userRating={userRating}
+                postRating={postRating}
+            />
             <div className="album-menu">
                 <button
-                  type="button"
-                  className="btn album-menu__button album-menu__button--play text-light"
-                >
+                    type="button"
+                    className="btn album-menu__button album-menu__button--play text-light">
                     Open on Spotify
                 </button>
             </div>
         </div>
         {(prevTrack.name || nextTrack.name) && (
-            <TrackAlbumNavigation track={track} prevTrack={prevTrack} nextTrack={nextTrack} />
+            <TrackAlbumNavigation
+                track={track}
+                prevTrack={prevTrack}
+                nextTrack={nextTrack}
+            />
         )}
     </div>
 );
 
 type TrackInfoProps = {
     track: Track,
-}
+};
 
 const TrackInfo = ({ track }: TrackInfoProps) => (
     <div className="text-center track-info">
         <h1>{track.name}</h1>
         <h4>by {track.stringArtists}</h4>
-        <h5>from the album <a className="text-light" href={`/album/${track.album.id}/`}>{track.albumName}</a></h5>
+        <h5>
+            from the album{' '}
+            <a className="text-light" href={`/album/${track.album.id}/`}>
+                {track.albumName}
+            </a>
+        </h5>
         <p>
             {track.releaseYear} &bull; {track.length}
         </p>
@@ -59,27 +76,35 @@ const TrackInfo = ({ track }: TrackInfoProps) => (
 
 const TrackAlbumNavigation = ({ track, prevTrack, nextTrack }: Props) => {
     const history = useHistory();
-    const clickableProps = (trackId) => ({
+    const clickableProps = trackId => ({
         onClick: () => history.push(`/track/${trackId}/`),
         tabIndex: 0,
         onKeyPress: () => {},
         role: 'button',
     });
-    
+
     return (
         <div className="track-album-navigation text-center text-light">
             <h5 className="mb-3">
-                More from <a className="text-light" href={`/album/${track.album.id}/`}>{track.albumName}</a>:
+                More from{' '}
+                <a className="text-light" href={`/album/${track.album.id}/`}>
+                    {track.albumName}
+                </a>
+                :
             </h5>
             <div className="track-album-navigation-container row">
                 {prevTrack.name && (
-                    <div {...clickableProps(prevTrack.id)} className="track-album-navigation-button col-4">
+                    <div
+                        {...clickableProps(prevTrack.id)}
+                        className="track-album-navigation-button col-4">
                         <p className="album-rating__title">{'<'} Previous</p>
                         <p className="mb-0">{prevTrack.name}</p>
                     </div>
                 )}
                 {nextTrack.name && (
-                    <div {...clickableProps(nextTrack.id)} className="track-album-navigation-button col-4">
+                    <div
+                        {...clickableProps(nextTrack.id)}
+                        className="track-album-navigation-button col-4">
                         <p className="album-rating__title">Next {'>'}</p>
                         <p className="mb-0">{nextTrack.name}</p>
                     </div>
@@ -95,16 +120,20 @@ type TrackRatingsProps = {
     userRating: number,
 };
 
-const TrackRatings =({ averageRating, userRating, postRating }: TrackRatingsProps) => (
+const TrackRatings = ({
+    averageRating,
+    userRating,
+    postRating,
+}: TrackRatingsProps) => (
     <div className="album-ratings row">
         <TrackRating
             rating={averageRating}
             title="Average rating"
             displayOnly
         />
-        <TrackRating 
+        <TrackRating
             rating={userRating}
-            title="Your rating" 
+            title="Your rating"
             postRating={postRating}
         />
     </div>
@@ -114,14 +143,14 @@ type TrackRatingProps = {
     rating: number,
     title: string,
     displayOnly?: boolean,
-    postRating?: Function
+    postRating?: Function,
 };
 
-const TrackRating = ({ 
+const TrackRating = ({
     rating,
     title,
     displayOnly,
-    postRating
+    postRating,
 }: TrackRatingProps) => (
     <div className="album-rating col-4">
         <p className="album-rating__title">{title}</p>
