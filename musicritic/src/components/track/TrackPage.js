@@ -15,7 +15,7 @@ import Loading from '../common/loading/Loading';
 import {
     getTrackReviews,
     getCurrentUserTrackReview,
-    postTrackReview
+    postTrackReview,
 } from '../../api/TrackAPI';
 
 const TrackPage = () => {
@@ -46,7 +46,9 @@ const TrackPage = () => {
                 trackNumber
             );
             const reviewsResponse = await getTrackReviews(id);
-            const { rating: ratingResponse } = await getCurrentUserTrackReview(id);
+            const { rating: ratingResponse } = await getCurrentUserTrackReview(
+                id
+            );
 
             setTrack(trackResponse);
             setRating(ratingResponse);
@@ -59,9 +61,9 @@ const TrackPage = () => {
         getTrackFromAPI();
     }, [id]);
 
-    const postRating = (newRating: number) => { 
+    const postRating = (newRating: number) => {
         if (newRating !== rating) postTrackReview(id, newRating);
-    }
+    };
 
     // TODO Use actual values
     return !loading ? (
@@ -79,7 +81,9 @@ const TrackPage = () => {
                 <ReviewSection trackId={id} reviews={reviews} />
             </div>
         </div>
-    ) : <Loading />;
+    ) : (
+        <Loading />
+    );
 };
 
 export default TrackPage;

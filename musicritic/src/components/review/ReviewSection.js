@@ -31,9 +31,21 @@ const formatDate = (date: string) => {
     return `${month} ${d.getDate()}${daySuffix}, ${d.getFullYear()}`;
 };
 
+type Review = {
+    id: string,
+    authorUid: string,
+    trackId: string,
+    rating: number,
+    review?: {
+        createdAt: Date,
+        updatedAt: Date,
+        content: string,
+    },
+};
+
 type ReviewSectionProps = {
     trackId: string,
-    reviews: Object,
+    reviews: Array<Review>,
 };
 
 const ReviewSection = ({ trackId, reviews }: ReviewSectionProps) => (
@@ -42,16 +54,18 @@ const ReviewSection = ({ trackId, reviews }: ReviewSectionProps) => (
             <ComposeReviewButton trackId={trackId} />
         </SectionHeader>
         <div className="reviews-wrapper">
-            {reviews.map(review => (
-                <ReviewCard key={review.id} {...review} />
-            ))}
+            {reviews
+                .filter(review => review.review)
+                .map(review => (
+                    <ReviewCard key={review.id} {...review} />
+                ))}
         </div>
     </div>
 );
 
 type ComposeReviewButtonProps = {
-    trackId: string
-}
+    trackId: string,
+};
 
 const ComposeReviewButton = ({ trackId }: ComposeReviewButtonProps) => (
     <a href={`/track/${trackId}/review`} className="compose-review-button">
@@ -67,33 +81,33 @@ type Author = {
 
 type ReviewCardProps = {
     rating: number,
-    review: string,
-    date: string,
     author: Author,
+    review: {
+        createdAt: Date,
+        updatedAt: Date,
+        content: string,
+    },
 };
 
 const ReviewCard = ({
     rating,
     review,
-    date,
     author,
 }: ReviewCardProps) => {
-    if (!review) return null;
-
-    const isLongReview = review.length > 500;
-    const reviewDate = formatDate(date);
+    const isLongReview = review.content.length > 500;
+    const reviewDate = review ? formatDate(review.updatedAt) : null;
 
     // TODO Adapt to work with HTML
     const [displayedText, setDisplayedText] = useState(
-        isLongReview ? `${review.substring(0, 497)}...` : review
+        isLongReview ? `${review.content.substring(0, 497)}...` : review.content
     );
 
     const onShowMore = () => {
-        setDisplayedText(review);
+        setDisplayedText(review.content);
     };
 
     const onShowLess = () => {
-        setDisplayedText(`${review.substring(0, 247)}...`);
+        setDisplayedText(`${review.content.substring(0, 247)}...`);
     };
 
     return (
@@ -115,13 +129,16 @@ const ReviewCard = ({
                 </span>
             </div>
             <div className="review-text-area">
-                <span dangerouslySetInnerHTML={{ __html: review }} className="review-text" />
-                {isLongReview && displayedText !== review && (
+                <span
+                    dangerouslySetInnerHTML={{ __html: review.content }}
+                    className="review-text"
+                />
+                {isLongReview && displayedText !== review.content && (
                     <button className="change-text-button" onClick={onShowMore}>
                         Show More
                     </button>
                 )}
-                {isLongReview && displayedText === review && (
+                {isLongReview && displayedText === review.content && (
                     <button className="change-text-button" onClick={onShowLess}>
                         Show Less
                     </button>
