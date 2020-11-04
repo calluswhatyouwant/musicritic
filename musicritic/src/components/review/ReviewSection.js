@@ -6,7 +6,7 @@ import SectionHeader from '../common/section-header/SectionHeader';
 
 import './ReviewSection.css';
 
-const formatDate = (date: string) => {
+const formatDate = (date: Date) => {
     const daySuffixes = ['th', 'st', 'nd', 'rd'];
     const monthNames = [
         'January',
@@ -31,9 +31,15 @@ const formatDate = (date: string) => {
     return `${month} ${d.getDate()}${daySuffix}, ${d.getFullYear()}`;
 };
 
+type Author = {
+    displayName: string,
+    avatarUrl: string,
+    authorUid: string,
+};
+
 type Review = {
     id: string,
-    authorUid: string,
+    author: Author,
     trackId: string,
     rating: number,
     review?: {
@@ -72,12 +78,6 @@ const ComposeReviewButton = ({ trackId }: ComposeReviewButtonProps) => (
         Compose Review
     </a>
 );
-
-type Author = {
-    displayName: string,
-    avatarUrl: string,
-    authorUid: string,
-};
 
 type ReviewCardProps = {
     rating: number,
