@@ -89,16 +89,10 @@ export const updateUserTrackReview = async (
             message: 'Cannot change the track which is being reviewed',
         };
 
-    console.log(review);
     if (updatedTrackReview.review) {
-        if (
-            review.review &&
-            updatedTrackReview.review.createdAt !== review.review.createdAt
-        )
-            throw {
-                status: 500,
-                message: 'Cannot change the creation date of a review',
-            };
+        if (review.review)
+            updatedTrackReview.review.createdAt = review.review.createdAt;
+
         updatedTrackReview.review.updatedAt = new Date();
     }
 
