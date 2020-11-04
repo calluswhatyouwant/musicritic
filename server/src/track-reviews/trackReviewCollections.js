@@ -37,10 +37,10 @@ export const getUserTrackReview = (trackId: string, authorUid: string) => {
 
 export const getTrackReviews = async (trackId: string) => {
     const reviews = await TrackReviews.where('trackId', '==', trackId).get();
-    return getReviwersInformation(reviews);
+    return getReviewersInformation(reviews);
 };
 
-const getReviwersInformation = async (reviews) => {
+const getReviewersInformation = async (reviews) => {
     const usersIds = reviews.docs.map(review => ({ uid: review.data().authorUid }));
     const { users } = await auth.getUsers(usersIds);
     return reviews.docs.map(
