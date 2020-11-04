@@ -77,7 +77,7 @@ type Author = {
     displayName: string,
     avatarUrl: string,
     authorUid: string,
-}
+};
 
 type ReviewCardProps = {
     rating: number,
@@ -89,11 +89,7 @@ type ReviewCardProps = {
     },
 };
 
-const ReviewCard = ({
-    rating,
-    review,
-    author,
-}: ReviewCardProps) => {
+const ReviewCard = ({ rating, review, author }: ReviewCardProps) => {
     const isLongReview = review.content.length > 500;
     const reviewDate = review ? formatDate(review.updatedAt) : null;
 
@@ -120,8 +116,8 @@ const ReviewCard = ({
                         alt={`${author.displayName}`}
                     />
                     <span className="review-user-name">
-                        <span className="bold-text">{author.displayName}</span> &apos;s
-                        review
+                        <span className="bold-text">{author.displayName}</span>{' '}
+                        &apos;s review
                     </span>
                 </div>
                 <span className="review-rating">
