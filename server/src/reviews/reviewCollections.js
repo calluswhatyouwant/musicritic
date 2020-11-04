@@ -25,7 +25,7 @@ export const createReview = async (review: ReviewModel) => {
     if (addedReviews.size > 0) {
         throw {
             status: 500,
-            message: `${contentType} already reviewed by the user`,
+            message: `${review.contentType} already reviewed by the user`,
         };
     }
     const ref = Reviews[review.contentType].doc();
