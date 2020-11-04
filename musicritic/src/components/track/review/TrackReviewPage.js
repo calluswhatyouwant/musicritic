@@ -32,7 +32,6 @@ const TrackReviewPage = () => {
         async function getTrackFromAPI() {
             const trackResponse = await getTrack(id);
             const reviewResponse = await getCurrentUserTrackReview(id);
-            console.log(reviewResponse);
             setTrack(trackResponse);
             setReviewId(reviewResponse.id);
             setRating(reviewResponse.rating);
@@ -65,7 +64,7 @@ const TrackReviewPage = () => {
             <div className="album-page container">
                 <h4>What did you think about this track?</h4>
                 <ComposeReviewTextArea
-                    review={review.review}
+                    review={review}
                     setReview={setReview}
                 />
                 <TrackReviewRating rating={rating} setRating={setRating} />
