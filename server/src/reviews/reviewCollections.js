@@ -7,7 +7,11 @@ type ReviewModel = {
     authorUid: string,
     contentId: string,
     rating: number,
-    review: string | null,
+    review?: {
+        createdAt: Date,
+        updatedAt: Date,
+        content: string,
+    },
     contentType: 'track' | 'album',
 };
 
@@ -21,13 +25,12 @@ export const createReview = async (review: ReviewModel) => {
         review.contentId,
         review.authorUid,
         review.contentType
-    );
-    if (addedReviews.size > 0) {
-        throw {
-            status: 500,
-            message: `${review.contentType} already reviewed by the user`,
-        };
+    ).docs.map(review => review.data());
+
+    if (addedReviews.length > 0) {
+        return await updateUserReview(addedReviews[0].id, review);
     }
+
     const ref = Reviews[review.contentType].doc();
     review.id = ref.id;
     await ref.set(review);
@@ -45,10 +48,38 @@ export const getUserReview = (
         .get();
 };
 
+export const getReviews = async (contentId: string, contentType: string) => {
+    const reviews = await Reviews[contentType].where('contentId', '==', contentId).get();
+    return getReviewersInformation(reviews);
+};
+
+const getReviewersInformation = async reviews => {
+    const usersIds = reviews.docs.map(review => ({
+        uid: review.data().authorUid,
+    }));
+    const { users } = await auth.getUsers(usersIds);
+
+    const reviewsData = reviews.docs.map(review => review.data());
+    return reviewsData.map((review, i) => ({
+        ...review,
+        review: review.review && {
+            createdAt: review.review.createdAt.toDate(),
+            updatedAt: review.review.updatedAt.toDate(),
+            content: review.review.content,
+        },
+        author: {
+            displayName: users[i].displayName,
+            avatarUrl: users[i].photoURL,
+            authorUid: users[i].uid,
+        },
+    }));
+};
+
 export const updateUserReview = async (
     reviewId: string,
     updatedReview: ReviewModel
 ) => {
+    updatedReview.id = reviewId;
     const ref = Reviews[updatedReview.contentType].doc(reviewId);
     const review = (await ref.get()).data();
     if (!review)
@@ -63,11 +94,18 @@ export const updateUserReview = async (
             message: 'Not authorized to edit review from others',
         };
 
-    if (updatedReview.trackId !== review.trackId)
+    if (updatedReview.contentId !== review.contentId)
         throw {
             status: 500,
             message: `Cannot change the ${updatedReview.contentType} which is being reviewed`,
         };
+
+    if (updatedReview.review) {
+        if (review.review)
+            updatedReview.review.createdAt = review.review.createdAt;
+
+        updatedReview.review.updatedAt = new Date();
+    }
 
     ref.set(updatedReview);
     return updatedReview;

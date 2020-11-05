@@ -6,7 +6,7 @@ import SectionHeader from '../common/section-header/SectionHeader';
 
 import './ReviewSection.css';
 
-const formatDate = (date: string) => {
+const formatDate = (date: Date) => {
     const daySuffixes = ['th', 'st', 'nd', 'rd'];
     const monthNames = [
         'January',
@@ -31,64 +31,79 @@ const formatDate = (date: string) => {
     return `${month} ${d.getDate()}${daySuffix}, ${d.getFullYear()}`;
 };
 
-type ReviewSectionProps = {
-    reviews: Object,
+type Author = {
+    displayName: string,
+    avatarUrl: string,
+    authorUid: string,
 };
 
-const ReviewSection = ({ reviews }: ReviewSectionProps) => (
+type Review = {
+    id: string,
+    author: Author,
+    trackId: string,
+    rating: number,
+    review?: {
+        createdAt: Date,
+        updatedAt: Date,
+        content: string,
+    },
+};
+
+type ReviewSectionProps = {
+    trackId: string,
+    reviews: Array<Review>,
+};
+
+const ReviewSection = ({ trackId, reviews }: ReviewSectionProps) => (
     <div className="review-section">
         <SectionHeader title="User Reviews">
-            <ComposeReviewButton />
+            <ComposeReviewButton trackId={trackId} />
         </SectionHeader>
         <div className="reviews-wrapper">
-            {reviews.map(review => (
-                <ReviewCard key={review.id} {...review} />
-            ))}
+            {reviews
+                .filter(review => review.review)
+                .map(review => (
+                    <ReviewCard key={review.id} {...review} />
+                ))}
         </div>
     </div>
 );
 
-const ComposeReviewButton = () => {
-    const handleClick = () => {};
-
-    return (
-        <button
-            type="button"
-            className="compose-review-button"
-            onClick={handleClick}>
-            Compose Review
-        </button>
-    );
+type ComposeReviewButtonProps = {
+    trackId: string,
 };
+
+const ComposeReviewButton = ({ trackId }: ComposeReviewButtonProps) => (
+    <a href={`/track/${trackId}/review`} className="compose-review-button">
+        Compose Review
+    </a>
+);
 
 type ReviewCardProps = {
-    userName: string,
-    userPhoto: string,
     rating: number,
-    text: string,
-    date: string,
+    author: Author,
+    review: {
+        createdAt: Date,
+        updatedAt: Date,
+        content: string,
+    },
 };
 
-const ReviewCard = ({
-    userName,
-    userPhoto,
-    rating,
-    text,
-    date,
-}: ReviewCardProps) => {
-    const isLongReview = text.length > 500;
-    const reviewDate = formatDate(date);
+const ReviewCard = ({ rating, review, author }: ReviewCardProps) => {
+    const isLongReview = review.content.length > 500;
+    const reviewDate = review ? formatDate(review.updatedAt) : null;
 
+    // TODO Adapt to work with HTML
     const [displayedText, setDisplayedText] = useState(
-        isLongReview ? `${text.substring(0, 497)}...` : text
+        isLongReview ? `${review.content.substring(0, 497)}...` : review.content
     );
 
     const onShowMore = () => {
-        setDisplayedText(text);
+        setDisplayedText(review.content);
     };
 
     const onShowLess = () => {
-        setDisplayedText(`${text.substring(0, 247)}...`);
+        setDisplayedText(`${review.content.substring(0, 247)}...`);
     };
 
     return (
@@ -97,12 +112,12 @@ const ReviewCard = ({
                 <div className="review-user-info">
                     <img
                         className="review-user-photo round-cropped"
-                        src={userPhoto}
-                        alt={`${userName}`}
+                        src={author.avatarUrl}
+                        alt={`${author.displayName}`}
                     />
                     <span className="review-user-name">
-                        <span className="bold-text">{userName}</span> &apos;s
-                        review
+                        <span className="bold-text">{author.displayName}</span>{' '}
+                        &apos;s review
                     </span>
                 </div>
                 <span className="review-rating">
@@ -110,13 +125,16 @@ const ReviewCard = ({
                 </span>
             </div>
             <div className="review-text-area">
-                <span className="review-text">{displayedText}</span>
-                {isLongReview && displayedText !== text && (
+                <span
+                    dangerouslySetInnerHTML={{ __html: review.content }}
+                    className="review-text"
+                />
+                {isLongReview && displayedText !== review.content && (
                     <button className="change-text-button" onClick={onShowMore}>
                         Show More
                     </button>
                 )}
-                {isLongReview && displayedText === text && (
+                {isLongReview && displayedText === review.content && (
                     <button className="change-text-button" onClick={onShowLess}>
                         Show Less
                     </button>

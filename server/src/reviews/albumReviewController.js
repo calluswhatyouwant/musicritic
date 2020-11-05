@@ -5,10 +5,18 @@ import checkAuth from '../firebase/firebaseAuthHandler';
 import {
     createReview,
     getUserReview,
+    getReviews,
     updateUserReview,
 } from './reviewCollections';
 
 const router = express.Router();
+
+router.get('/album/:albumId/reviews', (req, res) => {
+    const albumId = req.params.albumId;
+    getReviews(albumId, 'album')
+        .then(reviews => res.status(200).send(reviews))
+        .catch(error => res.status(error.status).send(error));
+});
 
 router.get('/album/:albumId/reviews/me', checkAuth, (req, res) => {
     const albumId = req.params.albumId;
@@ -27,6 +35,11 @@ router.post('/album/:albumId/reviews', checkAuth, (req, res) => {
     review.contentId = req.params.albumId;
     review.authorUid = req.user.uid;
     review.contentType = 'album';
+    if (review.review && !review.review.createdAt) {
+        review.review.createdAt = new Date();
+        review.review.updatedAt = review.review.createdAt;
+    }
+
     createReview(review)
         .then(review => res.status(201).send(review))
         .catch(error => res.status(error.status).send(error));
@@ -35,10 +48,9 @@ router.post('/album/:albumId/reviews', checkAuth, (req, res) => {
 router.put('/album/:albumId/reviews/:reviewId', checkAuth, (req, res) => {
     const review = req.body;
     review.contentId = req.params.albumId;
-    review.id = req.params.reviewId;
     review.authorUid = req.user.uid;
     review.contentType = 'album';
-    updateUserReview(review.id, review)
+    updateUserReview(req.params.reviewId, review)
         .then(review => res.status(200).send(review))
         .catch(error => res.status(error.status).send(error));
 });

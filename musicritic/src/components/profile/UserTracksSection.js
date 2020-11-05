@@ -1,33 +1,43 @@
 /* @flow */
 
-import React from 'react';
-import { Track, PlayHistory } from 'spotify-web-sdk';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import {
+    getRecentlyPlayedTracks,
+    getTopPlayedTracks,
+} from '../../api/SpotifyWebAPI';
 
 import TrackCarousel from './TopTracksCarousel';
 import RecentTracksCarousel from './RecentTracksCarousel';
 
 import './UserTracksSection.css';
+import Loading from '../common/loading/Loading';
+import { usePromise } from '../../utils/hooks';
 
-type Props = {
-    display: string,
-    history: any,
-    onClick: (display: string) => void,
-    tracks: Track[] | PlayHistory[],
+const UserTracksSection = () => {
+    const [display, setDisplay] = useState('TOP');
+    const [recentTracks, , loadingRecent] = usePromise(getRecentlyPlayedTracks(), [], []);
+    const [topTracks, , loadingTop] = usePromise(getTopPlayedTracks(), [], []);
+    const history = useHistory();
+
+    const handleClick = () => {
+        setDisplay(display === 'TOP' ? 'RECENT' : 'TOP');
+    };
+
+    return loadingRecent || loadingTop ? (
+        <Loading />
+    ) : (
+            <div className="user-page-section__container border container shadow-sm">
+                <section className="user-page-section">
+                    <TracksSectionTop currentTab={display} onClick={handleClick} />
+                    {display === 'TOP' &&
+                        <TrackCarousel history={history} tracks={topTracks} />}
+                    {display === 'RECENT' &&
+                        <RecentTracksCarousel history={history} tracks={recentTracks} />}
+                </section>
+            </div>
+        );
 };
-
-const UserTracksSection = ({
-    display, history, onClick, tracks,
-}: Props) => (
-    <div className="user-page-section__container border container shadow-sm">
-        <section className="user-page-section">
-            <TracksSectionTop currentTab={display} onClick={onClick} />
-            {display === 'TOP' &&
-                <TrackCarousel history={history} tracks={tracks} />}
-            {display === 'RECENT' &&
-                <RecentTracksCarousel history={history} tracks={tracks} />}
-        </section>
-    </div>
-);
 
 type TracksSectionTopProps = {
     currentTab: string,
@@ -43,8 +53,8 @@ const TracksSectionTop = ({ currentTab, onClick }: TracksSectionTopProps) => (
         </div>
         <div className="col-auto tracks-section-switch">
             <button
-              className="btn tracks-section-switch__button"
-              onClick={onClick}
+                className="btn tracks-section-switch__button"
+                onClick={onClick}
             >
                 <i className="fas fa-exchange-alt" />
             </button>

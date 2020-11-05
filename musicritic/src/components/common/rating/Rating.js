@@ -6,18 +6,13 @@ import './Rating.css';
 
 type Props = {
     initialValue: number,
+    onValueChange?: (rating: number) => void,
     displayOnly?: boolean,
-    postRating?: Function,
 }
 
-const Rating = ({ initialValue, displayOnly, postRating = () => {} }: Props) => {
+const Rating = ({ initialValue, onValueChange, displayOnly }: Props) => {
     const [value, setValue] = useState(initialValue);
     const [hoverValue, setHoverValue] = useState(0);
-
-    const postValue = (args) => {
-        postRating(args)
-        setValue(args)
-    }
     
     const [displayValue, setDisplayValue] = useState(initialValue);
     useEffect(() => {
@@ -27,6 +22,10 @@ const Rating = ({ initialValue, displayOnly, postRating = () => {} }: Props) => 
             setDisplayValue(value);
         }
     }, [value, hoverValue]);
+
+    useEffect(() => {
+        if (onValueChange) onValueChange(value);
+    }, [value]);
     
     const stars = [];
 
@@ -36,7 +35,7 @@ const Rating = ({ initialValue, displayOnly, postRating = () => {} }: Props) => 
                 key={index}
                 index={index}
                 displayValue={displayValue}
-                setValue={postValue}
+                setValue={setValue}
                 setHoverValue={setHoverValue}
                 displayOnly={displayOnly}
             />
@@ -47,8 +46,8 @@ const Rating = ({ initialValue, displayOnly, postRating = () => {} }: Props) => 
 };
 
 Rating.defaultProps = {
+    onValueChange: () => {},
     displayOnly: false,
-    postRating: () => {},
 }
 
 type StarProps = {
