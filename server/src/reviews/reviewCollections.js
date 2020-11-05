@@ -1,6 +1,6 @@
 /* @flow */
 
-import { db } from '../firebase/firebaseAdmin';
+import { db, auth } from '../firebase/firebaseAdmin';
 
 type ReviewModel = {
     id: string | null,
