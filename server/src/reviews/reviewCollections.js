@@ -21,10 +21,12 @@ export const Reviews = {
 };
 
 export const createReview = async (review: ReviewModel) => {
-    const addedReviews = await getUserReview(
-        review.contentId,
-        review.authorUid,
-        review.contentType
+    const addedReviews = (
+        await getUserReview(
+            review.contentId,
+            review.authorUid,
+            review.contentType
+        )
     ).docs.map(review => review.data());
 
     if (addedReviews.length > 0) {
@@ -49,7 +51,9 @@ export const getUserReview = (
 };
 
 export const getReviews = async (contentId: string, contentType: string) => {
-    const reviews = await Reviews[contentType].where('contentId', '==', contentId).get();
+    const reviews = await Reviews[contentType]
+        .where('contentId', '==', contentId)
+        .get();
     return getReviewersInformation(reviews);
 };
 
