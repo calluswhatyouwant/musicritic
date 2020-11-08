@@ -23,7 +23,7 @@
         "lodash": "^4.17.13",
         "querystring": "^0.2.0",
         "request": "^2.88.0",
-        "spotify-web-sdk": "^0.5.2"
+        "spotify-web-sdk": "^0.7.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.0.0",

@@ -22,8 +22,8 @@ config.spotify = {
             user-top-read`,
     baseUri: 'https://api.spotify.com/v1',
     authBaseUri: 'https://accounts.spotify.com',
-    clientId: process.env.SPOTIFY_CLIENT_ID,
-    clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+    clientId: process.env.SPOTIFY_CLIENT_ID ?? '',
+    clientSecret: process.env.SPOTIFY_CLIENT_SECRET ?? '',
 };
 
 config.host = {
