@@ -22,7 +22,7 @@ export const postTrackReview = (
 ) =>
     trackApi
         .post(
-            `track/${trackID}/reviews`,
+            `tracks/${trackID}/reviews`,
             review ? { rating, review } : { rating }
         )
         .then(result => result.data)
@@ -38,7 +38,7 @@ export const updateTrackReview = (
 ) =>
     trackApi
         .put(
-            `track/${trackID}/reviews/${reviewId}`,
+            `tracks/${trackID}/reviews/${reviewId}`,
             review ? { rating, review } : { rating }
         )
         .then(result => result.data)
@@ -48,7 +48,7 @@ export const updateTrackReview = (
 
 export const getCurrentUserTrackReview = (trackID: string) =>
     trackApi
-        .get(`track/${trackID}/reviews/me`)
+        .get(`tracks/${trackID}/reviews/me`)
         .then(result => result.data)
         .catch(error => {
             throw error.response.data;
@@ -56,7 +56,7 @@ export const getCurrentUserTrackReview = (trackID: string) =>
 
 export const getTrackReviews = (trackID: string) =>
     trackApi
-        .get(`track/${trackID}/reviews`)
+        .get(`tracks/${trackID}/reviews`)
         .then(result => result.data)
         .catch(error => {
             throw error.response.data;

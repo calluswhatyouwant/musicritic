@@ -11,14 +11,14 @@ import {
 
 const router = express.Router();
 
-router.get('/track/:trackId/reviews', (req, res) => {
+router.get('/tracks/:trackId/reviews', (req, res) => {
     const trackId = req.params.trackId;
     getTrackReviews(trackId)
         .then(reviews => res.status(200).send(reviews))
         .catch(error => res.status(error.status).send(error));
 });
 
-router.get('/track/:trackId/reviews/me', checkAuth, (req, res) => {
+router.get('/tracks/:trackId/reviews/me', checkAuth, (req, res) => {
     const trackId = req.params.trackId;
     const authorUid = req.user.uid;
     getUserTrackReview(trackId, authorUid)
@@ -30,7 +30,7 @@ router.get('/track/:trackId/reviews/me', checkAuth, (req, res) => {
         .catch(error => res.status(error.status).send(error));
 });
 
-router.post('/track/:trackId/reviews', checkAuth, (req, res) => {
+router.post('/tracks/:trackId/reviews', checkAuth, (req, res) => {
     const review = req.body;
     review.trackId = req.params.trackId;
     review.authorUid = req.user.uid;
@@ -44,7 +44,7 @@ router.post('/track/:trackId/reviews', checkAuth, (req, res) => {
         .catch(error => res.status(error.status).send(error));
 });
 
-router.put('/track/:trackId/reviews/:reviewId', checkAuth, (req, res) => {
+router.put('/tracks/:trackId/reviews/:reviewId', checkAuth, (req, res) => {
     const review = req.body;
     review.trackId = req.params.trackId;
     review.authorUid = req.user.uid;
