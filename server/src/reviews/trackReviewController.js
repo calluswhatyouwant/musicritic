@@ -10,10 +10,11 @@ import {
 } from './reviewCollections';
 
 const router = express.Router();
+export const TRACK = 'track';
 
 router.get('/track/:trackId/reviews', (req, res) => {
     const trackId = req.params.trackId;
-    getReviews(trackId, 'track')
+    getReviews(trackId, TRACK)
         .then(reviews => res.status(200).send(reviews))
         .catch(error => res.status(error.status).send(error));
 });
@@ -21,7 +22,7 @@ router.get('/track/:trackId/reviews', (req, res) => {
 router.get('/track/:trackId/reviews/me', checkAuth, (req, res) => {
     const trackId = req.params.trackId;
     const authorUid = req.user.uid;
-    getUserReview(trackId, authorUid, 'track')
+    getUserReview(trackId, authorUid, TRACK)
         .then(reviews => {
             reviews.size === 0
                 ? res.status(204).send()
@@ -34,7 +35,7 @@ router.post('/track/:trackId/reviews', checkAuth, (req, res) => {
     const review = req.body;
     review.contentId = req.params.trackId;
     review.authorUid = req.user.uid;
-    review.contentType = 'track';
+    review.contentType = TRACK;
     if (review.review && !review.review.createdAt) {
         review.review.createdAt = new Date();
         review.review.updatedAt = review.review.createdAt;
@@ -49,7 +50,7 @@ router.put('/track/:trackId/reviews/:reviewId', checkAuth, (req, res) => {
     const review = req.body;
     review.contentId = req.params.trackId;
     review.authorUid = req.user.uid;
-    review.contentType = 'track';
+    review.contentType = TRACK;
     updateUserReview(req.params.reviewId, review)
         .then(review => res.status(200).send(review))
         .catch(error => res.status(error.status).send(error));

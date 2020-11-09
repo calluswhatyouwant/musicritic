@@ -42,7 +42,7 @@ export const createReview = async (review: ReviewModel) => {
 export const getUserReview = (
     contentId: string,
     authorUid: string,
-    contentType: string
+    contentType: 'track' | 'album',
 ) => {
     return Reviews[contentType]
         .where('authorUid', '==', authorUid)
