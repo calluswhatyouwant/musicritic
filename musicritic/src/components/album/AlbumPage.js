@@ -7,16 +7,10 @@ import _ from 'lodash';
 import { getAlbum, getArtistAlbums } from '../../api/SpotifyWebAPI';
 
 import AlbumSummary from './summary/AlbumSummary';
-import AlbumPageContent from './content/AlbumPageContent';
+import ReviewSection from '../review/ReviewSection';
 import { usePromise } from '../../utils/hooks';
 
 import './AlbumPage.css';
-
-const wrapComponent = (SomeComponent, props) => (
-    <section className="album-page-section col-lg-6">
-        <SomeComponent {...props} />
-    </section>
-);
 
 function AlbumPage() {
     const { id } = useParams();
@@ -47,12 +41,12 @@ function AlbumPage() {
 
     return (
         <div className="row album-page border container shadow-sm">
-            {wrapComponent(AlbumSummary, {
-                album,
-                artistAlbums,
-                mainArtist,
-            })}
-            {wrapComponent(AlbumPageContent, { album })}
+            <section className="album-page-section col-lg-4">
+                <AlbumSummary album={album} artistAlbums={artistAlbums} mainArtist={mainArtist} />
+            </section>
+            <section className="album-page-section col-lg-8">
+                <ReviewSection redirectUrl={`/album/${id}/review`} reviews={[]} />
+            </section>
         </div>
     );
 }
