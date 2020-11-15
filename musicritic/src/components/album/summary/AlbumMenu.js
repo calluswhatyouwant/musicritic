@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import { Album } from 'spotify-web-sdk';
+// import { Album } from 'spotify-web-sdk';
 
 import './AlbumMenu.css';
 
