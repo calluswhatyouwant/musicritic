@@ -6,6 +6,7 @@ import { Album, AlbumSimplified } from 'spotify-web-sdk';
 
 import { getSeveralAlbums } from '../../api/SpotifyWebAPI';
 import Rating from '../common/rating/Rating';
+import Loading from '../common/loading/Loading';
 
 import './ArtistPageContent.css';
 
@@ -17,6 +18,7 @@ type Props = {
 const ArtistPageContent = ({ albums, singles }: Props) => {
   const [completeAlbums, setCompleteAlbums] = useState([]);
   const [completeSingles, setCompleteSingles] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchCompleteAlbums() {
@@ -27,12 +29,15 @@ const ArtistPageContent = ({ albums, singles }: Props) => {
 
       setCompleteAlbums(albumsResponse);
       setCompleteSingles(singlesResponse);
+      setLoading(false);
     }
 
     fetchCompleteAlbums();
   }, [albums, singles]);
 
-  return completeAlbums && completeSingles && (
+  return loading || !completeAlbums || !completeSingles ? (
+    <Loading />
+  ) : (
     <div className="artist-page-content col-lg-8">
       <h1 className="discography-title">Discography</h1>
       <h2 className="discography-section-title">ALBUMS</h2>
@@ -53,9 +58,13 @@ const filterMaxPopularity = (albums: Album[]): Album[] => (
 
 const DiscographySection = ({ albums }: { albums: Album[] }) => {
   const { push } = useHistory();
+  const filteredAlbums = filterMaxPopularity(albums)
+    .sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate))
+    .slice(0, 10);
+
   return (
     <table className="table discography-section-table">
-      {filterMaxPopularity(albums).map(album => (
+      {filteredAlbums.map(album => (
         <tr className="clickable p-2" onClick={() => push(`/album/${album.id}/`)}>
           <td className="discography-section-table-data">
             <img className="artist-discography-album-cover" src={album.imageUrl} alt={album.name} />
