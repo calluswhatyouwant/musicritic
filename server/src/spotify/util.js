@@ -2,6 +2,33 @@
 
 import config from '../config';
 import axios from 'axios';
+import * as spotify from 'spotify-web-sdk';
+import * as qs from 'querystring';
+
+export const spotifySdk = spotify;
+
+export const initSpotifyToken = () => {
+    const authorization = `${config.spotify.clientId}:${config.spotify.clientSecret}`;
+    const buff = new Buffer(authorization);
+    spotify.init({
+        token: 'token',
+        refreshTokenFunction: async () => {
+            const { data } = await axios.post(
+                `${config.spotify.authBaseUri}/api/token`,
+                qs.stringify({
+                    grant_type: 'client_credentials',
+                }),
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        Authorization: `Basic ${buff.toString('base64')}`,
+                    },
+                }
+            );
+            return data.access_token;
+        },
+    });
+};
 
 export const generateRandomState = (length: number) => {
     let state = '';
