@@ -1,0 +1,89 @@
+.artist-page-sidebar {
+  background-color: black;
+}
+
+.artist-spotify {
+  background-color: #3D7946;
+  border: none;
+  color: white;
+  padding: .5rem 1rem;
+  border-radius: .25rem;
+  text-transform: uppercase;
+}
+
+.table-top-tracks {
+  color: white;
+}
+
+.table-top-tracks td, .table-top-tracks th {
+  padding: .25rem .5rem;
+}
+
+.artist-track-row {
+  transition: all .5s ease;
+}
+
+.artist-track-row:hover {
+  cursor: pointer;
+  background-color: #353535;
+}
+
+.artist-track-rating {
+  width: 1%;
+}
+
+.artist-top-rated-tracks {
+  padding: 1rem 3rem;
+}
+
+.artist-photo {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 100%;
+}
+
+.artist-photo-container {
+  position: relative;
+  background: no-repeat;
+  background-size: 125%;
+  background-position-x: 50%;
+  background-position-y: 50%;
+  padding: 4rem;
+}
+
+.artist-album-cover {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.artist-data {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.artist-photo-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.75;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #000000 100%);
+}
+
+.artist-name {
+  font-weight: bold;
+  font-size: 3rem;
+  line-height: 4rem;
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+}
+
+.artist-album-cover {
+  width: 1.5rem;
+  height: 1.5rem;
+}
