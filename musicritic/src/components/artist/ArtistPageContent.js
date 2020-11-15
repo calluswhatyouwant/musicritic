@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Album, AlbumSimplified, Artist } from 'spotify-web-sdk';
+import { Album, AlbumSimplified } from 'spotify-web-sdk';
 
 import { getSeveralAlbums } from '../../api/SpotifyWebAPI';
 import Rating from '../common/rating/Rating';
@@ -10,12 +10,11 @@ import Rating from '../common/rating/Rating';
 import './ArtistPageContent.css';
 
 type Props = {
-  artist: Artist;
   albums: AlbumSimplified[];
   singles: AlbumSimplified[];
 };
 
-const ArtistPageContent = ({ artist, albums, singles }: Props) => {
+const ArtistPageContent = ({ albums, singles }: Props) => {
   const [completeAlbums, setCompleteAlbums] = useState([]);
   const [completeSingles, setCompleteSingles] = useState([]);
 
@@ -46,8 +45,9 @@ const ArtistPageContent = ({ artist, albums, singles }: Props) => {
 
 const filterMaxPopularity = (albums: Album[]): Album[] => (
   Object.values(albums.reduce((prev, curr) => {
-    prev[curr.name] = prev[curr.name] && prev[curr.name].popularity > curr.popularity ? prev[curr.name] : curr
-    return prev
+    const accum = prev;
+    accum[curr.name] = accum[curr.name] && accum[curr.name].popularity > curr.popularity ? accum[curr.name] : curr
+    return accum;
   }, {}))
 );
 
@@ -58,7 +58,7 @@ const DiscographySection = ({ albums }: { albums: Album[] }) => {
       {filterMaxPopularity(albums).map(album => (
         <tr className="clickable p-2" onClick={() => push(`/album/${album.id}/`)}>
           <td className="discography-section-table-data">
-            <img className="artist-discography-album-cover" src={album.imageUrl} />
+            <img className="artist-discography-album-cover" src={album.imageUrl} alt={album.name} />
           </td>
           <td className="p-2">
             <span className="discography-section-album-name">{album.name}</span>

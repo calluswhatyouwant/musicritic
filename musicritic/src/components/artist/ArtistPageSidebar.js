@@ -20,7 +20,7 @@ const ArtistPageSidebar = ({ artist, topTracks }: Props) => (
   </div>
 );
 
-const ArtistPhoto = ({ artist }: Props) => {
+const ArtistPhoto = ({ artist }: { artist: Artist }) => {
   const style = {
     backgroundImage: `url(${artist.imageUrl})`,
   };
@@ -28,7 +28,7 @@ const ArtistPhoto = ({ artist }: Props) => {
   return (
     <div className="artist-photo-container text-light" style={style}>
       <div className="artist-data">
-        <img className="artist-photo" src={artist.imageUrl} />
+        <img className="artist-photo" src={artist.imageUrl} alt={artist.name} />
         <h1 className="artist-name">{artist.name}</h1>
         <button className="artist-spotify">Open on Spotify</button>
       </div>
@@ -56,9 +56,7 @@ const ArtistTopRatedTracks = ({ topTracks }: TopRatedTracksProps) => {
   );
 }
 
-const ArtistTrackRow = ({
-  track, trackIndex,
-}) => {
+const ArtistTrackRow = ({ track, trackIndex }: { track: Track, trackIndex: number }) => {
   const { push } = useHistory();
   return (
     <tr className="artist-track-row" onClick={() => push(`/track/${track.id}/`)}>
@@ -66,7 +64,7 @@ const ArtistTrackRow = ({
         {`${trackIndex + 1}`}
       </th>
       <td width="1%">
-        <img className="artist-album-cover" src={track.album.imageUrl} />
+        <img className="artist-album-cover" src={track.album.imageUrl} alt={track.albumName} />
       </td>
       <td>
         {track.name}

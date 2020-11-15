@@ -1,3 +1,5 @@
+/* @flow */
+
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -35,7 +37,7 @@ const ArtistPage = () => {
   return !loading ? (
     <div className="row m-0">
       <ArtistPageSidebar topTracks={topTracks} artist={artist} />
-      <ArtistPageContent artist={artist} albums={albums} singles={singles} />
+      <ArtistPageContent albums={albums} singles={singles} />
     </div>
   ) : <Loading />;
 };
