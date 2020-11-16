@@ -37,17 +37,17 @@ type Author = {
     authorUid: string,
 };
 
-type Review = {
-    id: string,
-    author: Author,
-    trackId: string,
-    rating: number,
-    review?: {
-        createdAt: Date,
-        updatedAt: Date,
-        content: string,
-    },
-};
+// type Review = {
+//     id: string,
+//     author: Author,
+//     trackId: string,
+//     rating: number,
+//     review?: {
+//         createdAt: Date,
+//         updatedAt: Date,
+//         content: string,
+//     },
+// };
 
 type ReviewSectionProps = {
     redirectUrl: string,

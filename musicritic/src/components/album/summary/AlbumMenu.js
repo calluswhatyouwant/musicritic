@@ -12,7 +12,7 @@ type Props = {
 const AlbumMenu = ({ albumUrl }: Props) => (
     <div className="album-menu">
         <a
-          target="_blank"
+        //   target="_blank"
           href={albumUrl}
           className="btn album-menu__button album-menu__button--play text-light"
         >
