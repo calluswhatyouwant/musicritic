@@ -12,19 +12,20 @@ import './AlbumSummary.css';
 
 type Props = {
     album: Album,
+    userRating: number,
     artistAlbums: AlbumSimplified[],
     mainArtist: ArtistSimplified,
 };
 
-const AlbumSummary = ({ album, artistAlbums, mainArtist }: Props) => {
+const AlbumSummary = ({ album, artistAlbums, mainArtist, userRating }: Props) => {
     const style = {
         backgroundImage: `url(${album.imageUrl})`,
     };
-console.log('oi', album);
+
     return (
         <Fragment>
             <div className="album-summary text-light" style={style}>
-                <AlbumData album={album} averageRating={3} userRating={3.5} />
+                <AlbumData album={album} averageRating={3} userRating={userRating} />
                 <AlbumMenu albumUrl={album.externalUrls ? album.externalUrls.spotify : ''} />
             </div>
             <div>

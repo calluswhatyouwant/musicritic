@@ -11,11 +11,15 @@ import ReviewSection from '../review/ReviewSection';
 import { usePromise } from '../../utils/hooks';
 
 import './AlbumPage.css';
+import { getCurrentUserAlbumReview } from '../../api/AlbumAPI';
+import Loading from '../common/loading/Loading';
 
 function AlbumPage() {
     const { id } = useParams();
     const [album] = usePromise(getAlbum(id), {}, [id]);
     const [mainArtist, setMainArtist] = useState({});
+    const [userRating, setUserRating] = useState(0);
+    const [loading, setLoading] = useState(true);
     const [artistAlbums] = usePromise(
         (async () => {
             if (mainArtist.id) {
@@ -36,18 +40,34 @@ function AlbumPage() {
             if (album.artists) setMainArtist(album.artists[0]);
         }
 
-        setAlbumMainArtist();
-    }, [album]);
+        async function getAlbumFromAPI() {
+            const { rating: ratingResponse } = await getCurrentUserAlbumReview(
+                id
+            );
+            setUserRating(ratingResponse);
+            setLoading(false);
+        }
 
-    return (
+        getAlbumFromAPI();
+        setAlbumMainArtist();
+    }, [album, id]);
+
+    return !loading ? (
         <div className="row album-page border container shadow-sm">
             <section className="album-page-section col-lg-4">
-                <AlbumSummary album={album} artistAlbums={artistAlbums} mainArtist={mainArtist} />
+                <AlbumSummary
+                    album={album}
+                    artistAlbums={artistAlbums}
+                    mainArtist={mainArtist}
+                    userRating={userRating}
+                />
             </section>
             <section className="album-page-section col-lg-8">
                 <ReviewSection redirectUrl={`/album/${id}/review`} reviews={[]} />
             </section>
         </div>
+    ): (
+        <Loading />
     );
 }
 

@@ -1,3 +1,5 @@
+/* @flow */
+
 import React, { useState, useEffect } from 'react';
 import MediumEditor from 'medium-editor';
 import { getAlbum, Album } from 'spotify-web-sdk';
@@ -6,6 +8,11 @@ import { useParams, useHistory } from 'react-router-dom';
 import CustomPalette from '../../common/palette/CustomPalette';
 import Loading from '../../common/loading/Loading';
 import Rating from '../../common/rating/Rating';
+import {
+    getCurrentUserAlbumReview,
+    updateAlbumReview,
+    postAlbumReview
+} from '../../../api/AlbumAPI';
 
 const AlbumReviewPage = () => {
     const [album, setAlbum] = useState({});
@@ -16,26 +23,31 @@ const AlbumReviewPage = () => {
         updatedAt: null,
         content: '',
     });
-    // const [reviewId, setReviewId] = useState('');
+    const [reviewId, setReviewId] = useState('');
     const history = useHistory();
-
     const { id } = useParams();
 
     useEffect(() => {
         async function getAlbumFromAPI() {
             const albumResponse = await getAlbum(id);
             setAlbum(albumResponse);
+            const reviewResponse = await getCurrentUserAlbumReview(id);
+            setReviewId(reviewResponse.id);
+            setRating(reviewResponse.rating);
+            if (reviewResponse.review) {
+                setReview(reviewResponse.review);
+            }
             setLoading(false);
         }
         getAlbumFromAPI();
     }, [id]);
 
     const handleSubmit = async () => {
-        // if (reviewId && reviewId.length > 0) {
-        //     await updateTrackReview(id, reviewId, rating, review);
-        // } else {
-        //     await postAlbumReview(id, rating, review);
-        // }
+        if (reviewId && reviewId.length > 0) {
+            await updateAlbumReview(id, reviewId, rating, review);
+        } else {
+            await postAlbumReview(id, rating, review);
+        }
         history.push(`/album/${id}/`);
     };
 

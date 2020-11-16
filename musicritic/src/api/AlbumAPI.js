@@ -1,0 +1,63 @@
+/* @flow */
+
+import axios from 'axios';
+
+type ReviewInfoModel = {
+    createdAt: Date | null,
+    updatedAt: Date | null,
+    content: string,
+};
+
+export const albumAPI = axios.create({
+    baseURL: process.env.SERVER_BASE_URL,
+    headers: {
+        Authorization: localStorage.getItem('authToken'),
+    },
+});
+
+export const postAlbumReview = (
+    albumID: string,
+    rating: number,
+    review?: ReviewInfoModel
+) =>
+    albumAPI
+        .post(
+            `album/${albumID}/reviews`,
+            review ? { rating, review } : { rating }
+        )
+        .then(result => result.data)
+        .catch(error => {
+            throw error.response.data;
+        });
+
+export const updateAlbumReview = (
+    albumID: string,
+    reviewId: string,
+    rating: number,
+    review?: ReviewInfoModel
+) =>
+    albumAPI
+        .put(
+            `album/${albumID}/reviews/${reviewId}`,
+            review ? { rating, review } : { rating }
+        )
+        .then(result => result.data)
+        .catch(error => {
+            throw error.response.data;
+        });
+
+export const getCurrentUserAlbumReview = (albumID: string) =>
+    albumAPI
+        .get(`album/${albumID}/reviews/me`)
+        .then(result => result.data)
+        .catch(error => {
+            throw error.response.data;
+        });
+
+export const getAlbumReviews = (albumID: string) =>
+    albumAPI
+        .get(`album/${albumID}/reviews`)
+        .then(result => result.data)
+        .catch(error => {
+            throw error.response.data;
+        });
