@@ -37,11 +37,10 @@ router.post('/tracks/:trackId/reviews', checkAuth, (req, res) => {
     review.authorUid = req.user.uid;
     review.contentType = TRACK;
     if (!review.review || !review.review.createdAt) {
-        review.review = {};
+        review.review = review.review || {};
         review.review.createdAt = new Date();
         review.review.updatedAt = review.review.createdAt;
     }
-
     createReview(review)
         .then(review => res.status(201).send(review))
         .catch(error => res.status(error.status).send(error));
