@@ -61,7 +61,7 @@ const ReviewSection = ({ trackId, reviews }: ReviewSectionProps) => (
         </SectionHeader>
         <div className="reviews-wrapper">
             {reviews
-                .filter(review => review.review)
+                .filter(review => review.review && review.review.content)
                 .map(review => (
                     <ReviewCard key={review.id} {...review} />
                 ))}

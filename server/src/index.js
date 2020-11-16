@@ -7,7 +7,8 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import config from './config';
 import authRouter from './spotify/spotifyAuthController';
-import trackReviewsApi from './track-reviews/trackReviewController';
+import trackReviewsApi from './reviews/trackReviewController';
+import albumReviewsApi from './reviews/albumReviewController';
 import trackApi from './track/trackController';
 import checkAuth from './firebase/firebaseAuthHandler';
 import { initSpotifyToken } from './spotify/util';
@@ -29,6 +30,7 @@ app.get('/hello', checkAuth, (req, res) =>
 app.use(authRouter);
 app.use(trackApi);
 app.use(trackReviewsApi);
+app.use(albumReviewsApi);
 
 const server = http.createServer(app);
 const { port } = config.host;

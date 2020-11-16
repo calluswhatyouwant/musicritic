@@ -6,6 +6,7 @@ import Rating from '../common/rating/Rating';
 
 type Props = {
     userRating: number,
+    averageRating: number,
     postRating: (rating: number) => void,
     track: Track,
     prevTrack: Track | {},
@@ -14,6 +15,7 @@ type Props = {
 
 const TrackPageSidebar = ({
     userRating,
+    averageRating,
     postRating,
     track,
     prevTrack,
@@ -32,7 +34,7 @@ const TrackPageSidebar = ({
                 <TrackInfo track={track} />
             </div>
             <TrackRatings
-                averageRating={3.5}
+                averageRating={averageRating}
                 userRating={userRating}
                 postRating={postRating}
             />

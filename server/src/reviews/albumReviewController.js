@@ -3,25 +3,26 @@
 import express from 'express';
 import checkAuth from '../firebase/firebaseAuthHandler';
 import {
-    createTrackReview,
-    getUserTrackReview,
-    updateUserTrackReview,
-    getTrackReviews,
-} from './trackReviewCollections';
+    createReview,
+    getUserReview,
+    getReviews,
+    updateUserReview,
+} from './reviewCollections';
 
 const router = express.Router();
+export const ALBUM = 'album';
 
-router.get('/tracks/:trackId/reviews', (req, res) => {
-    const trackId = req.params.trackId;
-    getTrackReviews(trackId)
+router.get('/album/:albumId/reviews', (req, res) => {
+    const albumId = req.params.albumId;
+    getReviews(albumId, ALBUM)
         .then(reviews => res.status(200).send(reviews))
         .catch(error => res.status(error.status).send(error));
 });
 
-router.get('/tracks/:trackId/reviews/me', checkAuth, (req, res) => {
-    const trackId = req.params.trackId;
+router.get('/album/:albumId/reviews/me', checkAuth, (req, res) => {
+    const albumId = req.params.albumId;
     const authorUid = req.user.uid;
-    getUserTrackReview(trackId, authorUid)
+    getUserReview(albumId, authorUid, ALBUM)
         .then(reviews => {
             reviews.size === 0
                 ? res.status(204).send()
@@ -30,25 +31,28 @@ router.get('/tracks/:trackId/reviews/me', checkAuth, (req, res) => {
         .catch(error => res.status(error.status).send(error));
 });
 
-router.post('/tracks/:trackId/reviews', checkAuth, (req, res) => {
+router.post('/album/:albumId/reviews', checkAuth, (req, res) => {
     const review = req.body;
-    review.trackId = req.params.trackId;
+    review.contentId = req.params.albumId;
     review.authorUid = req.user.uid;
-    if (review.review && !review.review.createdAt) {
+    review.contentType = ALBUM;
+    if (!review.review || !review.review.createdAt) {
+        review.review = review.review || {};
         review.review.createdAt = new Date();
         review.review.updatedAt = review.review.createdAt;
     }
 
-    createTrackReview(review)
+    createReview(review)
         .then(review => res.status(201).send(review))
         .catch(error => res.status(error.status).send(error));
 });
 
-router.put('/tracks/:trackId/reviews/:reviewId', checkAuth, (req, res) => {
+router.put('/album/:albumId/reviews/:reviewId', checkAuth, (req, res) => {
     const review = req.body;
-    review.trackId = req.params.trackId;
+    review.contentId = req.params.albumId;
     review.authorUid = req.user.uid;
-    updateUserTrackReview(req.params.reviewId, review)
+    review.contentType = ALBUM;
+    updateUserReview(req.params.reviewId, review)
         .then(review => res.status(200).send(review))
         .catch(error => res.status(error.status).send(error));
 });
