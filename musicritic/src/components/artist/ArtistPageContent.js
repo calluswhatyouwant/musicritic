@@ -6,7 +6,6 @@ import { Album, AlbumSimplified } from 'spotify-web-sdk';
 
 import { getSeveralAlbums } from '../../api/SpotifyWebAPI';
 import Rating from '../common/rating/Rating';
-import Loading from '../common/loading/Loading';
 
 import './ArtistPageContent.css';
 
@@ -38,15 +37,23 @@ const ArtistPageContent = ({ albums, singles }: Props) => {
   return loading || !completeAlbums || !completeSingles ? (
     <Loading />
   ) : (
-    <div className="artist-page-content col-lg-8">
-      <h1 className="discography-title">Discography</h1>
-      <h2 className="discography-section-title">ALBUMS</h2>
-      <DiscographySection albums={completeAlbums} />
-      <h2 className="discography-section-title">SINGLES</h2>
-      <DiscographySection albums={completeSingles} />
-    </div>
-  );
+      <div className="artist-page-content col-lg-8">
+        <h1 className="discography-title">Discography</h1>
+        <h2 className="discography-section-title">ALBUMS</h2>
+        <DiscographySection albums={completeAlbums} />
+        <h2 className="discography-section-title">SINGLES</h2>
+        <DiscographySection albums={completeSingles} />
+      </div>
+    );
 };
+
+const Loading = () => (
+  <div className="bg-white col-lg-8 w-100 pt-4 d-flex justify-content-center">
+    <div className="spinner spinner-border" role="status">
+      <span className="sr-only">Loading...</span>
+    </div>
+  </div>
+);
 
 const filterMaxPopularity = (albums: Album[]): Album[] => (
   Object.values(albums.reduce((prev, curr) => {
