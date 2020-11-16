@@ -11,7 +11,7 @@ import ReviewSection from '../review/ReviewSection';
 import { usePromise } from '../../utils/hooks';
 
 import './AlbumPage.css';
-import { getCurrentUserAlbumReview } from '../../api/AlbumAPI';
+import { getCurrentUserAlbumReview, getAlbumReviews } from '../../api/AlbumAPI';
 import Loading from '../common/loading/Loading';
 
 function AlbumPage() {
@@ -19,6 +19,7 @@ function AlbumPage() {
     const [album] = usePromise(getAlbum(id), {}, [id]);
     const [mainArtist, setMainArtist] = useState({});
     const [userRating, setUserRating] = useState(0);
+    const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [artistAlbums] = usePromise(
         (async () => {
@@ -44,7 +45,9 @@ function AlbumPage() {
             const { rating: ratingResponse } = await getCurrentUserAlbumReview(
                 id
             );
+            const reviewsResponse = await getAlbumReviews(id);
             setUserRating(ratingResponse);
+            setReviews(reviewsResponse);
             setLoading(false);
         }
 
@@ -63,7 +66,7 @@ function AlbumPage() {
                 />
             </section>
             <section className="album-page-section col-lg-8">
-                <ReviewSection redirectUrl={`/album/${id}/review`} reviews={[]} />
+                <ReviewSection redirectUrl={`/album/${id}/review`} reviews={reviews} />
             </section>
         </div>
     ): (
