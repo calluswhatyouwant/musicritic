@@ -61,3 +61,11 @@ export const getTrackReviews = (trackID: string) =>
         .catch(error => {
             throw error.response.data;
         });
+
+export const getTrackAverageRating = (trackID: string) =>
+    trackApi
+        .get(`tracks/${trackID}`)
+        .then(result => result.data.averageRating)
+        .catch(error => {
+            throw error.response.data;
+        });
