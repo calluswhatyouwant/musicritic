@@ -37,27 +37,27 @@ type Author = {
     authorUid: string,
 };
 
-type Review = {
-    id: string,
-    author: Author,
-    trackId: string,
-    rating: number,
-    review?: {
-        createdAt: Date,
-        updatedAt: Date,
-        content: string,
-    },
-};
+// type Review = {
+//     id: string,
+//     author: Author,
+//     trackId: string,
+//     rating: number,
+//     review?: {
+//         createdAt: Date,
+//         updatedAt: Date,
+//         content: string,
+//     },
+// };
 
 type ReviewSectionProps = {
-    trackId: string,
-    reviews: Array<Review>,
+    redirectUrl: string,
+    reviews: Object,
 };
 
-const ReviewSection = ({ trackId, reviews }: ReviewSectionProps) => (
+const ReviewSection = ({ redirectUrl, reviews }: ReviewSectionProps) => (
     <div className="review-section">
         <SectionHeader title="User Reviews">
-            <ComposeReviewButton trackId={trackId} />
+            <ComposeReviewButton redirectUrl={redirectUrl} />
         </SectionHeader>
         <div className="reviews-wrapper">
             {reviews
@@ -70,11 +70,11 @@ const ReviewSection = ({ trackId, reviews }: ReviewSectionProps) => (
 );
 
 type ComposeReviewButtonProps = {
-    trackId: string,
-};
+    redirectUrl: string
+}
 
-const ComposeReviewButton = ({ trackId }: ComposeReviewButtonProps) => (
-    <a href={`/track/${trackId}/review`} className="compose-review-button">
+const ComposeReviewButton = ({ redirectUrl }: ComposeReviewButtonProps) => (
+    <a href={redirectUrl} className="compose-review-button">
         Compose Review
     </a>
 );

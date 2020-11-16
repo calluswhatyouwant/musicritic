@@ -11,6 +11,7 @@ import SearchResultsPage from '../search/SearchResultsPage';
 import SignupPage from '../signup/SignupPage';
 import TrackPage from '../track/TrackPage';
 import TrackReviewPage from '../track/review/TrackReviewPage';
+import AlbumReviewPage from '../album/review/AlbumReviewPage';
 
 const MainContent = () => (
     <Switch>
@@ -36,6 +37,7 @@ const MainContent = () => (
         <Route exact path="/album/:id/(reviews|)" component={AlbumPage} />
         <Route exact path="/track/:id" component={TrackPage} />
         <Route exact path="/track/:id/review" component={TrackReviewPage} />
+        <Route exact path="/album/:id/review" component={AlbumReviewPage} />
     </Switch>
 );
 

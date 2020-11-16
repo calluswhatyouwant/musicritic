@@ -92,7 +92,7 @@ const TrackPage = () => {
                 />
             </div>
             <div className="col-lg-8">
-                <ReviewSection trackId={id} reviews={reviews} />
+                <ReviewSection redirectUrl={`/track/${id}/review`} reviews={reviews} />
             </div>
         </div>
     ) : (

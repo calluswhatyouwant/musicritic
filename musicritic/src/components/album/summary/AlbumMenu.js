@@ -1,29 +1,23 @@
 /* @flow */
 
 import React from 'react';
+// import { Album } from 'spotify-web-sdk';
 
 import './AlbumMenu.css';
 
-const AlbumMenu = () => (
+type Props = {
+    albumUrl: string
+}
+
+const AlbumMenu = ({ albumUrl }: Props) => (
     <div className="album-menu">
-        <button
-          type="button"
+        <a
+        //   target="_blank"
+          href={albumUrl}
           className="btn album-menu__button album-menu__button--play text-light"
         >
-            Play album
-        </button>
-        <button
-          type="button"
-          className="btn album-menu__button text-light"
-        >
-            Add to favorites
-        </button>
-        <button
-          type="button"
-          className="btn album-menu__button text-light"
-        >
-            Write a review
-        </button>
+            Open on Spotify
+        </a>
     </div>
 );
 

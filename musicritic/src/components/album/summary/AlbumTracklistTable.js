@@ -3,6 +3,7 @@
 import React from 'react';
 import { Album, Track } from 'spotify-web-sdk';
 import _ from 'lodash';
+import { useHistory } from 'react-router-dom';
 
 import './AlbumTracklistTable.css';
 
@@ -30,18 +31,22 @@ type AlbumTracklistTableRowProps = {
 
 const AlbumTracklistTableRow = ({
     track, trackIndex,
-}: AlbumTracklistTableRowProps) => (
-    <tr>
-        <th className="album-tracklist-tr__track-index text-muted" scope="row">
-            {`${trackIndex + 1}`}
-        </th>
-        <td>
-            {track.name}
-        </td>
-        <td className="album-tracklist-tr__track-length text-muted">
-            {track.length}
-        </td>
-    </tr>
-);
+}: AlbumTracklistTableRowProps) => {
+    const history = useHistory();
+
+    return (
+        <tr onClick={() => history.push(`/track/${track.id}`)}>
+            <th className="album-tracklist-tr__track-index text-muted" scope="row">
+                {`${trackIndex + 1}`}
+            </th>
+            <td>
+                {track.name}
+            </td>
+            <td className="album-tracklist-tr__track-length text-muted">
+                {track.length}
+            </td>
+        </tr>
+    );
+}
 
 export default AlbumTracklistTable;
