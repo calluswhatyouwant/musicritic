@@ -54,9 +54,11 @@ type ReviewSectionProps = {
     reviews: Object,
 };
 
-const ReviewSection = ({ redirectUrl, reviews }: ReviewSectionProps) => (
+const ReviewSection = ({ redirectUrl, reviews }: ReviewSectionProps) => {
+    const title = reviews.length>0 ? "User Reviews" : "There are no reviews yet to show"
+    return (
     <div className="review-section">
-        <SectionHeader title="User Reviews">
+        <SectionHeader title={title}>
             <ComposeReviewButton redirectUrl={redirectUrl} />
         </SectionHeader>
         <div className="reviews-wrapper">
@@ -67,7 +69,8 @@ const ReviewSection = ({ redirectUrl, reviews }: ReviewSectionProps) => (
                 ))}
         </div>
     </div>
-);
+    )
+}
 
 type ComposeReviewButtonProps = {
     redirectUrl: string

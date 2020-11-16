@@ -61,3 +61,11 @@ export const getAlbumReviews = (albumID: string) =>
         .catch(error => {
             throw error.response.data;
         });
+
+export const getAlbumAverageRating = (albumID: string) =>
+    albumAPI
+        .get(`albums/${albumID}`)
+        .then(result => result.data.averageRating)
+        .catch(error => {
+            throw error.response.data;
+        });

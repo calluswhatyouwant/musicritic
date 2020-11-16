@@ -11,7 +11,7 @@ import ReviewSection from '../review/ReviewSection';
 import { usePromise } from '../../utils/hooks';
 
 import './AlbumPage.css';
-import { getCurrentUserAlbumReview } from '../../api/AlbumAPI';
+import { getCurrentUserAlbumReview, getAlbumReviews, getAlbumAverageRating, postAlbumReview } from '../../api/AlbumAPI';
 import Loading from '../common/loading/Loading';
 
 function AlbumPage() {
@@ -19,6 +19,8 @@ function AlbumPage() {
     const [album] = usePromise(getAlbum(id), {}, [id]);
     const [mainArtist, setMainArtist] = useState({});
     const [userRating, setUserRating] = useState(0);
+    const [averageRating, setAverageRating] = useState(0);
+    const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [artistAlbums] = usePromise(
         (async () => {
@@ -44,13 +46,20 @@ function AlbumPage() {
             const { rating: ratingResponse } = await getCurrentUserAlbumReview(
                 id
             );
+            const reviewsResponse = await getAlbumReviews(id);
+            const avgRatingResponse = await getAlbumAverageRating(id);
             setUserRating(ratingResponse);
+            setReviews(reviewsResponse);
+            setAverageRating(avgRatingResponse);
             setLoading(false);
         }
-
         getAlbumFromAPI();
         setAlbumMainArtist();
     }, [album, id]);
+
+    const postRating = (newRating: number) => {
+        if (newRating !== userRating) postAlbumReview(id, newRating);
+    };
 
     return !loading ? (
         <div className="row album-page border container shadow-sm">
@@ -60,10 +69,12 @@ function AlbumPage() {
                     artistAlbums={artistAlbums}
                     mainArtist={mainArtist}
                     userRating={userRating}
+                    averageRating={averageRating}
+                    postRating={postRating}
                 />
             </section>
             <section className="album-page-section col-lg-8">
-                <ReviewSection redirectUrl={`/album/${id}/review`} reviews={[]} />
+                <ReviewSection redirectUrl={`/album/${id}/review`} reviews={reviews} />
             </section>
         </div>
     ): (
