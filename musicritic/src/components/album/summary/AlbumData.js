@@ -10,9 +10,10 @@ type Props = {
     album: Album,
     averageRating: number,
     userRating: number,
+    postRating: (rating: number) => void,
 };
 
-const AlbumData = ({ album, averageRating, userRating }: Props) => (
+const AlbumData = ({ album, averageRating, userRating, postRating }: Props) => (
     <div className="album-data">
         <img
           alt={album.name}
@@ -25,6 +26,7 @@ const AlbumData = ({ album, averageRating, userRating }: Props) => (
             <p>{album.releaseYear}</p>
         </div>
         <AlbumRatings
+          postRating={postRating}
           averageRating={averageRating}
           userRating={userRating}
         />
@@ -34,9 +36,10 @@ const AlbumData = ({ album, averageRating, userRating }: Props) => (
 type AlbumRatingsProps = {
     averageRating: number,
     userRating: number,
+    postRating: (rating: number) => void,
 };
 
-const AlbumRatings = ({ averageRating, userRating }: AlbumRatingsProps) => (
+const AlbumRatings = ({ averageRating, userRating, postRating }: AlbumRatingsProps) => (
     <div className="album-ratings row">
         <AlbumRating
             rating={averageRating}
@@ -46,6 +49,7 @@ const AlbumRatings = ({ averageRating, userRating }: AlbumRatingsProps) => (
         <AlbumRating
             rating={userRating}
             title="Your rating"
+            postRating={postRating}
         />
     </div>
 );
@@ -54,19 +58,21 @@ type AlbumRatingProps = {
     rating: number,
     title: string,
     displayOnly?: boolean,
+    postRating?: (rating: number) => void,
 };
 
-const AlbumRating = ({ rating, title, displayOnly }: AlbumRatingProps) => (
+const AlbumRating = ({ rating, title, displayOnly, postRating }: AlbumRatingProps) => (
     <div className="album-rating col-4">
         <p className="album-rating__title">
             {title}
         </p>
-        <Rating initialValue={rating} displayOnly={displayOnly} />
+        <Rating onValueChange={postRating} initialValue={rating} displayOnly={displayOnly} />
     </div>
 );
 
 AlbumRating.defaultProps = {
     displayOnly: false,
+    postRating: () => {},
 }
 
 export default AlbumData;

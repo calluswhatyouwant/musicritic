@@ -11,7 +11,7 @@ import ReviewSection from '../review/ReviewSection';
 import { usePromise } from '../../utils/hooks';
 
 import './AlbumPage.css';
-import { getCurrentUserAlbumReview, getAlbumReviews, getAlbumAverageRating } from '../../api/AlbumAPI';
+import { getCurrentUserAlbumReview, getAlbumReviews, getAlbumAverageRating, postAlbumReview } from '../../api/AlbumAPI';
 import Loading from '../common/loading/Loading';
 
 function AlbumPage() {
@@ -57,6 +57,10 @@ function AlbumPage() {
         setAlbumMainArtist();
     }, [album, id]);
 
+    const postRating = (newRating: number) => {
+        if (newRating !== userRating) postAlbumReview(id, newRating);
+    };
+
     return !loading ? (
         <div className="row album-page border container shadow-sm">
             <section className="album-page-section col-lg-4">
@@ -66,6 +70,7 @@ function AlbumPage() {
                     mainArtist={mainArtist}
                     userRating={userRating}
                     averageRating={averageRating}
+                    postRating={postRating}
                 />
             </section>
             <section className="album-page-section col-lg-8">
