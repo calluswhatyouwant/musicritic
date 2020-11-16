@@ -1,5 +1,3 @@
-/* @flow */
-
 import React, { useState, useEffect } from 'react';
 import MediumEditor from 'medium-editor';
 import { getAlbum, Album } from 'spotify-web-sdk';
