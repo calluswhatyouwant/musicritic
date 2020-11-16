@@ -11,7 +11,7 @@ import ReviewSection from '../review/ReviewSection';
 import { usePromise } from '../../utils/hooks';
 
 import './AlbumPage.css';
-import { getCurrentUserAlbumReview, getAlbumReviews } from '../../api/AlbumAPI';
+import { getCurrentUserAlbumReview, getAlbumReviews, getAlbumAverageRating } from '../../api/AlbumAPI';
 import Loading from '../common/loading/Loading';
 
 function AlbumPage() {
@@ -19,6 +19,7 @@ function AlbumPage() {
     const [album] = usePromise(getAlbum(id), {}, [id]);
     const [mainArtist, setMainArtist] = useState({});
     const [userRating, setUserRating] = useState(0);
+    const [averageRating, setAverageRating] = useState(0);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [artistAlbums] = usePromise(
@@ -46,11 +47,12 @@ function AlbumPage() {
                 id
             );
             const reviewsResponse = await getAlbumReviews(id);
+            const avgRatingResponse = await getAlbumAverageRating(id);
             setUserRating(ratingResponse);
             setReviews(reviewsResponse);
+            setAverageRating(avgRatingResponse);
             setLoading(false);
         }
-
         getAlbumFromAPI();
         setAlbumMainArtist();
     }, [album, id]);
@@ -63,6 +65,7 @@ function AlbumPage() {
                     artistAlbums={artistAlbums}
                     mainArtist={mainArtist}
                     userRating={userRating}
+                    averageRating={averageRating}
                 />
             </section>
             <section className="album-page-section col-lg-8">
