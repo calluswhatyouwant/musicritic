@@ -105,8 +105,10 @@ export const updateUserReview = async (
         };
 
     if (updatedReview.review) {
-        if (review.review)
+        if (review.review) {
             updatedReview.review.createdAt = review.review.createdAt;
+            updatedReview.review.content = updatedReview.review.content || review.review.content;
+        }
 
         updatedReview.review.updatedAt = new Date();
     }
