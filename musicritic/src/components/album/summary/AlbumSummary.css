@@ -37,3 +37,10 @@
         hsl(0, 0%, 0%) 100%
     );
 }
+
+.album-tracklist-title {
+    background-color: black;
+    padding: .75rem;
+    width: 100%;
+    text-transform: uppercase;
+}
