@@ -14,6 +14,7 @@ import ReviewSection from '../review/ReviewSection';
 import Loading from '../common/loading/Loading';
 import {
     getTrackReviews,
+    getTrackAverageRating,
     getCurrentUserTrackReview,
     postTrackReview,
 } from '../../api/TrackAPI';
@@ -21,6 +22,7 @@ import {
 const TrackPage = () => {
     const [loading, setLoading] = useState(true);
     const [rating, setRating] = useState(0);
+    const [averageRating, setAverageRating] = useState(0);
     const [track, setTrack] = useState({});
     const [reviews, setReviews] = useState([]);
     const [prevTrack, setPrevTrack] = useState({});
@@ -49,9 +51,11 @@ const TrackPage = () => {
             const { rating: ratingResponse } = await getCurrentUserTrackReview(
                 id
             );
+            const averageRating = await getTrackAverageRating(id);
 
             setTrack(trackResponse);
             setRating(ratingResponse);
+            setAverageRating(averageRating);
             setPrevTrack(prevTrackResponse);
             setNextTrack(nextTrackResponse);
             setReviews(reviewsResponse);
@@ -60,6 +64,15 @@ const TrackPage = () => {
 
         getTrackFromAPI();
     }, [id]);
+
+    useEffect(() => {
+        const updateAverageRating = async () => {
+            const newAverageRating = await getTrackAverageRating(id);
+            setAverageRating(newAverageRating);
+        };
+
+        updateAverageRating();
+    }, [rating]);
 
     const postRating = (newRating: number) => {
         if (newRating !== rating) postTrackReview(id, newRating);
@@ -71,6 +84,7 @@ const TrackPage = () => {
             <div className="col-lg-4">
                 <TrackPageSidebar
                     userRating={rating}
+                    averageRating={averageRating}
                     postRating={postRating}
                     track={track}
                     prevTrack={prevTrack}
