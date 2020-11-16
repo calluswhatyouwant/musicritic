@@ -37,7 +37,7 @@ router.post('/album/:albumId/reviews', checkAuth, (req, res) => {
     review.authorUid = req.user.uid;
     review.contentType = ALBUM;
     if (!review.review || !review.review.createdAt) {
-        review.review = {};
+        review.review = review.review || {};
         review.review.createdAt = new Date();
         review.review.updatedAt = review.review.createdAt;
     }
