@@ -51,11 +51,11 @@ const TrackPage = () => {
             const { rating: ratingResponse } = await getCurrentUserTrackReview(
                 id
             );
-            const averageRating = await getTrackAverageRating(id);
+            const avgRatingResponse = await getTrackAverageRating(id);
 
             setTrack(trackResponse);
             setRating(ratingResponse);
-            setAverageRating(averageRating);
+            setAverageRating(avgRatingResponse);
             setPrevTrack(prevTrackResponse);
             setNextTrack(nextTrackResponse);
             setReviews(reviewsResponse);
