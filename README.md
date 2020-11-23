@@ -49,14 +49,17 @@ Access [Spotify Developer](https://developer.spotify.com/dashboard/) with your *
 Access [Firebase](https://console.firebase.google.com/) with your Google Account and follow these steps:
 
 1. Add a new project
-2. Go to *Project Overview*
-3. Click in the symbol `</>`
-4. Copy your `apiKey`, `authDomain`, `databaseURL` and put it in the the `.env`
-5. Go to *Project Configuration > Service Accounts*
-6. Click in *Create a new Private Key* and save the file in a safe place, please don't commit this file
-7. Place the *full path* to your file at the `FIREBASE_SERVICE_ACCOUNT` fild in `.env`
-8. On the sidebar menu, click on "Authentication", "Sign-in Method" tab and enable "Email/password" (same could be done with Google, Facebook and Twitter).
-9. Let's create our user! Select "Users" tab, click on "Add User". Set "Email" and "Password". Use this credentials to log in on the application.
+1. Go to *Project Overview*
+1. Click in the symbol `</>`
+1. Copy your `apiKey`, `authDomain`, `databaseURL` and put it in the the `.env`
+1. Click at Cloud Firestore, and at "Create Database".
+1. Choose the test option and activate
+1. Go to *Project Configuration > Service Accounts*
+1. Click in *Create a new Private Key* and save the file in a safe place, please don't commit this file
+1. Place the *full path* to your file at the `FIREBASE_SERVICE_ACCOUNT` fild in `.env`
+1. On the sidebar menu, click on "Authentication", "Sign-in Method" tab and enable "Email/password" (same could be done with Google, Facebook and Twitter).
+1. Let's create our user! Select "Users" tab, click on "Add User". Set "Email" and "Password". Use this credentials to log in on the application.
+
 
 With both configured, you're ready to run **Musicritic**!
 
