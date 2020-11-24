@@ -3,6 +3,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import ContainerizedRoute from './routes/ContainerizedRoute';
+import ProtectedRoute from './routes/ProtectedRoute';
 
 import UserPage from '../profile/UserPage';
 import Auth from '../login/Auth';
@@ -35,11 +36,21 @@ const MainContent = () => (
             path="/auth/:token/:refresh/:musicritic"
             component={Auth}
         />
-        <Route exact path="/album/:id/(reviews|)" component={AlbumPage} />
-        <Route exact path="/track/:id" component={TrackPage} />
-        <Route exact path="/track/:id/review" component={TrackReviewPage} />
-        <Route exact path="/album/:id/review" component={AlbumReviewPage} />
-        <Route exact path="/artist/:id" component={ArtistPage} />
+        <ProtectedRoute>
+            <Route exact path="/album/:id/(reviews|)" component={AlbumPage} />
+        </ProtectedRoute>
+        <ProtectedRoute>
+            <Route exact path="/track/:id" component={TrackPage} />
+        </ProtectedRoute>
+        <ProtectedRoute>
+            <Route exact path="/track/:id/review" component={TrackReviewPage} />
+        </ProtectedRoute>
+        <ProtectedRoute>
+            <Route exact path="/album/:id/review" component={AlbumReviewPage} />
+        </ProtectedRoute>
+        <ProtectedRoute>
+            <Route exact path="/artist/:id" component={ArtistPage} />
+        </ProtectedRoute>
     </Switch>
 );
 
