@@ -63,7 +63,9 @@ type TrackInfoProps = {
 const TrackInfo = ({ track }: TrackInfoProps) => (
     <div className="text-center track-info">
         <h1>{track.name}</h1>
-        <h4>by {track.stringArtists}</h4>
+        <h4>by <a className="text-light" href={`/artist/${track.artists[0].id}/`}>
+                {track.stringArtists}
+            </a></h4>
         <h5>
             from the album{' '}
             <a className="text-light" href={`/album/${track.album.id}/`}>

@@ -28,6 +28,7 @@ const Auth = () => {
 
     if (user && localStorage.getItem('spotifyToken')) { 
         history.push('/home');
+        history.go(0);
     } 
 
     return <Loading />;
