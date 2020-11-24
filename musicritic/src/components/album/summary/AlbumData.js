@@ -22,7 +22,7 @@ const AlbumData = ({ album, averageRating, userRating, postRating }: Props) => (
         />
         <div className="album-data__text">
             <h1>{album.name}</h1>
-            <h4>by {album.stringArtists}</h4>
+            <h4>by <a className="text-light" href={`/artist/${album.artists[0].id}`}>{album.stringArtists}</a></h4>
             <p>{album.releaseYear}</p>
         </div>
         <AlbumRatings
