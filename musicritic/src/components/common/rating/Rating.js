@@ -15,6 +15,8 @@ const Rating = ({ initialValue, onValueChange, displayOnly }: Props) => {
     const [hoverValue, setHoverValue] = useState(0);
     
     const [displayValue, setDisplayValue] = useState(initialValue);
+    const [clicked, setClicked] = useState(false);
+
     useEffect(() => {
         if (hoverValue) {
             setDisplayValue(hoverValue);
@@ -24,9 +26,14 @@ const Rating = ({ initialValue, onValueChange, displayOnly }: Props) => {
     }, [value, hoverValue]);
 
     useEffect(() => {
-        if (onValueChange) onValueChange(value);
+        if (clicked && onValueChange) onValueChange(value);
     }, [value]);
     
+    const handleClick = (value) => {
+        setClicked(true);
+        setValue(value);
+    }
+
     const stars = [];
 
     for (let index = 0; index < 5; index += 1) {
@@ -35,7 +42,7 @@ const Rating = ({ initialValue, onValueChange, displayOnly }: Props) => {
                 key={index}
                 index={index}
                 displayValue={displayValue}
-                setValue={setValue}
+                setValue={handleClick}
                 setHoverValue={setHoverValue}
                 displayOnly={displayOnly}
             />

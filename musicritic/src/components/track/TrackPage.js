@@ -18,6 +18,7 @@ import {
     getCurrentUserTrackReview,
     postTrackReview,
 } from '../../api/TrackAPI';
+import RatingModal from '../common/rating/RatingModal';
 
 const TrackPage = () => {
     const [loading, setLoading] = useState(true);
@@ -27,6 +28,8 @@ const TrackPage = () => {
     const [reviews, setReviews] = useState([]);
     const [prevTrack, setPrevTrack] = useState({});
     const [nextTrack, setNextTrack] = useState({});
+    const [show, setIsOpen] = useState(false);
+    const[newRating, setNewRating] = useState(0);
     const { id } = useParams();
 
     useEffect(() => {
@@ -73,19 +76,32 @@ const TrackPage = () => {
 
         updateAverageRating();
     }, [rating]);
+    
+    const toggle = () => {
+        setIsOpen(!show)
+    }
 
-    const postRating = (newRating: number) => {
-        if (newRating !== rating) postTrackReview(id, newRating);
+    const showConfirmationModal = (newRating: number) => {
+        toggle()
+        setNewRating(newRating);
+    }
+
+    const postRating = () => {
+       if (newRating !== rating) postTrackReview(id, newRating)
+       toggle();
     };
+    
 
     // TODO Use actual values
     return !loading ? (
         <div className="row album-page container">
             <div className="col-lg-4">
+                <RatingModal show={show} toggle={toggle} rating={newRating} ratingContent={track.name} confirm={postRating}/>
+
                 <TrackPageSidebar
                     userRating={rating}
                     averageRating={averageRating}
-                    postRating={postRating}
+                    postRating={showConfirmationModal}
                     track={track}
                     prevTrack={prevTrack}
                     nextTrack={nextTrack}
