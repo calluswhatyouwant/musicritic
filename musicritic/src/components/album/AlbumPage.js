@@ -13,6 +13,7 @@ import { usePromise } from '../../utils/hooks';
 import './AlbumPage.css';
 import { getCurrentUserAlbumReview, getAlbumReviews, getAlbumAverageRating, postAlbumReview } from '../../api/AlbumAPI';
 import Loading from '../common/loading/Loading';
+import RatingModal from '../common/rating/RatingModal';
 
 function AlbumPage() {
     const { id } = useParams();
@@ -22,6 +23,8 @@ function AlbumPage() {
     const [averageRating, setAverageRating] = useState(0);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
+    const [newRating, setNewRating] = useState(0);
     const [artistAlbums] = usePromise(
         (async () => {
             if (mainArtist.id) {
@@ -57,20 +60,31 @@ function AlbumPage() {
         setAlbumMainArtist();
     }, [album, id]);
 
-    const postRating = (newRating: number) => {
+    const toggle = () => {
+        setIsOpen(!isOpen);
+    }
+
+    const showConfirmationModal = (newRating: number) => {
+        toggle();
+        setNewRating(newRating);
+    }
+
+    const postRating = () => {
         if (newRating !== userRating) postAlbumReview(id, newRating);
+        toggle();
     };
 
     return !loading ? (
         <div className="row album-page border container shadow-sm">
             <section className="album-page-section col-lg-4">
+            <RatingModal show={isOpen} toggle={toggle} rating={newRating} ratingContent={album.name} confirm={postRating}/>
                 <AlbumSummary
                     album={album}
                     artistAlbums={artistAlbums}
                     mainArtist={mainArtist}
                     userRating={userRating}
                     averageRating={averageRating}
-                    postRating={postRating}
+                    postRating={showConfirmationModal}
                 />
             </section>
             <section className="album-page-section col-lg-8">

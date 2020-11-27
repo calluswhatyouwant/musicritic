@@ -28,7 +28,7 @@ const TrackPage = () => {
     const [reviews, setReviews] = useState([]);
     const [prevTrack, setPrevTrack] = useState({});
     const [nextTrack, setNextTrack] = useState({});
-    const [show, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const[newRating, setNewRating] = useState(0);
     const { id } = useParams();
 
@@ -78,7 +78,7 @@ const TrackPage = () => {
     }, [rating]);
     
     const toggle = () => {
-        setIsOpen(!show)
+        setIsOpen(!isOpen)
     }
 
     const showConfirmationModal = (newRating: number) => {
@@ -90,13 +90,12 @@ const TrackPage = () => {
        if (newRating !== rating) postTrackReview(id, newRating)
        toggle();
     };
-    
 
     // TODO Use actual values
     return !loading ? (
         <div className="row album-page container">
             <div className="col-lg-4">
-                <RatingModal show={show} toggle={toggle} rating={newRating} ratingContent={track.name} confirm={postRating}/>
+                <RatingModal show={isOpen} toggle={toggle} rating={newRating} ratingContent={track.name} confirm={postRating}/>
 
                 <TrackPageSidebar
                     userRating={rating}
