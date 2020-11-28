@@ -8,7 +8,7 @@
     ],
     "scripts": {
         "start": "nodemon src/index.js --exec babel-node",
-        "build": "babel src --out-dir dist/ --ignore node_modules/",
+        "build": "babel src --out-dir api/ --ignore node_modules/",
         "check-flow": "flow check .",
         "format": "prettier src/** --write",
         "check-format": "prettier -c src/**"

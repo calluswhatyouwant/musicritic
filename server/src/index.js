@@ -42,3 +42,5 @@ const { port } = config.host;
 server.listen(port, () => {
     console.log(`Listening on port ${port}...`);
 });
+
+export default app;
