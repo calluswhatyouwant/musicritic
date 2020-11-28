@@ -1,6 +1,7 @@
 /* @flow */
 
 import React from 'react';
+import { Route } from 'react-router-dom';
 import { useSession } from '../../app/App';
 
 import SocialButton from '../../common/social-button/SocialButton';
@@ -32,9 +33,9 @@ type ProtectedRouteProps = {
     children: any,
 };
 
-const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+const ProtectedRoute = ({ children, ...args }: ProtectedRouteProps) => {
     const user = useSession();
-    return user ? { ...children } : <AuthRequirement />;
+    return <Route {...args}>{user ? children : <AuthRequirement />}</Route>;
 };
 
 export default ProtectedRoute;

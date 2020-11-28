@@ -36,20 +36,20 @@ const MainContent = () => (
             path="/auth/:token/:refresh/:musicritic"
             component={Auth}
         />
-        <ProtectedRoute>
-            <Route exact path="/album/:id/(reviews|)" component={AlbumPage} />
+        <ProtectedRoute exact path="/album/:id/(reviews|)">
+            <AlbumPage />
         </ProtectedRoute>
-        <ProtectedRoute>
-            <Route exact path="/track/:id" component={TrackPage} />
+        <ProtectedRoute exact path="/track/:id">
+            <TrackPage />
         </ProtectedRoute>
-        <ProtectedRoute>
-            <Route exact path="/track/:id/review" component={TrackReviewPage} />
+        <ProtectedRoute exact path="/track/:id/review">
+            <TrackReviewPage />
         </ProtectedRoute>
-        <ProtectedRoute>
-            <Route exact path="/album/:id/review" component={AlbumReviewPage} />
+        <ProtectedRoute exact path="/album/:id/review">
+            <AlbumReviewPage />
         </ProtectedRoute>
-        <ProtectedRoute>
-            <Route exact path="/artist/:id" component={ArtistPage} />
+        <ProtectedRoute exact path="/artist/:id/">
+            <ArtistPage />
         </ProtectedRoute>
     </Switch>
 );
