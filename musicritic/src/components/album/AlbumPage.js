@@ -24,7 +24,7 @@ function AlbumPage() {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
-    const [newRating, setNewRating] = useState(0);
+    const [chosenRating, setChosenRating] = useState(0);
     const [artistAlbums] = usePromise(
         (async () => {
             if (mainArtist.id) {
@@ -66,18 +66,24 @@ function AlbumPage() {
 
     const showConfirmationModal = (newRating: number) => {
         toggle();
-        setNewRating(newRating);
+        setChosenRating(newRating);
     }
 
     const postRating = () => {
-        if (newRating !== userRating) postAlbumReview(id, newRating);
+        if (chosenRating !== userRating) postAlbumReview(id, chosenRating);
         toggle();
     };
+
+    const cancelRating = () => {
+        if (chosenRating !== userRating) setChosenRating(userRating);
+        toggle();
+    }
+
 
     return !loading ? (
         <div className="row album-page border container shadow-sm">
             <section className="album-page-section col-lg-4">
-            <RatingModal show={isOpen} toggle={toggle} rating={newRating} ratingContent={album.name} confirm={postRating}/>
+            <RatingModal show={isOpen} cancel={cancelRating} rating={chosenRating} ratingContent={album.name} confirm={postRating}/>
                 <AlbumSummary
                     album={album}
                     artistAlbums={artistAlbums}

@@ -29,9 +29,9 @@ const Rating = ({ initialValue, onValueChange, displayOnly }: Props) => {
         if (clicked && onValueChange) onValueChange(value);
     }, [value]);
     
-    const handleClick = (value) => {
+    const handleClick = (newValue) => {
         setClicked(true);
-        setValue(value);
+        setValue(newValue);
     }
 
     const stars = [];

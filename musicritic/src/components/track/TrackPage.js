@@ -29,7 +29,7 @@ const TrackPage = () => {
     const [prevTrack, setPrevTrack] = useState({});
     const [nextTrack, setNextTrack] = useState({});
     const [isOpen, setIsOpen] = useState(false);
-    const[newRating, setNewRating] = useState(0);
+    const [chosenRating, setChosenRating] = useState(0);
     const { id } = useParams();
 
     useEffect(() => {
@@ -83,19 +83,25 @@ const TrackPage = () => {
 
     const showConfirmationModal = (newRating: number) => {
         toggle()
-        setNewRating(newRating);
+        setChosenRating(newRating);
     }
-
+   
     const postRating = () => {
-       if (newRating !== rating) postTrackReview(id, newRating)
+       if (chosenRating !== rating) postTrackReview(id, chosenRating)
        toggle();
     };
+
+    const cancelRating = () => {
+        if (chosenRating !== rating) setChosenRating(rating);
+        toggle();
+    }
+    
 
     // TODO Use actual values
     return !loading ? (
         <div className="row album-page container">
             <div className="col-lg-4">
-                <RatingModal show={isOpen} toggle={toggle} rating={newRating} ratingContent={track.name} confirm={postRating}/>
+                <RatingModal show={isOpen} cancel={cancelRating} rating={chosenRating} ratingContent={track.name} confirm={postRating}/>
 
                 <TrackPageSidebar
                     userRating={rating}
