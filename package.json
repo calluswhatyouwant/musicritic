@@ -18,7 +18,9 @@
         "lint": "lerna run lint --stream",
         "check-format": "lerna run check-format --stream",
         "format": "lerna run format --stream",
-        "check-flow": "lerna run check-flow --stream"
+        "check-flow": "lerna run check-flow --stream",
+        "deploy:preview": "vercel",
+        "deploy:prod": "vercel --prod"
     },
     "dependencies": {
         "dotenv": "^6.0.0"

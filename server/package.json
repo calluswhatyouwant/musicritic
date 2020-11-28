@@ -28,7 +28,8 @@
     "devDependencies": {
         "@babel/cli": "^7.0.0",
         "@babel/node": "^7.8.7",
-        "nodemon": "^2.0.2"
+        "nodemon": "^2.0.2",
+        "vercel": "^21.0.1"
     },
     "engines": {
         "node": "10.x"
