@@ -28,7 +28,7 @@ app.get('/hello', checkAuth, (req, res) =>
     res.send(`Hello, ${req.user.displayName}!`)
 );
 
-app.get('/', (req, res) => res.send(`Hello, it's working!`));
+app.get('/', (req, res) => res.send(`Hello, it's working!!!`));
 
 app.use(authRouter);
 app.use(trackApi);
