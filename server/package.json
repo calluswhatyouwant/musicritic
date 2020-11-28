@@ -30,4 +30,7 @@
         "@babel/node": "^7.8.7",
         "nodemon": "^2.0.2"
     }
+    "engines": {
+        "node": "10.x"
+    }
 }
