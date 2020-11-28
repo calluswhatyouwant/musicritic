@@ -1,0 +1,47 @@
+.clickable {
+  transition: all .5s ease;
+}
+
+.clickable:hover {
+  cursor: pointer;
+  background-color: #dddddd;
+}
+
+.artist-page-content {
+  background-color: white;
+  padding: 3rem;
+}
+
+.discography-title {
+  font-size: 3rem;
+  line-height: 4rem;
+}
+
+.discography-section-title {
+  font-size: 2rem;
+  line-height: 3rem;
+}
+
+.discography-section-table td, .discography-section-table th {
+  padding: .5rem;
+  vertical-align: middle;
+  border-top-color: black;
+}
+
+.artist-discography-album-cover {
+  width: 4rem;
+  height: 4rem;
+}
+
+.discography-section-table-data {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.discography-section-album-name {
+  font-size: 1.5rem;
+}
+
+.discography-section-album-details {
+  color: #858585;
+}

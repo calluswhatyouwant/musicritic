@@ -42,6 +42,12 @@ export const getCurrentUserCurrentlyPlayingTrack = async () =>
 
 export const getAlbum = async (id: string) => spotify.getAlbum(id);
 
+export const getSeveralAlbums = async (ids: string[]) => spotify.getSeveralAlbums(ids, { market: 'from_token' });
+
+export const getArtist = async (id: string) => spotify.getArtist(id);
+
+export const getArtistTopTracks = async (id: string) => spotify.getArtistTopTracks(id, 'US');
+
 // TODO Deal with multiple discs
 export const getNextAlbumTrack = async (
     id: string,
@@ -80,4 +86,4 @@ export const getPrevAlbumTrack = async (
 };
 
 export const getArtistAlbums = async (id: string, includeGroups: string[]) =>
-    spotify.getArtistAlbums(id, { includeGroups });
+    spotify.getArtistAlbums(id, { includeGroups, market: 'from_token' });
