@@ -9,8 +9,8 @@ import Navbar from './Navbar';
 import MainContent from './MainContent';
 import auth from '../../firebase/firebase-config';
 
-const useCurrentUser = () => {
-    const [user, setUser] = useState(auth.currentUser);
+export const useCurrentUser = () => {
+    const [user, setUser] = useState('unknown');
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(u => {
             if (u) {
