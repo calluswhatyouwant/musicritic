@@ -11,3 +11,7 @@
     text-align: center;
     width: 1%;
 }
+
+.album-tracklist-tr {
+    cursor: pointer;
+}

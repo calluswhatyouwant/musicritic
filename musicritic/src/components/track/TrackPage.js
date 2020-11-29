@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
-    getTrack,
     getNextAlbumTrack,
     getPrevAlbumTrack,
 } from '../../api/SpotifyWebAPI';
@@ -17,9 +16,12 @@ import {
     getTrackAverageRating,
     getCurrentUserTrackReview,
     postTrackReview,
+    getTrack as getTrackApi
 } from '../../api/TrackAPI';
+import { useSession } from '../app/App';
 
 const TrackPage = () => {
+    const user = useSession();
     const [loading, setLoading] = useState(true);
     const [rating, setRating] = useState(0);
     const [averageRating, setAverageRating] = useState(0);
@@ -31,30 +33,40 @@ const TrackPage = () => {
 
     useEffect(() => {
         async function getTrackFromAPI() {
-            const trackResponse = await getTrack(id);
+            const trackResponse = await getTrackApi(id);
             const {
                 discNumber,
                 trackNumber,
                 album: { id: albumId },
             } = trackResponse;
-            const prevTrackResponse = await getPrevAlbumTrack(
-                albumId,
-                discNumber,
-                trackNumber
-            );
-            const nextTrackResponse = await getNextAlbumTrack(
-                albumId,
-                discNumber,
-                trackNumber
-            );
+            const prevTrackResponse = user ?
+                await getPrevAlbumTrack(
+                    albumId,
+                    discNumber,
+                    trackNumber
+                )
+                :
+                {};
+            const nextTrackResponse = user ?
+                await getNextAlbumTrack(
+                    albumId,
+                    discNumber,
+                    trackNumber
+                )
+                :
+                {};
             const reviewsResponse = await getTrackReviews(id);
-            const { rating: ratingResponse } = await getCurrentUserTrackReview(
-                id
-            );
+            if (user) {
+                const { rating: ratingResponse } = await getCurrentUserTrackReview(
+                    id
+                );
+                setRating(ratingResponse);
+            } else {
+                setRating(undefined);
+            }
             const avgRatingResponse = await getTrackAverageRating(id);
 
             setTrack(trackResponse);
-            setRating(ratingResponse);
             setAverageRating(avgRatingResponse);
             setPrevTrack(prevTrackResponse);
             setNextTrack(nextTrackResponse);
@@ -92,7 +104,10 @@ const TrackPage = () => {
                 />
             </div>
             <div className="col-lg-8">
-                <ReviewSection redirectUrl={`/track/${id}/review`} reviews={reviews} />
+                <ReviewSection 
+                    redirectUrl={user ? `/track/${id}/review` : `/home`}
+                    reviews={reviews}
+                />
             </div>
         </div>
     ) : (

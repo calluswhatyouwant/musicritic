@@ -69,7 +69,7 @@ const TrackInfo = ({ track }: TrackInfoProps) => (
         <h5>
             from the album{' '}
             <a className="text-light" href={`/album/${track.album.id}/`}>
-                {track.albumName}
+                {track.album.name}
             </a>
         </h5>
         <p>
@@ -135,11 +135,13 @@ const TrackRatings = ({
             title="Average rating"
             displayOnly
         />
-        <TrackRating
-            rating={userRating}
-            title="Your rating"
-            postRating={postRating}
-        />
+        {userRating && (
+            <TrackRating
+                rating={userRating}
+                title="Your rating"
+                postRating={postRating}
+            />
+        )}
     </div>
 );
 

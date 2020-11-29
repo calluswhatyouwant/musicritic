@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import _ from 'lodash';
 
-import { getAlbum, getArtistAlbums } from '../../api/SpotifyWebAPI';
+import { getArtistAlbums } from '../../api/SpotifyWebAPI';
 
 import AlbumSummary from './summary/AlbumSummary';
 import ReviewSection from '../review/ReviewSection';
@@ -25,10 +25,7 @@ import { useSession } from '../app/App';
 function AlbumPage() {
     const user = useSession();
     const { id } = useParams();
-    const [album] = user ? 
-        usePromise(getAlbum(id), {}, [id])
-        :
-        usePromise(getAlbumAPI(id), {}, [id]);
+    const [album] = usePromise(getAlbumAPI(id), {}, [id]);
     const [mainArtist, setMainArtist] = useState({});
     const [userRating, setUserRating] = useState(0);
     const [averageRating, setAverageRating] = useState(0);
@@ -54,7 +51,6 @@ function AlbumPage() {
 
     useEffect(() => {
         function setAlbumMainArtist() {
-            console.log(album)
             if (album.artists) setMainArtist(album.artists[0]);
         }
 

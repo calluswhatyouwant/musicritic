@@ -12,7 +12,7 @@ import './AlbumSummary.css';
 
 type Props = {
     album: Album,
-    userRating?: number,
+    userRating: number,
     averageRating: number,
     artistAlbums?: AlbumSimplified[],
     mainArtist: ArtistSimplified,
@@ -48,7 +48,6 @@ const AlbumSummary = ({ album, artistAlbums, mainArtist, userRating, averageRati
 };
 
 AlbumSummary.defaultProps = {
-    userRating: undefined,
     artistAlbums: undefined,
 }
 
