@@ -77,7 +77,7 @@ type HeaderProps = {
 };
 
 const AlbumReviewPageHeader = ({ album }: HeaderProps) => (
-    <CustomPalette imageUrl={album.imageUrl}>
+    <CustomPalette imageUrl={album.images[0].url}>
         <div className="w-100 p-5">
             <div className="row">
                 <div className="review-page-track-info col-md-8 text-center">
@@ -92,7 +92,7 @@ const AlbumReviewPageHeader = ({ album }: HeaderProps) => (
                     <img
                         alt="Album"
                         className="track-page-header__cover w-50 shadow-lg"
-                        src={album.imageUrl}
+                        src={album.images[0].url}
                     />
                 </div>
             </div>

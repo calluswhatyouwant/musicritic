@@ -24,12 +24,12 @@ const TrackPageSidebar = ({
     <div>
         <div
             className="album-summary text-light"
-            style={{ backgroundImage: `url(${track.album.imageUrl})` }}>
+            style={{ backgroundImage: `url(${track.album.images[0].url})` }}>
             <div className="track-page-header__data">
                 <img
                     alt="Album"
                     className="track-page-header__cover shadow-lg"
-                    src={track.album.imageUrl}
+                    src={track.album.images[0].url}
                 />
                 <TrackInfo track={track} />
             </div>

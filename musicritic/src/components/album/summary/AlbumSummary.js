@@ -12,16 +12,16 @@ import './AlbumSummary.css';
 
 type Props = {
     album: Album,
-    userRating: number,
+    userRating?: number,
     averageRating: number,
-    artistAlbums: AlbumSimplified[],
+    artistAlbums?: AlbumSimplified[],
     mainArtist: ArtistSimplified,
     postRating: (rating: number) => void,
 };
 
 const AlbumSummary = ({ album, artistAlbums, mainArtist, userRating, averageRating, postRating }: Props) => {
     const style = {
-        backgroundImage: `url(${album.imageUrl})`,
+        backgroundImage: `url(${album.images[0].url})`,
     };
 
     return (
@@ -36,13 +36,20 @@ const AlbumSummary = ({ album, artistAlbums, mainArtist, userRating, averageRati
                 </div>
                 <AlbumTracklistTable album={album} />
             </div>
-            <ArtistAlbumsGrid
-                currentAlbumId={album.id}
-                mainArtist={mainArtist}
-                artistAlbums={artistAlbums}
-            />
+            {artistAlbums && (
+                <ArtistAlbumsGrid
+                    currentAlbumId={album.id}
+                    mainArtist={mainArtist}
+                    artistAlbums={artistAlbums}
+                />
+            )}
         </Fragment>
     );
 };
+
+AlbumSummary.defaultProps = {
+    userRating: undefined,
+    artistAlbums: undefined,
+}
 
 export default AlbumSummary;

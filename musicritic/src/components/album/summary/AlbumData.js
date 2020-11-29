@@ -9,7 +9,7 @@ import Rating from '../../common/rating/Rating';
 type Props = {
     album: Album,
     averageRating: number,
-    userRating: number,
+    userRating?: number,
     postRating: (rating: number) => void,
 };
 
@@ -18,7 +18,7 @@ const AlbumData = ({ album, averageRating, userRating, postRating }: Props) => (
         <img
           alt={album.name}
           className="album-data__cover shadow-lg"
-          src={album.imageUrl}
+          src={album.images[0].url}
         />
         <div className="album-data__text">
             <h1>{album.name}</h1>
@@ -35,7 +35,7 @@ const AlbumData = ({ album, averageRating, userRating, postRating }: Props) => (
 
 type AlbumRatingsProps = {
     averageRating: number,
-    userRating: number,
+    userRating?: number,
     postRating: (rating: number) => void,
 };
 
@@ -46,11 +46,13 @@ const AlbumRatings = ({ averageRating, userRating, postRating }: AlbumRatingsPro
             title="Average rating"
             displayOnly
         />
-        <AlbumRating
-            rating={userRating}
-            title="Your rating"
-            postRating={postRating}
-        />
+        {userRating && (
+            <AlbumRating
+              rating={userRating}
+              title="Your rating"
+              postRating={postRating}
+            />
+        )}
     </div>
 );
 
@@ -69,6 +71,14 @@ const AlbumRating = ({ rating, title, displayOnly, postRating }: AlbumRatingProp
         <Rating onValueChange={postRating} initialValue={rating} displayOnly={displayOnly} />
     </div>
 );
+
+AlbumData.defaultProps = {
+    userRating: undefined,
+}
+
+AlbumRatings.defaultProps = {
+    userRating: undefined,
+}
 
 AlbumRating.defaultProps = {
     displayOnly: false,

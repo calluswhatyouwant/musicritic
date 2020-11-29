@@ -22,7 +22,7 @@ const CurrentlyPlayingTrack = ({ currentlyPlaying, history }: Props) => {
         };
 
         return (
-            <CustomPalette imageUrl={currentlyPlaying.item.album.imageUrl}>
+            <CustomPalette imageUrl={currentlyPlaying.item.album.images[0].url}>
                 <div
                   className="currently-playing-track shadow row"
                   {...clickableProps}
@@ -49,7 +49,7 @@ const CurrentlyPlayingTrackImage = ({ track }: ImageProps) => (
     <div className="currently-playing-track-image__container col-xl-3 col-md-4">
         <img
           className="currently-playing-track-image"
-          src={track.album.imageUrl}
+          src={track.album.images[0].url}
           alt={track.name}
         />
     </div>
