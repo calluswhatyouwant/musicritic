@@ -60,23 +60,30 @@ type TrackInfoProps = {
     track: Track,
 };
 
-const TrackInfo = ({ track }: TrackInfoProps) => (
-    <div className="text-center track-info">
-        <h1>{track.name}</h1>
-        <h4>by <a className="text-light" href={`/artist/${track.artists[0].id}/`}>
-                {track.stringArtists}
-            </a></h4>
-        <h5>
-            from the album{' '}
-            <a className="text-light" href={`/album/${track.album.id}/`}>
-                {track.album.name}
-            </a>
-        </h5>
-        <p>
-            {track.releaseYear} &bull; {track.length}
-        </p>
-    </div>
-);
+const TrackInfo = ({ track }: TrackInfoProps) => {
+    const history = useHistory();
+    return (
+        <div className="text-center track-info">
+            <h1>{track.name}</h1>
+            <h4>by {track.stringArtists}</h4>
+            <h5>
+                from the album{' '}
+                <div 
+                    className="text-light"
+                    onClick={() => history.push(`/album/${track.album.id}/`)}
+                    onKeyPress={() => {}}
+                    role="button"
+                    tabIndex={0}
+                >
+                    {track.album.name}
+                </div>
+            </h5>
+            <p>
+                {track.releaseYear} &bull; {track.length}
+            </p>
+        </div>
+    )
+};
 
 const TrackAlbumNavigation = ({ track, prevTrack, nextTrack }: Props) => {
     const history = useHistory();
