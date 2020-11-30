@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import _ from 'lodash';
 
 import AlbumSummary from './summary/AlbumSummary';
 import ReviewSection from '../review/ReviewSection';
