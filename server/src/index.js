@@ -11,6 +11,7 @@ import trackReviewsApi from './reviews/trackReviewController';
 import albumReviewsApi from './reviews/albumReviewController';
 import trackApi from './track/trackController';
 import albumApi from './album/albumController';
+import artistApi from './artist/artistController';
 import checkAuth from './firebase/firebaseAuthHandler';
 import { initSpotifyToken } from './spotify/util';
 
@@ -35,6 +36,7 @@ app.use(trackApi);
 app.use(albumApi);
 app.use(trackReviewsApi);
 app.use(albumReviewsApi);
+app.use(artistApi);
 
 const server = http.createServer(app);
 const { port } = config.host;
