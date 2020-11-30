@@ -36,12 +36,8 @@ const MainContent = () => (
             path="/auth/:token/:refresh/:musicritic"
             component={Auth}
         />
-        <ProtectedRoute exact path="/album/:id">
-            <AlbumPage />
-        </ProtectedRoute>
-        <ProtectedRoute exact path="/track/:id">
-            <TrackPage />
-        </ProtectedRoute>
+        <Route exact path="/album/:id" component={AlbumPage} />
+        <Route exact path="/track/:id" component={TrackPage} />
         <ProtectedRoute exact path="/track/:id/review">
             <TrackReviewPage />
         </ProtectedRoute>

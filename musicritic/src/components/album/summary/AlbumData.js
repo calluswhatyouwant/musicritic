@@ -18,7 +18,7 @@ const AlbumData = ({ album, averageRating, userRating, postRating }: Props) => (
         <img
           alt={album.name}
           className="album-data__cover shadow-lg"
-          src={album.imageUrl}
+          src={album.images[0].url}
         />
         <div className="album-data__text">
             <h1>{album.name}</h1>
@@ -46,11 +46,13 @@ const AlbumRatings = ({ averageRating, userRating, postRating }: AlbumRatingsPro
             title="Average rating"
             displayOnly
         />
-        <AlbumRating
-            rating={userRating}
-            title="Your rating"
-            postRating={postRating}
-        />
+        {(userRating !== undefined) && (
+            <AlbumRating
+              rating={userRating}
+              title="Your rating"
+              postRating={postRating}
+            />
+        )}
     </div>
 );
 

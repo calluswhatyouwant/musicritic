@@ -87,7 +87,7 @@ const ArtistAlbum = ({ album, isCurrent, history }: ArtistAlbumProps) => {
         <img
           alt={album.name}
           className={`artist-album ${isCurrent ? 'artist-album--current' : ''}`}
-          src={album.imageUrl}
+          src={album.images[0].url}
           title={`${album.name} (${album.releaseYear})`}
           {...clickableProps}
         />

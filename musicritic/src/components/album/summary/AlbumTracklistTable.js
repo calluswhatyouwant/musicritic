@@ -35,7 +35,10 @@ const AlbumTracklistTableRow = ({
     const history = useHistory();
 
     return (
-        <tr onClick={() => history.push(`/track/${track.id}`)}>
+        <tr 
+            className="album-tracklist-tr" 
+            onClick={() => history.push(`/track/${track.id}`)}
+        >
             <th className="album-tracklist-tr__track-index text-muted" scope="row">
                 {`${trackIndex + 1}`}
             </th>

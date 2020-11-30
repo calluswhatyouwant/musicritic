@@ -24,12 +24,12 @@ const TrackPageSidebar = ({
     <div>
         <div
             className="album-summary text-light"
-            style={{ backgroundImage: `url(${track.album.imageUrl})` }}>
+            style={{ backgroundImage: `url(${track.album.images[0].url})` }}>
             <div className="track-page-header__data">
                 <img
                     alt="Album"
                     className="track-page-header__cover shadow-lg"
-                    src={track.album.imageUrl}
+                    src={track.album.images[0].url}
                 />
                 <TrackInfo track={track} />
             </div>
@@ -63,13 +63,11 @@ type TrackInfoProps = {
 const TrackInfo = ({ track }: TrackInfoProps) => (
     <div className="text-center track-info">
         <h1>{track.name}</h1>
-        <h4>by <a className="text-light" href={`/artist/${track.artists[0].id}/`}>
-                {track.stringArtists}
-            </a></h4>
+        <h4>by {track.stringArtists}</h4>
         <h5>
             from the album{' '}
-            <a className="text-light" href={`/album/${track.album.id}/`}>
-                {track.albumName}
+            <a className="text-light" href={`/album/${track.album.id}`}>
+                {track.album.name}
             </a>
         </h5>
         <p>
@@ -135,11 +133,13 @@ const TrackRatings = ({
             title="Average rating"
             displayOnly
         />
-        <TrackRating
-            rating={userRating}
-            title="Your rating"
-            postRating={postRating}
-        />
+        {(userRating !== undefined) && (
+            <TrackRating
+                rating={userRating}
+                title="Your rating"
+                postRating={postRating}
+            />
+        )}
     </div>
 );
 

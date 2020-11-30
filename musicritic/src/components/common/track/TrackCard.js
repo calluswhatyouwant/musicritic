@@ -45,7 +45,7 @@ const TrackCardTop = ({ track, rank }: TrackCardTopProps) => (
     <div className={rank ? 'track-card-top--with-rank' : ''}>
         <img
           className="track-card-top__img"
-          src={track.album.imageUrl}
+          src={track.album.images[0].url}
           alt={track.name}
         />
         <p className="track-card-top__rank text-light shadow">
