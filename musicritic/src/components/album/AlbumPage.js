@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import _ from 'lodash';
 
-import { getArtistAlbums } from '../../api/SpotifyWebAPI';
-
 import AlbumSummary from './summary/AlbumSummary';
 import ReviewSection from '../review/ReviewSection';
 
@@ -15,6 +13,7 @@ import {
     postAlbumReview,
     getAlbum as getAlbumAPI
 } from '../../api/AlbumAPI';
+import { getArtistAlbums as getArtistAlbumsAPI } from '../../api/ArtistAPI' 
 import Loading from '../common/loading/Loading';
 import { useSession } from '../app/App';
 
@@ -28,15 +27,7 @@ function AlbumPage() {
     const [averageRating, setAverageRating] = useState(0);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [artistAlbums, setArtistAlbums] = useState({})
-    
-    const getArtistAlbumsResponse = async (artistId) => {
-        const artistAlbumsResponseAux = await getArtistAlbums(
-            artistId,
-            ['album']
-        );
-        return _.uniqBy(artistAlbumsResponseAux.items, 'name');
-    }
+    const [artistAlbums, setArtistAlbums] = useState({});
 
     useEffect(() => {
         async function getAlbumFromAPI() {
@@ -53,10 +44,7 @@ function AlbumPage() {
             }
             const reviewsResponse = await getAlbumReviews(id);
             const avgRatingResponse = await getAlbumAverageRating(id);
-            const artistAlbumsResponse = (userLoggedIn ?
-                await getArtistAlbumsResponse(mainArtistResponse.id)
-                :
-                undefined);
+            const artistAlbumsResponse = await getArtistAlbumsAPI(mainArtistResponse.id);
             setAlbum(albumResponse);
             setMainArtist(mainArtistResponse);
             setArtistAlbums(artistAlbumsResponse);
