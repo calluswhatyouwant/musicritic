@@ -18,10 +18,10 @@ import {
     postTrackReview,
     getTrack as getTrackApi
 } from '../../api/TrackAPI';
-import { useSession } from '../app/App';
+import { useCurrentUser } from '../app/App';
 
 const TrackPage = () => {
-    const user = useSession();
+    const user = useCurrentUser();
     const [loading, setLoading] = useState(true);
     const [rating, setRating] = useState(0);
     const [averageRating, setAverageRating] = useState(0);
@@ -30,16 +30,17 @@ const TrackPage = () => {
     const [prevTrack, setPrevTrack] = useState({});
     const [nextTrack, setNextTrack] = useState({});
     const { id } = useParams();
-
+    
     useEffect(() => {
         async function getTrackFromAPI() {
+            const userLoggedIn = user && user !== 'unknown';
             const trackResponse = await getTrackApi(id);
             const {
                 discNumber,
                 trackNumber,
                 album: { id: albumId },
             } = trackResponse;
-            const prevTrackResponse = user ?
+            const prevTrackResponse = userLoggedIn ?
                 await getPrevAlbumTrack(
                     albumId,
                     discNumber,
@@ -47,7 +48,7 @@ const TrackPage = () => {
                 )
                 :
                 {};
-            const nextTrackResponse = user ?
+            const nextTrackResponse = userLoggedIn ?
                 await getNextAlbumTrack(
                     albumId,
                     discNumber,
@@ -56,11 +57,11 @@ const TrackPage = () => {
                 :
                 {};
             const reviewsResponse = await getTrackReviews(id);
-            if (user) {
+            if (userLoggedIn) {
                 const { rating: ratingResponse } = await getCurrentUserTrackReview(
                     id
                 );
-                setRating(ratingResponse);
+                setRating(ratingResponse || 0);
             } else {
                 setRating(undefined);
             }
@@ -75,7 +76,7 @@ const TrackPage = () => {
         }
 
         getTrackFromAPI();
-    }, [id]);
+    }, [id, user]);
 
     useEffect(() => {
         const updateAverageRating = async () => {
@@ -105,7 +106,7 @@ const TrackPage = () => {
             </div>
             <div className="col-lg-8">
                 <ReviewSection 
-                    redirectUrl={user ? `/track/${id}/review` : `/home`}
+                    redirectUrl={`/track/${id}/review`}
                     reviews={reviews}
                 />
             </div>

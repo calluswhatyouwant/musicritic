@@ -6,7 +6,6 @@ import { getArtistAlbums } from '../../api/SpotifyWebAPI';
 
 import AlbumSummary from './summary/AlbumSummary';
 import ReviewSection from '../review/ReviewSection';
-import { usePromise } from '../../utils/hooks';
 
 import './AlbumPage.css';
 import { 
@@ -23,53 +22,50 @@ import { useSession } from '../app/App';
 function AlbumPage() {
     const user = useSession();
     const { id } = useParams();
-    const [album] = usePromise(getAlbumAPI(id), {}, [id]);
+    const [album, setAlbum] = useState({});
     const [mainArtist, setMainArtist] = useState({});
     const [userRating, setUserRating] = useState(0);
     const [averageRating, setAverageRating] = useState(0);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [artistAlbums] = user ?
-        usePromise(
-            (async () => {
-                if (mainArtist.id) {
-                    const artistAlbumsResponse = await getArtistAlbums(
-                        mainArtist.id,
-                        ['album']
-                    );
-                    return _.uniqBy(artistAlbumsResponse.items, 'name');
-                }
-                return [];
-            })(),
-            [],
-            [mainArtist]
-        )
-        :
-        useState(undefined);
+    const [artistAlbums, setArtistAlbums] = useState({})
+    
+    const getArtistAlbumsResponse = async (artistId) => {
+        const artistAlbumsResponseAux = await getArtistAlbums(
+            artistId,
+            ['album']
+        );
+        return _.uniqBy(artistAlbumsResponseAux.items, 'name');
+    }
 
     useEffect(() => {
-        function setAlbumMainArtist() {
-            if (album.artists) setMainArtist(album.artists[0]);
-        }
-
         async function getAlbumFromAPI() {
-            if (user) {
+            const userLoggedIn = user && user !== 'unknown';
+            const albumResponse = await getAlbumAPI(id);
+            const mainArtistResponse = albumResponse.artists[0];
+            if (userLoggedIn) {
                 const { rating: ratingResponse } = await getCurrentUserAlbumReview(
                     id
                 );
-                setUserRating(ratingResponse);
+                setUserRating(ratingResponse || 0);
             } else {
                 setUserRating(undefined);
             }
             const reviewsResponse = await getAlbumReviews(id);
             const avgRatingResponse = await getAlbumAverageRating(id);
+            const artistAlbumsResponse = (userLoggedIn ?
+                await getArtistAlbumsResponse(mainArtistResponse.id)
+                :
+                undefined);
+            setAlbum(albumResponse);
+            setMainArtist(mainArtistResponse);
+            setArtistAlbums(artistAlbumsResponse);
             setReviews(reviewsResponse);
             setAverageRating(avgRatingResponse);
             setLoading(false);
         }
-        setAlbumMainArtist();
         getAlbumFromAPI();
-    }, [album, id]);
+    }, [album, id, user]);
 
     const postRating = (newRating: number) => {
         if (newRating !== userRating) postAlbumReview(id, newRating);
@@ -88,7 +84,7 @@ function AlbumPage() {
                 />
             </section>
             <section className="album-page-section col-lg-8">
-                <ReviewSection redirectUrl={user ? `/album/${id}/review` : `/home`} reviews={reviews} />
+                <ReviewSection redirectUrl={`/album/${id}/review`} reviews={reviews} />
             </section>
         </div>
     ): (

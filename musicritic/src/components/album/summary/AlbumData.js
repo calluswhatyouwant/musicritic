@@ -46,7 +46,7 @@ const AlbumRatings = ({ averageRating, userRating, postRating }: AlbumRatingsPro
             title="Average rating"
             displayOnly
         />
-        {userRating && (
+        {(userRating !== undefined) && (
             <AlbumRating
               rating={userRating}
               title="Your rating"
