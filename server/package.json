@@ -8,7 +8,7 @@
     ],
     "scripts": {
         "start": "nodemon src/index.js --exec babel-node",
-        "build": "babel src --out-dir dist/ --ignore node_modules/",
+        "build": "babel src --out-dir api/ --ignore node_modules/",
         "check-flow": "flow check .",
         "format": "prettier src/** --write",
         "check-format": "prettier -c src/**"
@@ -28,6 +28,10 @@
     "devDependencies": {
         "@babel/cli": "^7.0.0",
         "@babel/node": "^7.8.7",
-        "nodemon": "^2.0.2"
+        "nodemon": "^2.0.2",
+        "vercel": "^21.0.1"
+    },
+    "engines": {
+        "node": "10.x"
     }
 }
