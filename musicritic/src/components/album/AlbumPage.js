@@ -52,15 +52,15 @@ function AlbumPage() {
             setLoading(false);
         }
         getAlbumFromAPI();
-    }, [album, id, user]);
+    }, [id, user]);
 
     const postRating = (newRating: number) => {
         if (newRating !== userRating) postAlbumReview(id, newRating);
     };
 
     return !loading ? (
-        <div className="row album-page border container shadow-sm">
-            <section className="album-page-section col-lg-4">
+        <div className="row m-0">
+            <section className="col-lg-4 p-0">
                 <AlbumSummary
                     album={album}
                     artistAlbums={artistAlbums}
@@ -70,7 +70,7 @@ function AlbumPage() {
                     postRating={postRating}
                 />
             </section>
-            <section className="album-page-section col-lg-8">
+            <section className="col-lg-8">
                 <ReviewSection redirectUrl={`/album/${id}/review`} reviews={reviews} />
             </section>
         </div>

@@ -44,7 +44,7 @@ const Navbar = () => {
                     <ul className="navbar-nav ml-auto">
                         <NavbarItem text="Home" href="/home" />
                     </ul>
-                    { user && <LogoutButton handleLogout={handleLogout}/> }
+                    { user && user !== 'unknown' && <LogoutButton handleLogout={handleLogout}/> }
                 </div>
             </div>
         </nav>

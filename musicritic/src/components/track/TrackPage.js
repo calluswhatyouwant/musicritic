@@ -91,10 +91,9 @@ const TrackPage = () => {
         if (newRating !== rating) postTrackReview(id, newRating);
     };
 
-    // TODO Use actual values
     return !loading ? (
-        <div className="row album-page container">
-            <div className="col-lg-4">
+        <div className="row m-0">
+            <div className="col-lg-4 p-0">
                 <TrackPageSidebar
                     userRating={rating}
                     averageRating={averageRating}
