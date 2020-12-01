@@ -8,9 +8,10 @@ import './Results.css';
 
 type Props = {
     results: Artist[],
+    history: any,
 }
 
-const ArtistResult = ({ results }: Props) => {
+const ArtistResult = ({ results, history }: Props) => {
     const [artists, setArtists] = useState(results);
 
     useEffect(
@@ -20,9 +21,13 @@ const ArtistResult = ({ results }: Props) => {
         [results]
     );
 
+    const handleClick = artist => {
+        history.push(`/artist/${artist.id}`);
+    };
+
     const listResults = artists.map(artist => (
         <div key={artist.id} className="col-3 result">
-            <ArtistCard artist={artist} />
+            <ArtistCard handleClick={() => handleClick(artist)} artist={artist} />
         </div>
     ));
     return <div className="row">{listResults}</div>;
