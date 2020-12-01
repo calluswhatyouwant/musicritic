@@ -7,10 +7,9 @@ import './CurrentlyPlayingTrack.css';
 
 type Props = {
     currentlyPlaying: CurrentlyPlaying,
-    history: any,
 };
 
-const CurrentlyPlayingTrack = ({ currentlyPlaying, history }: Props) => {
+const CurrentlyPlayingTrack = ({ currentlyPlaying }: Props) => {
     if (currentlyPlaying.isPlaying) {
         return (
             <div className="row m-0">

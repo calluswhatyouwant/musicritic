@@ -1,6 +1,5 @@
 import React from 'react';
 import { Track } from 'spotify-web-sdk';
-import { useHistory } from 'react-router-dom';
 
 import Rating from '../common/rating/Rating';
 
@@ -79,45 +78,41 @@ const TrackInfo = ({ track }: TrackInfoProps) => (
     </div>
 );
 
-const TrackAlbumNavigation = ({ track, prevTrack, nextTrack }: Props) => {
-    const history = useHistory();
-    const clickableProps = trackId => ({
-        onClick: () => history.push(`/track/${trackId}/`),
-        tabIndex: 0,
-        onKeyPress: () => { },
-        role: 'button',
-    });
+type TrackAlbumNavigationProps = {
+    track: Track,
+    prevTrack: Track | {},
+    nextTrack: Track | {},
+};
 
-    return (
-        <div className="track-album-navigation text-center text-light">
-            <h5 className="mb-3">
-                More from{' '}
-                <a className="text-light" href={`/album/${track.album.id}/`}>
-                    {track.albumName}
-                </a>
+const TrackAlbumNavigation = ({ track, prevTrack, nextTrack }: TrackAlbumNavigationProps) => (
+    <div className="track-album-navigation text-center text-light">
+        <h5 className="mb-3">
+            More from{' '}
+            <a className="text-light" href={`/album/${track.album.id}/`}>
+                {track.albumName}
+            </a>
                 :
             </h5>
-            <div className="track-album-navigation-container row">
-                {prevTrack.name && (
-                    <a
-                        href={`/track/${prevTrack.id}`}
-                        className="track-album-navigation-button col-4">
-                        <p className="album-rating__title">{'<'} Previous</p>
-                        <p className="mb-0">{prevTrack.name}</p>
-                    </a>
-                )}
-                {nextTrack.name && (
-                    <a
-                        href={`/track/${nextTrack.id}`}
-                        className="track-album-navigation-button col-4">
-                        <p className="album-rating__title">Next {'>'}</p>
-                        <p className="mb-0">{nextTrack.name}</p>
-                    </a>
-                )}
-            </div>
+        <div className="track-album-navigation-container row">
+            {prevTrack.name && (
+                <a
+                    href={`/track/${prevTrack.id}`}
+                    className="track-album-navigation-button col-4">
+                    <p className="album-rating__title">{'<'} Previous</p>
+                    <p className="mb-0">{prevTrack.name}</p>
+                </a>
+            )}
+            {nextTrack.name && (
+                <a
+                    href={`/track/${nextTrack.id}`}
+                    className="track-album-navigation-button col-4">
+                    <p className="album-rating__title">Next {'>'}</p>
+                    <p className="mb-0">{nextTrack.name}</p>
+                </a>
+            )}
         </div>
-    );
-};
+    </div>
+);
 
 type TrackRatingsProps = {
     postRating: (rating: number) => void,
