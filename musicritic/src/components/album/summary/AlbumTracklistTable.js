@@ -13,7 +13,7 @@ type Props = {
 
 const AlbumTracklistTable = ({ album }: Props) => {
     const body = _.get(album, 'tracks.items', []).map((track, index) =>
-        <AlbumTracklistTableRow track={track} trackIndex={index} />);
+        <AlbumTracklistTableRow key={index} track={track} trackIndex={index} />);
 
     return (
         <table className="table album-tracklist-table table-striped border">

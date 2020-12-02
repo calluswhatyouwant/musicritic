@@ -17,8 +17,8 @@ type Props = {
 const ArtistAlbumsGrid = ({
     mainArtist, artistAlbums, currentAlbumId, history,
 }: Props) => {
-    const albums = artistAlbums.slice(0, 5).map(album => (
-        <div className="artist-album-grid__item col-4">
+    const albums = artistAlbums.slice(0, 5).map((album, index) => (
+        <div key={index} className="artist-album-grid__item col-4">
             <ArtistAlbum
               album={album}
               isCurrent={currentAlbumId === album.id}
