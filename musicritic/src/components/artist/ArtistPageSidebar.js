@@ -43,6 +43,7 @@ const ArtistPhoto = ({ artist }: { artist: Artist }) => {
 
 type TopRatedTracksProps = {
     topTracks: Track[],
+    topTracksAverages: number[],
 };
 
 const ArtistTopRatedTracks = ({ topTracks, topTracksAverages }: TopRatedTracksProps) => {
