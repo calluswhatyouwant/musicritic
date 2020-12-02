@@ -73,9 +73,9 @@ const DiscographySection = ({ albums }: { albums: AlbumWithRating[] }) => {
     return (
         <table className="table discography-section-table">
             <tbody>
-                {filteredAlbums.map((album, index) => (
+                {filteredAlbums.map(album => (
                     <tr
-                        key={index}
+                        key={album.id}
                         className="clickable p-2"
                         onClick={() => push(`/album/${album.id}/`)}>
                         <td className="discography-section-table-data">

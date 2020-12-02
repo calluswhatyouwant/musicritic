@@ -48,7 +48,7 @@ type TopRatedTracksProps = {
 
 const ArtistTopRatedTracks = ({ topTracks, topTracksAverages }: TopRatedTracksProps) => {
     const body = topTracks.map((track, index) => (
-        <ArtistTrackRow key={index} track={track} average={topTracksAverages[index]} trackIndex={index} />
+        <ArtistTrackRow key={track.id} track={track} average={topTracksAverages[index]} trackIndex={index} />
     ));
 
     return (
