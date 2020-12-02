@@ -8,28 +8,17 @@ type Props = {
 }
 
 const SearchResultsNav = ({ query }: Props) => (
-    <ul className="nav justify-content-center">
-        <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/tracks/${query}`}>
-                Tracks
-            </NavLink>
-        </li>
-        <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/albums/${query}`}>
-                Albums
-            </NavLink>
-        </li>
-        <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/artists/${query}`}>
-                Artists
-            </NavLink>
-        </li>
-        <li className="nav-item">
-            <NavLink className="nav-link" to={`/search/playlists/${query}`}>
-                Playlists
-            </NavLink>
-        </li>
-    </ul>
+    <div className="d-flex justify-content-center">
+        <NavLink className="nav-link text-dark border border-dark p-2 mr-2" to={`/search/tracks/${query}`}>
+            TRACKS
+        </NavLink>
+        <NavLink className="nav-link text-dark border border-dark p-2 mr-2" to={`/search/albums/${query}`}>
+            ALBUMS
+        </NavLink>
+        <NavLink className="nav-link text-dark border border-dark p-2" to={`/search/artists/${query}`}>
+            ARTISTS
+        </NavLink>
+    </div>
 );
 
 export default SearchResultsNav;

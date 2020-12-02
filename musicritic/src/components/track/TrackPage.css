@@ -12,6 +12,8 @@
 }
 
 .track-album-navigation-button {
+    cursor: pointer;
+    color: white;
     border-style: solid;
     border-width: 1px;
     padding-top: 0.5rem;
@@ -21,6 +23,13 @@
     justify-content: center;
     align-items: center;
     flex: 1;
+    transition: all .5 ease;
+}
+
+.track-album-navigation-button:hover {
+    background-color: white;
+    color: black;
+    text-decoration: none;
 }
 
 .track-page-header {

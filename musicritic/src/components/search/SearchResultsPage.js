@@ -14,7 +14,7 @@ const SearchResultsPage = () => {
     const [results,, loading] = usePromise(search(query), {}, [query]);
 
     return (
-        <div>
+        <div className="px-4 py-2">
             <SearchResultsNav query={query} />
             {loading ? <Loading /> : <SearchResult results={results} />}
         </div>
