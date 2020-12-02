@@ -26,4 +26,13 @@ router.get('/albums/:id', async (req, res) => {
     });
 });
 
+router.get('/albums/:ids/data', async (req, res) => {
+    const albumIds = req.params.ids.split(',');
+    const albums = await spotifySdk.getSeveralAlbums(albumIds);
+
+    res.status(200).send({
+        albums: albums.map(a => JSON.parse(objectToJson(a))),
+    });
+});
+
 export default router;

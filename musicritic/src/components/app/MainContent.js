@@ -44,9 +44,7 @@ const MainContent = () => (
         <ProtectedRoute exact path="/album/:id/review">
             <AlbumReviewPage />
         </ProtectedRoute>
-        <ProtectedRoute exact path="/artist/:id">
-            <ArtistPage />
-        </ProtectedRoute>
+        <Route exact path="/artist/:id" component={ArtistPage} />
     </Switch>
 );
 

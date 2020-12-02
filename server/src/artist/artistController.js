@@ -7,6 +7,8 @@ import { TRACK } from '../reviews/trackReviewController';
 import { ALBUM } from '../reviews/albumReviewController';
 import { getReviews } from '../reviews/reviewCollections';
 
+import { objectToJson } from '../util';
+
 const router = express.Router();
 
 router.get('/artists/:id', async (req, res) => {
@@ -44,9 +46,12 @@ router.get('/artists/:id', async (req, res) => {
     const albumsAverages = albumsRatings.map(ratings => averageRating(ratings));
 
     res.status(200).send({
-        artist,
-        topTracks,
-        albums,
+        artist: JSON.parse(objectToJson(artist)),
+        topTracks: topTracks.map(t => ({
+            ...JSON.parse(objectToJson(t)),
+            album: JSON.parse(objectToJson(t.album))
+        })),
+        albums: albums.map(a => JSON.parse(objectToJson(a))),
         topTracksAverages,
         albumsAverages,
     });
