@@ -1,9 +1,9 @@
-export const objectToJson = (object) => {
-  let obj: any = {};
+export const objectToJson = object => {
+    let obj: any = {};
 
-  for (let key in object) {
-      obj[key] = object[key];
-  }
+    for (let key in object) {
+        obj[key] = object[key];
+    }
 
-  return JSON.stringify(obj);
-}
+    return JSON.stringify(obj);
+};
