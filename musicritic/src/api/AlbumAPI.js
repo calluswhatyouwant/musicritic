@@ -78,9 +78,9 @@ export const getAlbum = (albumID: string) =>
             throw error.response.data;
         });
 
-export const getSeveralAlbums = (albumIds: string[]) =>
+export const getSeveralAlbums = (ids: string[]) =>
     albumAPI
-        .get(`albums/${albumIds.join(',')}/data`)
+        .get('albums', { params: { ids } })
         .then(result => result.data.albums)
         .catch(error => {
             throw error.response.data;

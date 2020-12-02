@@ -26,8 +26,8 @@ router.get('/albums/:id', async (req, res) => {
     });
 });
 
-router.get('/albums/:ids/data', async (req, res) => {
-    const albumIds = req.params.ids.split(',');
+router.get('/albums', async (req, res) => {
+    const albumIds = req.query.ids;
     const albums = await spotifySdk.getSeveralAlbums(albumIds);
 
     res.status(200).send({
