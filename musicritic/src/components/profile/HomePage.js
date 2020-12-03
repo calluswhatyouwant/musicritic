@@ -13,7 +13,7 @@ const HomePage = () => {
     const [reviews, , loadingReviews] = usePromise(getRecentReviews(), [], []);
     const [albums, , loadingAlbums] = usePromise(getSeveralAlbums(reviews.map(review => review.contentId)), [], [reviews]);
 
-    if (loadingReviews || loadingAlbums) {
+    if (loadingReviews || loadingAlbums || albums.length === 0) {
         return <Loading />;
     }
 
@@ -37,7 +37,7 @@ const ReviewSection = ({ albumsWithReviews }: { albumsWithReviews: any[] }) => (
 
 const ReviewCardWithHeader = ({ album, review: { rating, author } }: { album: Album, review: any }) => {
     const history = useHistory();
-    return (
+    return album ? (
         <div className="col-lg-3 col-md-4 pb-3">
             <div className="review-user-info bg-light p-2">
                 <img
@@ -51,7 +51,7 @@ const ReviewCardWithHeader = ({ album, review: { rating, author } }: { album: Al
             </div>
             <AlbumCard album={album} handleClick={() => history.push(`/album/${album.id}`)} />
         </div>
-    );
+    ) : null;
 }
 
 const SpotifyConnect = () => {

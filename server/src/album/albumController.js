@@ -28,11 +28,16 @@ router.get('/albums/:id', async (req, res) => {
 
 router.get('/albums', async (req, res) => {
     const albumIds = req.query.ids;
-    const albums = await spotifySdk.getSeveralAlbums(albumIds);
-
-    res.status(200).send({
-        albums: albums.map(a => JSON.parse(objectToJson(a))),
-    });
+    if (albumIds) {
+        const albums = await spotifySdk.getSeveralAlbums(albumIds);
+        res.status(200).send({
+            albums: albums.map(a => JSON.parse(objectToJson(a))),
+        });
+    } else {
+        res.status(200).send({
+            albums: [],
+        });
+    }
 });
 
 export default router;
