@@ -14,7 +14,7 @@ export const TRACK = 'track';
 
 router.get('/tracks/:trackId/reviews', (req, res) => {
     const trackId = req.params.trackId;
-    getReviews(trackId, TRACK)
+    getReviews(TRACK, trackId)
         .then(reviews => res.status(200).send(reviews))
         .catch(error => {
             if (!error.status) error.status = 500;

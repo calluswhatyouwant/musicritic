@@ -55,20 +55,21 @@ type ReviewSectionProps = {
 };
 
 const ReviewSection = ({ redirectUrl, reviews }: ReviewSectionProps) => {
-    const title = reviews.length>0 ? "User Reviews" : "There are no reviews yet to show"
+    const reviewsWithText = reviews.filter(review => review.review && review.review.content);
+
+    const title = reviewsWithText.length > 0 ? "User Reviews" : "There are no reviews yet to show";
     return (
-    <div className="review-section">
-        <SectionHeader title={title}>
-            <ComposeReviewButton redirectUrl={redirectUrl} />
-        </SectionHeader>
-        <div className="reviews-wrapper">
-            {reviews
-                .filter(review => review.review && review.review.content)
-                .map(review => (
-                    <ReviewCard key={review.id} {...review} />
-                ))}
+        <div className="review-section">
+            <SectionHeader title={title}>
+                <ComposeReviewButton redirectUrl={redirectUrl} />
+            </SectionHeader>
+            <div className="reviews-wrapper">
+                {reviewsWithText
+                    .map(review => (
+                        <ReviewCard key={review.id} {...review} />
+                    ))}
+            </div>
         </div>
-    </div>
     )
 }
 

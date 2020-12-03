@@ -12,7 +12,7 @@ router.get('/tracks/:id', async (req, res) => {
     const trackId = req.params.id;
 
     const track = await spotifySdk.getTrack(trackId);
-    const trackReviews = await getReviews(trackId, TRACK);
+    const trackReviews = await getReviews(TRACK, trackId);
 
     const trackRatings = trackReviews.map(review => review.rating);
     const averageRating =

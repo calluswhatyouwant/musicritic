@@ -50,10 +50,10 @@ export const getUserReview = (
         .get();
 };
 
-export const getReviews = async (contentId: string, contentType: string) => {
-    const reviews = await Reviews[contentType]
-        .where('contentId', '==', contentId)
-        .get();
+export const getReviews = async (contentType: string, contentId?: string) => {
+    const reviews = contentId
+        ? await Reviews[contentType].where('contentId', '==', contentId).get()
+        : await Reviews[contentType].orderBy('review.createdAt', 'desc').get();
     return getReviewersInformation(reviews);
 };
 
@@ -61,8 +61,10 @@ const getReviewersInformation = async reviews => {
     const usersIds = reviews.docs.map(review => ({
         uid: review.data().authorUid,
     }));
-    const { users } = await auth.getUsers(usersIds);
-
+    const { users: usersResponse } = await auth.getUsers(usersIds);
+    const users = usersIds.map(userId =>
+        usersResponse.filter(u => u.uid === userId.uid)[0]);
+    
     const reviewsData = reviews.docs.map(review => review.data());
     return reviewsData.map((review, i) => ({
         ...review,

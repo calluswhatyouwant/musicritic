@@ -85,3 +85,10 @@ export const getSeveralAlbums = (ids: string[]) =>
         .catch(error => {
             throw error.response.data;
         });
+
+export const getRecentReviews = () =>
+    albumAPI.get('/album/reviews/recent')
+        .then(result => result.data)
+        .catch(error => {
+            throw error.response.data;
+        });
