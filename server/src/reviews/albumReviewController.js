@@ -12,9 +12,19 @@ import {
 const router = express.Router();
 export const ALBUM = 'album';
 
+router.get('/album/reviews/recent', (req, res) => {
+    getReviews(ALBUM)
+        .then(reviews => res.status(200).send(reviews))
+        .catch(error => {
+            if (!error.status) error.status = 500;
+            res.status(error.status).send(error);
+            console.error(error)
+        });
+})
+
 router.get('/album/:albumId/reviews', (req, res) => {
     const albumId = req.params.albumId;
-    getReviews(albumId, ALBUM)
+    getReviews(ALBUM, albumId)
         .then(reviews => res.status(200).send(reviews))
         .catch(error => {
             if (!error.status) error.status = 500;

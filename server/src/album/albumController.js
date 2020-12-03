@@ -12,7 +12,7 @@ router.get('/albums/:id', async (req, res) => {
     const albumId = req.params.id;
 
     const album = await spotifySdk.getAlbum(albumId);
-    const albumReviews = await getReviews(albumId, ALBUM);
+    const albumReviews = await getReviews(ALBUM, albumId);
 
     const albumRatings = albumReviews.map(review => review.rating);
     const averageRating =
