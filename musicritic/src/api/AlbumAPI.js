@@ -77,3 +77,11 @@ export const getAlbum = (albumID: string) =>
         .catch(error => {
             throw error.response.data;
         });
+
+export const getSeveralAlbums = (ids: string[]) =>
+    albumAPI
+        .get('albums', { params: { ids } })
+        .then(result => result.data.albums)
+        .catch(error => {
+            throw error.response.data;
+        });

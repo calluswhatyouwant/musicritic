@@ -9,6 +9,11 @@ export const artistAPI = axios.create({
     },
 });
 
+export const getArtist = async (artistID: string) => {
+    const artistResponse = await artistAPI.get(`artists/${artistID}`);
+    return artistResponse.data;
+}
+
 export const getArtistAlbums = async (artistID: string) => {
     const artistResponse = await artistAPI.get(`artists/${artistID}`);
     const { albums } = artistResponse.data;
