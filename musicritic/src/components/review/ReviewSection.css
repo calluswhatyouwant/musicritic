@@ -43,10 +43,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.7);
     color: white;
     font-size: 1rem;
-    opacity: 0.7;
     padding: 0.5rem 1rem 0.5rem 0.5rem;
 }
 
@@ -64,6 +63,10 @@
 .review-text-area {
     padding: 0.5rem 1rem;
     text-align: justify;
+}
+
+.review-text > p {
+    margin-bottom: .25rem;
 }
 
 .change-text-button {
