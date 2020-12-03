@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import SearchResult from './SearchResult';
 import SearchResultsNav from './SearchResultsNav';
 import Loading from '../common/loading/Loading';
-import { search } from '../../api/SpotifyWebAPI';
+import { search } from '../../api/SearchAPI';
 import { usePromise } from '../../utils/hooks';
 
 const SearchResultsPage = () => {
