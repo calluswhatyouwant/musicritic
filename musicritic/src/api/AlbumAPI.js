@@ -80,7 +80,7 @@ export const getAlbum = (albumID: string) =>
 
 export const getSeveralAlbums = (ids: string[]) =>
     albumAPI
-        .get('albums', { params: { ids } })
+        .get('albums', { params: { ids: ids ? ids : [] } })
         .then(result => result.data.albums)
         .catch(error => {
             throw error.response.data;

@@ -23,6 +23,7 @@ router.get('/artists/:id', async (req, res) => {
     const topTracks = await spotifySdk.getArtistTopTracks(artistId, 'US');
     const albums = (
         await spotifySdk.getArtistAlbums(artistId, {
+            market: 'US',
             includeGroups: ['album'],
         })
     ).items;
