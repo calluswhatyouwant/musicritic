@@ -80,8 +80,8 @@ export const getAlbum = (albumID: string) =>
 
 export const getSeveralAlbums = (ids: string[]) =>
     albumAPI
-        .get('albums', { params: { ids } })
-        .then(result => result.data.albums.slice(0, 20))
+        .get('albums', { params: { ids: ids.slice(0, 20) } })
+        .then(result => result.data.albums)
         .catch(error => {
             throw error.response.data;
         });
