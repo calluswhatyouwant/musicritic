@@ -81,6 +81,7 @@
 }
 
 .artist-name {
+  text-align: center;
   font-weight: bold;
   font-size: 3rem;
   line-height: 4rem;
