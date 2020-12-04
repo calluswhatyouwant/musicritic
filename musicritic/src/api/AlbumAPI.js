@@ -81,7 +81,7 @@ export const getAlbum = (albumID: string) =>
 export const getSeveralAlbums = (ids: string[]) =>
     albumAPI
         .get('albums', { params: { ids } })
-        .then(result => result.data.albums)
+        .then(result => result.data.albums.slice(0, 24))
         .catch(error => {
             throw error.response.data;
         });
