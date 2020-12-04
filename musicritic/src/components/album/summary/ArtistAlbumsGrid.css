@@ -59,6 +59,7 @@
 
 .artist-album:hover {
     cursor: pointer;
+    text-decoration: none;
 }
 
 .artist-album:hover, .artist-album--current {

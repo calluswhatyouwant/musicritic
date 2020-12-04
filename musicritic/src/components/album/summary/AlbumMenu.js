@@ -1,7 +1,6 @@
 /* @flow */
 
 import React from 'react';
-// import { Album } from 'spotify-web-sdk';
 
 import './AlbumMenu.css';
 
@@ -12,7 +11,8 @@ type Props = {
 const AlbumMenu = ({ albumUrl }: Props) => (
     <div className="album-menu">
         <a
-        //   target="_blank"
+          target="_blank"
+          rel="noopener noreferrer"
           href={albumUrl}
           className="btn album-menu__button album-menu__button--play text-light"
         >

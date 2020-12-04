@@ -68,7 +68,14 @@ const AlbumRating = ({ rating, title, displayOnly, postRating }: AlbumRatingProp
         <p className="album-rating__title">
             {title}
         </p>
-        <Rating onValueChange={postRating} initialValue={rating} displayOnly={displayOnly} />
+        {(!displayOnly || rating > 0) && (
+            <Rating
+                initialValue={rating}
+                displayOnly={displayOnly}
+                onValueChange={postRating}
+            />
+        )}
+        {(displayOnly && rating === 0) && (<i>Not rated yet.</i>)}
     </div>
 );
 

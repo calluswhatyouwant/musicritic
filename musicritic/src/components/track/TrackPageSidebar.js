@@ -38,11 +38,13 @@ const TrackPageSidebar = ({
                     postRating={postRating}
                 />
                 <div className="album-menu">
-                    <button
-                        type="button"
+                    <a
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        href={track.externalUrls ? track.externalUrls.spotify : ''}
                         className="btn album-menu__button album-menu__button--play text-light">
                         Open on Spotify
-                </button>
+                    </a>
                 </div>
             </div>
             {(prevTrack.name || nextTrack.name) && (
@@ -156,11 +158,14 @@ const TrackRating = ({
 }: TrackRatingProps) => (
         <div className="album-rating col-4">
             <p className="album-rating__title">{title}</p>
-            <Rating
-                initialValue={rating}
-                displayOnly={displayOnly}
-                onValueChange={postRating}
-            />
+            {(!displayOnly || rating > 0) && (
+                <Rating
+                    initialValue={rating}
+                    displayOnly={displayOnly}
+                    onValueChange={postRating}
+                />
+            )}
+            {(displayOnly && rating === 0) && (<i>Not rated yet.</i>)}
         </div>
     );
 
