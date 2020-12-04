@@ -35,7 +35,11 @@ const ArtistPhoto = ({ artist }: { artist: Artist }) => {
                     alt={artist.name}
                 />
                 <h1 className="artist-name">{artist.name}</h1>
-                <button className="artist-spotify">Open on Spotify</button>
+                <a
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href={artist.externalUrls ? artist.externalUrls.spotify : ''}
+                    className="artist-spotify text-light">Open on Spotify</a>
             </div>
         </div>
     );
