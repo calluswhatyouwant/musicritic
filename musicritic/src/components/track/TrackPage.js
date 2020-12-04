@@ -18,11 +18,8 @@ import {
     postTrackReview,
     getTrack as getTrackApi
 } from '../../api/TrackAPI';
-<<<<<<< HEAD
 import RatingModal from '../common/rating/RatingModal';
-=======
 import { useCurrentUser } from '../app/App';
->>>>>>> 49c33738d4451838e5f0caa2734b7fc063e0a712
 
 const TrackPage = () => {
     const user = useCurrentUser();
