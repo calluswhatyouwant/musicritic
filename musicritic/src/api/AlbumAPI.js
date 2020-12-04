@@ -69,3 +69,27 @@ export const getAlbumAverageRating = (albumID: string) =>
         .catch(error => {
             throw error.response.data;
         });
+
+export const getAlbum = (albumID: string) =>
+    albumAPI
+        .get(`albums/${albumID}`)
+        .then(result => result.data.album)
+        .catch(error => {
+            throw error.response.data;
+        });
+
+export const getSeveralAlbums = (ids: string[]) =>
+    albumAPI
+        .get('albums', { params: { ids: ids.slice(0, 20) } })
+        .then(result => result.data.albums)
+        .catch(error => {
+            throw error.response.data;
+        });
+
+
+export const getRecentReviews = () =>
+    albumAPI.get('/album/reviews/recent')
+        .then(result => result.data)
+        .catch(error => {
+            throw error.response.data;
+        });

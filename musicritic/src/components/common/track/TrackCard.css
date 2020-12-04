@@ -31,3 +31,7 @@
 .track-card-body__artists {
     margin-bottom: 0;
 }
+
+.card {
+    cursor: pointer;
+}

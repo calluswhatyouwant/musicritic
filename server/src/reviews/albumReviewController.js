@@ -12,11 +12,25 @@ import {
 const router = express.Router();
 export const ALBUM = 'album';
 
+router.get('/album/reviews/recent', (req, res) => {
+    getReviews(ALBUM)
+        .then(reviews => res.status(200).send(reviews))
+        .catch(error => {
+            if (!error.status) error.status = 500;
+            res.status(error.status).send(error);
+            console.error(error)
+        });
+})
+
 router.get('/album/:albumId/reviews', (req, res) => {
     const albumId = req.params.albumId;
-    getReviews(albumId, ALBUM)
+    getReviews(ALBUM, albumId)
         .then(reviews => res.status(200).send(reviews))
-        .catch(error => res.status(error.status).send(error));
+        .catch(error => {
+            if (!error.status) error.status = 500;
+            res.status(error.status).send(error);
+            console.error(error)
+        });
 });
 
 router.get('/album/:albumId/reviews/me', checkAuth, (req, res) => {
@@ -28,7 +42,11 @@ router.get('/album/:albumId/reviews/me', checkAuth, (req, res) => {
                 ? res.status(204).send()
                 : res.status(200).send(reviews.docs[0].data());
         })
-        .catch(error => res.status(error.status).send(error));
+        .catch(error => {
+            if (!error.status) error.status = 500;
+            res.status(error.status).send(error);
+            console.error(error)
+        });
 });
 
 router.post('/album/:albumId/reviews', checkAuth, (req, res) => {
@@ -44,7 +62,11 @@ router.post('/album/:albumId/reviews', checkAuth, (req, res) => {
 
     createReview(review)
         .then(review => res.status(201).send(review))
-        .catch(error => res.status(error.status).send(error));
+        .catch(error => {
+            if (!error.status) error.status = 500;
+            res.status(error.status).send(error);
+            console.error(error)
+        });
 });
 
 router.put('/album/:albumId/reviews/:reviewId', checkAuth, (req, res) => {
@@ -54,7 +76,11 @@ router.put('/album/:albumId/reviews/:reviewId', checkAuth, (req, res) => {
     review.contentType = ALBUM;
     updateUserReview(req.params.reviewId, review)
         .then(review => res.status(200).send(review))
-        .catch(error => res.status(error.status).send(error));
+        .catch(error => {
+            if (!error.status) error.status = 500;
+            res.status(error.status).send(error);
+            console.error(error)
+        });
 });
 
 export default router;

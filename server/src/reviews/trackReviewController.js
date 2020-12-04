@@ -14,9 +14,13 @@ export const TRACK = 'track';
 
 router.get('/tracks/:trackId/reviews', (req, res) => {
     const trackId = req.params.trackId;
-    getReviews(trackId, TRACK)
+    getReviews(TRACK, trackId)
         .then(reviews => res.status(200).send(reviews))
-        .catch(error => res.status(error.status).send(error));
+        .catch(error => {
+            if (!error.status) error.status = 500;
+            res.status(error.status).send(error);
+            console.error(error);
+        });
 });
 
 router.get('/tracks/:trackId/reviews/me', checkAuth, (req, res) => {
@@ -28,7 +32,11 @@ router.get('/tracks/:trackId/reviews/me', checkAuth, (req, res) => {
                 ? res.status(204).send()
                 : res.status(200).send(reviews.docs[0].data());
         })
-        .catch(error => res.status(error.status).send(error));
+        .catch(error => {
+            if (!error.status) error.status = 500;
+            res.status(error.status).send(error);
+            console.error(error);
+        });
 });
 
 router.post('/tracks/:trackId/reviews', checkAuth, (req, res) => {
@@ -43,7 +51,11 @@ router.post('/tracks/:trackId/reviews', checkAuth, (req, res) => {
     }
     createReview(review)
         .then(review => res.status(201).send(review))
-        .catch(error => res.status(error.status).send(error));
+        .catch(error => {
+            if (!error.status) error.status = 500;
+            res.status(error.status).send(error);
+            console.error(error);
+        });
 });
 
 router.put('/tracks/:trackId/reviews/:reviewId', checkAuth, (req, res) => {
@@ -53,7 +65,11 @@ router.put('/tracks/:trackId/reviews/:reviewId', checkAuth, (req, res) => {
     review.contentType = TRACK;
     updateUserReview(req.params.reviewId, review)
         .then(review => res.status(200).send(review))
-        .catch(error => res.status(error.status).send(error));
+        .catch(error => {
+            if (!error.status) error.status = 500;
+            res.status(error.status).send(error);
+            console.error(error);
+        });
 });
 
 export default router;

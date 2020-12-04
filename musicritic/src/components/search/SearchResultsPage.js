@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import SearchResult from './SearchResult';
 import SearchResultsNav from './SearchResultsNav';
 import Loading from '../common/loading/Loading';
-import { search } from '../../api/SpotifyWebAPI';
+import { search } from '../../api/SearchAPI';
 import { usePromise } from '../../utils/hooks';
 
 const SearchResultsPage = () => {
@@ -14,7 +14,7 @@ const SearchResultsPage = () => {
     const [results,, loading] = usePromise(search(query), {}, [query]);
 
     return (
-        <div>
+        <div className="px-4 py-2">
             <SearchResultsNav query={query} />
             {loading ? <Loading /> : <SearchResult results={results} />}
         </div>

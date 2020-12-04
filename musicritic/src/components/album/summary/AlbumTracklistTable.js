@@ -13,7 +13,7 @@ type Props = {
 
 const AlbumTracklistTable = ({ album }: Props) => {
     const body = _.get(album, 'tracks.items', []).map((track, index) =>
-        <AlbumTracklistTableRow track={track} trackIndex={index} />);
+        <AlbumTracklistTableRow key={track.id} track={track} trackIndex={index} />);
 
     return (
         <table className="table album-tracklist-table table-striped border">
@@ -35,7 +35,10 @@ const AlbumTracklistTableRow = ({
     const history = useHistory();
 
     return (
-        <tr onClick={() => history.push(`/track/${track.id}`)}>
+        <tr 
+            className="album-tracklist-tr" 
+            onClick={() => history.push(`/track/${track.id}`)}
+        >
             <th className="album-tracklist-tr__track-index text-muted" scope="row">
                 {`${trackIndex + 1}`}
             </th>

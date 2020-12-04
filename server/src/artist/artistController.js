@@ -7,6 +7,8 @@ import { TRACK } from '../reviews/trackReviewController';
 import { ALBUM } from '../reviews/albumReviewController';
 import { getReviews } from '../reviews/reviewCollections';
 
+import { objectToJson } from '../util';
+
 const router = express.Router();
 
 router.get('/artists/:id', async (req, res) => {
@@ -21,12 +23,13 @@ router.get('/artists/:id', async (req, res) => {
     const topTracks = await spotifySdk.getArtistTopTracks(artistId, 'US');
     const albums = (
         await spotifySdk.getArtistAlbums(artistId, {
+            market: 'US',
             includeGroups: ['album'],
         })
     ).items;
 
     const topTracksReviews = await Promise.all(
-        topTracks.map(async track => await getReviews(track.id, TRACK))
+        topTracks.map(async track => await getReviews(TRACK, track.id))
     );
     const topTracksRatings = topTracksReviews.map(reviews =>
         reviews.map(review => review.rating)
@@ -36,7 +39,7 @@ router.get('/artists/:id', async (req, res) => {
     );
 
     const albumsReviews = await Promise.all(
-        albums.map(async album => await getReviews(album.id, ALBUM))
+        albums.map(async album => await getReviews(ALBUM, album.id))
     );
     const albumsRatings = albumsReviews.map(reviews =>
         reviews.map(review => review.rating)
@@ -44,9 +47,12 @@ router.get('/artists/:id', async (req, res) => {
     const albumsAverages = albumsRatings.map(ratings => averageRating(ratings));
 
     res.status(200).send({
-        artist,
-        topTracks,
-        albums,
+        artist: JSON.parse(objectToJson(artist)),
+        topTracks: topTracks.map(t => ({
+            ...JSON.parse(objectToJson(t)),
+            album: JSON.parse(objectToJson(t.album))
+        })),
+        albums: albums.map(a => JSON.parse(objectToJson(a))),
         topTracksAverages,
         albumsAverages,
     });

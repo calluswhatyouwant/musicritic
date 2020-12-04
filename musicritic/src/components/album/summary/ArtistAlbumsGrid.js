@@ -11,18 +11,16 @@ type Props = {
     mainArtist: ArtistSimplified,
     artistAlbums: AlbumSimplified[],
     currentAlbumId: string,
-    history: any,
 };
 
 const ArtistAlbumsGrid = ({
-    mainArtist, artistAlbums, currentAlbumId, history,
+    mainArtist, artistAlbums, currentAlbumId,
 }: Props) => {
     const albums = artistAlbums.slice(0, 5).map(album => (
-        <div className="artist-album-grid__item col-4">
+        <div key={album.id} className="artist-album-grid__item col-4">
             <ArtistAlbum
               album={album}
               isCurrent={currentAlbumId === album.id}
-              history={history}
             />
         </div>
     ));
@@ -72,26 +70,19 @@ const MoreAlbumsButton = ({ artist, nextAlbum }: MoreAlbumsButtonProps) => (
 type ArtistAlbumProps = {
     album: AlbumSimplified,
     isCurrent: boolean,
-    history: any,
 };
 
-const ArtistAlbum = ({ album, isCurrent, history }: ArtistAlbumProps) => {
-    const clickableProps = {
-        onClick: () => history.push(`/album/${album.id}/`),
-        tabIndex: 0,
-        onKeyPress: () => {},
-        role: 'button',
-    };
-
-    return (
+const ArtistAlbum = ({ album, isCurrent }: ArtistAlbumProps) => (
+    <a 
+        className="w-100 h-100"
+        href={`/album/${album.id}`} >
         <img
-          alt={album.name}
-          className={`artist-album ${isCurrent ? 'artist-album--current' : ''}`}
-          src={album.imageUrl}
-          title={`${album.name} (${album.releaseYear})`}
-          {...clickableProps}
+            className={`artist-album ${isCurrent ? 'artist-album--current' : ''}`}
+            alt={album.name}
+            src={album.images[0].url}
+            title={`${album.name} (${album.releaseYear})`}
         />
-    );
-};
+    </a>
+);
 
 export default withRouter(ArtistAlbumsGrid);

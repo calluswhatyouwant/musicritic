@@ -2,6 +2,11 @@
   background-color: black;
 }
 
+.no-break {
+  white-space: nowrap;
+  font-style: italic;
+}
+
 .artist-spotify {
   background-color: #3D7946;
   border: none;
@@ -76,6 +81,7 @@
 }
 
 .artist-name {
+  text-align: center;
   font-weight: bold;
   font-size: 3rem;
   line-height: 4rem;

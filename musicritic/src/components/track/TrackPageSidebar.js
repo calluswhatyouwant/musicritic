@@ -1,6 +1,5 @@
 import React from 'react';
 import { Track } from 'spotify-web-sdk';
-import { useHistory } from 'react-router-dom';
 
 import Rating from '../common/rating/Rating';
 
@@ -21,40 +20,42 @@ const TrackPageSidebar = ({
     prevTrack,
     nextTrack,
 }: Props) => (
-    <div>
-        <div
-            className="album-summary text-light"
-            style={{ backgroundImage: `url(${track.album.imageUrl})` }}>
-            <div className="track-page-header__data">
-                <img
-                    alt="Album"
-                    className="track-page-header__cover shadow-lg"
-                    src={track.album.imageUrl}
+        <div>
+            <div
+                className="album-summary text-light"
+                style={{ backgroundImage: `url(${track.album.images[0].url})` }}>
+                <div className="track-page-header__data">
+                    <img
+                        alt="Album"
+                        className="track-page-header__cover shadow-lg"
+                        src={track.album.images[0].url}
+                    />
+                    <TrackInfo track={track} />
+                </div>
+                <TrackRatings
+                    averageRating={averageRating}
+                    userRating={userRating}
+                    postRating={postRating}
                 />
-                <TrackInfo track={track} />
+                <div className="album-menu">
+                    <a
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        href={track.externalUrls ? track.externalUrls.spotify : ''}
+                        className="btn album-menu__button album-menu__button--play text-light">
+                        Open on Spotify
+                    </a>
+                </div>
             </div>
-            <TrackRatings
-                averageRating={averageRating}
-                userRating={userRating}
-                postRating={postRating}
-            />
-            <div className="album-menu">
-                <button
-                    type="button"
-                    className="btn album-menu__button album-menu__button--play text-light">
-                    Open on Spotify
-                </button>
-            </div>
+            {(prevTrack.name || nextTrack.name) && (
+                <TrackAlbumNavigation
+                    track={track}
+                    prevTrack={prevTrack}
+                    nextTrack={nextTrack}
+                />
+            )}
         </div>
-        {(prevTrack.name || nextTrack.name) && (
-            <TrackAlbumNavigation
-                track={track}
-                prevTrack={prevTrack}
-                nextTrack={nextTrack}
-            />
-        )}
-    </div>
-);
+    );
 
 type TrackInfoProps = {
     track: Track,
@@ -63,13 +64,14 @@ type TrackInfoProps = {
 const TrackInfo = ({ track }: TrackInfoProps) => (
     <div className="text-center track-info">
         <h1>{track.name}</h1>
-        <h4>by <a className="text-light" href={`/artist/${track.artists[0].id}/`}>
-                {track.stringArtists}
-            </a></h4>
+        <h4>by <a className="text-light" href={`/artist/${track.artists[0].id}`}>
+            {track.stringArtists}
+        </a>
+        </h4>
         <h5>
             from the album{' '}
-            <a className="text-light" href={`/album/${track.album.id}/`}>
-                {track.albumName}
+            <a className="text-light" href={`/album/${track.album.id}`}>
+                {track.album.name}
             </a>
         </h5>
         <p>
@@ -78,45 +80,41 @@ const TrackInfo = ({ track }: TrackInfoProps) => (
     </div>
 );
 
-const TrackAlbumNavigation = ({ track, prevTrack, nextTrack }: Props) => {
-    const history = useHistory();
-    const clickableProps = trackId => ({
-        onClick: () => history.push(`/track/${trackId}/`),
-        tabIndex: 0,
-        onKeyPress: () => {},
-        role: 'button',
-    });
+type TrackAlbumNavigationProps = {
+    track: Track,
+    prevTrack: Track | {},
+    nextTrack: Track | {},
+};
 
-    return (
-        <div className="track-album-navigation text-center text-light">
-            <h5 className="mb-3">
-                More from{' '}
-                <a className="text-light" href={`/album/${track.album.id}/`}>
-                    {track.albumName}
-                </a>
+const TrackAlbumNavigation = ({ track, prevTrack, nextTrack }: TrackAlbumNavigationProps) => (
+    <div className="track-album-navigation text-center text-light">
+        <h5 className="mb-3">
+            More from{' '}
+            <a className="text-light" href={`/album/${track.album.id}/`}>
+                {track.albumName}
+            </a>
                 :
             </h5>
-            <div className="track-album-navigation-container row">
-                {prevTrack.name && (
-                    <div
-                        {...clickableProps(prevTrack.id)}
-                        className="track-album-navigation-button col-4">
-                        <p className="album-rating__title">{'<'} Previous</p>
-                        <p className="mb-0">{prevTrack.name}</p>
-                    </div>
-                )}
-                {nextTrack.name && (
-                    <div
-                        {...clickableProps(nextTrack.id)}
-                        className="track-album-navigation-button col-4">
-                        <p className="album-rating__title">Next {'>'}</p>
-                        <p className="mb-0">{nextTrack.name}</p>
-                    </div>
-                )}
-            </div>
+        <div className="track-album-navigation-container row">
+            {prevTrack.name && (
+                <a
+                    href={`/track/${prevTrack.id}`}
+                    className="track-album-navigation-button col-4">
+                    <p className="album-rating__title">{'<'} Previous</p>
+                    <p className="mb-0">{prevTrack.name}</p>
+                </a>
+            )}
+            {nextTrack.name && (
+                <a
+                    href={`/track/${nextTrack.id}`}
+                    className="track-album-navigation-button col-4">
+                    <p className="album-rating__title">Next {'>'}</p>
+                    <p className="mb-0">{nextTrack.name}</p>
+                </a>
+            )}
         </div>
-    );
-};
+    </div>
+);
 
 type TrackRatingsProps = {
     postRating: (rating: number) => void,
@@ -129,19 +127,21 @@ const TrackRatings = ({
     userRating,
     postRating,
 }: TrackRatingsProps) => (
-    <div className="album-ratings row">
-        <TrackRating
-            rating={averageRating}
-            title="Average rating"
-            displayOnly
-        />
-        <TrackRating
-            rating={userRating}
-            title="Your rating"
-            postRating={postRating}
-        />
-    </div>
-);
+        <div className="album-ratings row">
+            <TrackRating
+                rating={averageRating}
+                title="Average rating"
+                displayOnly
+            />
+            {(userRating !== undefined) && (
+                <TrackRating
+                    rating={userRating}
+                    title="Your rating"
+                    postRating={postRating}
+                />
+            )}
+        </div>
+    );
 
 type TrackRatingProps = {
     rating: number,
@@ -156,19 +156,22 @@ const TrackRating = ({
     displayOnly,
     postRating,
 }: TrackRatingProps) => (
-    <div className="album-rating col-4">
-        <p className="album-rating__title">{title}</p>
-        <Rating
-            initialValue={rating}
-            displayOnly={displayOnly}
-            onValueChange={postRating}
-        />
-    </div>
-);
+        <div className="album-rating col-4">
+            <p className="album-rating__title">{title}</p>
+            {(!displayOnly || rating > 0) && (
+                <Rating
+                    initialValue={rating}
+                    displayOnly={displayOnly}
+                    onValueChange={postRating}
+                />
+            )}
+            {(displayOnly && rating === 0) && (<i>Not rated yet.</i>)}
+        </div>
+    );
 
 TrackRating.defaultProps = {
     displayOnly: false,
-    postRating: () => {},
+    postRating: () => { },
 };
 
 export default TrackPageSidebar;

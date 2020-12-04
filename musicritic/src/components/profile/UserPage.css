@@ -8,10 +8,16 @@
 }
 
 .user-page-section {
+    position: relative;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
 }
 
 .user-page-section__title {
     letter-spacing: -.01rem;
+}
+
+.px-6 {
+    padding-left: 5rem;
+    padding-right: 5rem;
 }

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
-    getTrack,
     getNextAlbumTrack,
     getPrevAlbumTrack,
 } from '../../api/SpotifyWebAPI';
@@ -17,10 +16,16 @@ import {
     getTrackAverageRating,
     getCurrentUserTrackReview,
     postTrackReview,
+    getTrack as getTrackApi
 } from '../../api/TrackAPI';
+<<<<<<< HEAD
 import RatingModal from '../common/rating/RatingModal';
+=======
+import { useCurrentUser } from '../app/App';
+>>>>>>> 49c33738d4451838e5f0caa2734b7fc063e0a712
 
 const TrackPage = () => {
+    const user = useCurrentUser();
     const [loading, setLoading] = useState(true);
     const [rating, setRating] = useState(0);
     const [averageRating, setAverageRating] = useState(0);
@@ -31,33 +36,44 @@ const TrackPage = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [chosenRating, setChosenRating] = useState(0);
     const { id } = useParams();
-
+    
     useEffect(() => {
         async function getTrackFromAPI() {
-            const trackResponse = await getTrack(id);
+            const userLoggedIn = user && user !== 'unknown';
+            const trackResponse = await getTrackApi(id);
             const {
                 discNumber,
                 trackNumber,
                 album: { id: albumId },
             } = trackResponse;
-            const prevTrackResponse = await getPrevAlbumTrack(
-                albumId,
-                discNumber,
-                trackNumber
-            );
-            const nextTrackResponse = await getNextAlbumTrack(
-                albumId,
-                discNumber,
-                trackNumber
-            );
+            const prevTrackResponse = userLoggedIn ?
+                await getPrevAlbumTrack(
+                    albumId,
+                    discNumber,
+                    trackNumber
+                )
+                :
+                {};
+            const nextTrackResponse = userLoggedIn ?
+                await getNextAlbumTrack(
+                    albumId,
+                    discNumber,
+                    trackNumber
+                )
+                :
+                {};
             const reviewsResponse = await getTrackReviews(id);
-            const { rating: ratingResponse } = await getCurrentUserTrackReview(
-                id
-            );
+            if (userLoggedIn) {
+                const { rating: ratingResponse } = await getCurrentUserTrackReview(
+                    id
+                );
+                setRating(ratingResponse || 0);
+            } else {
+                setRating(undefined);
+            }
             const avgRatingResponse = await getTrackAverageRating(id);
 
             setTrack(trackResponse);
-            setRating(ratingResponse);
             setAverageRating(avgRatingResponse);
             setPrevTrack(prevTrackResponse);
             setNextTrack(nextTrackResponse);
@@ -66,7 +82,7 @@ const TrackPage = () => {
         }
 
         getTrackFromAPI();
-    }, [id]);
+    }, [id, user]);
 
     useEffect(() => {
         const updateAverageRating = async () => {
@@ -95,13 +111,13 @@ const TrackPage = () => {
         if (chosenRating !== rating) setChosenRating(rating);
         toggle();
     }
-    
 
     // TODO Use actual values
     return !loading ? (
         <div className="row album-page container">
             <div className="col-lg-4">
                 <RatingModal show={isOpen} cancel={cancelRating} rating={chosenRating} ratingContent={track.name} confirm={postRating}/>
+
 
                 <TrackPageSidebar
                     userRating={rating}
@@ -113,7 +129,10 @@ const TrackPage = () => {
                 />
             </div>
             <div className="col-lg-8">
-                <ReviewSection redirectUrl={`/track/${id}/review`} reviews={reviews} />
+                <ReviewSection 
+                    redirectUrl={`/track/${id}/review`}
+                    reviews={reviews}
+                />
             </div>
         </div>
     ) : (
