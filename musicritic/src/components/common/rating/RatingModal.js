@@ -12,7 +12,7 @@ type Props = {
   confirm: () => void,
 }
 
-export const useRatingModal = (id: any, chosenRating: number, userRating: number, setChosenRating: any, postFunction: (id, chosenRating) => void) => {
+export const useRatingModal = (id: any, chosenRating: number, userRating: number, setChosenRating: (userRating: number) => void, postFunction: (id: any, chosenRating: number) => void) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
