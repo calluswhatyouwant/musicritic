@@ -18,7 +18,7 @@ import {
     postTrackReview,
     getTrack as getTrackApi
 } from '../../api/TrackAPI';
-import RatingModal from '../common/rating/RatingModal';
+import RatingModal, { useRatingModal } from '../common/rating/RatingModal';
 import { useCurrentUser } from '../app/App';
 
 const TrackPage = () => {
@@ -30,9 +30,9 @@ const TrackPage = () => {
     const [reviews, setReviews] = useState([]);
     const [prevTrack, setPrevTrack] = useState({});
     const [nextTrack, setNextTrack] = useState({});
-    const [isOpen, setIsOpen] = useState(false);
     const [chosenRating, setChosenRating] = useState(0);
     const { id } = useParams();
+    const [isOpen, showConfirmationModal, postRating, cancelRating] = useRatingModal(postTrackReview, setChosenRating, id, chosenRating, rating);
     
     useEffect(() => {
         async function getTrackFromAPI() {
@@ -89,26 +89,8 @@ const TrackPage = () => {
 
         updateAverageRating();
     }, [rating]);
+
     
-    const toggle = () => {
-        setIsOpen(!isOpen)
-    }
-
-    const showConfirmationModal = (newRating: number) => {
-        toggle()
-        setChosenRating(newRating);
-    }
-   
-    const postRating = () => {
-       if (chosenRating !== rating) postTrackReview(id, chosenRating)
-       toggle();
-    };
-
-    const cancelRating = () => {
-        if (chosenRating !== rating) setChosenRating(rating);
-        toggle();
-    }
-
     // TODO Use actual values
     return !loading ? (
         <div className="row album-page container">

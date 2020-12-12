@@ -1,7 +1,8 @@
 /* @flow */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+
 
 
 type Props = {
@@ -12,6 +13,30 @@ type Props = {
   confirm: () => void,
 }
 
+export const useRatingModal = (postFunction: () => void, setChosenRating: any, id: any, chosenRating: number, userRating: number ) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  }
+
+  const showConfirmationModal = (newRating: number) => {
+    toggle();
+    setChosenRating(newRating);
+  }
+
+  const postRating = () => {
+    if (chosenRating !== userRating) postFunction(id, chosenRating)
+    toggle();
+  };
+
+  const cancelRating = () => {
+    if (chosenRating !== userRating) setChosenRating(userRating);
+    toggle();
+  }
+  return [isOpen, showConfirmationModal, postRating, cancelRating];
+}
+  
 const RatingModal = ({show, cancel, rating, ratingContent, confirm}: Props) => (
     <div>
       <Modal isOpen={show} toggle={cancel}>

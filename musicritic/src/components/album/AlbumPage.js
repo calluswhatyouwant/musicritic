@@ -14,7 +14,7 @@ import {
 } from '../../api/AlbumAPI';
 import { getArtistAlbums as getArtistAlbumsAPI } from '../../api/ArtistAPI' 
 import Loading from '../common/loading/Loading';
-import RatingModal from '../common/rating/RatingModal';
+import RatingModal, { useRatingModal } from '../common/rating/RatingModal';
 import { useSession } from '../app/App';
 
 
@@ -27,9 +27,9 @@ function AlbumPage() {
     const [averageRating, setAverageRating] = useState(0);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [isOpen, setIsOpen] = useState(false);
     const [chosenRating, setChosenRating] = useState(0);
     const [artistAlbums, setArtistAlbums] = useState({});
+    const [isOpen, showConfirmationModal, postRating, cancelRating] = useRatingModal(postAlbumReview, setChosenRating, id, chosenRating, userRating);
 
     useEffect(() => {
         async function getAlbumFromAPI() {
@@ -56,26 +56,6 @@ function AlbumPage() {
         }
         getAlbumFromAPI();
     }, [id, user]);
-
-    const toggle = () => {
-        setIsOpen(!isOpen);
-    }
-
-    const showConfirmationModal = (newRating: number) => {
-        toggle();
-        setChosenRating(newRating);
-    }
-
-    const postRating = () => {
-        if (chosenRating !== userRating) postAlbumReview(id, chosenRating);
-        toggle();
-    };
-
-    const cancelRating = () => {
-        if (chosenRating !== userRating) setChosenRating(userRating);
-        toggle();
-    }
-
 
     return !loading ? (
 
