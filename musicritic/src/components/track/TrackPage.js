@@ -32,7 +32,7 @@ const TrackPage = () => {
     const [nextTrack, setNextTrack] = useState({});
     const [chosenRating, setChosenRating] = useState(0);
     const { id } = useParams();
-    const [isOpen, showConfirmationModal, postRating, cancelRating] = useRatingModal(postTrackReview, setChosenRating, id, chosenRating, rating);
+    const [isOpen, showConfirmationModal, postRating, cancelRating] = useRatingModal(id, chosenRating, rating, setChosenRating, postTrackReview);
     
     useEffect(() => {
         async function getTrackFromAPI() {

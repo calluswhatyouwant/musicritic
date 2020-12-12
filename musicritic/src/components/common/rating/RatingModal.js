@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
-
 type Props = {
   show: boolean,
   cancel: () => void,
@@ -13,7 +12,7 @@ type Props = {
   confirm: () => void,
 }
 
-export const useRatingModal = (postFunction: () => void, setChosenRating: any, id: any, chosenRating: number, userRating: number ) => {
+export const useRatingModal = (id: any, chosenRating: number, userRating: number, setChosenRating: any, postFunction: (id, chosenRating) => void) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {

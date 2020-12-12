@@ -29,7 +29,7 @@ function AlbumPage() {
     const [loading, setLoading] = useState(true);
     const [chosenRating, setChosenRating] = useState(0);
     const [artistAlbums, setArtistAlbums] = useState({});
-    const [isOpen, showConfirmationModal, postRating, cancelRating] = useRatingModal(postAlbumReview, setChosenRating, id, chosenRating, userRating);
+    const [isOpen, showConfirmationModal, postRating, cancelRating] = useRatingModal(id, chosenRating, userRating, setChosenRating, postAlbumReview);
 
     useEffect(() => {
         async function getAlbumFromAPI() {
