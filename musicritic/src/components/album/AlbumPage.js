@@ -14,6 +14,7 @@ import {
 } from '../../api/AlbumAPI';
 import { getArtistAlbums as getArtistAlbumsAPI } from '../../api/ArtistAPI' 
 import Loading from '../common/loading/Loading';
+import RatingModal, { useRatingModal } from '../common/rating/RatingModal';
 import { useSession } from '../app/App';
 
 
@@ -26,7 +27,9 @@ function AlbumPage() {
     const [averageRating, setAverageRating] = useState(0);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [chosenRating, setChosenRating] = useState(0);
     const [artistAlbums, setArtistAlbums] = useState({});
+    const [isOpen, showConfirmationModal, postRating, cancelRating] = useRatingModal(id, chosenRating, userRating, setChosenRating, postAlbumReview);
 
     useEffect(() => {
         async function getAlbumFromAPI() {
@@ -54,20 +57,19 @@ function AlbumPage() {
         getAlbumFromAPI();
     }, [id, user]);
 
-    const postRating = (newRating: number) => {
-        if (newRating !== userRating) postAlbumReview(id, newRating);
-    };
-
     return !loading ? (
+
         <div className="row m-0">
             <section className="col-lg-4 p-0">
+            <RatingModal show={isOpen} cancel={cancelRating} rating={chosenRating} ratingContent={album.name} confirm={postRating}/>
+
                 <AlbumSummary
                     album={album}
                     artistAlbums={artistAlbums}
                     mainArtist={mainArtist}
                     userRating={userRating}
                     averageRating={averageRating}
-                    postRating={postRating}
+                    postRating={showConfirmationModal}
                 />
             </section>
             <section className="col-lg-8">
