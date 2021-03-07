@@ -59,12 +59,13 @@ const SpotifyConnect = () => {
 
     return (
         <div className="d-flex align-items-center border border-dark rounded bg-dark text-light justify-content-between p-4 mb-3">
-            <h1>Login with Spotify for the complete experience!</h1>
+            <h1>Login for the complete experience!</h1>
             <div className="w-25">
                 <SocialButton
                     name="spotify"
                     url={`${serverBaseUri}/auth/login`}
                 />
+                Login with Spotify
             </div>
         </div>
     );
