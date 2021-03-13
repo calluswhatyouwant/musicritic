@@ -27,3 +27,9 @@ body {
     color: black;
     background-color: white;
 }
+
+.select-locale {
+    background-color: black;
+    color: white;
+    padding: .25rem;
+}

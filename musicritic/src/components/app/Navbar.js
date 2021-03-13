@@ -7,7 +7,7 @@ import { useSession } from '../app/App';
 import { signOut } from '../../firebase/auth';
 import SearchInput from '../search/SearchInput';
 
-const Navbar = () => {
+const Navbar = ({ locale, changeLocale }: { locale: string, changeLocale: () => void }) => {
     const history = useHistory();
     const user = useSession();
 
@@ -44,7 +44,12 @@ const Navbar = () => {
                     <ul className="navbar-nav ml-auto">
                         <NavbarItem text="Home" href="/home" />
                     </ul>
-                    { user && user !== 'unknown' && <LogoutButton handleLogout={handleLogout}/> }
+                    {user && user !== 'unknown' && <LogoutButton handleLogout={handleLogout} />}
+                    <select className="select-locale" onChange={(e) => changeLocale(e.target.value)} id="locale">
+                        <option value="" disabled selected hidden>{locale.toUpperCase()}</option>
+                        <option value="pt-br">PT-BR</option>
+                        <option value="en">EN</option>
+                    </select>
                 </div>
             </div>
         </nav>
@@ -83,8 +88,8 @@ type LogoutButtonProps = {
 };
 
 const LogoutButton = ({ handleLogout }: LogoutButtonProps) =>
-        <button type='button' className='logout-button' onClick={handleLogout}>
-            Logout
+    <button type='button' className='logout-button' onClick={handleLogout}>
+        Logout
         </button>
 
 export default Navbar;
