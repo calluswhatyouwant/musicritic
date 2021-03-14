@@ -9,6 +9,7 @@ import ArtistAlbumsGrid from './ArtistAlbumsGrid';
 import AlbumTracklistTable from './AlbumTracklistTable';
 
 import './AlbumSummary.css';
+import { FormattedMessage } from 'react-intl';
 
 type Props = {
     album: Album,
@@ -32,7 +33,7 @@ const AlbumSummary = ({ album, artistAlbums, mainArtist, userRating, averageRati
             </div>
             <div>
                 <div className="album-tracklist-title text-light text-center">
-                    Tracklist
+                    <FormattedMessage id="tracklist" />
                 </div>
                 <AlbumTracklistTable album={album} />
             </div>

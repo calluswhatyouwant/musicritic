@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
 
 import './ArtistAlbumsGrid.css';
+import { FormattedMessage } from 'react-intl';
 
 type Props = {
     mainArtist: ArtistSimplified,
@@ -35,7 +36,7 @@ const ArtistAlbumsGrid = ({
     return (
         <div className="artist-albums-grid bg-dark">
             <h5 className="artist-albums-grid__title text-light">
-                {`Latest albums by ${mainArtist.name}:`}
+                <FormattedMessage id="latest-albums-by-artist" values={{ artist: mainArtist.name }} />
             </h5>
             <div className="artist-albums-grid__content row">
                 {albums}

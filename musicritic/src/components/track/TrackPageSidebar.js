@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Track } from 'spotify-web-sdk';
 
 import Rating from '../common/rating/Rating';
@@ -43,7 +44,8 @@ const TrackPageSidebar = ({
                         target="_blank"
                         href={track.externalUrls ? track.externalUrls.spotify : ''}
                         className="btn album-menu__button album-menu__button--play text-light">
-                        Open on Spotify
+                        <FormattedMessage id="open-on-spotify" />
+
                     </a>
                 </div>
             </div>
@@ -64,15 +66,18 @@ type TrackInfoProps = {
 const TrackInfo = ({ track }: TrackInfoProps) => (
     <div className="text-center track-info">
         <h1>{track.name}</h1>
-        <h4>by <a className="text-light" href={`/artist/${track.artists[0].id}`}>
-            {track.stringArtists}
-        </a>
+        <h4><FormattedMessage id="by-artist" values={{
+            artist: <a className="text-light" href={`/artist/${track.artists[0].id}`}>
+                {track.stringArtists}
+            </a>
+        }} />
         </h4>
         <h5>
-            from the album{' '}
-            <a className="text-light" href={`/album/${track.album.id}`}>
-                {track.album.name}
-            </a>
+            <FormattedMessage id="from-the-album" values={{
+                album: <a className="text-light" href={`/album/${track.album.id}`}>
+                    {track.album.name}
+                </a>
+            }} />
         </h5>
         <p>
             {track.releaseYear} &bull; {track.length}
@@ -89,18 +94,18 @@ type TrackAlbumNavigationProps = {
 const TrackAlbumNavigation = ({ track, prevTrack, nextTrack }: TrackAlbumNavigationProps) => (
     <div className="track-album-navigation text-center text-light">
         <h5 className="mb-3">
-            More from{' '}
-            <a className="text-light" href={`/album/${track.album.id}/`}>
-                {track.albumName}
-            </a>
-                :
-            </h5>
+            <FormattedMessage id="more-from-album" values={{
+                album: <a className="text-light" href={`/album/${track.album.id}/`}>
+                    {track.albumName}
+                </a>
+            }} />
+        </h5>
         <div className="track-album-navigation-container row">
             {prevTrack.name && (
                 <a
                     href={`/track/${prevTrack.id}`}
                     className="track-album-navigation-button col-4">
-                    <p className="album-rating__title">{'<'} Previous</p>
+                    <p className="album-rating__title">{'<'} <FormattedMessage id="previous" /></p>
                     <p className="mb-0">{prevTrack.name}</p>
                 </a>
             )}
@@ -108,7 +113,7 @@ const TrackAlbumNavigation = ({ track, prevTrack, nextTrack }: TrackAlbumNavigat
                 <a
                     href={`/track/${nextTrack.id}`}
                     className="track-album-navigation-button col-4">
-                    <p className="album-rating__title">Next {'>'}</p>
+                    <p className="album-rating__title"><FormattedMessage id="next" /> {'>'}</p>
                     <p className="mb-0">{nextTrack.name}</p>
                 </a>
             )}
@@ -130,13 +135,13 @@ const TrackRatings = ({
         <div className="album-ratings row">
             <TrackRating
                 rating={averageRating}
-                title="Average rating"
+                title={<FormattedMessage id="average-rating" />}
                 displayOnly
             />
             {(userRating !== undefined) && (
                 <TrackRating
                     rating={userRating}
-                    title="Your rating"
+                    title={<FormattedMessage id="your-rating" />}
                     postRating={postRating}
                 />
             )}
@@ -165,7 +170,7 @@ const TrackRating = ({
                     onValueChange={postRating}
                 />
             )}
-            {(displayOnly && rating === 0) && (<i>Not rated yet.</i>)}
+            {(displayOnly && rating === 0) && (<i><FormattedMessage id="not-rated-yet" /></i>)}
         </div>
     );
 

@@ -1,53 +1,17 @@
 /* @flow */
 
 import React, { useState } from 'react';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 
 import SectionHeader from '../common/section-header/SectionHeader';
 
 import './ReviewSection.css';
-
-const formatDate = (date: Date) => {
-    const daySuffixes = ['th', 'st', 'nd', 'rd'];
-    const monthNames = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-    ];
-
-    const d = new Date(date);
-    const month = monthNames[d.getMonth()];
-    const daySuffix =
-        d.getDate() < 3 ? daySuffixes[d.getDate()] : daySuffixes[0];
-
-    return `${month} ${d.getDate()}${daySuffix}, ${d.getFullYear()}`;
-};
 
 type Author = {
     displayName: string,
     avatarUrl: string,
     authorUid: string,
 };
-
-// type Review = {
-//     id: string,
-//     author: Author,
-//     trackId: string,
-//     rating: number,
-//     review?: {
-//         createdAt: Date,
-//         updatedAt: Date,
-//         content: string,
-//     },
-// };
 
 type ReviewSectionProps = {
     redirectUrl: string,
@@ -57,7 +21,7 @@ type ReviewSectionProps = {
 const ReviewSection = ({ redirectUrl, reviews }: ReviewSectionProps) => {
     const reviewsWithText = reviews.filter(review => review.review && review.review.content);
 
-    const title = reviewsWithText.length > 0 ? "User Reviews" : "There are no reviews yet to show";
+    const title = reviewsWithText.length > 0 ? <FormattedMessage id="user-reviews" /> : <FormattedMessage id="no-reviews" />;
     return (
         <div className="review-section">
             <SectionHeader title={title}>
@@ -79,7 +43,7 @@ type ComposeReviewButtonProps = {
 
 const ComposeReviewButton = ({ redirectUrl }: ComposeReviewButtonProps) => (
     <a href={redirectUrl} className="compose-review-button">
-        Compose Review
+        <FormattedMessage id="compose-review" />
     </a>
 );
 
@@ -95,8 +59,6 @@ type ReviewCardProps = {
 
 const ReviewCard = ({ rating, review, author }: ReviewCardProps) => {
     const isLongReview = review.content.length > 500;
-    const reviewDate = review ? formatDate(review.updatedAt) : null;
-
     // TODO Adapt to work with HTML
     const [displayedText, setDisplayedText] = useState(
         isLongReview ? `${review.content.substring(0, 497)}...` : review.content
@@ -120,12 +82,11 @@ const ReviewCard = ({ rating, review, author }: ReviewCardProps) => {
                         alt={`${author.displayName}`}
                     />
                     <span className="review-user-name">
-                        <span className="bold-text">{author.displayName}</span>{' '}
-                        &apos;s review
+                        <FormattedMessage id="user-review" values={{ author: <span className="bold-text">{author.displayName}</span> }} />
                     </span>
                 </div>
                 <span className="review-rating">
-                    Rated <span className="bold-text">{rating}</span>
+                    {rating} <i className="fas fa-star" />
                 </span>
             </div>
             <div className="review-text-area">
@@ -135,17 +96,24 @@ const ReviewCard = ({ rating, review, author }: ReviewCardProps) => {
                 />
                 {isLongReview && displayedText !== review.content && (
                     <button className="change-text-button" onClick={onShowMore}>
-                        Show More
+                        <FormattedMessage id="show-more" />
                     </button>
                 )}
                 {isLongReview && displayedText === review.content && (
                     <button className="change-text-button" onClick={onShowLess}>
-                        Show Less
+                        <FormattedMessage id="show-less" />
                     </button>
                 )}
             </div>
             <div className="review-details-info">
-                <span className="review-date">{reviewDate}</span>
+                <span className="review-date">
+                    <FormattedDate
+                        value={review.updatedAt}
+                        year="numeric"
+                        month="long"
+                        day="numeric"
+                    />
+                </span>
             </div>
         </div>
     );

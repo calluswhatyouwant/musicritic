@@ -1,6 +1,7 @@
 /* @flow */
 
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 import { Artist, Track } from 'spotify-web-sdk';
 
@@ -39,7 +40,10 @@ const ArtistPhoto = ({ artist }: { artist: Artist }) => {
                     rel="noopener noreferrer"
                     target="_blank"
                     href={artist.externalUrls ? artist.externalUrls.spotify : ''}
-                    className="artist-spotify text-light">Open on Spotify</a>
+                    className="artist-spotify text-light">
+                    <FormattedMessage id="open-on-spotify" />
+
+                </a>
             </div>
         </div>
     );
@@ -57,7 +61,7 @@ const ArtistTopRatedTracks = ({ topTracks, topTracksAverages }: TopRatedTracksPr
 
     return (
         <div className="artist-top-rated-tracks">
-            <h2>Popular Tracks</h2>
+            <h2><FormattedMessage id="popular-tracks" /></h2>
             <table className="table table-top-tracks album-tracklist-table">
                 <tbody>{body}</tbody>
             </table>
@@ -91,7 +95,7 @@ const ArtistTrackRow = ({
             </td>
             <td>{track.name}</td>
             <td width="1%" className="no-break">
-                {average > 0 ? <Rating initialValue={average} displayOnly /> : 'Not rated yet.'}
+                {average > 0 ? <Rating initialValue={average} displayOnly /> : <FormattedMessage id="not-rated-yet" />}
             </td>
         </tr>
     );

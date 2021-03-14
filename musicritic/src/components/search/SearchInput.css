@@ -39,3 +39,7 @@
     color: #7B8FC3;
     font-size: 15px;
 }
+
+.nav-link {
+    text-transform: uppercase;
+}

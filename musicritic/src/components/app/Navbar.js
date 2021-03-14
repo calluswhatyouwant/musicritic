@@ -6,6 +6,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { useSession } from '../app/App';
 import { signOut } from '../../firebase/auth';
 import SearchInput from '../search/SearchInput';
+import { FormattedMessage } from 'react-intl';
 
 const Navbar = ({ locale, changeLocale }: { locale: string, changeLocale: () => void }) => {
     const history = useHistory();
@@ -45,8 +46,8 @@ const Navbar = ({ locale, changeLocale }: { locale: string, changeLocale: () => 
                         <NavbarItem text="Home" href="/home" />
                     </ul>
                     {user && user !== 'unknown' && <LogoutButton handleLogout={handleLogout} />}
-                    <select className="select-locale" onChange={(e) => changeLocale(e.target.value)} id="locale">
-                        <option value="" disabled selected hidden>{locale.toUpperCase()}</option>
+                    <select className="select-locale" defaultValue={locale} onChange={(e) => changeLocale(e.target.value)} id="locale">
+                        <option value="" disabled hidden>{locale.toUpperCase()}</option>
                         <option value="pt-br">PT-BR</option>
                         <option value="en">EN</option>
                     </select>
@@ -89,7 +90,7 @@ type LogoutButtonProps = {
 
 const LogoutButton = ({ handleLogout }: LogoutButtonProps) =>
     <button type='button' className='logout-button' onClick={handleLogout}>
-        Logout
+        <FormattedMessage id="logout" />
         </button>
 
 export default Navbar;

@@ -1,6 +1,7 @@
 /* @flow */
 
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import './AlbumMenu.css';
 
@@ -16,7 +17,7 @@ const AlbumMenu = ({ albumUrl }: Props) => (
           href={albumUrl}
           className="btn album-menu__button album-menu__button--play text-light"
         >
-            Open on Spotify
+            <FormattedMessage id="open-on-spotify" />
         </a>
     </div>
 );

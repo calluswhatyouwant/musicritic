@@ -20,6 +20,7 @@
 .discography-section-title {
   font-size: 2rem;
   line-height: 3rem;
+  text-transform: uppercase;
 }
 
 .discography-section-table td, .discography-section-table th {

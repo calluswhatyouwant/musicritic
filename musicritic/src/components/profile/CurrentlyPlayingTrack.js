@@ -1,6 +1,7 @@
 /* @flow */
 
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { CurrentlyPlaying, Track } from 'spotify-web-sdk';
 
 import './CurrentlyPlayingTrack.css';
@@ -48,7 +49,7 @@ const CurrentlyPlayingTrackInfo = ({ track }: InfoProps) => (
     <div className="currently-playing-track-info col-xl-9 col-md-8">
         <article className="currently-playing-track-info__article">
             <h3 className="user-page-section__title mb-2">
-                You are listening to
+                <FormattedMessage id="listening-to" />
             </h3>
             <h1 className="display-4 text-truncate">
                 <a className="text-light" href={`/track/${track.id}`}>
@@ -61,11 +62,13 @@ const CurrentlyPlayingTrackInfo = ({ track }: InfoProps) => (
                 </a>
             </h3>
             <h4 className="text-truncate">
-                From the album <i>
-                    <a className="text-light" href={`/album/${track.album.id}`}>
-                        {track.album.name}
-                    </a>
-                </i>
+                <FormattedMessage id="from-the-album" values={{
+                    album: <i>
+                        <a className="text-light" href={`/album/${track.album.id}`}>
+                            {track.album.name}
+                        </a>
+                    </i>
+                }} />
             </h4>
         </article>
     </div>

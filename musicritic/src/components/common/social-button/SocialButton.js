@@ -13,7 +13,7 @@ type Props = {
 const SocialButton = ({ name, url, content }: Props) => (
     <a
       className={`btn btn-block btn-social btn-${name}
-        ${content ? 'fit-content badge-pill mx-auto d-block' : ''}`}
+        ${content ? 'badge-pill mx-auto d-block' : ''}`}
       href={url}
     >
         {content} <span className={`fa fa-${name}`} />

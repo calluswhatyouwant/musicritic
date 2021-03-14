@@ -21,12 +21,12 @@
 .btn-social {
     font-size: 20px !important;
     color: white;
-    font-weight: 300;
     box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+    padding: .25rem .5rem;
 }
 
-.fit-content {
-    width: fit-content;
+.btn-social:hover {
+    color: white;
 }
 
 .fa {
