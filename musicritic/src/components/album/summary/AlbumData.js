@@ -1,11 +1,11 @@
 /* @flow */
 
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Album } from 'spotify-web-sdk';
 
 import './AlbumData.css';
 import Rating from '../../common/rating/Rating';
-import { FormattedMessage } from 'react-intl';
 
 type Props = {
     album: Album,
@@ -76,7 +76,7 @@ const AlbumRatings = ({
 
 type AlbumRatingProps = {
     rating: number,
-    title: string,
+    title: any,
     displayOnly?: boolean,
     postRating?: (rating: number) => void,
 };

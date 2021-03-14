@@ -49,9 +49,9 @@ export const useLocale = () => {
         localStorage.getItem('locale') ?? 'en'
     );
 
-    const changeLocale = locale => {
-        localStorage.setItem('locale', locale);
-        setLocale(locale);
+    const changeLocale = newLocale => {
+        localStorage.setItem('locale', newLocale);
+        setLocale(newLocale);
     };
 
     return { locale, changeLocale };

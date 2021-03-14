@@ -40,8 +40,8 @@ const HomePage = () => {
 
 const ReviewSection = ({ albumsWithReviews }: { albumsWithReviews: any[] }) => (
     <div className="row">
-        {albumsWithReviews.map((albumWithReview, index) => (
-            <ReviewCardWithHeader key={index} {...albumWithReview} />
+        {albumsWithReviews.map(albumWithReview => (
+            <ReviewCardWithHeader {...albumWithReview} />
         ))}
     </div>
 );

@@ -1,19 +1,19 @@
 /* @flow */
 
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { NavLink, useHistory } from 'react-router-dom';
 
 import { useSession } from '../app/App';
 import { signOut } from '../../firebase/auth';
 import SearchInput from '../search/SearchInput';
-import { FormattedMessage } from 'react-intl';
 
 const Navbar = ({
     locale,
     changeLocale,
 }: {
     locale: string,
-    changeLocale: () => void,
+    changeLocale: (locale: string) => void,
 }) => {
     const history = useHistory();
     const user = useSession();

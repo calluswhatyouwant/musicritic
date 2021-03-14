@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FormattedMessage } from 'react-intl';
 import MediumEditor from 'medium-editor';
 import { getAlbum, Album } from 'spotify-web-sdk';
 import { useParams, useHistory } from 'react-router-dom';
@@ -11,7 +12,6 @@ import {
     updateAlbumReview,
     postAlbumReview,
 } from '../../../api/AlbumAPI';
-import { FormattedMessage } from 'react-intl';
 
 const AlbumReviewPage = () => {
     const [album, setAlbum] = useState({});

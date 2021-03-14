@@ -3,10 +3,10 @@
 import React from 'react';
 import { ArtistSimplified, AlbumSimplified } from 'spotify-web-sdk';
 import { withRouter } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 
 import './ArtistAlbumsGrid.css';
-import { FormattedMessage } from 'react-intl';
 
 type Props = {
     mainArtist: ArtistSimplified,

@@ -1,6 +1,7 @@
 /* @flow */
 
 import React, { Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Album, AlbumSimplified, ArtistSimplified } from 'spotify-web-sdk';
 
 import AlbumData from './AlbumData';
@@ -9,7 +10,6 @@ import ArtistAlbumsGrid from './ArtistAlbumsGrid';
 import AlbumTracklistTable from './AlbumTracklistTable';
 
 import './AlbumSummary.css';
-import { FormattedMessage } from 'react-intl';
 
 type Props = {
     album: Album,

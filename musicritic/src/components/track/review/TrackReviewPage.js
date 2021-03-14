@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 import MediumEditor from 'medium-editor';
 import { getTrack, Track } from 'spotify-web-sdk';
 
@@ -14,7 +15,6 @@ import CustomPalette from '../../common/palette/CustomPalette';
 import Loading from '../../common/loading/Loading';
 
 import './TrackReviewPage.css';
-import { FormattedMessage } from 'react-intl';
 
 const TrackReviewPage = () => {
     const [track, setTrack] = useState({});
