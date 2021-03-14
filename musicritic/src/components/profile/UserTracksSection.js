@@ -16,7 +16,11 @@ import { usePromise } from '../../utils/hooks';
 
 const UserTracksSection = () => {
     const [display, setDisplay] = useState('TOP');
-    const [recentTracks, , loadingRecent] = usePromise(getRecentlyPlayedTracks(), [], []);
+    const [recentTracks, , loadingRecent] = usePromise(
+        getRecentlyPlayedTracks(),
+        [],
+        []
+    );
     const [topTracks, , loadingTop] = usePromise(getTopPlayedTracks(), [], []);
     const history = useHistory();
 
@@ -27,16 +31,21 @@ const UserTracksSection = () => {
     return loadingRecent || loadingTop ? (
         <Loading />
     ) : (
-            <div className="user-page-section__container border container shadow-sm">
-                <section className="user-page-section">
-                    <TracksSectionTop currentTab={display} onClick={handleClick} />
-                    {display === 'TOP' &&
-                        <TrackCarousel history={history} tracks={topTracks} />}
-                    {display === 'RECENT' &&
-                        <RecentTracksCarousel history={history} tracks={recentTracks} />}
-                </section>
-            </div>
-        );
+        <div className="user-page-section__container border container shadow-sm">
+            <section className="user-page-section">
+                <TracksSectionTop currentTab={display} onClick={handleClick} />
+                {display === 'TOP' && (
+                    <TrackCarousel history={history} tracks={topTracks} />
+                )}
+                {display === 'RECENT' && (
+                    <RecentTracksCarousel
+                        history={history}
+                        tracks={recentTracks}
+                    />
+                )}
+            </section>
+        </div>
+    );
 };
 
 type TracksSectionTopProps = {
@@ -44,22 +53,31 @@ type TracksSectionTopProps = {
     onClick: (display: string) => void,
 };
 
-const TracksSectionTop = ({ currentTab, onClick }: TracksSectionTopProps) => (
-    <div className="row">
-        <div className="col-auto mr-auto">
-            <h2 className="user-page-section__title">
-                Your {currentTab === 'TOP' ? 'top' : 'recent'} tracks
-            </h2>
+const TracksSectionTop = ({ currentTab, onClick }: TracksSectionTopProps) => {
+    const sectionTitle = {
+        enabled: currentTab === 'TOP' ? 'top' : 'recent',
+        disabled: currentTab === 'TOP' ? 'recent' : 'top',
+    };
+
+    return (
+        <div className="row">
+            <div className="col-auto mr-auto">
+                <h2 className="user-page-section__title">
+                    Your {sectionTitle.enabled} tracks
+                </h2>
+            </div>
+            <div className="col-auto tracks-section-switch">
+                <button
+                    className="btn tracks-section-switch__button"
+                    onClick={onClick}>
+                    <i className="fas fa-exchange-alt" />
+                    <span className="tracks-section-switch__text">
+                        Show {sectionTitle.disabled} tracks
+                    </span>
+                </button>
+            </div>
         </div>
-        <div className="col-auto tracks-section-switch">
-            <button
-                className="btn tracks-section-switch__button"
-                onClick={onClick}
-            >
-                <i className="fas fa-exchange-alt" />
-            </button>
-        </div>
-    </div>
-);
+    );
+};
 
 export default UserTracksSection;
