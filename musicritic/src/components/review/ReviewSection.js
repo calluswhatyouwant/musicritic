@@ -19,27 +19,33 @@ type ReviewSectionProps = {
 };
 
 const ReviewSection = ({ redirectUrl, reviews }: ReviewSectionProps) => {
-    const reviewsWithText = reviews.filter(review => review.review && review.review.content);
+    const reviewsWithText = reviews.filter(
+        review => review.review && review.review.content
+    );
 
-    const title = reviewsWithText.length > 0 ? <FormattedMessage id="user-reviews" /> : <FormattedMessage id="no-reviews" />;
+    const title =
+        reviewsWithText.length > 0 ? (
+            <FormattedMessage id="user-reviews" />
+        ) : (
+            <FormattedMessage id="no-reviews" />
+        );
     return (
         <div className="review-section">
             <SectionHeader title={title}>
                 <ComposeReviewButton redirectUrl={redirectUrl} />
             </SectionHeader>
             <div className="reviews-wrapper">
-                {reviewsWithText
-                    .map(review => (
-                        <ReviewCard key={review.id} {...review} />
-                    ))}
+                {reviewsWithText.map(review => (
+                    <ReviewCard key={review.id} {...review} />
+                ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
 type ComposeReviewButtonProps = {
-    redirectUrl: string
-}
+    redirectUrl: string,
+};
 
 const ComposeReviewButton = ({ redirectUrl }: ComposeReviewButtonProps) => (
     <a href={redirectUrl} className="compose-review-button">
@@ -82,7 +88,16 @@ const ReviewCard = ({ rating, review, author }: ReviewCardProps) => {
                         alt={`${author.displayName}`}
                     />
                     <span className="review-user-name">
-                        <FormattedMessage id="user-review" values={{ author: <span className="bold-text">{author.displayName}</span> }} />
+                        <FormattedMessage
+                            id="user-review"
+                            values={{
+                                author: (
+                                    <span className="bold-text">
+                                        {author.displayName}
+                                    </span>
+                                ),
+                            }}
+                        />
                     </span>
                 </div>
                 <span className="review-rating">

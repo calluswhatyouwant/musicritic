@@ -12,13 +12,20 @@ import { usePromise } from '../../utils/hooks';
 
 const HomePage = () => {
     const [reviews, , loadingReviews] = usePromise(getRecentReviews(), [], []);
-    const [albums, , loadingAlbums] = usePromise(getSeveralAlbums(reviews.map(review => review.contentId)), [], [reviews]);
+    const [albums, , loadingAlbums] = usePromise(
+        getSeveralAlbums(reviews.map(review => review.contentId)),
+        [],
+        [reviews]
+    );
 
     if (loadingReviews || loadingAlbums || albums.length === 0) {
         return <Loading />;
     }
 
-    const albumsWithReviews = reviews.map((review, index) => ({ album: albums[index], review }));
+    const albumsWithReviews = reviews.map((review, index) => ({
+        album: albums[index],
+        review,
+    }));
 
     return (
         <div className="home-container">
@@ -33,12 +40,19 @@ const HomePage = () => {
 
 const ReviewSection = ({ albumsWithReviews }: { albumsWithReviews: any[] }) => (
     <div className="row">
-        {albumsWithReviews
-            .map((albumWithReview, index) => <ReviewCardWithHeader key={index} {...albumWithReview} />)}
+        {albumsWithReviews.map((albumWithReview, index) => (
+            <ReviewCardWithHeader key={index} {...albumWithReview} />
+        ))}
     </div>
 );
 
-const ReviewCardWithHeader = ({ album, review: { rating, author } }: { album: Album, review: any }) => {
+const ReviewCardWithHeader = ({
+    album,
+    review: { rating, author },
+}: {
+    album: Album,
+    review: any,
+}) => {
     const history = useHistory();
     return album ? (
         <div className="col-lg-3 col-md-4 pb-3">
@@ -54,15 +68,22 @@ const ReviewCardWithHeader = ({ album, review: { rating, author } }: { album: Al
                         values={{
                             rating,
                             icon: <i className="fas fa-star" />,
-                            authorName: <span className="bold-text">{author.displayName}</span>
+                            authorName: (
+                                <span className="bold-text">
+                                    {author.displayName}
+                                </span>
+                            ),
                         }}
                     />
                 </span>
             </div>
-            <AlbumCard album={album} handleClick={() => history.push(`/album/${album.id}`)} />
+            <AlbumCard
+                album={album}
+                handleClick={() => history.push(`/album/${album.id}`)}
+            />
         </div>
     ) : null;
-}
+};
 
 const SpotifyConnect = () => {
     const serverBaseUri = process.env.SERVER_BASE_URL || '';

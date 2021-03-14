@@ -9,17 +9,14 @@ import './Results.css';
 
 type Props = {
     results: PlaylistSimplified[],
-}
+};
 
 const PlaylistResult = ({ results }: Props) => {
     const [playlists, setPlaylists] = useState(results);
 
-    useEffect(
-        () => {
-            setPlaylists(results);
-        },
-        [results]
-    );
+    useEffect(() => {
+        setPlaylists(results);
+    }, [results]);
 
     const listResults = playlists.map(playlist => (
         <div key={playlist.id} className="col-3 result">

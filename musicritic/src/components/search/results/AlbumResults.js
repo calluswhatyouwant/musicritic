@@ -10,17 +10,14 @@ import './Results.css';
 type Props = {
     results: AlbumSimplified[],
     history: any,
-}
+};
 
 const AlbumResult = ({ results, history }: Props) => {
     const [albums, setAlbums] = useState(results);
 
-    useEffect(
-        () => {
-            setAlbums(results);
-        },
-        [results]
-    );
+    useEffect(() => {
+        setAlbums(results);
+    }, [results]);
 
     const handleClick = album => {
         history.push(`/album/${album.id}/`);

@@ -12,9 +12,7 @@ type Props = {
     relativeTime?: string,
 };
 
-const TrackCard = ({
-    track, handleClick, rank, relativeTime,
-}: Props) => {
+const TrackCard = ({ track, handleClick, rank, relativeTime }: Props) => {
     const clickableProps = {
         onClick: handleClick,
         tabIndex: 0,
@@ -44,13 +42,11 @@ type TrackCardTopProps = {
 const TrackCardTop = ({ track, rank }: TrackCardTopProps) => (
     <div className={rank ? 'track-card-top--with-rank' : ''}>
         <img
-          className="track-card-top__img"
-          src={track.album.images[0].url}
-          alt={track.name}
+            className="track-card-top__img"
+            src={track.album.images[0].url}
+            alt={track.name}
         />
-        <p className="track-card-top__rank text-light shadow">
-            {rank}
-        </p>
+        <p className="track-card-top__rank text-light shadow">{rank}</p>
     </div>
 );
 

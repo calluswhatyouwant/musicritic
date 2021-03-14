@@ -32,21 +32,21 @@ const UserTracksSection = () => {
     return loadingRecent || loadingTop ? (
         <Loading />
     ) : (
-            <div className="user-page-section__container border container shadow-sm">
-                <section className="user-page-section">
-                    <TracksSectionTop currentTab={display} onClick={handleClick} />
-                    {display === 'TOP' && (
-                        <TrackCarousel history={history} tracks={topTracks} />
-                    )}
-                    {display === 'RECENT' && (
-                        <RecentTracksCarousel
-                            history={history}
-                            tracks={recentTracks}
-                        />
-                    )}
-                </section>
-            </div>
-        );
+        <div className="user-page-section__container border container shadow-sm">
+            <section className="user-page-section">
+                <TracksSectionTop currentTab={display} onClick={handleClick} />
+                {display === 'TOP' && (
+                    <TrackCarousel history={history} tracks={topTracks} />
+                )}
+                {display === 'RECENT' && (
+                    <RecentTracksCarousel
+                        history={history}
+                        tracks={recentTracks}
+                    />
+                )}
+            </section>
+        </div>
+    );
 };
 
 type TracksSectionTopProps = {
@@ -64,17 +64,20 @@ const TracksSectionTop = ({ currentTab, onClick }: TracksSectionTopProps) => {
         <div className="row">
             <div className="col-auto mr-auto">
                 <h2 className="user-page-section__title">
-                    <FormattedMessage id={`your-${sectionTitle.enabled}-tracks`} />
+                    <FormattedMessage
+                        id={`your-${sectionTitle.enabled}-tracks`}
+                    />
                 </h2>
             </div>
             <div className="col-auto tracks-section-switch">
                 <button
                     className="btn tracks-section-switch__button"
-                    onClick={onClick}
-                >
+                    onClick={onClick}>
                     <i className="fas fa-exchange-alt" />
                     <span className="tracks-section-switch__text">
-                        <FormattedMessage id={`show-your-${sectionTitle.disabled}-tracks`} />
+                        <FormattedMessage
+                            id={`show-your-${sectionTitle.disabled}-tracks`}
+                        />
                     </span>
                 </button>
             </div>

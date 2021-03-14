@@ -8,12 +8,12 @@ type Props = {
     initialValue: number,
     onValueChange?: (rating: number) => void,
     displayOnly?: boolean,
-}
+};
 
 const Rating = ({ initialValue, onValueChange, displayOnly }: Props) => {
     const [value, setValue] = useState(initialValue);
     const [hoverValue, setHoverValue] = useState(0);
-    
+
     const [displayValue, setDisplayValue] = useState(initialValue);
     const [clicked, setClicked] = useState(false);
 
@@ -28,11 +28,11 @@ const Rating = ({ initialValue, onValueChange, displayOnly }: Props) => {
     useEffect(() => {
         if (clicked && onValueChange) onValueChange(value);
     }, [value]);
-    
-    const handleClick = (newValue) => {
+
+    const handleClick = newValue => {
         setClicked(true);
         setValue(newValue);
-    }
+    };
 
     const stars = [];
 
@@ -49,13 +49,17 @@ const Rating = ({ initialValue, onValueChange, displayOnly }: Props) => {
         );
     }
 
-    return <div className="rating" onMouseLeave={() => setHoverValue(0)}>{stars}</div>;
+    return (
+        <div className="rating" onMouseLeave={() => setHoverValue(0)}>
+            {stars}
+        </div>
+    );
 };
 
 Rating.defaultProps = {
     onValueChange: () => {},
     displayOnly: false,
-}
+};
 
 type StarProps = {
     index: number,
@@ -63,11 +67,17 @@ type StarProps = {
     setValue: (value: number) => void,
     setHoverValue: (value: number) => void,
     displayOnly?: boolean,
-}
+};
 
-const RatingStar = ({ index, displayValue, setValue, setHoverValue, displayOnly }: StarProps) => {
+const RatingStar = ({
+    index,
+    displayValue,
+    setValue,
+    setHoverValue,
+    displayOnly,
+}: StarProps) => {
     let iconClassName;
-    if (displayValue >= index + 1) { 
+    if (displayValue >= index + 1) {
         iconClassName = 'fas fa-star';
     } else if (displayValue === index + 0.5) {
         iconClassName = 'fas fa-star-half-alt';
@@ -86,16 +96,16 @@ const RatingStar = ({ index, displayValue, setValue, setHoverValue, displayOnly 
     return (
         <div className="rating-star" key={index}>
             <div className="rating-star-container">
-                <span {...displayOnly ? {} : starHalfProps(0.5)} />
-                <span {...displayOnly ? {} : starHalfProps(1)}  />
+                <span {...(displayOnly ? {} : starHalfProps(0.5))} />
+                <span {...(displayOnly ? {} : starHalfProps(1))} />
             </div>
             <i className={iconClassName} />
         </div>
     );
-}
+};
 
 RatingStar.defaultProps = {
     displayOnly: false,
-}
+};
 
 export default Rating;

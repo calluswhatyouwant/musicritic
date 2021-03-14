@@ -15,7 +15,7 @@ import './TrackCarousel.css';
 type Props = {
     tracks: PlayHistory[],
     history: any,
-}
+};
 
 const RecentTracksCarousel = ({ tracks, history }: Props) => {
     const handleClick = track => {

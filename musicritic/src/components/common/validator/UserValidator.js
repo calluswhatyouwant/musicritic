@@ -27,9 +27,10 @@ export const usernameValidator = () => {
         .max(12, `Username must have up to ${max} characters.`);
 };
 
-export const emailValidator = () => Yup.string()
-    .email('Invalid email address.')
-    .required('Email is required.');
+export const emailValidator = () =>
+    Yup.string()
+        .email('Invalid email address.')
+        .required('Email is required.');
 
 export const passwordValidator = () => {
     const min = 6;
@@ -40,5 +41,5 @@ export const passwordValidator = () => {
         .max(12, `Password must have up to ${max} characters.`);
 };
 
-export const passwordConfirmationValidator = (passwordRef: any) => Yup.string()
-    .equalTo(passwordRef, 'Passwords must match.');
+export const passwordConfirmationValidator = (passwordRef: any) =>
+    Yup.string().equalTo(passwordRef, 'Passwords must match.');

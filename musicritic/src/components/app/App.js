@@ -34,7 +34,7 @@ export const useSession = () => {
 };
 
 const App = () => {
-    const { locale, changeLocale } = useLocale()
+    const { locale, changeLocale } = useLocale();
     const user = useCurrentUser();
 
     return (

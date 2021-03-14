@@ -21,43 +21,42 @@ const TrackPageSidebar = ({
     prevTrack,
     nextTrack,
 }: Props) => (
-        <div>
-            <div
-                className="album-summary text-light"
-                style={{ backgroundImage: `url(${track.album.images[0].url})` }}>
-                <div className="track-page-header__data">
-                    <img
-                        alt="Album"
-                        className="track-page-header__cover shadow-lg"
-                        src={track.album.images[0].url}
-                    />
-                    <TrackInfo track={track} />
-                </div>
-                <TrackRatings
-                    averageRating={averageRating}
-                    userRating={userRating}
-                    postRating={postRating}
+    <div>
+        <div
+            className="album-summary text-light"
+            style={{ backgroundImage: `url(${track.album.images[0].url})` }}>
+            <div className="track-page-header__data">
+                <img
+                    alt="Album"
+                    className="track-page-header__cover shadow-lg"
+                    src={track.album.images[0].url}
                 />
-                <div className="album-menu">
-                    <a
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        href={track.externalUrls ? track.externalUrls.spotify : ''}
-                        className="btn album-menu__button album-menu__button--play text-light">
-                        <FormattedMessage id="open-on-spotify" />
-
-                    </a>
-                </div>
+                <TrackInfo track={track} />
             </div>
-            {(prevTrack.name || nextTrack.name) && (
-                <TrackAlbumNavigation
-                    track={track}
-                    prevTrack={prevTrack}
-                    nextTrack={nextTrack}
-                />
-            )}
+            <TrackRatings
+                averageRating={averageRating}
+                userRating={userRating}
+                postRating={postRating}
+            />
+            <div className="album-menu">
+                <a
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href={track.externalUrls ? track.externalUrls.spotify : ''}
+                    className="btn album-menu__button album-menu__button--play text-light">
+                    <FormattedMessage id="open-on-spotify" />
+                </a>
+            </div>
         </div>
-    );
+        {(prevTrack.name || nextTrack.name) && (
+            <TrackAlbumNavigation
+                track={track}
+                prevTrack={prevTrack}
+                nextTrack={nextTrack}
+            />
+        )}
+    </div>
+);
 
 type TrackInfoProps = {
     track: Track,
@@ -66,18 +65,33 @@ type TrackInfoProps = {
 const TrackInfo = ({ track }: TrackInfoProps) => (
     <div className="text-center track-info">
         <h1>{track.name}</h1>
-        <h4><FormattedMessage id="by-artist" values={{
-            artist: <a className="text-light" href={`/artist/${track.artists[0].id}`}>
-                {track.stringArtists}
-            </a>
-        }} />
+        <h4>
+            <FormattedMessage
+                id="by-artist"
+                values={{
+                    artist: (
+                        <a
+                            className="text-light"
+                            href={`/artist/${track.artists[0].id}`}>
+                            {track.stringArtists}
+                        </a>
+                    ),
+                }}
+            />
         </h4>
         <h5>
-            <FormattedMessage id="from-the-album" values={{
-                album: <a className="text-light" href={`/album/${track.album.id}`}>
-                    {track.album.name}
-                </a>
-            }} />
+            <FormattedMessage
+                id="from-the-album"
+                values={{
+                    album: (
+                        <a
+                            className="text-light"
+                            href={`/album/${track.album.id}`}>
+                            {track.album.name}
+                        </a>
+                    ),
+                }}
+            />
         </h5>
         <p>
             {track.releaseYear} &bull; {track.length}
@@ -91,21 +105,34 @@ type TrackAlbumNavigationProps = {
     nextTrack: Track | {},
 };
 
-const TrackAlbumNavigation = ({ track, prevTrack, nextTrack }: TrackAlbumNavigationProps) => (
+const TrackAlbumNavigation = ({
+    track,
+    prevTrack,
+    nextTrack,
+}: TrackAlbumNavigationProps) => (
     <div className="track-album-navigation text-center text-light">
         <h5 className="mb-3">
-            <FormattedMessage id="more-from-album" values={{
-                album: <a className="text-light" href={`/album/${track.album.id}/`}>
-                    {track.albumName}
-                </a>
-            }} />
+            <FormattedMessage
+                id="more-from-album"
+                values={{
+                    album: (
+                        <a
+                            className="text-light"
+                            href={`/album/${track.album.id}/`}>
+                            {track.albumName}
+                        </a>
+                    ),
+                }}
+            />
         </h5>
         <div className="track-album-navigation-container row">
             {prevTrack.name && (
                 <a
                     href={`/track/${prevTrack.id}`}
                     className="track-album-navigation-button col-4">
-                    <p className="album-rating__title">{'<'} <FormattedMessage id="previous" /></p>
+                    <p className="album-rating__title">
+                        {'<'} <FormattedMessage id="previous" />
+                    </p>
                     <p className="mb-0">{prevTrack.name}</p>
                 </a>
             )}
@@ -113,7 +140,9 @@ const TrackAlbumNavigation = ({ track, prevTrack, nextTrack }: TrackAlbumNavigat
                 <a
                     href={`/track/${nextTrack.id}`}
                     className="track-album-navigation-button col-4">
-                    <p className="album-rating__title"><FormattedMessage id="next" /> {'>'}</p>
+                    <p className="album-rating__title">
+                        <FormattedMessage id="next" /> {'>'}
+                    </p>
                     <p className="mb-0">{nextTrack.name}</p>
                 </a>
             )}
@@ -132,21 +161,21 @@ const TrackRatings = ({
     userRating,
     postRating,
 }: TrackRatingsProps) => (
-        <div className="album-ratings row">
+    <div className="album-ratings row">
+        <TrackRating
+            rating={averageRating}
+            title={<FormattedMessage id="average-rating" />}
+            displayOnly
+        />
+        {userRating !== undefined && (
             <TrackRating
-                rating={averageRating}
-                title={<FormattedMessage id="average-rating" />}
-                displayOnly
+                rating={userRating}
+                title={<FormattedMessage id="your-rating" />}
+                postRating={postRating}
             />
-            {(userRating !== undefined) && (
-                <TrackRating
-                    rating={userRating}
-                    title={<FormattedMessage id="your-rating" />}
-                    postRating={postRating}
-                />
-            )}
-        </div>
-    );
+        )}
+    </div>
+);
 
 type TrackRatingProps = {
     rating: number,
@@ -161,22 +190,26 @@ const TrackRating = ({
     displayOnly,
     postRating,
 }: TrackRatingProps) => (
-        <div className="album-rating col-4">
-            <p className="album-rating__title">{title}</p>
-            {(!displayOnly || rating > 0) && (
-                <Rating
-                    initialValue={rating}
-                    displayOnly={displayOnly}
-                    onValueChange={postRating}
-                />
-            )}
-            {(displayOnly && rating === 0) && (<i><FormattedMessage id="not-rated-yet" /></i>)}
-        </div>
-    );
+    <div className="album-rating col-4">
+        <p className="album-rating__title">{title}</p>
+        {(!displayOnly || rating > 0) && (
+            <Rating
+                initialValue={rating}
+                displayOnly={displayOnly}
+                onValueChange={postRating}
+            />
+        )}
+        {displayOnly && rating === 0 && (
+            <i>
+                <FormattedMessage id="not-rated-yet" />
+            </i>
+        )}
+    </div>
+);
 
 TrackRating.defaultProps = {
     displayOnly: false,
-    postRating: () => { },
+    postRating: () => {},
 };
 
 export default TrackPageSidebar;

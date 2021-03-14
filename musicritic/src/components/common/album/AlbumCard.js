@@ -17,7 +17,11 @@ const AlbumCard = ({ album, handleClick }: Props) => {
     };
     return (
         <div className="card text-center" {...clickableProps}>
-            <img className="card-img-top" src={album.images[0].url} alt="Card top" />
+            <img
+                className="card-img-top"
+                src={album.images[0].url}
+                alt="Card top"
+            />
             <div className="card-body">
                 <h6 className="card-subtitle mb-2 text-muted text-truncate">
                     {album.name}

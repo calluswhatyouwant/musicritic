@@ -9,7 +9,7 @@ import Rating from '../../common/rating/Rating';
 import {
     getCurrentUserAlbumReview,
     updateAlbumReview,
-    postAlbumReview
+    postAlbumReview,
 } from '../../../api/AlbumAPI';
 import { FormattedMessage } from 'react-intl';
 
@@ -59,7 +59,9 @@ const AlbumReviewPage = () => {
         <>
             <AlbumReviewPageHeader album={album} />
             <div className="album-page container">
-                <h4><FormattedMessage id="write-review-cta" /></h4>
+                <h4>
+                    <FormattedMessage id="write-review-cta" />
+                </h4>
                 <ComposeReviewTextArea review={review} setReview={setReview} />
                 <AlbumReviewRating rating={rating} setRating={setRating} />
                 <ReviewButtonBar
@@ -85,9 +87,16 @@ const AlbumReviewPageHeader = ({ album }: HeaderProps) => (
                     <h2 className="font-weight-bold text-center mb-4">
                         <FormattedMessage id="write-review" />
                     </h2>
-                    <h4><FormattedMessage id="album" /></h4>
+                    <h4>
+                        <FormattedMessage id="album" />
+                    </h4>
                     <h2>{album.name}</h2>
-                    <h3><FormattedMessage id="by-artist" values={{ artist: album.stringArtists }} /></h3>
+                    <h3>
+                        <FormattedMessage
+                            id="by-artist"
+                            values={{ artist: album.stringArtists }}
+                        />
+                    </h3>
                 </div>
                 <div className="col-md-4 py-2">
                     <img
@@ -112,7 +121,9 @@ type TextAreaProps = {
 
 const ComposeReviewTextArea = ({ review, setReview }: TextAreaProps) => {
     useEffect(() => {
-        const editor = new MediumEditor('.editable', { placeholder: { text: '' } });
+        const editor = new MediumEditor('.editable', {
+            placeholder: { text: '' },
+        });
         editor.subscribe('editableInput', event =>
             setReview({ ...review, content: event.target.innerHTML })
         );
@@ -150,7 +161,9 @@ type RatingProps = {
 
 const AlbumReviewRating = ({ rating, setRating }: RatingProps) => (
     <div className="d-flex">
-        <h4><FormattedMessage id="your-score" /> </h4>
+        <h4>
+            <FormattedMessage id="your-score" />{' '}
+        </h4>
         <h4 className="pl-2">
             <Rating initialValue={rating} onValueChange={setRating} />
         </h4>

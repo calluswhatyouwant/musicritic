@@ -11,7 +11,7 @@ import { usePromise } from '../../utils/hooks';
 
 const SearchResultsPage = () => {
     const { query } = useParams();
-    const [results,, loading] = usePromise(search(query), {}, [query]);
+    const [results, , loading] = usePromise(search(query), {}, [query]);
 
     return (
         <div className="px-4 py-2">

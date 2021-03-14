@@ -6,7 +6,7 @@ import './SearchInput.css';
 
 type Props = {
     handleSearch: (query: string) => void,
-}
+};
 
 const SearchInput = ({ handleSearch }: Props) => {
     const intl = useIntl();

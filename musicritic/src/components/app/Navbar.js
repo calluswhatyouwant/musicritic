@@ -8,7 +8,13 @@ import { signOut } from '../../firebase/auth';
 import SearchInput from '../search/SearchInput';
 import { FormattedMessage } from 'react-intl';
 
-const Navbar = ({ locale, changeLocale }: { locale: string, changeLocale: () => void }) => {
+const Navbar = ({
+    locale,
+    changeLocale,
+}: {
+    locale: string,
+    changeLocale: () => void,
+}) => {
     const history = useHistory();
     const user = useSession();
 
@@ -45,9 +51,17 @@ const Navbar = ({ locale, changeLocale }: { locale: string, changeLocale: () => 
                     <ul className="navbar-nav ml-auto">
                         <NavbarItem text="Home" href="/home" />
                     </ul>
-                    {user && user !== 'unknown' && <LogoutButton handleLogout={handleLogout} />}
-                    <select className="select-locale" defaultValue={locale} onChange={(e) => changeLocale(e.target.value)} id="locale">
-                        <option value="" disabled hidden>{locale.toUpperCase()}</option>
+                    {user && user !== 'unknown' && (
+                        <LogoutButton handleLogout={handleLogout} />
+                    )}
+                    <select
+                        className="select-locale"
+                        defaultValue={locale}
+                        onChange={e => changeLocale(e.target.value)}
+                        id="locale">
+                        <option value="" disabled hidden>
+                            {locale.toUpperCase()}
+                        </option>
                         <option value="pt-br">PT-BR</option>
                         <option value="en">EN</option>
                     </select>
@@ -60,7 +74,7 @@ const Navbar = ({ locale, changeLocale }: { locale: string, changeLocale: () => 
 type NavbarItemProps = {
     href: string,
     text: string,
-}
+};
 
 const NavbarItem = ({ href, text }: NavbarItemProps) => (
     <li className="nav-item">
@@ -72,7 +86,7 @@ type NavbarLinkProps = {
     href: string,
     text: string,
     brand?: boolean,
-}
+};
 
 const NavbarLink = ({ text, href, brand }: NavbarLinkProps) => (
     <NavLink className={brand ? 'navbar-brand brand' : 'nav-link'} to={href}>
@@ -82,15 +96,16 @@ const NavbarLink = ({ text, href, brand }: NavbarLinkProps) => (
 
 NavbarLink.defaultProps = {
     brand: false,
-}
-
-type LogoutButtonProps = {
-    handleLogout: () => void
 };
 
-const LogoutButton = ({ handleLogout }: LogoutButtonProps) =>
-    <button type='button' className='logout-button' onClick={handleLogout}>
+type LogoutButtonProps = {
+    handleLogout: () => void,
+};
+
+const LogoutButton = ({ handleLogout }: LogoutButtonProps) => (
+    <button type="button" className="logout-button" onClick={handleLogout}>
         <FormattedMessage id="logout" />
-        </button>
+    </button>
+);
 
 export default Navbar;

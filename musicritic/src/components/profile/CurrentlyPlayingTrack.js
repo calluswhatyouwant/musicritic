@@ -14,12 +14,8 @@ const CurrentlyPlayingTrack = ({ currentlyPlaying }: Props) => {
     if (currentlyPlaying.isPlaying) {
         return (
             <div className="row m-0">
-                <CurrentlyPlayingTrackImage
-                    track={currentlyPlaying.item}
-                />
-                <CurrentlyPlayingTrackInfo
-                    track={currentlyPlaying.item}
-                />
+                <CurrentlyPlayingTrackImage track={currentlyPlaying.item} />
+                <CurrentlyPlayingTrackInfo track={currentlyPlaying.item} />
             </div>
         );
     }
@@ -57,18 +53,27 @@ const CurrentlyPlayingTrackInfo = ({ track }: InfoProps) => (
                 </a>
             </h1>
             <h3 className="text-truncate">
-                <a className="text-light" href={`/artist/${track.artists[0].id}`}>
+                <a
+                    className="text-light"
+                    href={`/artist/${track.artists[0].id}`}>
                     {track.stringArtists}
                 </a>
             </h3>
             <h4 className="text-truncate">
-                <FormattedMessage id="from-the-album" values={{
-                    album: <i>
-                        <a className="text-light" href={`/album/${track.album.id}`}>
-                            {track.album.name}
-                        </a>
-                    </i>
-                }} />
+                <FormattedMessage
+                    id="from-the-album"
+                    values={{
+                        album: (
+                            <i>
+                                <a
+                                    className="text-light"
+                                    href={`/album/${track.album.id}`}>
+                                    {track.album.name}
+                                </a>
+                            </i>
+                        ),
+                    }}
+                />
             </h4>
         </article>
     </div>

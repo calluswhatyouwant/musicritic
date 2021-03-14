@@ -45,12 +45,14 @@ export const useInterval = (callback, delay) => {
 };
 
 export const useLocale = () => {
-    const [locale, setLocale] = useState((localStorage.getItem('locale')) ?? 'en')
+    const [locale, setLocale] = useState(
+        localStorage.getItem('locale') ?? 'en'
+    );
 
-    const changeLocale = (locale) => {
-        localStorage.setItem('locale', locale)
-        setLocale(locale)
-    }
+    const changeLocale = locale => {
+        localStorage.setItem('locale', locale);
+        setLocale(locale);
+    };
 
-    return { locale, changeLocale }
-}
+    return { locale, changeLocale };
+};

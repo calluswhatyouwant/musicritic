@@ -63,11 +63,10 @@ const TrackReviewPage = () => {
         <>
             <TrackReviewPageHeader track={track} />
             <div className="album-page container">
-                <h4><FormattedMessage id="write-review-cta" /></h4>
-                <ComposeReviewTextArea
-                    review={review}
-                    setReview={setReview}
-                />
+                <h4>
+                    <FormattedMessage id="write-review-cta" />
+                </h4>
+                <ComposeReviewTextArea review={review} setReview={setReview} />
                 <TrackReviewRating rating={rating} setRating={setRating} />
                 <ReviewButtonBar
                     handleSubmit={handleSubmit}
@@ -76,8 +75,8 @@ const TrackReviewPage = () => {
             </div>
         </>
     ) : (
-            <Loading />
-        );
+        <Loading />
+    );
 };
 
 type RatingProps = {
@@ -87,7 +86,9 @@ type RatingProps = {
 
 const TrackReviewRating = ({ rating, setRating }: RatingProps) => (
     <div className="d-flex">
-        <h4><FormattedMessage id="your-score" /> </h4>
+        <h4>
+            <FormattedMessage id="your-score" />{' '}
+        </h4>
         <h4 className="pl-2">
             <Rating initialValue={rating} onValueChange={setRating} />
         </h4>
@@ -107,8 +108,18 @@ const TrackReviewPageHeader = ({ track }: HeaderProps) => (
                         <FormattedMessage id="write-review" />
                     </h2>
                     <h2>{track.name}</h2>
-                    <h3><FormattedMessage id="by-artist" values={{ artist: track.stringArtists }} /></h3>
-                    <h3><FormattedMessage id="from-the-album" values={{ album: track.album.name }} /></h3>
+                    <h3>
+                        <FormattedMessage
+                            id="by-artist"
+                            values={{ artist: track.stringArtists }}
+                        />
+                    </h3>
+                    <h3>
+                        <FormattedMessage
+                            id="from-the-album"
+                            values={{ album: track.album.name }}
+                        />
+                    </h3>
                 </div>
                 <div className="col-md-4 py-2">
                     <img
@@ -149,7 +160,9 @@ type TextAreaProps = {
 
 const ComposeReviewTextArea = ({ review, setReview }: TextAreaProps) => {
     useEffect(() => {
-        const editor = new MediumEditor('.editable', { placeholder: { text: '' } });
+        const editor = new MediumEditor('.editable', {
+            placeholder: { text: '' },
+        });
         editor.subscribe('editableInput', event =>
             setReview({ ...review, content: event.target.innerHTML })
         );

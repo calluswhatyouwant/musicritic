@@ -11,7 +11,7 @@
         "start": "webpack-dev-server --colors --inline --hot",
         "lint": "eslint .",
         "check-format": "prettier -c src/**",
-        "format": "prettier src/** --write",
+        "format": "prettier {,*/**/}*.{js,jsx,json} --write",
         "check-flow": "flow check ."
     },
     "dependencies": {

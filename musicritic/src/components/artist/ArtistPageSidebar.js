@@ -18,7 +18,10 @@ type Props = {
 const ArtistPageSidebar = ({ artist, topTracks, topTracksAverages }: Props) => (
     <div className="col-lg-4 p-0 artist-page-sidebar text-light">
         <ArtistPhoto artist={artist} />
-        <ArtistTopRatedTracks topTracks={topTracks} topTracksAverages={topTracksAverages} />
+        <ArtistTopRatedTracks
+            topTracks={topTracks}
+            topTracksAverages={topTracksAverages}
+        />
     </div>
 );
 
@@ -39,10 +42,11 @@ const ArtistPhoto = ({ artist }: { artist: Artist }) => {
                 <a
                     rel="noopener noreferrer"
                     target="_blank"
-                    href={artist.externalUrls ? artist.externalUrls.spotify : ''}
+                    href={
+                        artist.externalUrls ? artist.externalUrls.spotify : ''
+                    }
                     className="artist-spotify text-light">
                     <FormattedMessage id="open-on-spotify" />
-
                 </a>
             </div>
         </div>
@@ -54,14 +58,24 @@ type TopRatedTracksProps = {
     topTracksAverages: number[],
 };
 
-const ArtistTopRatedTracks = ({ topTracks, topTracksAverages }: TopRatedTracksProps) => {
+const ArtistTopRatedTracks = ({
+    topTracks,
+    topTracksAverages,
+}: TopRatedTracksProps) => {
     const body = topTracks.map((track, index) => (
-        <ArtistTrackRow key={track.id} track={track} average={topTracksAverages[index]} trackIndex={index} />
+        <ArtistTrackRow
+            key={track.id}
+            track={track}
+            average={topTracksAverages[index]}
+            trackIndex={index}
+        />
     ));
 
     return (
         <div className="artist-top-rated-tracks">
-            <h2><FormattedMessage id="popular-tracks" /></h2>
+            <h2>
+                <FormattedMessage id="popular-tracks" />
+            </h2>
             <table className="table table-top-tracks album-tracklist-table">
                 <tbody>{body}</tbody>
             </table>
@@ -95,7 +109,11 @@ const ArtistTrackRow = ({
             </td>
             <td>{track.name}</td>
             <td width="1%" className="no-break">
-                {average > 0 ? <Rating initialValue={average} displayOnly /> : <FormattedMessage id="not-rated-yet" />}
+                {average > 0 ? (
+                    <Rating initialValue={average} displayOnly />
+                ) : (
+                    <FormattedMessage id="not-rated-yet" />
+                )}
             </td>
         </tr>
     );
