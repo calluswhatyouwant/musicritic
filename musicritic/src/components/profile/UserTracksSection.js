@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 import {
     getRecentlyPlayedTracks,
     getTopPlayedTracks,
@@ -63,7 +64,9 @@ const TracksSectionTop = ({ currentTab, onClick }: TracksSectionTopProps) => {
         <div className="row">
             <div className="col-auto mr-auto">
                 <h2 className="user-page-section__title">
-                    Your {sectionTitle.enabled} tracks
+                    <FormattedMessage
+                        id={`your-${sectionTitle.enabled}-tracks`}
+                    />
                 </h2>
             </div>
             <div className="col-auto tracks-section-switch">
@@ -72,7 +75,9 @@ const TracksSectionTop = ({ currentTab, onClick }: TracksSectionTopProps) => {
                     onClick={onClick}>
                     <i className="fas fa-exchange-alt" />
                     <span className="tracks-section-switch__text">
-                        Show {sectionTitle.disabled} tracks
+                        <FormattedMessage
+                            id={`show-your-${sectionTitle.disabled}-tracks`}
+                        />
                     </span>
                 </button>
             </div>

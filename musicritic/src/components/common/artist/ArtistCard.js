@@ -12,7 +12,7 @@ const ArtistCard = ({ artist, handleClick }: Props) => {
     const clickableProps = {
         onClick: handleClick,
         tabIndex: 0,
-        onKeyPress: () => { },
+        onKeyPress: () => {},
         role: 'button',
     };
     return (

@@ -1,13 +1,15 @@
 /* @flow */
 import React, { useState } from 'react';
+import { useIntl } from 'react-intl';
 
 import './SearchInput.css';
 
 type Props = {
     handleSearch: (query: string) => void,
-}
+};
 
 const SearchInput = ({ handleSearch }: Props) => {
+    const intl = useIntl();
     const [query, setQuery] = useState('');
 
     const handleChange = event => {
@@ -23,7 +25,7 @@ const SearchInput = ({ handleSearch }: Props) => {
     return (
         <input
             type="text"
-            placeholder="Search..."
+            placeholder={intl.formatMessage({ id: 'search' })}
             value={query}
             className="search-input"
             onChange={handleChange}

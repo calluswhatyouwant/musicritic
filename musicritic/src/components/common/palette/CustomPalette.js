@@ -20,5 +20,4 @@ const CustomPalette = ({ children, imageUrl }: Props) => (
     </Palette>
 );
 
-
 export default CustomPalette;

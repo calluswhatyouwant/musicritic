@@ -86,9 +86,9 @@ export const getSeveralAlbums = (ids: string[]) =>
             throw error.response.data;
         });
 
-
 export const getRecentReviews = () =>
-    albumAPI.get('/album/reviews/recent')
+    albumAPI
+        .get('/album/reviews/recent')
         .then(result => result.data)
         .catch(error => {
             throw error.response.data;

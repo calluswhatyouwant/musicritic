@@ -1,15 +1,23 @@
 /* @flow */
 
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { NavLink, useHistory } from 'react-router-dom';
 
 import { useSession } from '../app/App';
 import { signOut } from '../../firebase/auth';
 import SearchInput from '../search/SearchInput';
 
-const Navbar = () => {
+const Navbar = ({
+    locale,
+    changeLocale,
+}: {
+    locale: string,
+    changeLocale: (locale: string) => void,
+}) => {
     const history = useHistory();
     const user = useSession();
+    const { formatMessage } = useIntl();
 
     const handleSearch = query => {
         history.push(`/search/tracks/${query}`);
@@ -42,9 +50,23 @@ const Navbar = () => {
                     className="navbar-collapse justify-content-stretch"
                     id="navbar">
                     <ul className="navbar-nav ml-auto">
-                        <NavbarItem text="Home" href="/home" />
+                        <NavbarItem
+                            text={formatMessage({ id: 'home' })} href="/home" />
                     </ul>
-                    { user && user !== 'unknown' && <LogoutButton handleLogout={handleLogout}/> }
+                    {user && user !== 'unknown' && (
+                        <LogoutButton handleLogout={handleLogout} />
+                    )}
+                    <select
+                        className="select-locale"
+                        defaultValue={locale}
+                        onChange={e => changeLocale(e.target.value)}
+                        id="locale">
+                        <option value="" disabled hidden>
+                            {locale.toUpperCase()}
+                        </option>
+                        <option value="pt-br">PT-BR</option>
+                        <option value="en">EN</option>
+                    </select>
                 </div>
             </div>
         </nav>
@@ -54,7 +76,7 @@ const Navbar = () => {
 type NavbarItemProps = {
     href: string,
     text: string,
-}
+};
 
 const NavbarItem = ({ href, text }: NavbarItemProps) => (
     <li className="nav-item">
@@ -66,7 +88,7 @@ type NavbarLinkProps = {
     href: string,
     text: string,
     brand?: boolean,
-}
+};
 
 const NavbarLink = ({ text, href, brand }: NavbarLinkProps) => (
     <NavLink className={brand ? 'navbar-brand brand' : 'nav-link'} to={href}>
@@ -76,15 +98,16 @@ const NavbarLink = ({ text, href, brand }: NavbarLinkProps) => (
 
 NavbarLink.defaultProps = {
     brand: false,
-}
-
-type LogoutButtonProps = {
-    handleLogout: () => void
 };
 
-const LogoutButton = ({ handleLogout }: LogoutButtonProps) =>
-        <button type='button' className='logout-button' onClick={handleLogout}>
-            Logout
-        </button>
+type LogoutButtonProps = {
+    handleLogout: () => void,
+};
+
+const LogoutButton = ({ handleLogout }: LogoutButtonProps) => (
+    <button type="button" className="logout-button" onClick={handleLogout}>
+        <FormattedMessage id="logout" />
+    </button>
+);
 
 export default Navbar;

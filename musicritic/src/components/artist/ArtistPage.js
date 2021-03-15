@@ -41,7 +41,11 @@ const ArtistPage = () => {
 
     return !loading ? (
         <div className="row m-0">
-            <ArtistPageSidebar topTracks={topTracks} topTracksAverages={topTracksAvgs} artist={artist} />
+            <ArtistPageSidebar
+                topTracks={topTracks}
+                topTracksAverages={topTracksAvgs}
+                artist={artist}
+            />
             <ArtistPageContent albums={albums} albumsAverages={albumsAvgs} />
         </div>
     ) : (

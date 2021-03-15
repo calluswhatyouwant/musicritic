@@ -38,9 +38,17 @@ type ProtectedRouteProps = {
 const ProtectedRoute = ({ children, ...args }: ProtectedRouteProps) => {
     const user = useCurrentUser();
     if (user) {
-        return <Route {...args}>{user === 'unknown' ? <Loading /> : children}</Route>;
+        return (
+            <Route {...args}>
+                {user === 'unknown' ? <Loading /> : children}
+            </Route>
+        );
     }
-    return <Route {...args}><AuthRequirement /></Route>;
+    return (
+        <Route {...args}>
+            <AuthRequirement />
+        </Route>
+    );
 };
 
 export default ProtectedRoute;

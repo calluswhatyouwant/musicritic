@@ -1,3 +1,15 @@
+.home-container {
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+
+@media (max-width: 576px) {
+    .home-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
 .user-page-section__container {
     background-color: white;
     border-radius: .5rem;

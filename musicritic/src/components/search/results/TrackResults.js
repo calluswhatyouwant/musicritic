@@ -9,17 +9,14 @@ import './Results.css';
 type Props = {
     results: Track[],
     history: any,
-}
+};
 
 const TrackResult = ({ results, history }: Props) => {
     const [tracks, setTracks] = useState();
 
-    useEffect(
-        () => {
-            setTracks(results);
-        },
-        [results]
-    );
+    useEffect(() => {
+        setTracks(results);
+    }, [results]);
 
     function handleClick(track) {
         history.push(`/track/${track.id}`);

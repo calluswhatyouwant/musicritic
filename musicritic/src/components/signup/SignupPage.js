@@ -34,9 +34,13 @@ const SignupButtonGroup = () => (
 
 const Separator = () => (
     <div className="row separator text-center">
-        <div className="col-5"><hr /></div>
+        <div className="col-5">
+            <hr />
+        </div>
         <div className="col-2">or</div>
-        <div className="col-5"><hr /></div>
+        <div className="col-5">
+            <hr />
+        </div>
     </div>
 );
 

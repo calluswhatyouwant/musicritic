@@ -14,7 +14,7 @@ import './TrackCarousel.css';
 type Props = {
     tracks: Track[],
     history: any,
-}
+};
 
 const TrackCarousel = ({ tracks, history }: Props) => {
     const handleClick = track => {
