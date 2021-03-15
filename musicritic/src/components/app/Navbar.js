@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { NavLink, useHistory } from 'react-router-dom';
 
 import { useSession } from '../app/App';
@@ -17,6 +17,7 @@ const Navbar = ({
 }) => {
     const history = useHistory();
     const user = useSession();
+    const { formatMessage } = useIntl();
 
     const handleSearch = query => {
         history.push(`/search/tracks/${query}`);
@@ -49,7 +50,8 @@ const Navbar = ({
                     className="navbar-collapse justify-content-stretch"
                     id="navbar">
                     <ul className="navbar-nav ml-auto">
-                        <NavbarItem text="Home" href="/home" />
+                        <NavbarItem
+                            text={formatMessage({ id: 'home' })} href="/home" />
                     </ul>
                     {user && user !== 'unknown' && (
                         <LogoutButton handleLogout={handleLogout} />
