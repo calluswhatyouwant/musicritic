@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { NavLink, useHistory } from 'react-router-dom';
 
 import { useSession } from '../app/App';
@@ -17,10 +17,10 @@ const Navbar = ({
 }) => {
     const history = useHistory();
     const user = useSession();
-    const { formatMessage } = useIntl();
+    const userLoggedIn = user && user !== 'unknown';
 
-    const handleSearch = query => {
-        history.push(`/search/tracks/${query}`);
+    const handleSearch = (query: string, type: string) => {
+        history.push(`/search/${type}/${query}`);
     };
 
     const handleLogout = () => {
@@ -47,17 +47,10 @@ const Navbar = ({
                     <SearchInput handleSearch={handleSearch} />
                 </div>
                 <div
-                    className="navbar-collapse justify-content-stretch"
+                    className="ml-auto navbar-collapse justify-content-stretch"
                     id="navbar">
-                    <ul className="navbar-nav ml-auto">
-                        <NavbarItem
-                            text={formatMessage({ id: 'home' })} href="/home" />
-                    </ul>
-                    {user && user !== 'unknown' && (
-                        <LogoutButton handleLogout={handleLogout} />
-                    )}
                     <select
-                        className="select-locale"
+                        className="ml-auto select-locale"
                         defaultValue={locale}
                         onChange={e => changeLocale(e.target.value)}
                         id="locale">
@@ -67,22 +60,31 @@ const Navbar = ({
                         <option value="pt-br">PT-BR</option>
                         <option value="en">EN</option>
                     </select>
+                    {userLoggedIn && (
+                        <div className="dropdown">
+                            <div className="user-image-container">
+                                {user.photoURL ? (
+                                    <div className="user-image">
+                                        <img
+                                            src={user.photoURL}
+                                            alt={user.displayName ?? ''}
+                                        />
+                                    </div>
+                                ) : (
+                                    <i className="fas fa-user-circle" />
+                                )}
+                                <i className="fas fa-angle-down" />
+                            </div>
+                            <div className="dropdown-content">
+                                <LogoutButton handleLogout={handleLogout} />
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </nav>
     );
 };
-
-type NavbarItemProps = {
-    href: string,
-    text: string,
-};
-
-const NavbarItem = ({ href, text }: NavbarItemProps) => (
-    <li className="nav-item">
-        <NavbarLink href={href} text={text} />
-    </li>
-);
 
 type NavbarLinkProps = {
     href: string,

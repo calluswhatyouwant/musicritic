@@ -6,6 +6,7 @@
     "spotify-login": "Login with Spotify",
     "recently-reviewed-albums": "Recently reviewed albums",
     "review-rating-user-name": "Rated {rating} {icon} by {authorName}",
+    "search-results": "Search results for \"{query}\"",
     "listening-to": "You are listening to",
     "from-the-album": "From the album {album}",
     "your-top-tracks": "Your top tracks",
