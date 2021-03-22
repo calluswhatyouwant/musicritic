@@ -13,14 +13,23 @@ type Props = {
     artist: Artist,
     topTracks: Track[],
     topTracksAverages: number[],
+    bestRatedTracks: TrackWithRating[],
 };
 
-const ArtistPageSidebar = ({ artist, topTracks, topTracksAverages }: Props) => (
+type TrackWithRating = Track & { average: number };
+
+const ArtistPageSidebar = ({
+    artist,
+    topTracks,
+    topTracksAverages,
+    bestRatedTracks,
+}: Props) => (
     <div className="col-lg-4 p-0 artist-page-sidebar text-light">
         <ArtistPhoto artist={artist} />
         <ArtistTopRatedTracks
             topTracks={topTracks}
             topTracksAverages={topTracksAverages}
+            bestRatedTracks={bestRatedTracks}
         />
     </div>
 );
@@ -56,32 +65,47 @@ const ArtistPhoto = ({ artist }: { artist: Artist }) => {
 type TopRatedTracksProps = {
     topTracks: Track[],
     topTracksAverages: number[],
+    bestRatedTracks: Track[],
 };
 
 const ArtistTopRatedTracks = ({
     topTracks,
     topTracksAverages,
-}: TopRatedTracksProps) => {
-    const body = topTracks.map((track, index) => (
-        <ArtistTrackRow
-            key={track.id}
-            track={track}
-            average={topTracksAverages[index]}
-            trackIndex={index}
-        />
-    ));
-
-    return (
-        <div className="artist-top-rated-tracks">
-            <h2>
-                <FormattedMessage id="popular-tracks" />
-            </h2>
-            <table className="table table-top-tracks album-tracklist-table">
-                <tbody>{body}</tbody>
-            </table>
-        </div>
-    );
-};
+    bestRatedTracks,
+}: TopRatedTracksProps) => (
+    <div className="artist-top-rated-tracks">
+        <h2>
+            <FormattedMessage id="popular-tracks" />
+        </h2>
+        <table className="table table-top-tracks album-tracklist-table">
+            <tbody>
+                {topTracks.map((track, index) => (
+                    <ArtistTrackRow
+                        key={track.id}
+                        track={track}
+                        average={topTracksAverages[index]}
+                        trackIndex={index}
+                    />
+                ))}
+            </tbody>
+        </table>
+        <h2>
+            <FormattedMessage id="best-rated-tracks" />
+        </h2>
+        <table className="table table-top-tracks album-tracklist-table">
+            <tbody>
+                {bestRatedTracks.map((track, index) => (
+                    <ArtistTrackRow
+                        key={track.id}
+                        track={track}
+                        average={track.average}
+                        trackIndex={index}
+                    />
+                ))}
+            </tbody>
+        </table>
+    </div>
+);
 
 const ArtistTrackRow = ({
     track,
@@ -103,7 +127,7 @@ const ArtistTrackRow = ({
             <td width="1%">
                 <img
                     className="artist-album-cover"
-                    src={track.album.imageUrl}
+                    src={track?.album?.imageUrl}
                     alt={track.albumName}
                 />
             </td>

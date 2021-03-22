@@ -15,6 +15,8 @@ const ArtistPage = () => {
     const [albums, setAlbums] = useState([]);
     const [topTracksAvgs, setTopTracksAvgs] = useState([]);
     const [albumsAvgs, setAlbumsAvgs] = useState([]);
+    const [bestRatedAlbums, setBestRatedAlbums] = useState([]);
+    const [bestRatedTracks, setBestRatedTracks] = useState([]);
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
 
@@ -26,6 +28,8 @@ const ArtistPage = () => {
                 albums: albumsResponse,
                 topTracksAverages,
                 albumsAverages,
+                bestRatedTracks: fetchRatedTracks,
+                bestRatedAlbums: fetchRatedAlbums,
             } = await getArtist(id);
 
             setArtist(artistResponse);
@@ -33,6 +37,8 @@ const ArtistPage = () => {
             setAlbums(albumsResponse);
             setAlbumsAvgs(albumsAverages);
             setTopTracksAvgs(topTracksAverages);
+            setBestRatedAlbums(fetchRatedAlbums);
+            setBestRatedTracks(fetchRatedTracks);
             setLoading(false);
         }
 
@@ -44,9 +50,14 @@ const ArtistPage = () => {
             <ArtistPageSidebar
                 topTracks={topTracks}
                 topTracksAverages={topTracksAvgs}
+                bestRatedTracks={bestRatedTracks}
                 artist={artist}
             />
-            <ArtistPageContent albums={albums} albumsAverages={albumsAvgs} />
+            <ArtistPageContent
+                albums={albums}
+                albumsAverages={albumsAvgs}
+                bestRatedAlbums={bestRatedAlbums}
+            />
         </div>
     ) : (
         <Loading />

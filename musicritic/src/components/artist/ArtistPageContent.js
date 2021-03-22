@@ -12,11 +12,16 @@ import './ArtistPageContent.css';
 type Props = {
     albums: AlbumSimplified[],
     albumsAverages: number[],
+    bestRatedAlbums: AlbumWithRating[],
 };
 
 type AlbumWithRating = Album & { average: number };
 
-const ArtistPageContent = ({ albums, albumsAverages }: Props) => {
+const ArtistPageContent = ({
+    albums,
+    albumsAverages,
+    bestRatedAlbums,
+}: Props) => {
     const [completeAlbums, setCompleteAlbums] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -54,6 +59,10 @@ const ArtistPageContent = ({ albums, albumsAverages }: Props) => {
                 <FormattedMessage id="albums" />
             </h2>
             <DiscographySection albums={completeAlbums} />
+            <h2 className="discography-section-title">
+                <FormattedMessage id="best-rated-albums" />
+            </h2>
+            <DiscographySection albums={bestRatedAlbums} />
         </div>
     );
 };
@@ -99,7 +108,10 @@ const DiscographySection = ({ albums }: { albums: AlbumWithRating[] }) => {
                             <td className="discography-section-table-data">
                                 <img
                                     className="artist-discography-album-cover"
-                                    src={album.imageUrl}
+                                    src={
+                                        album.imageUrl ??
+                                        album?.images?.[0]?.url
+                                    }
                                     alt={album.name}
                                 />
                             </td>
