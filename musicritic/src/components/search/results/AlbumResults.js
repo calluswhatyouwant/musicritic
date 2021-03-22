@@ -24,7 +24,9 @@ const AlbumResult = ({ results, history }: Props) => {
     };
 
     const listResults = albums.map(album => (
-        <div key={album.id} className="col-3 result">
+        <div
+            key={album.id}
+            className="col-xl-2 col-lg-3 col-md-4 col-12 result">
             <AlbumCard album={album} handleClick={() => handleClick(album)} />
         </div>
     ));

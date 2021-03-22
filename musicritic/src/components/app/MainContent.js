@@ -26,9 +26,7 @@ const MainContent = () => (
         <ContainerizedRoute exact path="/signup">
             <SignupPage />
         </ContainerizedRoute>
-        <ContainerizedRoute
-            exact
-            path="/search/(tracks|artists|playlists|albums)/:query">
+        <ContainerizedRoute exact path="/search/(tracks|artists|albums)/:query">
             <SearchResultsPage />
         </ContainerizedRoute>
         <Route

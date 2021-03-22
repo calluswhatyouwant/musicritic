@@ -78,22 +78,29 @@ const ReviewCard = ({ rating, review, author }: ReviewCardProps) => {
         setDisplayedText(`${review.content.substring(0, 247)}...`);
     };
 
+    const [imageAvailable, setImageAvailable] = useState(author.avatarUrl);
+
     return (
         <div className="review-card">
             <div className="review-card-header">
                 <div className="review-user-info">
-                    <img
-                        className="review-user-photo round-cropped"
-                        src={author.avatarUrl}
-                        alt={`${author.displayName}`}
-                    />
+                    {imageAvailable ? (
+                        <img
+                            onError={() => setImageAvailable(false)}
+                            className="review-user-photo"
+                            src={author.avatarUrl}
+                            alt={`${author.displayName}`}
+                        />
+                    ) : (
+                        <i className="fas fa-user-circle ml-0 mr-3" />
+                    )}
                     <span className="review-user-name">
                         <FormattedMessage
                             id="user-review"
                             values={{
                                 author: (
                                     <span className="bold-text">
-                                        {author.displayName}
+                                        {author.displayName ?? 'User'}
                                     </span>
                                 ),
                             }}

@@ -3,6 +3,10 @@ body {
     background-color: #f0f0f0;
 }
 
+select {
+    cursor: pointer;
+}
+
 .navbar {
     background-color: black;
     box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
@@ -13,19 +17,15 @@ body {
 }
 
 .logout-button {
-    background-color: black;
-    border: 0.05rem solid white;
-    border-radius: 0.25rem;
-    color: white;
-    margin-left: 2rem;
+    color: black;
     outline: none;
     padding: 0.5rem 1rem;
     transition: all 0.3s ease 0s;
 }
 
 .logout-button:hover {
-    color: black;
-    background-color: white;
+    color: #505050;
+    text-decoration: underline;
 }
 
 .select-locale {
@@ -33,4 +33,42 @@ body {
     color: white;
     padding: .25rem;
     margin-left: 1rem;
+}
+
+.user-image {
+    height: 2.5rem;
+    width: 2.5rem;
+    margin-left: .5rem;
+    opacity: 1;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 .5rem 1rem 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.fa-user-circle {
+    margin-left: .5rem;
+    color: white;
+    font-size: 2rem;
+}
+
+.fa-angle-down {
+    color: white;
+    margin-left: .25rem;
 }

@@ -11,17 +11,20 @@ type Props = {
 const SearchResultsNav = ({ query }: Props) => (
     <div className="d-flex justify-content-center">
         <NavLink
-            className="nav-link text-dark border border-dark p-2 mr-2"
+            activeClassName="search-nav-active"
+            className="search-nav"
             to={`/search/tracks/${query}`}>
             <FormattedMessage id="tracks" />
         </NavLink>
         <NavLink
-            className="nav-link text-dark border border-dark p-2 mr-2"
+            activeClassName="search-nav-active"
+            className="search-nav"
             to={`/search/albums/${query}`}>
             <FormattedMessage id="albums" />
         </NavLink>
         <NavLink
-            className="nav-link text-dark border border-dark p-2"
+            activeClassName="search-nav-active"
+            className="search-nav"
             to={`/search/artists/${query}`}>
             <FormattedMessage id="artists" />
         </NavLink>

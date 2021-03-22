@@ -22,14 +22,18 @@ const ArtistResult = ({ results, history }: Props) => {
         history.push(`/artist/${artist.id}`);
     };
 
-    const listResults = artists.map(artist => (
-        <div key={artist.id} className="col-3 result">
-            <ArtistCard
-                handleClick={() => handleClick(artist)}
-                artist={artist}
-            />
-        </div>
-    ));
+    const listResults = artists
+        .filter(artist => artist.images[0])
+        .map(artist => (
+            <div
+                key={artist.id}
+                className="col-xl-2 col-lg-3 col-md-4 col-12 result">
+                <ArtistCard
+                    handleClick={() => handleClick(artist)}
+                    artist={artist}
+                />
+            </div>
+        ));
     return <div className="row">{listResults}</div>;
 };
 

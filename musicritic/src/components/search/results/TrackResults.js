@@ -25,7 +25,9 @@ const TrackResult = ({ results, history }: Props) => {
     const listResults =
         tracks &&
         tracks.map(track => (
-            <div key={track.id} className="col-3 result">
+            <div
+                key={track.id}
+                className="col-xl-2 col-lg-3 col-md-4 col-12 result">
                 <TrackCard
                     track={track}
                     handleClick={() => handleClick(track)}
