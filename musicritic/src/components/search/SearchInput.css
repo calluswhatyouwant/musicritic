@@ -1,11 +1,5 @@
-.img-search {
-    object-fit: cover;
-    overflow: hidden;
-    height: 15vh;
-    width: 15vh;
-}
-
 .search-input {
+    flex-grow: 1;
     background-color: white;
     border: none;
     border-right: 1px solid black;
@@ -56,12 +50,14 @@
 }
 
 .search-input-container {
+    display: flex;
     background-color: white;
     border-radius: 5px;
     padding: .25rem;
 }
 
 .search-input-select {
+    color: black;
     background-color: transparent;
     border: none;
     outline: none;

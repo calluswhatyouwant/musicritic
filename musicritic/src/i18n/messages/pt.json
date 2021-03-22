@@ -1,6 +1,8 @@
 {
     "home": "Início",
     "search": "Buscar...",
+    "hello": "Olá!",
+    "hello-user": "Olá, {user}!",
     "logout": "Sair",
     "login-cta": "Faça login para a experiência completa!",
     "spotify-login": "Entrar com Spotify",
