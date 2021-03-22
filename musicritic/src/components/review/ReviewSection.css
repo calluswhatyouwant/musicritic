@@ -56,8 +56,11 @@
 
 .review-user-photo {
     height: 2.5rem;
+    width: 2.5rem;
     margin-right: 0.75rem;
     opacity: 1;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .review-text-area {
@@ -65,7 +68,7 @@
     text-align: justify;
 }
 
-.review-text > p {
+.review-text>p {
     margin-bottom: .25rem;
 }
 

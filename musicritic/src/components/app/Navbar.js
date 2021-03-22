@@ -64,12 +64,11 @@ const Navbar = ({
                         <div className="dropdown">
                             <div className="user-image-container">
                                 {user.photoURL ? (
-                                    <div className="user-image">
-                                        <img
-                                            src={user.photoURL}
-                                            alt={user.displayName ?? ''}
-                                        />
-                                    </div>
+                                    <img
+                                        className="user-image"
+                                        src={user.photoURL}
+                                        alt={user.displayName ?? ''}
+                                    />
                                 ) : (
                                     <i className="fas fa-user-circle" />
                                 )}

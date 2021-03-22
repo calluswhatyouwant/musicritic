@@ -35,25 +35,13 @@ select {
     margin-left: 1rem;
 }
 
-.user-image-container {
-    display: flex;
-    align-items: center;
-}
-
 .user-image {
-    height: 2rem;
-    width: 2rem;
+    height: 2.5rem;
+    width: 2.5rem;
     margin-left: .5rem;
-    position: relative;
-    overflow: hidden;
+    opacity: 1;
+    object-fit: cover;
     border-radius: 50%;
-}
-
-.user-image>img {
-    display: inline;
-    margin: 0 auto;
-    height: 100%;
-    width: auto;
 }
 
 .dropdown {

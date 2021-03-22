@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { Album } from 'spotify-web-sdk';
@@ -54,14 +54,21 @@ const ReviewCardWithHeader = ({
     review: any,
 }) => {
     const history = useHistory();
+    const [imageAvailable, setImageAvailable] = useState(author.avatarUrl);
+
     return album ? (
         <div className="col-lg-3 col-md-4 pb-3">
             <div className="review-user-info bg-light p-2">
-                <img
-                    className="review-user-photo round-cropped"
-                    src={author.avatarUrl}
-                    alt={`${author.displayName}`}
-                />
+                {imageAvailable ? (
+                    <img
+                        onError={() => setImageAvailable(false)}
+                        className="review-user-photo"
+                        src={author.avatarUrl}
+                        alt={`${author.displayName}`}
+                    />
+                ) : (
+                    <i className="fas fa-user-circle text-dark ml-0 mr-3" />
+                )}
                 <span className="review-user-name">
                     <FormattedMessage
                         id="review-rating-user-name"
@@ -70,7 +77,7 @@ const ReviewCardWithHeader = ({
                             icon: <i className="fas fa-star" />,
                             authorName: (
                                 <span className="bold-text">
-                                    {author.displayName}
+                                    {author.displayName ?? 'User'}
                                 </span>
                             ),
                         }}
