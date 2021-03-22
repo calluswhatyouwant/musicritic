@@ -43,7 +43,7 @@ router.get('/artists/:id', async (req, res) => {
     );
 
     const albumsReviews = await Promise.all(
-        albums.map(async album => [album.id, await getReviews(ALBUM, album.id)])
+        albums.map(async album => [album, await getReviews(ALBUM, album.id)])
     );
     const albumsRatings = albumsReviews.map(reviews =>
         [reviews[0], reviews[1].map(review => review.rating)]
@@ -54,7 +54,7 @@ router.get('/artists/:id', async (req, res) => {
     ).sort((a, b) => b[1] - a[1]).slice(0, 5)
 
     const tracksReviews = await Promise.all(
-        tracks.map(async track => [track.id, await getReviews(TRACK, track.id)])
+        tracks.map(async track => [track, await getReviews(TRACK, track.id)])
     );
     const tracksRatings = tracksReviews.map(reviews =>
         [reviews[0], reviews[1].map(review => review.rating)]
