@@ -1,8 +1,10 @@
+/** @jsx jsx */
 /* @flow */
 
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { CurrentlyPlaying, Track } from 'spotify-web-sdk';
+import { keyframes, jsx, css } from '@emotion/react';
 
 import './CurrentlyPlayingTrack.css';
 
@@ -28,7 +30,7 @@ type ImageProps = {
 };
 
 const CurrentlyPlayingTrackImage = ({ track }: ImageProps) => (
-    <div className="currently-playing-track-image__container col-xl-3 col-md-4">
+    <div className="currently-playing-track-image__container col-12 col-xl-3 col-md-4 col-sm-5">
         <img
             className="currently-playing-track-image"
             src={track.album.images[0].url}
@@ -41,25 +43,94 @@ type InfoProps = {
     track: Track,
 };
 
+const SlidingTitle = ({ track }: ImageProps) => {
+    const [refContent, setRefContent] = useState(null);
+    const [refContainer, setRefContainer] = useState(null);
+    const [overflow, setOverflow] = useState(false);
+    const [scrollWidth, setScrollWidth] = useState(0);
+
+    useEffect(() => {
+        refContent &&
+            refContainer &&
+            console.log(refContent.clientWidth, refContainer.clientWidth);
+        setOverflow(
+            refContent && refContainer.clientWidth < refContent.scrollWidth
+        );
+        setScrollWidth(refContent && refContent.clientWidth);
+    }, [track.name, refContent]);
+
+    const slide = keyframes`
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-${scrollWidth}px) translateX(-4rem);
+    }`;
+
+    return (
+        <div className="sliding-name-container">
+            <a href={`/track/${track.id}`} className="text-light">
+                <div
+                    ref={useCallback(
+                        node => {
+                            if (node !== null) {
+                                setRefContainer(node);
+                            }
+                        },
+                        [track.name]
+                    )}
+                    css={css`
+                        animation-name: ${slide};
+                        display: flex;
+                        justify-content: ${overflow ? 'left' : 'center'};
+                        width: 100%;
+                    `}
+                    className={`display-4 text-light ${
+                        overflow ? 'animated-slide' : ''
+                    }`}>
+                    <p
+                        ref={useCallback(
+                            node => {
+                                if (node !== null) {
+                                    setRefContent(node);
+                                }
+                            },
+                            [track.name]
+                        )}
+                        className="m-0">
+                        {track.name}
+                    </p>
+                    {overflow && (
+                        <p aria-hidden="true" className="pl-6 m-0">
+                            {track.name}
+                        </p>
+                    )}
+                </div>
+            </a>
+        </div>
+    );
+};
+
 const CurrentlyPlayingTrackInfo = ({ track }: InfoProps) => (
-    <div className="currently-playing-track-info col-xl-9 col-md-8">
+    <div className="currently-playing-track-info col-12 col-xl-9 col-md-8 col-sm-7">
         <article className="currently-playing-track-info__article">
             <h3 className="user-page-section__title mb-2">
                 <FormattedMessage id="listening-to" />
             </h3>
-            <h1 className="display-4 text-truncate">
-                <a className="text-light" href={`/track/${track.id}`}>
-                    {track.name}
-                </a>
-            </h1>
-            <h3 className="text-truncate">
-                <a
-                    className="text-light"
-                    href={`/artist/${track.artists[0].id}`}>
-                    {track.stringArtists}
-                </a>
+            <SlidingTitle track={track} />
+            <h3>
+                {track.artists.map(artist => (
+                    <span className="artist-name-list">
+                        <a className="text-light" href={`/artist/${artist.id}`}>
+                            {artist.name}
+                        </a>
+                    </span>
+                ))}
             </h3>
-            <h4 className="text-truncate">
+            <h4 className="currently-playing-track-album text-truncate">
                 <FormattedMessage
                     id="from-the-album"
                     values={{
