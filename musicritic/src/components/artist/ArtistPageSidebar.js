@@ -108,7 +108,7 @@ const ArtistTrackRow = ({
                 />
             </td>
             <td>{track.name}</td>
-            <td width="1%" className="no-break">
+            <td width="1%" className="no-break d-none d-table-cell-sm">
                 {average > 0 ? (
                     <Rating initialValue={average} displayOnly />
                 ) : (

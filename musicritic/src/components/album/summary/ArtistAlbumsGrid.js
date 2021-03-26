@@ -31,7 +31,7 @@ const ArtistAlbumsGrid = ({
     const nextAlbumUrl = _.get(artistAlbums[5], 'imageUrl', '');
     const moreAlbumsButton = (
         <div className="artist-album-grid__item col-4">
-            <MoreAlbumsButton artist={mainArtist} nextAlbum={nextAlbumUrl} />;
+            <MoreAlbumsButton artist={mainArtist} nextAlbum={nextAlbumUrl} />
         </div>
     );
 

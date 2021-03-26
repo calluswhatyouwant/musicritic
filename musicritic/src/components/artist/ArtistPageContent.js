@@ -107,7 +107,7 @@ const DiscographySection = ({ albums }: { albums: AlbumWithRating[] }) => {
                                 {album.releaseYear}
                             </span>
                         </td>
-                        <td className="discography-section-table-data text-center">
+                        <td className="discography-section-table-data text-center d-none d-table-cell-sm">
                             <FormattedMessage id="average-rating" />
                             <br />
                             {album.average > 0 ? (

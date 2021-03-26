@@ -30,7 +30,7 @@ const ReviewSection = ({ redirectUrl, reviews }: ReviewSectionProps) => {
             <FormattedMessage id="no-reviews" />
         );
     return (
-        <div className="review-section">
+        <div className="review-section p-2 p-sm-4">
             <SectionHeader title={title}>
                 <ComposeReviewButton redirectUrl={redirectUrl} />
             </SectionHeader>
