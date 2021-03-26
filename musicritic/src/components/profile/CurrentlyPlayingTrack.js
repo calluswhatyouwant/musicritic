@@ -1,10 +1,10 @@
 /** @jsx jsx */
 /* @flow */
 
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { CurrentlyPlaying, Track } from 'spotify-web-sdk';
-import { keyframes, jsx, css } from '@emotion/react';
+import { keyframes, jsx, css } from '@emotion/core';
 
 import './CurrentlyPlayingTrack.css';
 
@@ -50,11 +50,10 @@ const SlidingTitle = ({ track }: ImageProps) => {
     const [scrollWidth, setScrollWidth] = useState(0);
 
     useEffect(() => {
-        refContent &&
-            refContainer &&
-            console.log(refContent.clientWidth, refContainer.clientWidth);
         setOverflow(
-            refContent && refContainer.clientWidth < refContent.scrollWidth
+            refContent &&
+                refContainer &&
+                refContainer.clientWidth < refContent.scrollWidth
         );
         setScrollWidth(refContent && refContent.clientWidth);
     }, [track.name, refContent]);
@@ -87,6 +86,7 @@ const SlidingTitle = ({ track }: ImageProps) => {
                         display: flex;
                         justify-content: ${overflow ? 'left' : 'center'};
                         width: 100%;
+                        transform: translate3d(0, 0, 0);
                     `}
                     className={`display-4 text-light ${
                         overflow ? 'animated-slide' : ''

@@ -6,7 +6,7 @@ import { AlbumSimplified } from 'spotify-web-sdk';
 type Props = {
     album: AlbumSimplified,
     handleClick: (album: AlbumSimplified) => void,
-    cardHeader?: React.ReactNode,
+    cardHeader?: any,
 };
 
 const AlbumCard = ({ album, handleClick, cardHeader }: Props) => {
@@ -32,6 +32,10 @@ const AlbumCard = ({ album, handleClick, cardHeader }: Props) => {
             </div>
         </div>
     );
+};
+
+AlbumCard.defaultProps = {
+    cardHeader: null,
 };
 
 export default AlbumCard;

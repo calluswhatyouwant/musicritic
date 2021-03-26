@@ -1,6 +1,6 @@
 /* @flow */
 import React, { useEffect, useState } from 'react';
-import { useIntl } from 'react-intl';
+import { useIntl, IntlShape } from 'react-intl';
 
 import './SearchInput.css';
 
@@ -44,7 +44,15 @@ const SearchInput = ({ handleSearch }: Props) => {
     );
 };
 
-const SearchTypeSelect = ({ type, setType, intl }) => (
+const SearchTypeSelect = ({
+    type,
+    setType,
+    intl,
+}: {
+    type: string,
+    setType: (type: string) => void,
+    intl: IntlShape,
+}) => (
     <div className="btn-group">
         <button
             type="button"
