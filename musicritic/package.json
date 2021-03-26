@@ -15,6 +15,7 @@
         "check-flow": "flow check ."
     },
     "dependencies": {
+        "@emotion/react": "^11.1.5",
         "axios": "^0.18.1",
         "bootstrap": "^4.3.1",
         "dotenv": "^6.0.0",
