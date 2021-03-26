@@ -4,8 +4,6 @@ import { Track } from 'spotify-web-sdk';
 
 import TrackCard from '../../common/track/TrackCard';
 
-import './Results.css';
-
 type Props = {
     results: Track[],
     history: any,
@@ -25,9 +23,7 @@ const TrackResult = ({ results, history }: Props) => {
     const listResults =
         tracks &&
         tracks.map(track => (
-            <div
-                key={track.id}
-                className="col-xl-2 col-lg-3 col-md-4 col-12 result">
+            <div key={track.id}>
                 <TrackCard
                     track={track}
                     handleClick={() => handleClick(track)}
@@ -35,7 +31,7 @@ const TrackResult = ({ results, history }: Props) => {
             </div>
         ));
 
-    return <div className="row">{listResults}</div>;
+    return <div className="card-columns p-2 p-sm-5 mx-0">{listResults}</div>;
 };
 
 export default TrackResult;

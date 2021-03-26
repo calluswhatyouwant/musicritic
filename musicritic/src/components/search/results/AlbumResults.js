@@ -5,8 +5,6 @@ import { AlbumSimplified } from 'spotify-web-sdk';
 
 import AlbumCard from '../../common/album/AlbumCard';
 
-import './Results.css';
-
 type Props = {
     results: AlbumSimplified[],
     history: any,
@@ -24,13 +22,11 @@ const AlbumResult = ({ results, history }: Props) => {
     };
 
     const listResults = albums.map(album => (
-        <div
-            key={album.id}
-            className="col-xl-2 col-lg-3 col-md-4 col-12 result">
+        <div key={album.id}>
             <AlbumCard album={album} handleClick={() => handleClick(album)} />
         </div>
     ));
-    return <div className="row">{listResults}</div>;
+    return <div className="card-columns p-2 p-sm-5 mx-0">{listResults}</div>;
 };
 
 export default AlbumResult;
