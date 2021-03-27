@@ -111,7 +111,7 @@ const TrackPage = () => {
             <div className="col-lg-8">
                 <ReviewSection
                     userLoggedIn={user && user !== 'unknown'}
-                    userReview={!!review?.createdAt}
+                    userReview={!!review?.content}
                     redirectUrl={`/track/${id}/review`}
                     reviews={reviews}
                 />

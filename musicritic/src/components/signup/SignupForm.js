@@ -94,8 +94,6 @@ export default withFormik({
             .then(() => {
                 setSubmitting(false);
             })
-            .catch(error => {
-                setSubmitting(false);
-            });
+            .catch(() => setSubmitting(false));
     },
 })(SignupForm);

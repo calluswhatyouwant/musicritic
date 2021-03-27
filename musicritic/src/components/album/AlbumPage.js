@@ -48,10 +48,10 @@ function AlbumPage() {
             const albumResponse = await getAlbumAPI(id);
             const mainArtistResponse = albumResponse.artists[0];
             if (userLoggedIn) {
-                const userReview = await getCurrentUserTrackReview(id);
+                const userReview = await getCurrentUserAlbumReview(id);
                 const ratingResponse = userReview.rating;
                 setReview(userReview.review);
-                setRating(ratingResponse || 0);
+                setUserRating(ratingResponse || 0);
             } else {
                 setUserRating(undefined);
             }
@@ -92,7 +92,7 @@ function AlbumPage() {
             </section>
             <section className="col-lg-8">
                 <ReviewSection
-                    userReview={!!review.createdAt}
+                    userReview={!!review?.content}
                     userLoggedIn={user && user !== 'unknown'}
                     redirectUrl={`/album/${id}/review`}
                     reviews={reviews}
