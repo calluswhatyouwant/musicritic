@@ -22,6 +22,7 @@ const TrackPage = () => {
     const user = useCurrentUser();
     const [loading, setLoading] = useState(true);
     const [rating, setRating] = useState(0);
+    const [review, setReview] = useState({});
     const [averageRating, setAverageRating] = useState(0);
     const [track, setTrack] = useState({});
     const [reviews, setReviews] = useState([]);
@@ -59,9 +60,9 @@ const TrackPage = () => {
                 : {};
             const reviewsResponse = await getTrackReviews(id);
             if (userLoggedIn) {
-                const {
-                    rating: ratingResponse,
-                } = await getCurrentUserTrackReview(id);
+                const userReview = await getCurrentUserTrackReview(id);
+                const ratingResponse = userReview.rating;
+                setReview(userReview.review);
                 setRating(ratingResponse || 0);
             } else {
                 setRating(undefined);
@@ -109,6 +110,8 @@ const TrackPage = () => {
             </div>
             <div className="col-lg-8">
                 <ReviewSection
+                    userLoggedIn={user && user !== 'unknown'}
+                    userReview={!!review?.createdAt}
                     redirectUrl={`/track/${id}/review`}
                     reviews={reviews}
                 />

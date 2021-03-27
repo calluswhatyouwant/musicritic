@@ -21,9 +21,9 @@ const TrackPageSidebar = ({
     prevTrack,
     nextTrack,
 }: Props) => (
-    <div>
+    <div className="track-summary">
         <div
-            className="album-summary track-summary text-light"
+            className="album-summary text-light"
             style={{ backgroundImage: `url(${track.album.images[0].url})` }}>
             <div className="track-page-header__data">
                 <img

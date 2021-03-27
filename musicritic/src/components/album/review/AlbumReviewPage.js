@@ -58,7 +58,7 @@ const AlbumReviewPage = () => {
     return !loading ? (
         <>
             <AlbumReviewPageHeader album={album} />
-            <div className="album-page container">
+            <div className="p-3 p-lg-5 pt-5 container">
                 <h4>
                     <FormattedMessage id="write-review-cta" />
                 </h4>
