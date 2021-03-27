@@ -25,7 +25,9 @@
     "next": "Próxima",
     "user-reviews": "Avaliações dos usuários",
     "no-reviews": "Ainda não há análises",
+    "no-review": "Você ainda não escreveu uma análise.",
     "compose-review": "Escrever Análise",
+    "edit-review": "Editar análise",
     "write-review": "Escrever análise",
     "write-review-cta": "O que você achou desta faixa?",
     "your-score": "Sua avaliação",
@@ -42,5 +44,8 @@
     "tracks": "Faixas",
     "tracks-in-album": "{trackCount, plural, =0 {nenhuma faixa} one {# faixa} other {# faixas}}",
     "tracklist": "Lista de faixas",
-    "latest-albums-by-artist": "Álbuns recentes por {artist}:"
+    "latest-albums-by-artist": "Álbuns recentes por {artist}:",
+    "rating-modal-title": "Calma!",
+    "rating-modal-prompt": "Tem certeza que quer atribuir a nota {rating} a {ratingContent}?",
+    "confirm": "Confirmar!"
 }
