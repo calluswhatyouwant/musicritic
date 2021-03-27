@@ -1,7 +1,6 @@
 /* @flow */
 
 import React, { useState, useEffect, createContext, useContext } from 'react';
-import { ToastContainer } from 'react-toastify';
 import type { User } from 'firebase';
 import './App.css';
 
@@ -41,7 +40,6 @@ const App = () => {
         <IntlProvider locale={locale}>
             <AuthContext.Provider value={{ user }}>
                 <Navbar locale={locale} changeLocale={changeLocale} />
-                <ToastContainer />
                 <MainContent />
             </AuthContext.Provider>
         </IntlProvider>
