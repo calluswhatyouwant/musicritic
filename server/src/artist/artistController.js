@@ -31,8 +31,10 @@ router.get('/artists/:id', async (req, res) => {
 
     const tracks = (
         await Promise.all(
-            albums.map(
-                async album => (await spotifySdk.getAlbumTracks(album.id)).items
+            albums.map(async album =>
+                (await spotifySdk.getAlbumTracks(album.id)).items.map(track => {
+                    return { ...track, album };
+                })
             )
         )
     ).flat();
@@ -83,7 +85,6 @@ router.get('/artists/:id', async (req, res) => {
             return { ...track, average };
         });
 
-    console.log('reviews', tracksReviews);
     res.status(200).send({
         artist: JSON.parse(objectToJson(artist)),
         topTracks: topTracks.map(t => ({
@@ -93,7 +94,12 @@ router.get('/artists/:id', async (req, res) => {
         albums: albums.map(a => JSON.parse(objectToJson(a))),
         topTracksAverages,
         albumsAverages,
-        bestRatedTracks,
+        bestRatedTracks: bestRatedTracks.map(track => {
+            return {
+                ...JSON.parse(objectToJson(track)),
+                album: JSON.parse(objectToJson(track.album)),
+            };
+        }),
         bestRatedAlbums,
     });
 });

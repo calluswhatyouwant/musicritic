@@ -23,6 +23,7 @@ const ArtistPageContent = ({
     bestRatedAlbums,
 }: Props) => {
     const [completeAlbums, setCompleteAlbums] = useState([]);
+    const [completeRatedAlbums, setCompleteRatedAlbums] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -48,6 +49,23 @@ const ArtistPageContent = ({
         fetchCompleteAlbums();
     }, [albums]);
 
+    useEffect(() => {
+        async function fetchCompleteRatedAlbums() {
+            const albumIds = bestRatedAlbums.map(album => album.id);
+            const averages = bestRatedAlbums.map(album => album.average);
+            const albumsResponse = await getSeveralAlbums(albumIds);
+            const albumsWithAverages = albumsResponse.map((a, index) => ({
+                ...objectToJson(a),
+                average: averages[index],
+            }));
+
+            setCompleteRatedAlbums(albumsWithAverages);
+            setLoading(false);
+        }
+
+        fetchCompleteRatedAlbums();
+    }, [bestRatedAlbums]);
+
     return loading ? (
         <Loading />
     ) : (
@@ -62,7 +80,7 @@ const ArtistPageContent = ({
             <h2 className="discography-section-title">
                 <FormattedMessage id="best-rated-albums" />
             </h2>
-            <DiscographySection albums={bestRatedAlbums} />
+            <DiscographySection albums={completeRatedAlbums} />
         </div>
     );
 };
