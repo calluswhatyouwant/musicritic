@@ -47,5 +47,7 @@
     "latest-albums-by-artist": "Latest albums by {artist}:",
     "rating-modal-title": "Wait!",
     "rating-modal-prompt": "Are you sure you want to rate {rating} to {ratingContent}?",
-    "confirm": "Confirm!"
+    "confirm": "Confirm!",
+    "next-page": "Next page",
+    "previous-page": "Previous page"
 }
