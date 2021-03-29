@@ -32,18 +32,20 @@ const UserTracksSection = () => {
     return loadingRecent || loadingTop ? (
         <Loading />
     ) : (
-        <div className="user-page-section__container border container shadow-sm">
+        <div className="user-page-section__container">
             <section className="user-page-section">
                 <TracksSectionTop currentTab={display} onClick={handleClick} />
-                {display === 'TOP' && (
-                    <TrackCarousel history={history} tracks={topTracks} />
-                )}
-                {display === 'RECENT' && (
-                    <RecentTracksCarousel
-                        history={history}
-                        tracks={recentTracks}
-                    />
-                )}
+                <div className="px-3">
+                    {display === 'TOP' && (
+                        <TrackCarousel history={history} tracks={topTracks} />
+                    )}
+                    {display === 'RECENT' && (
+                        <RecentTracksCarousel
+                            history={history}
+                            tracks={recentTracks}
+                        />
+                    )}
+                </div>
             </section>
         </div>
     );

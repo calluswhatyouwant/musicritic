@@ -1,6 +1,8 @@
 {
     "home": "Home",
     "search": "Search...",
+    "hello": "Hello!",
+    "hello-user": "Hello, {user}!",
     "logout": "Logout",
     "login-cta": "Login for the complete experience!",
     "spotify-login": "Login with Spotify",
@@ -22,8 +24,10 @@
     "previous": "Previous",
     "next": "Next",
     "user-reviews": "User Reviews",
+    "no-review": "You haven't reviewed this yet.",
     "no-reviews": "There are no reviews yet",
     "compose-review": "Compose Review",
+    "edit-review": "Edit Review",
     "write-review": "Write a review",
     "write-review-cta": "What did you think about this track?",
     "your-score": "Your score:",
@@ -40,5 +44,8 @@
     "tracks": "Tracks",
     "tracks-in-album": "{trackCount, plural, =0 {no track} one {# track} other {# tracks}}",
     "tracklist": "Tracklist",
-    "latest-albums-by-artist": "Latest albums by {artist}:"
+    "latest-albums-by-artist": "Latest albums by {artist}:",
+    "rating-modal-title": "Wait!",
+    "rating-modal-prompt": "Are you sure you want to rate {rating} to {ratingContent}?",
+    "confirm": "Confirm!"
 }

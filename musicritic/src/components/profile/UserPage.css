@@ -1,22 +1,12 @@
-.home-container {
-    padding-left: 5rem;
-    padding-right: 5rem;
+.user-page-section__container {
+    background-color: white;
+    padding: 3rem;
 }
 
 @media (max-width: 576px) {
-    .home-container {
-        padding-left: 2rem;
-        padding-right: 2rem;
+    .user-page-section__container {
+        padding: 1rem;
     }
-}
-
-.user-page-section__container {
-    background-color: white;
-    border-radius: .5rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
 }
 
 .user-page-section {
@@ -26,7 +16,7 @@
 }
 
 .user-page-section__title {
-    letter-spacing: -.01rem;
+    letter-spacing: -0.01rem;
 }
 
 .px-6 {

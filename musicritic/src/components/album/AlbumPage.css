@@ -1,17 +1,5 @@
-.album-page {
-    padding: 1.5rem;
-    margin: 1rem auto;
-    border-radius: .25rem;
-    background-color: white;
-}
-
-@media (max-width: 575.98px) { /* xs */
-    .album-page {
-        padding: 1rem 0;
-    }
-}
-
-@media (max-width: 991.98px) { /* < lg */
+@media (max-width: 991.98px) {
+    /* < lg */
     .album-page-section {
         margin-bottom: 1rem;
     }

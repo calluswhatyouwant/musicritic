@@ -14,26 +14,39 @@ type Author = {
 };
 
 type ReviewSectionProps = {
+    userLoggedIn: boolean,
+    userReview: boolean,
     redirectUrl: string,
     reviews: Object,
 };
 
-const ReviewSection = ({ redirectUrl, reviews }: ReviewSectionProps) => {
+const ReviewSection = ({
+    userLoggedIn,
+    userReview,
+    redirectUrl,
+    reviews,
+}: ReviewSectionProps) => {
     const reviewsWithText = reviews.filter(
         review => review.review && review.review.content
     );
 
-    const title =
-        reviewsWithText.length > 0 ? (
-            <FormattedMessage id="user-reviews" />
-        ) : (
-            <FormattedMessage id="no-reviews" />
-        );
+    const title = <FormattedMessage id="user-reviews" />;
+
     return (
-        <div className="review-section">
-            <SectionHeader title={title}>
-                <ComposeReviewButton redirectUrl={redirectUrl} />
-            </SectionHeader>
+        <div className="review-section p-2 p-sm-4">
+            {userLoggedIn && !userReview && (
+                <EmptyState redirectUrl={redirectUrl} />
+            )}
+            {reviewsWithText.length > 0 && (
+                <SectionHeader title={title}>
+                    {userReview && (
+                        <ComposeReviewButton
+                            redirectUrl={redirectUrl}
+                            userReview={userReview}
+                        />
+                    )}
+                </SectionHeader>
+            )}
             <div className="reviews-wrapper">
                 {reviewsWithText.map(review => (
                     <ReviewCard key={review.id} {...review} />
@@ -45,11 +58,25 @@ const ReviewSection = ({ redirectUrl, reviews }: ReviewSectionProps) => {
 
 type ComposeReviewButtonProps = {
     redirectUrl: string,
+    userReview: boolean,
 };
 
-const ComposeReviewButton = ({ redirectUrl }: ComposeReviewButtonProps) => (
+const EmptyState = ({ redirectUrl }: { redirectUrl: string }) => (
+    <div className="empty-state">
+        <i className="fas fa-compact-disc empty-state-icon" />
+        <h2 className="mb-4">
+            <FormattedMessage id="no-review" />
+        </h2>
+        <ComposeReviewButton redirectUrl={redirectUrl} userReview={false} />
+    </div>
+);
+
+const ComposeReviewButton = ({
+    redirectUrl,
+    userReview,
+}: ComposeReviewButtonProps) => (
     <a href={redirectUrl} className="compose-review-button">
-        <FormattedMessage id="compose-review" />
+        <FormattedMessage id={userReview ? 'edit-review' : 'compose-review'} />
     </a>
 );
 

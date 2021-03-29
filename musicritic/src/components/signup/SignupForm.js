@@ -4,7 +4,6 @@ import React from 'react';
 import { Form, Button } from 'reactstrap';
 import Yup from 'yup';
 import { withFormik } from 'formik';
-import { toast } from 'react-toastify';
 
 import { createUser } from '../../api/UserAPI';
 import FormField from '../common/form/FormField';
@@ -94,11 +93,7 @@ export default withFormik({
         createUser(values)
             .then(() => {
                 setSubmitting(false);
-                toast.success('User successfully created!');
             })
-            .catch(error => {
-                setSubmitting(false);
-                toast.error(error.message);
-            });
+            .catch(() => setSubmitting(false));
     },
 })(SignupForm);

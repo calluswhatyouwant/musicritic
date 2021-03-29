@@ -28,18 +28,20 @@ const HomePage = () => {
     }));
 
     return (
-        <div className="home-container">
+        <div>
             <SpotifyConnect />
-            <h1 className="mb-3">
-                <FormattedMessage id="recently-reviewed-albums" />
-            </h1>
-            <ReviewSection albumsWithReviews={albumsWithReviews} />
+            <div className="p-3 p-sm-5">
+                <h1 className="mb-3">
+                    <FormattedMessage id="recently-reviewed-albums" />
+                </h1>
+                <ReviewSection albumsWithReviews={albumsWithReviews} />
+            </div>
         </div>
     );
 };
 
 const ReviewSection = ({ albumsWithReviews }: { albumsWithReviews: any[] }) => (
-    <div className="row">
+    <div className="card-columns mx-0">
         {albumsWithReviews.map(albumWithReview => (
             <ReviewCardWithHeader {...albumWithReview} />
         ))}
@@ -57,38 +59,38 @@ const ReviewCardWithHeader = ({
     const [imageAvailable, setImageAvailable] = useState(author.avatarUrl);
 
     return album ? (
-        <div className="col-lg-3 col-md-4 pb-3">
-            <div className="review-user-info bg-light p-2">
-                {imageAvailable ? (
-                    <img
-                        onError={() => setImageAvailable(false)}
-                        className="review-user-photo"
-                        src={author.avatarUrl}
-                        alt={`${author.displayName}`}
-                    />
-                ) : (
-                    <i className="fas fa-user-circle text-dark ml-0 mr-3" />
-                )}
-                <span className="review-user-name">
-                    <FormattedMessage
-                        id="review-rating-user-name"
-                        values={{
-                            rating,
-                            icon: <i className="fas fa-star" />,
-                            authorName: (
-                                <span className="bold-text">
-                                    {author.displayName ?? 'User'}
-                                </span>
-                            ),
-                        }}
-                    />
-                </span>
-            </div>
-            <AlbumCard
-                album={album}
-                handleClick={() => history.push(`/album/${album.id}`)}
-            />
-        </div>
+        <AlbumCard
+            cardHeader={
+                <div className="review-user-info bg-light p-2">
+                    {imageAvailable ? (
+                        <img
+                            onError={() => setImageAvailable(false)}
+                            className="review-user-photo"
+                            src={author.avatarUrl}
+                            alt={`${author.displayName}`}
+                        />
+                    ) : (
+                        <i className="fas fa-user-circle text-dark ml-0 mr-3" />
+                    )}
+                    <span className="review-user-name">
+                        <FormattedMessage
+                            id="review-rating-user-name"
+                            values={{
+                                rating,
+                                icon: <i className="fas fa-star" />,
+                                authorName: (
+                                    <span className="bold-text">
+                                        {author.displayName ?? 'User'}
+                                    </span>
+                                ),
+                            }}
+                        />
+                    </span>
+                </div>
+            }
+            album={album}
+            handleClick={() => history.push(`/album/${album.id}`)}
+        />
     ) : null;
 };
 
@@ -96,8 +98,8 @@ const SpotifyConnect = () => {
     const serverBaseUri = process.env.SERVER_BASE_URL || '';
 
     return (
-        <div className="row align-items-center border border-dark rounded bg-dark text-light p-4 mb-3">
-            <h1 className="col-12 col-lg-8">
+        <div className="row align-items-center bg-dark text-light p-3 p-sm-5 mb-3 mx-0">
+            <h1 className="col-12 col-lg-8 mb-3 mb-lg-0">
                 <FormattedMessage id="login-cta" />
             </h1>
             <div className="col-12 col-lg-4">

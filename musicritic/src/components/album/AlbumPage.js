@@ -24,6 +24,7 @@ function AlbumPage() {
     const [mainArtist, setMainArtist] = useState({});
     const [userRating, setUserRating] = useState(0);
     const [averageRating, setAverageRating] = useState(0);
+    const [review, setReview] = useState({});
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [chosenRating, setChosenRating] = useState(0);
@@ -47,9 +48,9 @@ function AlbumPage() {
             const albumResponse = await getAlbumAPI(id);
             const mainArtistResponse = albumResponse.artists[0];
             if (userLoggedIn) {
-                const {
-                    rating: ratingResponse,
-                } = await getCurrentUserAlbumReview(id);
+                const userReview = await getCurrentUserAlbumReview(id);
+                const ratingResponse = userReview.rating;
+                setReview(userReview.review);
                 setUserRating(ratingResponse || 0);
             } else {
                 setUserRating(undefined);
@@ -91,6 +92,8 @@ function AlbumPage() {
             </section>
             <section className="col-lg-8">
                 <ReviewSection
+                    userReview={!!review?.content}
+                    userLoggedIn={user && user !== 'unknown'}
                     redirectUrl={`/album/${id}/review`}
                     reviews={reviews}
                 />

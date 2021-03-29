@@ -68,8 +68,8 @@
     text-align: justify;
 }
 
-.review-text>p {
-    margin-bottom: .25rem;
+.review-text > p {
+    margin-bottom: 0.25rem;
 }
 
 .change-text-button {
@@ -89,4 +89,23 @@
     font-size: 0.9rem;
     opacity: 0.7;
     padding: 0.5rem 1rem 0.5rem 0.5rem;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border: dashed 1px darkgray;
+    border-radius: 4px;
+    padding: 3rem;
+    background-color: rgb(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+}
+
+.empty-state-icon {
+    font-size: 5rem;
+    color: darkgray;
+    margin-bottom: 1rem;
 }

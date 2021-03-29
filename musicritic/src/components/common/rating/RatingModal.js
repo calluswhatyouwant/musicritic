@@ -1,6 +1,7 @@
 /* @flow */
 
 import React, { useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 type Props = {
@@ -50,16 +51,24 @@ const RatingModal = ({
 }: Props) => (
     <div>
         <Modal isOpen={show} toggle={cancel}>
-            <ModalHeader toggle={cancel}>Wait!</ModalHeader>
+            <ModalHeader toggle={cancel}>
+                <FormattedMessage id="rating-modal-title" />
+            </ModalHeader>
             <ModalBody>
-                Are you sure you want to rate {rating} to {ratingContent}?
+                <FormattedMessage
+                    id="rating-modal-prompt"
+                    values={{
+                        rating: <b>{rating}</b>,
+                        ratingContent: <b>{ratingContent}</b>,
+                    }}
+                />
             </ModalBody>
             <ModalFooter>
-                <Button color="primary" onClick={confirm}>
-                    Yes, I am
-                </Button>{' '}
                 <Button color="secondary" onClick={cancel}>
-                    Cancel
+                    <FormattedMessage id="cancel" />
+                </Button>
+                <Button color="primary" onClick={confirm}>
+                    <FormattedMessage id="confirm" />
                 </Button>
             </ModalFooter>
         </Modal>

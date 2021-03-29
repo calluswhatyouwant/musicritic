@@ -1,6 +1,6 @@
 /* @flow */
 import React, { useEffect, useState } from 'react';
-import { useIntl } from 'react-intl';
+import { useIntl, IntlShape } from 'react-intl';
 
 import './SearchInput.css';
 
@@ -17,10 +17,6 @@ const SearchInput = ({ handleSearch }: Props) => {
         setQuery(event.target.value);
     };
 
-    const handleSelectChange = event => {
-        setType(event.target.value);
-    };
-
     const handleKeyPress = event => {
         if (event.key === 'Enter' && query.trim() !== '') {
             handleSearch(query, type);
@@ -34,7 +30,7 @@ const SearchInput = ({ handleSearch }: Props) => {
     }, [query, type]);
 
     return (
-        <div className="search-input-container">
+        <div className="search-input-container text-dark">
             <input
                 type="text"
                 placeholder={intl.formatMessage({ id: 'search' })}
@@ -43,21 +39,50 @@ const SearchInput = ({ handleSearch }: Props) => {
                 onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
             />
-            <select
-                onChange={handleSelectChange}
-                className="search-input-select">
-                <option value="tracks">
-                    {intl.formatMessage({ id: 'tracks' })}
-                </option>
-                <option value="albums">
-                    {intl.formatMessage({ id: 'albums' })}
-                </option>
-                <option value="artists">
-                    {intl.formatMessage({ id: 'artists' })}
-                </option>
-            </select>
+            <SearchTypeSelect type={type} setType={setType} intl={intl} />
         </div>
     );
 };
+
+const SearchTypeSelect = ({
+    type,
+    setType,
+    intl,
+}: {
+    type: string,
+    setType: (type: string) => void,
+    intl: IntlShape,
+}) => (
+    <div className="btn-group">
+        <button
+            type="button"
+            className="dropdown-toggle search-input-select"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+            {intl.formatMessage({ id: type })}
+        </button>
+        <div className="dropdown-menu dropdown-menu-right">
+            <button
+                onClick={() => setType('tracks')}
+                className="dropdown-item"
+                type="button">
+                {intl.formatMessage({ id: 'tracks' })}
+            </button>
+            <button
+                onClick={() => setType('albums')}
+                className="dropdown-item"
+                type="button">
+                {intl.formatMessage({ id: 'albums' })}
+            </button>
+            <button
+                onClick={() => setType('artists')}
+                className="dropdown-item"
+                type="button">
+                {intl.formatMessage({ id: 'artists' })}
+            </button>
+        </div>
+    </div>
+);
 
 export default SearchInput;
