@@ -47,5 +47,7 @@
     "latest-albums-by-artist": "Álbuns recentes por {artist}:",
     "rating-modal-title": "Calma!",
     "rating-modal-prompt": "Tem certeza que quer atribuir a nota {rating} a {ratingContent}?",
-    "confirm": "Confirmar!"
+    "confirm": "Confirmar!",
+    "next-page": "Próxima",
+    "previous-page": "Anterior"
 }
