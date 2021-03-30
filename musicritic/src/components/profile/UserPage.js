@@ -13,7 +13,7 @@ import './UserPage.css';
 const UserPage = () => {
     const spotifyToken = localStorage.getItem('spotifyToken');
     const spotifyRefreshToken = localStorage.getItem('spotifyRefresh');
-    
+
     if (spotifyToken && spotifyRefreshToken) {
         init(spotifyToken, spotifyRefreshToken);
         return (

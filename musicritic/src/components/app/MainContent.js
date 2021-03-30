@@ -17,18 +17,12 @@ import ArtistPage from '../artist/ArtistPage';
 
 const MainContent = () => (
     <Switch>
-        <ContainerizedRoute exact path="/">
-            <UserPage />
-        </ContainerizedRoute>
-        <ContainerizedRoute exact path="/home">
-            <UserPage />
-        </ContainerizedRoute>
+        <Route exact path="/" component={UserPage} />
+        <Route exact path="/home" component={UserPage} />
         <ContainerizedRoute exact path="/signup">
             <SignupPage />
         </ContainerizedRoute>
-        <ContainerizedRoute
-            exact
-            path="/search/(tracks|artists|playlists|albums)/:query">
+        <ContainerizedRoute exact path="/search/(tracks|artists|albums)/:query">
             <SearchResultsPage />
         </ContainerizedRoute>
         <Route

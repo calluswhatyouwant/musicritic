@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import {
-    getNextAlbumTrack,
-    getPrevAlbumTrack,
-} from '../../api/SpotifyWebAPI';
+import { getNextAlbumTrack, getPrevAlbumTrack } from '../../api/SpotifyWebAPI';
 
 import TrackPageSidebar from './TrackPageSidebar';
 
@@ -16,7 +13,7 @@ import {
     getTrackAverageRating,
     getCurrentUserTrackReview,
     postTrackReview,
-    getTrack as getTrackApi
+    getTrack as getTrackApi,
 } from '../../api/TrackAPI';
 import RatingModal, { useRatingModal } from '../common/rating/RatingModal';
 import { useCurrentUser } from '../app/App';
@@ -25,6 +22,7 @@ const TrackPage = () => {
     const user = useCurrentUser();
     const [loading, setLoading] = useState(true);
     const [rating, setRating] = useState(0);
+    const [review, setReview] = useState({});
     const [averageRating, setAverageRating] = useState(0);
     const [track, setTrack] = useState({});
     const [reviews, setReviews] = useState([]);
@@ -32,8 +30,19 @@ const TrackPage = () => {
     const [nextTrack, setNextTrack] = useState({});
     const [chosenRating, setChosenRating] = useState(0);
     const { id } = useParams();
-    const [isOpen, showConfirmationModal, postRating, cancelRating] = useRatingModal(id, chosenRating, rating, setChosenRating, postTrackReview);
-    
+    const [
+        isOpen,
+        showConfirmationModal,
+        postRating,
+        cancelRating,
+    ] = useRatingModal(
+        id,
+        chosenRating,
+        rating,
+        setChosenRating,
+        postTrackReview
+    );
+
     useEffect(() => {
         async function getTrackFromAPI() {
             const userLoggedIn = user && user !== 'unknown';
@@ -43,27 +52,17 @@ const TrackPage = () => {
                 trackNumber,
                 album: { id: albumId },
             } = trackResponse;
-            const prevTrackResponse = userLoggedIn ?
-                await getPrevAlbumTrack(
-                    albumId,
-                    discNumber,
-                    trackNumber
-                )
-                :
-                {};
-            const nextTrackResponse = userLoggedIn ?
-                await getNextAlbumTrack(
-                    albumId,
-                    discNumber,
-                    trackNumber
-                )
-                :
-                {};
+            const prevTrackResponse = userLoggedIn
+                ? await getPrevAlbumTrack(albumId, discNumber, trackNumber)
+                : {};
+            const nextTrackResponse = userLoggedIn
+                ? await getNextAlbumTrack(albumId, discNumber, trackNumber)
+                : {};
             const reviewsResponse = await getTrackReviews(id);
             if (userLoggedIn) {
-                const { rating: ratingResponse } = await getCurrentUserTrackReview(
-                    id
-                );
+                const userReview = await getCurrentUserTrackReview(id);
+                const ratingResponse = userReview.rating;
+                setReview(userReview.review);
                 setRating(ratingResponse || 0);
             } else {
                 setRating(undefined);
@@ -90,14 +89,16 @@ const TrackPage = () => {
         updateAverageRating();
     }, [rating]);
 
-    
-    // TODO Use actual values
     return !loading ? (
-        <div className="row album-page container">
-            <div className="col-lg-4">
-                <RatingModal show={isOpen} cancel={cancelRating} rating={chosenRating} ratingContent={track.name} confirm={postRating}/>
-
-
+        <div className="row m-0">
+            <div className="col-lg-4 p-0">
+                <RatingModal
+                    show={isOpen}
+                    cancel={cancelRating}
+                    rating={chosenRating}
+                    ratingContent={track.name}
+                    confirm={postRating}
+                />
                 <TrackPageSidebar
                     userRating={rating}
                     averageRating={averageRating}
@@ -108,7 +109,9 @@ const TrackPage = () => {
                 />
             </div>
             <div className="col-lg-8">
-                <ReviewSection 
+                <ReviewSection
+                    userLoggedIn={user && user !== 'unknown'}
+                    userReview={!!review?.content}
                     redirectUrl={`/track/${id}/review`}
                     reviews={reviews}
                 />

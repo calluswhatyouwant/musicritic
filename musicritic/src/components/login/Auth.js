@@ -26,10 +26,10 @@ const Auth = () => {
         login();
     }, []);
 
-    if (user && localStorage.getItem('spotifyToken')) { 
+    if (user && localStorage.getItem('spotifyToken')) {
         history.push('/home');
         history.go(0);
-    } 
+    }
 
     return <Loading />;
 };

@@ -13,8 +13,13 @@ const refreshTokenFunction = async (refreshToken: string): Promise<string> => {
 
 export const init = (spotifyToken?: string, spotifyRefreshToken?: string) => {
     const token = spotifyToken || localStorage.getItem('spotifyToken') || '';
-    const refreshToken = spotifyRefreshToken || localStorage.getItem('spotifyRefresh') || '';
-    spotify.init({ token, refreshToken, refreshTokenFunction: refreshTokenFunction(refreshToken) });
+    const refreshToken =
+        spotifyRefreshToken || localStorage.getItem('spotifyRefresh') || '';
+    spotify.init({
+        token,
+        refreshToken,
+        refreshTokenFunction: refreshTokenFunction(refreshToken),
+    });
 };
 
 init();
@@ -22,12 +27,12 @@ init();
 export const getRecentlyPlayedTracks = () =>
     spotify
         .getCurrentUserRecentlyPlayedTracks({ limit: 50 })
-        .then((page) => page.items);
+        .then(page => page.items);
 
 export const getTopPlayedTracks = async () =>
     spotify
         .getCurrentUserTopTracks({ limit: 50, time_range: 'short_term' })
-        .then((page) => page.items);
+        .then(page => page.items);
 
 export const search = async (query: string) =>
     spotify.search(query, 'album,artist,playlist,track', { limit: 50 });
@@ -42,11 +47,13 @@ export const getCurrentUserCurrentlyPlayingTrack = async () =>
 
 export const getAlbum = async (id: string) => spotify.getAlbum(id);
 
-export const getSeveralAlbums = async (ids: string[]) => spotify.getSeveralAlbums(ids, { market: 'from_token' });
+export const getSeveralAlbums = async (ids: string[]) =>
+    spotify.getSeveralAlbums(ids, { market: 'from_token' });
 
 export const getArtist = async (id: string) => spotify.getArtist(id);
 
-export const getArtistTopTracks = async (id: string) => spotify.getArtistTopTracks(id, 'US');
+export const getArtistTopTracks = async (id: string) =>
+    spotify.getArtistTopTracks(id, 'US');
 
 // TODO Deal with multiple discs
 export const getNextAlbumTrack = async (

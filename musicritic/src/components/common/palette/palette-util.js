@@ -4,12 +4,12 @@ const WHITE = '#FFFFFF';
 const BLACK = '#000000';
 
 type Palette = {
-    darkMuted: string | null;
-    darkVibrant: string | null;
-    muted: string | null;
-    vibrant: string | null;
-    lightMuted: string | null;
-    lightVibrant: string | null;
+    darkMuted: string | null,
+    darkVibrant: string | null,
+    muted: string | null,
+    vibrant: string | null,
+    lightMuted: string | null,
+    lightVibrant: string | null,
 };
 
 export const backgroundColor = (palette: Palette) => {
@@ -23,8 +23,13 @@ export const backgroundColor = (palette: Palette) => {
     } = palette;
 
     return (
-        darkVibrant || lightVibrant || vibrant ||
-        darkMuted || muted || lightMuted || BLACK
+        darkVibrant ||
+        lightVibrant ||
+        vibrant ||
+        darkMuted ||
+        muted ||
+        lightMuted ||
+        BLACK
     );
 };
 
@@ -35,12 +40,12 @@ export const lightenTextColor = (rgbColor: string) => {
     const num = parseInt(color, 16);
 
     const currentR = num >> 16;
-    const currentB = (num >> 8) & 0x00FF;
-    const currentG = num & 0x0000FF;
+    const currentB = (num >> 8) & 0x00ff;
+    const currentG = num & 0x0000ff;
 
-    const r = Math.max(currentR + ((255 - currentR) * FACTOR), 0);
-    const b = Math.max(currentB + ((255 - currentB) * FACTOR), 0);
-    const g = Math.max(currentG + ((255 - currentG) * FACTOR), 0);
+    const r = Math.max(currentR + (255 - currentR) * FACTOR, 0);
+    const b = Math.max(currentB + (255 - currentB) * FACTOR, 0);
+    const g = Math.max(currentG + (255 - currentG) * FACTOR, 0);
 
     return `#${(g | (b << 8) | (r << 16)).toString(16)}`;
 };

@@ -1,5 +1,17 @@
-.spinner {
-  height: 10rem;
-  width: 10rem;
-  border-width: 1rem;
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotate {
+    animation: rotate infinite 1s linear;
+}
+
+.rotate i {
+    font-size: 7rem;
 }

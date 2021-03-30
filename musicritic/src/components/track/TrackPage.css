@@ -23,7 +23,7 @@
     justify-content: center;
     align-items: center;
     flex: 1;
-    transition: all .5 ease;
+    transition: all 0.5 ease;
 }
 
 .track-album-navigation-button:hover {
@@ -94,4 +94,8 @@
 
 .track-page-body {
     margin-top: 2.5rem;
+}
+
+.track-summary {
+    min-height: calc(100vh - 56px);
 }

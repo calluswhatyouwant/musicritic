@@ -4,33 +4,33 @@ import { Artist } from 'spotify-web-sdk';
 
 import ArtistCard from '../../common/artist/ArtistCard';
 
-import './Results.css';
-
 type Props = {
     results: Artist[],
     history: any,
-}
+};
 
 const ArtistResult = ({ results, history }: Props) => {
     const [artists, setArtists] = useState(results);
 
-    useEffect(
-        () => {
-            setArtists(results);
-        },
-        [results]
-    );
+    useEffect(() => {
+        setArtists(results);
+    }, [results]);
 
     const handleClick = artist => {
         history.push(`/artist/${artist.id}`);
     };
 
-    const listResults = artists.map(artist => (
-        <div key={artist.id} className="col-3 result">
-            <ArtistCard handleClick={() => handleClick(artist)} artist={artist} />
-        </div>
-    ));
-    return <div className="row">{listResults}</div>;
+    const listResults = artists
+        .filter(artist => artist.images[0])
+        .map(artist => (
+            <div key={artist.id}>
+                <ArtistCard
+                    handleClick={() => handleClick(artist)}
+                    artist={artist}
+                />
+            </div>
+        ));
+    return <div className="card-columns p-2 p-sm-5 mx-0">{listResults}</div>;
 };
 
 export default ArtistResult;

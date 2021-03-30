@@ -28,8 +28,9 @@ const CurrentlyPlayingTrackSection = () => {
     return (
         <Fragment>
             {currentlyPlaying.isPlaying && (
-                <CustomPalette imageUrl={currentlyPlaying.item.album.images[0].url}>
-                    <div className="currently-playing-track user-page-section__container border container shadow-sm px-4">
+                <CustomPalette
+                    imageUrl={currentlyPlaying.item.album.images[0].url}>
+                    <div className="currently-playing-track user-page-section__container">
                         <section className="user-page-section">
                             <CurrentlyPlayingTrack
                                 history={history}

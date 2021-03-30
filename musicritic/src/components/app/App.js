@@ -1,13 +1,14 @@
 /* @flow */
 
 import React, { useState, useEffect, createContext, useContext } from 'react';
-import { ToastContainer } from 'react-toastify';
 import type { User } from 'firebase';
 import './App.css';
 
 import Navbar from './Navbar';
 import MainContent from './MainContent';
 import auth from '../../firebase/firebase-config';
+import IntlProvider from '../../i18n/intl-provider';
+import { useLocale } from '../../utils/hooks';
 
 export const useCurrentUser = () => {
     const [user, setUser] = useState('unknown');
@@ -32,13 +33,16 @@ export const useSession = () => {
 };
 
 const App = () => {
+    const { locale, changeLocale } = useLocale();
     const user = useCurrentUser();
+
     return (
-        <AuthContext.Provider value={{ user }}>
-            <Navbar />
-            <ToastContainer />
-            <MainContent />
-        </AuthContext.Provider>
+        <IntlProvider locale={locale}>
+            <AuthContext.Provider value={{ user }}>
+                <Navbar locale={locale} changeLocale={changeLocale} />
+                <MainContent />
+            </AuthContext.Provider>
+        </IntlProvider>
     );
 };
 

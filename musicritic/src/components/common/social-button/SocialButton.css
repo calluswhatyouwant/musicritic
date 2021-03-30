@@ -14,19 +14,20 @@
 }
 
 .btn-spotify {
-    background-color: #1ED760 !important;
-    border-color: #1ED760 !important;
+    background-color: #1ed760 !important;
+    border-color: #1ed760 !important;
 }
 
 .btn-social {
+    max-width: 20rem;
     font-size: 20px !important;
     color: white;
-    font-weight: 300;
     box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+    padding: 0.25rem 0.5rem;
 }
 
-.fit-content {
-    width: fit-content;
+.btn-social:hover {
+    color: white;
 }
 
 .fa {

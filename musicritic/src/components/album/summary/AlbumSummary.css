@@ -1,5 +1,5 @@
 .album-summary {
-    border-radius: .25rem;
+    border-radius: 0.25rem;
     position: relative;
     height: fit-content;
     padding-top: 1rem;
@@ -40,7 +40,7 @@
 
 .album-tracklist-title {
     background-color: black;
-    padding: .75rem;
+    padding: 0.75rem;
     width: 100%;
     text-transform: uppercase;
 }

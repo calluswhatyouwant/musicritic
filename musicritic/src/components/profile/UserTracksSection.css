@@ -4,4 +4,11 @@
 
 .tracks-section-switch__button {
     background-color: lightgray;
+    display: flex;
+    align-items: center;
+}
+
+.tracks-section-switch__text {
+    font-size: 0.75rem;
+    margin: 0 0 0.1rem 0.5rem;
 }

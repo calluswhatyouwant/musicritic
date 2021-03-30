@@ -1,18 +1,24 @@
 /* @flow */
 
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { NavLink, useHistory } from 'react-router-dom';
 
 import { useSession } from '../app/App';
 import { signOut } from '../../firebase/auth';
 import SearchInput from '../search/SearchInput';
 
-const Navbar = () => {
+type Props = {
+    changeLocale: (locale: string) => void,
+};
+
+const Navbar = ({ changeLocale }: Props) => {
     const history = useHistory();
     const user = useSession();
+    const userLoggedIn = user && user !== 'unknown';
 
-    const handleSearch = query => {
-        history.push(`/search/tracks/${query}`);
+    const handleSearch = (query: string, type: string) => {
+        history.push(`/search/${type}/${query}`);
     };
 
     const handleLogout = () => {
@@ -26,7 +32,7 @@ const Navbar = () => {
 
     return (
         <nav className="navbar navbar-expand-md navbar-dark sticky-top">
-            <div className="container">
+            <div className="navbar-container">
                 <NavbarLink href="/" text="Musicritic" brand />
                 <button
                     className="navbar-toggler"
@@ -35,38 +41,99 @@ const Navbar = () => {
                     data-target="#navbar">
                     <span className="navbar-toggler-icon" />
                 </button>
-                <div className="form-inline search">
-                    <SearchInput handleSearch={handleSearch} />
-                </div>
-                <div
-                    className="navbar-collapse justify-content-stretch"
-                    id="navbar">
-                    <ul className="navbar-nav ml-auto">
-                        <NavbarItem text="Home" href="/home" />
-                    </ul>
-                    { user && user !== 'unknown' && <LogoutButton handleLogout={handleLogout}/> }
+                <div className="collapse navbar-collapse" id="navbar">
+                    <div className="search">
+                        <SearchInput handleSearch={handleSearch} />
+                    </div>
+                    <div className="nav-menus">
+                        <LocaleSwitcher changeLocale={changeLocale} />
+                        {userLoggedIn && (
+                            <UserDropdownMenu
+                                user={user}
+                                handleLogout={handleLogout}
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
         </nav>
     );
 };
 
-type NavbarItemProps = {
-    href: string,
-    text: string,
-}
+const LocaleSwitcher = ({ changeLocale }: Props) => (
+    <div className="btn-group">
+        <button
+            type="button"
+            className="dropdown-toggle select-locale"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+            <i className="fas fa-globe" />
+        </button>
+        <div className="dropdown-menu dropdown-menu-right">
+            <button
+                onClick={() => changeLocale('pt-br')}
+                className="dropdown-item"
+                type="button">
+                PT-BR
+            </button>
+            <button
+                onClick={() => changeLocale('en')}
+                className="dropdown-item"
+                type="button">
+                EN
+            </button>
+        </div>
+    </div>
+);
 
-const NavbarItem = ({ href, text }: NavbarItemProps) => (
-    <li className="nav-item">
-        <NavbarLink href={href} text={text} />
-    </li>
+type UserDropdownMenuProps = { user: any, handleLogout: () => void };
+
+const UserDropdownMenu = ({ user, handleLogout }: UserDropdownMenuProps) => (
+    <div className="btn-group">
+        <button
+            type="button"
+            className="dropdown-toggle select-locale"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+            {user.photoURL ? (
+                <img
+                    className="user-image"
+                    src={user.photoURL}
+                    alt={user.displayName ?? ''}
+                />
+            ) : (
+                <i className="fas fa-user-circle" />
+            )}
+        </button>
+        <div className="dropdown-menu dropdown-menu-right">
+            {user.displayName && (
+                <>
+                    <p className="hello-user">
+                        <FormattedMessage
+                            id="hello-user"
+                            values={{ user: <b>{user.displayName}</b> }}
+                        />
+                    </p>
+                    <hr />
+                </>
+            )}
+            <button
+                className="dropdown-item"
+                type="button"
+                onClick={handleLogout}>
+                <FormattedMessage id="logout" />
+            </button>
+        </div>
+    </div>
 );
 
 type NavbarLinkProps = {
     href: string,
     text: string,
     brand?: boolean,
-}
+};
 
 const NavbarLink = ({ text, href, brand }: NavbarLinkProps) => (
     <NavLink className={brand ? 'navbar-brand brand' : 'nav-link'} to={href}>
@@ -76,15 +143,6 @@ const NavbarLink = ({ text, href, brand }: NavbarLinkProps) => (
 
 NavbarLink.defaultProps = {
     brand: false,
-}
-
-type LogoutButtonProps = {
-    handleLogout: () => void
 };
-
-const LogoutButton = ({ handleLogout }: LogoutButtonProps) =>
-        <button type='button' className='logout-button' onClick={handleLogout}>
-            Logout
-        </button>
 
 export default Navbar;

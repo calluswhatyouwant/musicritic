@@ -5,7 +5,7 @@ import React from 'react';
 import './SectionHeader.css';
 
 type SectionHeaderProps = {
-    title: string,
+    title: any,
     subtitle?: string | null,
     children?: Object | null,
 };

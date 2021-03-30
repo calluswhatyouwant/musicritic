@@ -11,12 +11,12 @@
 
 .artist-albums-grid__content {
     margin-left: 0;
-    margin-right: .5rem;
-    margin-bottom: -.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: -0.5rem;
 }
 
 .artist-album-grid__item {
-    padding: 0 0 .5rem .5rem;
+    padding: 0 0 0.5rem 0.5rem;
 }
 
 .more-albums-button {
@@ -24,7 +24,7 @@
     height: 100%;
     width: 100%;
     position: relative;
-    transition: background-image .15s ease-in-out;
+    transition: background-image 0.15s ease-in-out;
 }
 
 .more-albums-button__content {
@@ -32,7 +32,7 @@
     height: 100%;
     width: 100%;
     position: absolute;
-    transition: color .15s ease-in-out, background-color .15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
 }
 
 .more-albums-button__content:hover {
@@ -41,7 +41,8 @@
     cursor: pointer;
 }
 
-.artist-album, .more-albums-button__link {
+.artist-album,
+.more-albums-button__link {
     width: inherit;
 }
 
@@ -62,8 +63,9 @@
     text-decoration: none;
 }
 
-.artist-album:hover, .artist-album--current {
-    border: .25rem solid whitesmoke;
+.artist-album:hover,
+.artist-album--current {
+    border: 0.25rem solid whitesmoke;
 }
 
 .artist-album--current:hover {

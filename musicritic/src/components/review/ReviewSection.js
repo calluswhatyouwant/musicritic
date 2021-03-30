@@ -1,35 +1,11 @@
 /* @flow */
 
 import React, { useState } from 'react';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 
 import SectionHeader from '../common/section-header/SectionHeader';
 
 import './ReviewSection.css';
-
-const formatDate = (date: Date) => {
-    const daySuffixes = ['th', 'st', 'nd', 'rd'];
-    const monthNames = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-    ];
-
-    const d = new Date(date);
-    const month = monthNames[d.getMonth()];
-    const daySuffix =
-        d.getDate() < 3 ? daySuffixes[d.getDate()] : daySuffixes[0];
-
-    return `${month} ${d.getDate()}${daySuffix}, ${d.getFullYear()}`;
-};
 
 type Author = {
     displayName: string,
@@ -37,49 +13,70 @@ type Author = {
     authorUid: string,
 };
 
-// type Review = {
-//     id: string,
-//     author: Author,
-//     trackId: string,
-//     rating: number,
-//     review?: {
-//         createdAt: Date,
-//         updatedAt: Date,
-//         content: string,
-//     },
-// };
-
 type ReviewSectionProps = {
+    userLoggedIn: boolean,
+    userReview: boolean,
     redirectUrl: string,
     reviews: Object,
 };
 
-const ReviewSection = ({ redirectUrl, reviews }: ReviewSectionProps) => {
-    const reviewsWithText = reviews.filter(review => review.review && review.review.content);
+const ReviewSection = ({
+    userLoggedIn,
+    userReview,
+    redirectUrl,
+    reviews,
+}: ReviewSectionProps) => {
+    const reviewsWithText = reviews.filter(
+        review => review.review && review.review.content
+    );
 
-    const title = reviewsWithText.length > 0 ? "User Reviews" : "There are no reviews yet to show";
+    const title = <FormattedMessage id="user-reviews" />;
+
     return (
-        <div className="review-section">
-            <SectionHeader title={title}>
-                <ComposeReviewButton redirectUrl={redirectUrl} />
-            </SectionHeader>
+        <div className="review-section p-2 p-sm-4">
+            {userLoggedIn && !userReview && (
+                <EmptyState redirectUrl={redirectUrl} />
+            )}
+            {reviewsWithText.length > 0 && (
+                <SectionHeader title={title}>
+                    {userReview && (
+                        <ComposeReviewButton
+                            redirectUrl={redirectUrl}
+                            userReview={userReview}
+                        />
+                    )}
+                </SectionHeader>
+            )}
             <div className="reviews-wrapper">
-                {reviewsWithText
-                    .map(review => (
-                        <ReviewCard key={review.id} {...review} />
-                    ))}
+                {reviewsWithText.map(review => (
+                    <ReviewCard key={review.id} {...review} />
+                ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
 type ComposeReviewButtonProps = {
-    redirectUrl: string
-}
+    redirectUrl: string,
+    userReview: boolean,
+};
 
-const ComposeReviewButton = ({ redirectUrl }: ComposeReviewButtonProps) => (
+const EmptyState = ({ redirectUrl }: { redirectUrl: string }) => (
+    <div className="empty-state">
+        <i className="fas fa-compact-disc empty-state-icon" />
+        <h2 className="mb-4">
+            <FormattedMessage id="no-review" />
+        </h2>
+        <ComposeReviewButton redirectUrl={redirectUrl} userReview={false} />
+    </div>
+);
+
+const ComposeReviewButton = ({
+    redirectUrl,
+    userReview,
+}: ComposeReviewButtonProps) => (
     <a href={redirectUrl} className="compose-review-button">
-        Compose Review
+        <FormattedMessage id={userReview ? 'edit-review' : 'compose-review'} />
     </a>
 );
 
@@ -95,8 +92,6 @@ type ReviewCardProps = {
 
 const ReviewCard = ({ rating, review, author }: ReviewCardProps) => {
     const isLongReview = review.content.length > 500;
-    const reviewDate = review ? formatDate(review.updatedAt) : null;
-
     // TODO Adapt to work with HTML
     const [displayedText, setDisplayedText] = useState(
         isLongReview ? `${review.content.substring(0, 497)}...` : review.content
@@ -110,22 +105,37 @@ const ReviewCard = ({ rating, review, author }: ReviewCardProps) => {
         setDisplayedText(`${review.content.substring(0, 247)}...`);
     };
 
+    const [imageAvailable, setImageAvailable] = useState(author.avatarUrl);
+
     return (
         <div className="review-card">
             <div className="review-card-header">
                 <div className="review-user-info">
-                    <img
-                        className="review-user-photo round-cropped"
-                        src={author.avatarUrl}
-                        alt={`${author.displayName}`}
-                    />
+                    {imageAvailable ? (
+                        <img
+                            onError={() => setImageAvailable(false)}
+                            className="review-user-photo"
+                            src={author.avatarUrl}
+                            alt={`${author.displayName}`}
+                        />
+                    ) : (
+                        <i className="fas fa-user-circle ml-0 mr-3" />
+                    )}
                     <span className="review-user-name">
-                        <span className="bold-text">{author.displayName}</span>{' '}
-                        &apos;s review
+                        <FormattedMessage
+                            id="user-review"
+                            values={{
+                                author: (
+                                    <span className="bold-text">
+                                        {author.displayName ?? 'User'}
+                                    </span>
+                                ),
+                            }}
+                        />
                     </span>
                 </div>
                 <span className="review-rating">
-                    Rated <span className="bold-text">{rating}</span>
+                    {rating} <i className="fas fa-star" />
                 </span>
             </div>
             <div className="review-text-area">
@@ -135,17 +145,24 @@ const ReviewCard = ({ rating, review, author }: ReviewCardProps) => {
                 />
                 {isLongReview && displayedText !== review.content && (
                     <button className="change-text-button" onClick={onShowMore}>
-                        Show More
+                        <FormattedMessage id="show-more" />
                     </button>
                 )}
                 {isLongReview && displayedText === review.content && (
                     <button className="change-text-button" onClick={onShowLess}>
-                        Show Less
+                        <FormattedMessage id="show-less" />
                     </button>
                 )}
             </div>
             <div className="review-details-info">
-                <span className="review-date">{reviewDate}</span>
+                <span className="review-date">
+                    <FormattedDate
+                        value={review.updatedAt}
+                        year="numeric"
+                        month="long"
+                        day="numeric"
+                    />
+                </span>
             </div>
         </div>
     );
