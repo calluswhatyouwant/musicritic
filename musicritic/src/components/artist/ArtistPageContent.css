@@ -18,6 +18,12 @@
     }
 }
 
+@media (min-width: 576px) {
+    .d-table-cell-sm {
+        display: table-cell !important;
+    }
+}
+
 .discography-title {
     font-size: 3rem;
     line-height: 4rem;

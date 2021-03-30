@@ -33,7 +33,7 @@ const ArtistPage = () => {
             } = await getArtist(id);
 
             setArtist(artistResponse);
-            setTopTracks(topTracksResponse);
+            setTopTracks(topTracksResponse.slice(0, 5));
             setAlbums(albumsResponse);
             setAlbumsAvgs(albumsAverages);
             setTopTracksAvgs(topTracksAverages);

@@ -9,13 +9,13 @@ import Rating from '../common/rating/Rating';
 
 import './ArtistPageContent.css';
 
+type AlbumWithRating = Album & { average: number };
+
 type Props = {
     albums: AlbumSimplified[],
     albumsAverages: number[],
     bestRatedAlbums: AlbumWithRating[],
 };
-
-type AlbumWithRating = Album & { average: number };
 
 const ArtistPageContent = ({
     albums,
@@ -74,13 +74,13 @@ const ArtistPageContent = ({
                 <FormattedMessage id="discography" />
             </h1>
             <h2 className="discography-section-title">
-                <FormattedMessage id="albums" />
-            </h2>
-            <DiscographySection albums={completeAlbums} />
-            <h2 className="discography-section-title">
                 <FormattedMessage id="best-rated-albums" />
             </h2>
-            <DiscographySection albums={completeRatedAlbums} />
+            <DiscographySection bestRated albums={completeRatedAlbums} />
+            <h2 className="discography-section-title">
+                <FormattedMessage id="all-albums" />
+            </h2>
+            <DiscographySection bestRated={false} albums={completeAlbums} />
         </div>
     );
 };
@@ -106,13 +106,21 @@ const filterMaxPopularity = (albums: AlbumWithRating[]): AlbumWithRating[] =>
         }, {})
     );
 
-const DiscographySection = ({ albums }: { albums: AlbumWithRating[] }) => {
+const DiscographySection = ({
+    albums,
+    bestRated,
+}: {
+    albums: AlbumWithRating[],
+    bestRated: boolean,
+}) => {
     const [page, setPage] = useState(0);
     const { push } = useHistory();
     const maxPopularityAlbums = filterMaxPopularity(albums);
-    const filteredAlbums = maxPopularityAlbums
-        .sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate))
-        .slice(10 * page, (page + 1) * 10 - 1);
+    const filteredAlbums = bestRated
+        ? maxPopularityAlbums
+        : maxPopularityAlbums
+              .sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate))
+              .slice(10 * page, (page + 1) * 10 - 1);
 
     return (
         <>
@@ -167,7 +175,12 @@ const DiscographySection = ({ albums }: { albums: AlbumWithRating[] }) => {
                     ))}
                 </tbody>
             </table>
-            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                    marginBottom: '2rem',
+                }}>
                 {page > 0 && (
                     <button
                         onClick={() => setPage(page - 1)} // TODO go up to the first album

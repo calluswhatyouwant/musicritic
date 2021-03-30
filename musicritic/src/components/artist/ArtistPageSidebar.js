@@ -9,14 +9,14 @@ import Rating from '../common/rating/Rating';
 
 import './ArtistPageSidebar.css';
 
+type TrackWithRating = Track & { average: number };
+
 type Props = {
     artist: Artist,
     topTracks: Track[],
     topTracksAverages: number[],
     bestRatedTracks: TrackWithRating[],
 };
-
-type TrackWithRating = Track & { average: number };
 
 const ArtistPageSidebar = ({
     artist,
@@ -89,7 +89,7 @@ const ArtistTopRatedTracks = ({
                 ))}
             </tbody>
         </table>
-        <h2>
+        <h2 className="pt-3">
             <FormattedMessage id="best-rated-tracks" />
         </h2>
         <table className="table table-top-tracks album-tracklist-table">
