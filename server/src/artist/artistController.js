@@ -31,8 +31,10 @@ router.get('/artists/:id', async (req, res) => {
 
     const tracks = (
         await Promise.all(
-            albums.map(
-                async album => (await spotifySdk.getAlbumTracks(album.id)).items
+            albums.map(async album =>
+                (await spotifySdk.getAlbumTracks(album.id)).items.map(track => {
+                    return { ...track, album };
+                })
             )
         )
     ).flat();
@@ -60,7 +62,10 @@ router.get('/artists/:id', async (req, res) => {
     const bestRatedAlbums = albumsRatings
         .map(ratings => [ratings[0], averageRating(ratings[1])])
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 5);
+        .slice(0, 5)
+        .map(([album, average]) => {
+            return { ...album, average };
+        });
 
     const tracksReviews = await Promise.all(
         tracks.map(async track => [track, await getReviews(TRACK, track.id)])
@@ -75,7 +80,10 @@ router.get('/artists/:id', async (req, res) => {
     ]);
     const bestRatedTracks = tracksAverages
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 5);
+        .slice(0, 5)
+        .map(([track, average]) => {
+            return { ...track, average };
+        });
 
     res.status(200).send({
         artist: JSON.parse(objectToJson(artist)),
@@ -86,7 +94,12 @@ router.get('/artists/:id', async (req, res) => {
         albums: albums.map(a => JSON.parse(objectToJson(a))),
         topTracksAverages,
         albumsAverages,
-        bestRatedTracks,
+        bestRatedTracks: bestRatedTracks.map(track => {
+            return {
+                ...JSON.parse(objectToJson(track)),
+                album: JSON.parse(objectToJson(track.album)),
+            };
+        }),
         bestRatedAlbums,
     });
 });

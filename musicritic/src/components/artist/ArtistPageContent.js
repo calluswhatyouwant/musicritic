@@ -9,15 +9,21 @@ import Rating from '../common/rating/Rating';
 
 import './ArtistPageContent.css';
 
+type AlbumWithRating = Album & { average: number };
+
 type Props = {
     albums: AlbumSimplified[],
     albumsAverages: number[],
+    bestRatedAlbums: AlbumWithRating[],
 };
 
-type AlbumWithRating = Album & { average: number };
-
-const ArtistPageContent = ({ albums, albumsAverages }: Props) => {
+const ArtistPageContent = ({
+    albums,
+    albumsAverages,
+    bestRatedAlbums,
+}: Props) => {
     const [completeAlbums, setCompleteAlbums] = useState([]);
+    const [completeRatedAlbums, setCompleteRatedAlbums] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -43,6 +49,23 @@ const ArtistPageContent = ({ albums, albumsAverages }: Props) => {
         fetchCompleteAlbums();
     }, [albums]);
 
+    useEffect(() => {
+        async function fetchCompleteRatedAlbums() {
+            const albumIds = bestRatedAlbums.map(album => album.id);
+            const averages = bestRatedAlbums.map(album => album.average);
+            const albumsResponse = await getSeveralAlbums(albumIds);
+            const albumsWithAverages = albumsResponse.map((a, index) => ({
+                ...objectToJson(a),
+                average: averages[index],
+            }));
+
+            setCompleteRatedAlbums(albumsWithAverages);
+            setLoading(false);
+        }
+
+        fetchCompleteRatedAlbums();
+    }, [bestRatedAlbums]);
+
     return loading ? (
         <Loading />
     ) : (
@@ -51,9 +74,13 @@ const ArtistPageContent = ({ albums, albumsAverages }: Props) => {
                 <FormattedMessage id="discography" />
             </h1>
             <h2 className="discography-section-title">
-                <FormattedMessage id="albums" />
+                <FormattedMessage id="best-rated-albums" />
             </h2>
-            <DiscographySection albums={completeAlbums} />
+            <DiscographySection bestRated albums={completeRatedAlbums} />
+            <h2 className="discography-section-title">
+                <FormattedMessage id="all-albums" />
+            </h2>
+            <DiscographySection bestRated={false} albums={completeAlbums} />
         </div>
     );
 };
@@ -79,13 +106,21 @@ const filterMaxPopularity = (albums: AlbumWithRating[]): AlbumWithRating[] =>
         }, {})
     );
 
-const DiscographySection = ({ albums }: { albums: AlbumWithRating[] }) => {
+const DiscographySection = ({
+    albums,
+    bestRated,
+}: {
+    albums: AlbumWithRating[],
+    bestRated: boolean,
+}) => {
     const [page, setPage] = useState(0);
     const { push } = useHistory();
     const maxPopularityAlbums = filterMaxPopularity(albums);
-    const filteredAlbums = maxPopularityAlbums
-        .sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate))
-        .slice(10 * page, (page + 1) * 10 - 1);
+    const filteredAlbums = bestRated
+        ? maxPopularityAlbums
+        : maxPopularityAlbums
+              .sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate))
+              .slice(10 * page, (page + 1) * 10 - 1);
 
     return (
         <>
@@ -99,7 +134,10 @@ const DiscographySection = ({ albums }: { albums: AlbumWithRating[] }) => {
                             <td className="discography-section-table-data">
                                 <img
                                     className="artist-discography-album-cover"
-                                    src={album.imageUrl}
+                                    src={
+                                        album.imageUrl ??
+                                        album?.images?.[0]?.url
+                                    }
                                     alt={album.name}
                                 />
                             </td>
@@ -137,7 +175,12 @@ const DiscographySection = ({ albums }: { albums: AlbumWithRating[] }) => {
                     ))}
                 </tbody>
             </table>
-            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                    marginBottom: '2rem',
+                }}>
                 {page > 0 && (
                     <button
                         onClick={() => setPage(page - 1)} // TODO go up to the first album
