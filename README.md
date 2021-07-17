@@ -69,17 +69,12 @@ With *Firebase* and *Spotify* configured, now you'll need to install the depende
 
 ```sh
 yarn install
+yarn dev
 ```
 
-With everything set, to run both **client** and **server**, use:
+Access your [http://localhost:3000](http://localhost:3000), use the credentials you've configured on below steps and Voila! If you got stuck in the middle of the process, make sure to contact us at calluswhatuwant@gmail.com so that we can help you out!
 
-```sh
-yarn start
-```
-
-Access your http://localhost:3000, use the credentials you've configured on below steps and Voila! If you got stuck in the middle of the process, make sure to contact us at calluswhatuwant@gmail.com so that we can help you out!
-
-> If you'd rather run each one separately, you can run `yarn start` in the `musicritic/` folder for the client and in the `server/` folder for the server.
+> The API routes will be running on `/api/*`.
 
 This is it! Now, if you make any modifications, the application should update itself automatically.
 
@@ -94,7 +89,3 @@ We're working on a CONTRIBUTING file. Meanwhile, we've got some open issues!
 ### Maintainers
 
 [@JoseRenan](http://github.com/JoseRenan) and [@JRobsonJr](http://github.com/JRobsonJr)
-
-### Hall of Fame
-
-[![](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/images/0)](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/links/0)[![](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/images/1)](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/links/1)[![](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/images/2)](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/links/2)[![](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/images/3)](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/links/3)[![](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/images/4)](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/links/4)[![](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/images/5)](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/links/5)[![](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/images/6)](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/links/6)[![](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/images/7)](https://sourcerer.io/fame/JRobsonJr/calluswhatyouwant/musicritic/links/7)
