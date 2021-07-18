@@ -1,4 +1,4 @@
 {
   "extends": ["vtex-react", "next", "next/core-web-vitals"],
-  "ignorePatterns": ["typings/**/*.d.ts"]
+  "ignorePatterns": ["typings/**/*.d.ts", "next-env.d.ts"]
 }
