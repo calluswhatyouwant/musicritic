@@ -7,20 +7,30 @@
     "Robson Junior <jrobsonjr16@gmail.com> (https://github.com/JRobsonJr)"
   ],
   "scripts": {
+    "generate": "graphql-codegen",
+    "predev": "yarn generate",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "apollo-server-micro": "^2.14.2",
+    "graphql": "^15.5.1",
+    "micro": "^9.3.4",
     "next": "11.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.21.7",
+    "@graphql-codegen/typescript": "^1.23.0",
     "@types/react": "17.0.14",
+    "@vtex/prettier-config": "^0.3.6",
     "eslint": "7.31.0",
     "eslint-config-next": "11.0.1",
+    "eslint-config-vtex-react": "^8.1.0",
+    "prettier": "^2.3.2",
     "typescript": "4.3.5"
   }
 }

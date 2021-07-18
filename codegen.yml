@@ -1,0 +1,5 @@
+generates:
+  ./typings/graphql-schemas.d.ts:
+    schema: 'graphql/**/*.graphql'
+    plugins:
+      - typescript
