@@ -12,7 +12,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install"
   },
   "dependencies": {
     "apollo-server-micro": "^2.14.2",
@@ -25,12 +26,19 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^1.21.7",
     "@graphql-codegen/typescript": "^1.23.0",
+    "@graphql-codegen/typescript-operations": "^1.18.4",
     "@types/react": "17.0.14",
     "@vtex/prettier-config": "^0.3.6",
     "eslint": "7.31.0",
     "eslint-config-next": "11.0.1",
     "eslint-config-vtex-react": "^8.1.0",
+    "husky": ">=6",
+    "lint-staged": ">=10",
     "prettier": "^2.3.2",
     "typescript": "4.3.5"
+  },
+  "lint-staged": {
+    "*.{tsx,ts,js}": "eslint --cache --fix",
+    "*.{tsx,ts,graphql,json,css,md}": "prettier --write"
   }
 }

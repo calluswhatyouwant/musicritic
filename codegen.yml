@@ -3,3 +3,6 @@ generates:
     schema: 'graphql/**/*.graphql'
     plugins:
       - typescript
+hooks:
+  afterOneFileWrite:
+    - prettier --write

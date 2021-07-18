@@ -17,7 +17,7 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query'
-  users: User[]
+  users: Array<User>
 }
 
 export type User = {
