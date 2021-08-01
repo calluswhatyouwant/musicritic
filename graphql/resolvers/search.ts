@@ -5,9 +5,14 @@ import type { QuerySearchArgs } from '@/types/graphql-schemas'
 import type { Context } from '../context'
 
 export const Query = {
-  search: async (_: unknown, { q }: QuerySearchArgs, context: Context) => {
+  search: async (
+    _: unknown,
+    { q, limit, offset }: QuerySearchArgs,
+    context: Context
+  ) => {
     const result = await context.spotify.search(q, 'album,track,artist', {
-      limit: 50,
+      limit: limit ?? 50,
+      offset: offset ?? 0,
     })
 
     return {

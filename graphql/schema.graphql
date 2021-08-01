@@ -35,5 +35,5 @@ type SearchResult {
 }
 
 type Query {
-  search(q: String!): SearchResult!
+  search(q: String!, limit: Int, offset: Int): SearchResult!
 }

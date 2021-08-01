@@ -20,6 +20,8 @@ export type AlbumSearchResult = {
   id: Scalars['ID']
   name: Scalars['String']
   images: Array<Image>
+  releaseYear: Scalars['String']
+  artists: Scalars['String']
 }
 
 export type ArtistSearchResult = {
@@ -39,12 +41,13 @@ export type Image = {
 
 export type Query = {
   __typename?: 'Query'
-  users: Array<User>
   search: SearchResult
 }
 
 export type QuerySearchArgs = {
   q: Scalars['String']
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
 }
 
 export type SearchResult = {
@@ -59,9 +62,7 @@ export type TrackSearchResult = {
   id: Scalars['ID']
   name: Scalars['String']
   images: Array<Image>
-}
-
-export type User = {
-  __typename?: 'User'
-  name?: Maybe<Scalars['String']>
+  album: Scalars['String']
+  artists: Scalars['String']
+  releaseYear: Scalars['String']
 }
