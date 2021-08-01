@@ -15,9 +15,50 @@ export type Scalars = {
   Float: number
 }
 
+export type AlbumSearchResult = {
+  __typename?: 'AlbumSearchResult'
+  id: Scalars['ID']
+  name: Scalars['String']
+  images: Array<Image>
+}
+
+export type ArtistSearchResult = {
+  __typename?: 'ArtistSearchResult'
+  id: Scalars['ID']
+  name: Scalars['String']
+  images: Array<Image>
+}
+
+export type Image = {
+  __typename?: 'Image'
+  height: Scalars['Int']
+  url: Scalars['String']
+  width: Scalars['Int']
+  isSquared: Scalars['Boolean']
+}
+
 export type Query = {
   __typename?: 'Query'
   users: Array<User>
+  search: SearchResult
+}
+
+export type QuerySearchArgs = {
+  q: Scalars['String']
+}
+
+export type SearchResult = {
+  __typename?: 'SearchResult'
+  albums: Array<AlbumSearchResult>
+  tracks: Array<TrackSearchResult>
+  artists: Array<ArtistSearchResult>
+}
+
+export type TrackSearchResult = {
+  __typename?: 'TrackSearchResult'
+  id: Scalars['ID']
+  name: Scalars['String']
+  images: Array<Image>
 }
 
 export type User = {
