@@ -8,9 +8,9 @@ export const Query = {
   search: async (
     _: unknown,
     { q, limit, offset }: QuerySearchArgs,
-    context: Context
+    { spotify }: Context
   ) => {
-    const result = await context.spotify.search(q, 'album,track,artist', {
+    const result = await spotify.search(q, 'album,track,artist', {
       limit: limit ?? 50,
       offset: offset ?? 0,
     })
