@@ -34,6 +34,28 @@ type SearchResult {
   artists: [ArtistSearchResult!]!
 }
 
+type Reviewer {
+  id: ID!
+  displayName: String!
+}
+
+type AlbumReview {
+  id: ID!
+  albumId: ID!
+  rating: Int!
+  author: Reviewer!
+  content: String!
+}
+
 type Query {
   search(q: String!, limit: Int, offset: Int): SearchResult!
+}
+
+input AlbumReviewInput {
+  content: String
+  rating: Int!
+}
+
+type Mutation {
+  reviewAlbum(albumId: ID!, review: AlbumReviewInput!): AlbumReview!
 }

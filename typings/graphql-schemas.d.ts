@@ -15,6 +15,20 @@ export type Scalars = {
   Float: number
 }
 
+export type AlbumReview = {
+  __typename?: 'AlbumReview'
+  id: Scalars['ID']
+  albumId: Scalars['ID']
+  rating: Scalars['Int']
+  author: Reviewer
+  content: Scalars['String']
+}
+
+export type AlbumReviewInput = {
+  content?: Maybe<Scalars['String']>
+  rating: Scalars['Int']
+}
+
 export type AlbumSearchResult = {
   __typename?: 'AlbumSearchResult'
   id: Scalars['ID']
@@ -39,6 +53,16 @@ export type Image = {
   isSquared: Scalars['Boolean']
 }
 
+export type Mutation = {
+  __typename?: 'Mutation'
+  reviewAlbum: AlbumReview
+}
+
+export type MutationReviewAlbumArgs = {
+  albumId: Scalars['ID']
+  review: AlbumReviewInput
+}
+
 export type Query = {
   __typename?: 'Query'
   search: SearchResult
@@ -48,6 +72,12 @@ export type QuerySearchArgs = {
   q: Scalars['String']
   limit?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
+}
+
+export type Reviewer = {
+  __typename?: 'Reviewer'
+  id: Scalars['ID']
+  displayName: Scalars['String']
 }
 
 export type SearchResult = {
