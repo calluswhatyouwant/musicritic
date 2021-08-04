@@ -1,3 +1,5 @@
+scalar Date
+
 type Image {
   height: Int!
   url: String!
@@ -36,7 +38,8 @@ type SearchResult {
 
 type Reviewer {
   id: ID!
-  displayName: String!
+  name: String!
+  image: String
 }
 
 type AlbumReview {
@@ -45,6 +48,9 @@ type AlbumReview {
   rating: Int!
   author: Reviewer!
   content: String!
+  edited: Boolean!
+  createdAt: Date!
+  updatedAt: Date!
 }
 
 type Query {

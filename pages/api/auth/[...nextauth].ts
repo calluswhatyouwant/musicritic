@@ -1,8 +1,11 @@
+import type { Session, User } from 'next-auth'
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 import { FirebaseAdapter } from '@next-auth/firebase-adapter'
 
 import { firestore } from '@/graphql/clients/firebase-admin'
+
+export type SessionWithId = Session & { user: { id?: string } }
 
 export default NextAuth({
   providers: [
@@ -16,6 +19,14 @@ export default NextAuth({
               user-top-read`,
     }),
   ],
+
+  callbacks: {
+    session: (session: SessionWithId, token) => {
+      session.user.id = token.id as string
+
+      return session
+    },
+  },
 
   adapter: FirebaseAdapter(firestore),
 })

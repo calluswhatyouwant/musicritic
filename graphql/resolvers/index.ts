@@ -1,19 +1,21 @@
 import type { Image } from 'spotify-web-sdk'
 
 import { Query as searchQueries, Types as searchTypes } from './search'
-import { Mutation as reviewAlbum } from './reviewAlbum'
+import { Mutation as reviewMutations } from './review'
+import { dateScalar } from './date'
 
 const resolvers = {
   Query: {
     ...searchQueries,
   },
   Mutation: {
-    ...reviewAlbum,
+    ...reviewMutations,
   },
   Image: {
     isSquared: (root: Image) => root.height === root.width,
   },
   ...searchTypes,
+  Date: dateScalar,
 }
 
 export default resolvers

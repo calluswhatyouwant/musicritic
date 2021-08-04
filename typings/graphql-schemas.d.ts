@@ -13,6 +13,7 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
+  Date: any
 }
 
 export type AlbumReview = {
@@ -22,6 +23,9 @@ export type AlbumReview = {
   rating: Scalars['Int']
   author: Reviewer
   content: Scalars['String']
+  edited: Scalars['Boolean']
+  createdAt: Scalars['Date']
+  updatedAt: Scalars['Date']
 }
 
 export type AlbumReviewInput = {
@@ -77,7 +81,8 @@ export type QuerySearchArgs = {
 export type Reviewer = {
   __typename?: 'Reviewer'
   id: Scalars['ID']
-  displayName: Scalars['String']
+  name: Scalars['String']
+  image?: Maybe<Scalars['String']>
 }
 
 export type SearchResult = {
