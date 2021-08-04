@@ -1,4 +1,4 @@
-import type { Session, User } from 'next-auth'
+import type { Session } from 'next-auth'
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 import { FirebaseAdapter } from '@next-auth/firebase-adapter'
