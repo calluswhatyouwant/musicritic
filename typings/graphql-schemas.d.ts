@@ -15,12 +15,54 @@ export type Scalars = {
   Float: number
 }
 
-export type Query = {
-  __typename?: 'Query'
-  users: Array<User>
+export type AlbumSearchResult = {
+  __typename?: 'AlbumSearchResult'
+  id: Scalars['ID']
+  name: Scalars['String']
+  images: Array<Image>
+  releaseYear: Scalars['String']
+  artists: Scalars['String']
 }
 
-export type User = {
-  __typename?: 'User'
-  name?: Maybe<Scalars['String']>
+export type ArtistSearchResult = {
+  __typename?: 'ArtistSearchResult'
+  id: Scalars['ID']
+  name: Scalars['String']
+  images: Array<Image>
+}
+
+export type Image = {
+  __typename?: 'Image'
+  height: Scalars['Int']
+  url: Scalars['String']
+  width: Scalars['Int']
+  isSquared: Scalars['Boolean']
+}
+
+export type Query = {
+  __typename?: 'Query'
+  search: SearchResult
+}
+
+export type QuerySearchArgs = {
+  q: Scalars['String']
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type SearchResult = {
+  __typename?: 'SearchResult'
+  albums: Array<AlbumSearchResult>
+  tracks: Array<TrackSearchResult>
+  artists: Array<ArtistSearchResult>
+}
+
+export type TrackSearchResult = {
+  __typename?: 'TrackSearchResult'
+  id: Scalars['ID']
+  name: Scalars['String']
+  images: Array<Image>
+  album: Scalars['String']
+  artists: Scalars['String']
+  releaseYear: Scalars['String']
 }

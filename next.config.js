@@ -1,4 +1,5 @@
 module.exports = {
+  target: 'serverless',
   reactStrictMode: true,
   webpack: (config) => {
     config.module.rules.push({

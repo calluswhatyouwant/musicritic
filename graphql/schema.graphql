@@ -1,0 +1,39 @@
+type Image {
+  height: Int!
+  url: String!
+  width: Int!
+  isSquared: Boolean!
+}
+
+type AlbumSearchResult {
+  id: ID!
+  name: String!
+  images: [Image!]!
+  releaseYear: String!
+  artists: String!
+}
+
+type TrackSearchResult {
+  id: ID!
+  name: String!
+  images: [Image!]!
+  album: String!
+  artists: String!
+  releaseYear: String!
+}
+
+type ArtistSearchResult {
+  id: ID!
+  name: String!
+  images: [Image!]!
+}
+
+type SearchResult {
+  albums: [AlbumSearchResult!]!
+  tracks: [TrackSearchResult!]!
+  artists: [ArtistSearchResult!]!
+}
+
+type Query {
+  search(q: String!, limit: Int, offset: Int): SearchResult!
+}
