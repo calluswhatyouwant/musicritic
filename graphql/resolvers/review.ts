@@ -1,3 +1,5 @@
+import { AuthenticationError } from 'apollo-server-micro'
+
 import type { MutationReviewAlbumArgs } from '@/types/graphql-schemas'
 
 import type { AlbumReviewModel } from '../business/reviews'
@@ -14,7 +16,10 @@ export const Mutation = {
     { albumId, review }: MutationReviewAlbumArgs,
     { firestore, auth }: Context
   ) => {
-    if (!auth) return {}
+    if (!auth?.user)
+      throw new AuthenticationError(
+        'You need to sign in before making this request'
+      )
 
     const oldReview = await getAlbumReviewFromUser(
       albumId,
