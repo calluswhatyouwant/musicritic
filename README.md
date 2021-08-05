@@ -62,6 +62,8 @@ With all configured, now you'll need to run run our firebase emulators, to do th
 yarn run emulator
 ```
 
+The emulators UI will be running on [http://localhost:5000](http://localhost:5000) and there you will see an graphical interface to manipulate data on our BD (On the firestore section).
+
 > You need to run the emulator always you want to run Musicritic. It can take a little longer to run for the first time, because it will download some dependencies.
 
 In another terminal, you will run the following commands to install the dependencies and run the **Musicritic**
