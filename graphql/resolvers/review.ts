@@ -3,7 +3,7 @@ import type {
   MutationReviewTrackArgs,
 } from '@/types/graphql-schemas'
 
-import { upsertAlbumReview } from '../business/reviews'
+import { upsertAlbumReview, upsertTrackReview } from '../business/reviews'
 import { protectedResolver } from './util'
 
 export const Mutation = {
@@ -25,7 +25,7 @@ export const Mutation = {
     async (_, { trackId, review }, { firestore, auth }) => {
       const userId = auth?.user.id ?? ''
 
-      const newReview = await upsertAlbumReview(
+      const newReview = await upsertTrackReview(
         trackId,
         userId,
         review,

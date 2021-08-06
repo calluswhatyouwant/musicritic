@@ -70,11 +70,14 @@ const updateReview = async (
 ) => {
   const reviewRef = reviewsCollection.doc(oldReview.id)
 
+  if (!newReview.post && oldReview.post) {
+    newReview.post = oldReview.post
+  }
+
   const updatedReview = {
     ...oldReview,
+    ...newReview,
     edited: true,
-    post: newReview.post ?? oldReview.post,
-    rating: newReview.rating ?? oldReview.rating,
     updatedAt: admin.firestore.FieldValue.serverTimestamp(),
   }
 
