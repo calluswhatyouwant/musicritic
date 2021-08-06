@@ -10,8 +10,7 @@ export const firestore = admin.firestore()
 export const auth = admin.auth()
 
 export const collections = {
-  albumReviews: firestore.collection('album-reviews'),
-  trackReviews: firestore.collection('track-reviews'),
+  reviews: firestore.collection('reviews'),
 }
 
 export default admin

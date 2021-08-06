@@ -42,12 +42,33 @@ type Reviewer {
   image: String
 }
 
-type AlbumReview {
+interface Review {
   id: ID!
-  albumId: ID!
   rating: Int!
   author: Reviewer!
-  content: String!
+  post: String
+  edited: Boolean!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type AlbumReview implements Review {
+  albumId: String!
+  id: ID!
+  rating: Int!
+  author: Reviewer!
+  post: String
+  edited: Boolean!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type TrackReview implements Review {
+  trackId: String!
+  id: ID!
+  rating: Int!
+  author: Reviewer!
+  post: String
   edited: Boolean!
   createdAt: Date!
   updatedAt: Date!
@@ -57,11 +78,12 @@ type Query {
   search(q: String!, limit: Int, offset: Int): SearchResult!
 }
 
-input AlbumReviewInput {
-  content: String
+input ReviewInput {
+  post: String
   rating: Int!
 }
 
 type Mutation {
-  reviewAlbum(albumId: ID!, review: AlbumReviewInput!): AlbumReview!
+  reviewAlbum(albumId: ID!, review: ReviewInput!): AlbumReview!
+  reviewTrack(trackId: ID!, review: ReviewInput!): TrackReview!
 }

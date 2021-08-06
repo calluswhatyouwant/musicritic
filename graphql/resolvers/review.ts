@@ -1,42 +1,38 @@
-import { AuthenticationError } from 'apollo-server-micro'
+import type {
+  MutationReviewAlbumArgs,
+  MutationReviewTrackArgs,
+} from '@/types/graphql-schemas'
 
-import type { MutationReviewAlbumArgs } from '@/types/graphql-schemas'
-
-import type { AlbumReviewModel } from '../business/reviews'
-import {
-  createAlbumReview,
-  getAlbumReviewFromUser,
-  updateAlbumReview,
-} from '../business/reviews'
-import type { Context } from '../context'
+import { upsertAlbumReview } from '../business/reviews'
+import { protectedResolver } from './util'
 
 export const Mutation = {
-  reviewAlbum: async (
-    _: unknown,
-    { albumId, review }: MutationReviewAlbumArgs,
-    { firestore, auth }: Context
-  ) => {
-    if (!auth?.user)
-      throw new AuthenticationError(
-        'You need to sign in before making this request'
+  reviewAlbum: protectedResolver<unknown, MutationReviewAlbumArgs>(
+    async (_, { albumId, review }, { firestore, auth }) => {
+      const userId = auth?.user.id ?? ''
+
+      const newReview = await upsertAlbumReview(
+        albumId,
+        userId,
+        review,
+        firestore.reviews
       )
 
-    const oldReview = await getAlbumReviewFromUser(
-      albumId,
-      auth.user.id ?? ''
-    )(firestore.albumReviews)
+      return { ...newReview, albumId: newReview.contentId, author: auth?.user }
+    }
+  ),
+  reviewTrack: protectedResolver<unknown, MutationReviewTrackArgs>(
+    async (_, { trackId, review }, { firestore, auth }) => {
+      const userId = auth?.user.id ?? ''
 
-    const newReview = oldReview.empty
-      ? createAlbumReview(
-          albumId,
-          auth.user.id ?? '',
-          review
-        )(firestore.albumReviews)
-      : updateAlbumReview(
-          oldReview.docs[0].data() as AlbumReviewModel,
-          review
-        )(firestore.albumReviews)
+      const newReview = await upsertAlbumReview(
+        trackId,
+        userId,
+        review,
+        firestore.reviews
+      )
 
-    return { ...(await newReview), author: auth?.user }
-  },
+      return { ...newReview, trackId: newReview.contentId, author: auth?.user }
+    }
+  ),
 }

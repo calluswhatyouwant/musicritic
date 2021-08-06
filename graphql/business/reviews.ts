@@ -1,39 +1,53 @@
 import type { firestore } from 'firebase-admin'
 
-import type { AlbumReviewInput } from '@/types/graphql-schemas'
+import type { ReviewInput } from '@/types/graphql-schemas'
 
 import type { collections } from '../clients/firebase-admin'
 import admin from '../clients/firebase-admin'
 
-export interface AlbumReviewModel {
+export type ContentType = 'album' | 'track'
+
+export interface ReviewModel {
   id: string
-  content?: string | null
+  post?: string | null
   edited: boolean
   rating: number
   author: string
-  albumId: string
+  contentId: string
+  contentType: ContentType
   createdAt: firestore.Timestamp
   updatedAt: firestore.Timestamp
 }
 
-export const getAlbumReviewFromUser =
-  (albumId: string, authorUid: string) =>
-  (albumReviewsCollection: typeof collections.albumReviews) => {
-    return albumReviewsCollection
+const getReviewFromUser =
+  (contentType: ContentType) =>
+  (
+    contentId: string,
+    authorUid: string,
+    reviewsCollection: typeof collections.reviews
+  ) => {
+    return reviewsCollection
       .where('author', '==', authorUid)
-      .where('albumId', '==', albumId)
+      .where('contentId', '==', contentId)
+      .where('contentType', '==', contentType)
       .get()
   }
 
-export const createAlbumReview =
-  (albumId: string, userId: string, review: AlbumReviewInput) =>
-  async (albumReviewsCollection: typeof collections.albumReviews) => {
-    const newReviewRef = albumReviewsCollection.doc()
+const createReview =
+  (contentType: ContentType) =>
+  async (
+    contentId: string,
+    userId: string,
+    review: ReviewInput,
+    reviewsCollection: typeof collections.reviews
+  ) => {
+    const newReviewRef = reviewsCollection.doc()
 
     const newReview = {
+      contentType,
       id: newReviewRef.id,
       edited: false,
-      albumId,
+      contentId,
       ...review,
       author: userId,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
@@ -49,24 +63,54 @@ export const createAlbumReview =
     }
   }
 
-export const updateAlbumReview =
-  (oldReview: AlbumReviewModel, newReview: AlbumReviewInput) =>
-  async (albumReviewsCollection: typeof collections.albumReviews) => {
-    const reviewRef = albumReviewsCollection.doc(oldReview.id)
+const updateReview = async (
+  oldReview: ReviewModel,
+  newReview: ReviewInput,
+  reviewsCollection: typeof collections.reviews
+) => {
+  const reviewRef = reviewsCollection.doc(oldReview.id)
 
-    const updatedReview = {
-      ...oldReview,
-      edited: true,
-      content: newReview.content ?? newReview.content,
-      rating: newReview.rating ?? newReview.rating,
-      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-    }
-
-    await reviewRef.set(updatedReview)
-
-    return {
-      ...updatedReview,
-      createdAt: oldReview.createdAt.toDate(),
-      updatedAt: new Date(),
-    }
+  const updatedReview = {
+    ...oldReview,
+    edited: true,
+    post: newReview.post ?? oldReview.post,
+    rating: newReview.rating ?? oldReview.rating,
+    updatedAt: admin.firestore.FieldValue.serverTimestamp(),
   }
+
+  await reviewRef.set(updatedReview)
+
+  return {
+    ...updatedReview,
+    createdAt: oldReview.createdAt.toDate(),
+    updatedAt: new Date(),
+  }
+}
+
+const upsertReview =
+  (contentType: ContentType) =>
+  async (
+    contentId: string,
+    userId: string,
+    review: ReviewInput,
+    reviewsCollection: typeof collections.reviews
+  ) => {
+    const oldReview = await getReviewFromUser(contentType)(
+      contentId,
+      userId,
+      reviewsCollection
+    )
+
+    const newReview = oldReview.empty
+      ? createReview(contentType)(contentId, userId, review, reviewsCollection)
+      : updateReview(
+          oldReview.docs[0]?.data() as ReviewModel,
+          review,
+          reviewsCollection
+        )
+
+    return newReview
+  }
+
+export const upsertAlbumReview = upsertReview('album')
+export const upsertTrackReview = upsertReview('track')
