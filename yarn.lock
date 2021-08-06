@@ -6986,10 +6986,10 @@ sponge-case@^1.0.1:
   dependencies:
     tslib "^2.0.3"
 
-spotify-web-sdk@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/spotify-web-sdk/-/spotify-web-sdk-0.7.0.tgz#ef3926e920199b8bc39029206d4e4e9a509a54cb"
-  integrity sha512-t13jWeBitHTsbYisUKBmSuZHEhN1F3IZ1i/FYYNHTGmSZOIgW0Okq30AGXgYQXML8/7Wg4YeH/U+3hZtn09zHw==
+spotify-web-sdk@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/spotify-web-sdk/-/spotify-web-sdk-0.7.1.tgz#0e28c670435b1e1afb0b8163ef671d259266a55e"
+  integrity sha512-LKBk24JtlQQnfLnXPLpbYS52vfBV0ZDrXAlNCPDgyVMc7aPxLIsFiDism4y0+w/VXo2paoOts+LfkmxYy4SQ4g==
   dependencies:
     axios "^0.18.1"
     lodash.differenceby "^4.8.0"
