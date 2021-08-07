@@ -50,7 +50,7 @@ Access [Spotify Developer](https://developer.spotify.com/dashboard/) with your _
 4. Go to **Edit Settings** at your Spotify Client ID
 5. Set the **Redirect URLs** to `http://localhost:3000/api/auth/callback/spotify`
 
-> You don't need to change any other environment variables on `.env` file. Just keep them with the values
+> You don't need to change any other environment variables on `.env` file. Just keep them with the values already specified.
 
 ✨ All set! ✨ You're ready to run **Musicritic**!
 
