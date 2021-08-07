@@ -1,9 +1,7 @@
-import React from 'react'
 import type { FC } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import { Grid, Text, Box } from 'theme-ui'
-import type { ThemeUIStyleObject } from 'theme-ui'
-import type { Album, AlbumSimplified } from 'spotify-web-sdk'
+import type { AlbumSimplified } from 'spotify-web-sdk'
 
 import AlbumCard from './AlbumCard'
 

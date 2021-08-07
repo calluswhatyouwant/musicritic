@@ -1,6 +1,5 @@
-import React from 'react'
 import type { FC } from 'react'
-import type { Album } from 'spotify-web-sdk'
+import type { AlbumSimplified } from 'spotify-web-sdk'
 import { Card, Image, Text, Flex, Link } from 'theme-ui'
 import type { ThemeUIStyleObject } from 'theme-ui'
 
@@ -23,7 +22,7 @@ const truncateTextStyles: ThemeUIStyleObject = {
 }
 
 interface AlbumCardProps {
-  album: Album
+  album: AlbumSimplified
 }
 
 const AlbumCard: FC<AlbumCardProps> = ({ album }) => (

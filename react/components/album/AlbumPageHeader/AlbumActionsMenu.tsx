@@ -1,4 +1,3 @@
-import React from 'react'
 import type { FC } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import type { Album } from 'spotify-web-sdk'
