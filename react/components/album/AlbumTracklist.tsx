@@ -1,7 +1,9 @@
 import type { FC } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import type { Album } from 'spotify-web-sdk'
-import { Box, Flex, Link, Text } from 'theme-ui'
+import { Box, Flex, Text } from 'theme-ui'
+
+import Link from '../common/Link'
 
 const messages = defineMessages({
   linkTrackPage: { id: 'musicritic.album-page.link-track-page' },

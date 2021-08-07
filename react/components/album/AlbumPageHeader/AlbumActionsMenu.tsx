@@ -1,8 +1,10 @@
 import type { FC } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import type { Album } from 'spotify-web-sdk'
-import { Flex, Link } from 'theme-ui'
+import { Flex } from 'theme-ui'
 import type { ThemeUIStyleObject } from 'theme-ui'
+
+import Link from '@/components/common/Link'
 
 const spotifyButtonStyles: ThemeUIStyleObject = {
   border: '1px solid',

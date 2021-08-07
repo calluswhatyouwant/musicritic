@@ -1,7 +1,9 @@
 import type { FC } from 'react'
 import { defineMessages, FormattedDate, FormattedMessage } from 'react-intl'
 import type { Album } from 'spotify-web-sdk'
-import { Flex, Link, Text } from 'theme-ui'
+import { Flex, Text } from 'theme-ui'
+
+import Link from '@/components/common/Link'
 
 import AlbumActionsMenu from './AlbumActionsMenu'
 

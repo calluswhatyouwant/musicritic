@@ -1,7 +1,9 @@
 import type { FC } from 'react'
 import type { AlbumSimplified } from 'spotify-web-sdk'
-import { Card, Image, Text, Flex, Link } from 'theme-ui'
+import { Card, Image, Text, Flex } from 'theme-ui'
 import type { ThemeUIStyleObject } from 'theme-ui'
+
+import Link from '@/components/common/Link'
 
 const cardStyles: ThemeUIStyleObject = {
   display: 'flex',
