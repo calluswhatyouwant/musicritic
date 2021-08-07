@@ -7,10 +7,12 @@
     "Robson Junior <jrobsonjr16@gmail.com> (https://github.com/JRobsonJr)"
   ],
   "scripts": {
-    "generate": "graphql-codegen",
-    "predev": "yarn generate",
-    "dev": "next dev",
-    "emulator": "firebase --project=musicritic emulators:start",
+    "codegen": "graphql-codegen",
+    "predev:app": "yarn codegen",
+    "dev:app": "next dev",
+    "dev:emulator": "firebase --project=musicritic emulators:start --import=./.firebase_export --export-on-exit=./.firebase_export",
+    "clean": "rimraf .firebase_export",
+    "dev": "concurrently -n app,firebase,codegen \"yarn dev:app\"  \"yarn dev:emulator\"  \"yarn codegen -w\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -36,12 +38,14 @@
     "@graphql-codegen/typescript-operations": "^1.18.4",
     "@types/react": "17.0.14",
     "@vtex/prettier-config": "^0.3.6",
+    "concurrently": "^6.2.0",
     "eslint": "7.31.0",
     "eslint-config-next": "11.0.1",
     "eslint-config-vtex-react": "^8.1.0",
     "husky": ">=6",
     "lint-staged": ">=10",
     "prettier": "^2.3.2",
+    "rimraf": "^3.0.2",
     "typescript": "4.3.5"
   },
   "lint-staged": {

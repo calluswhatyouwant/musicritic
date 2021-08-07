@@ -56,17 +56,7 @@ Access [Spotify Developer](https://developer.spotify.com/dashboard/) with your _
 
 #### Starting Musicritic
 
-With all configured, now you'll need to run run our firebase emulators, to do that, you can run the command described below:
-
-```sh
-yarn run emulator
-```
-
-The emulators UI will be running on [http://localhost:5000](http://localhost:5000) and there you will see an graphical interface to manipulate data on our BD (On the firestore section).
-
-> You need to run the emulator always you want to run Musicritic. It can take a little longer to run for the first time, because it will download some dependencies.
-
-In another terminal, you will run the following commands to install the dependencies and run the **Musicritic**
+With all configured, now you'll need to run the following commands to install the dependencies and run the **Musicritic**
 
 ```sh
 yarn install
@@ -75,7 +65,9 @@ yarn dev
 
 🎉 Musicritic is running 🎉 You now can check it out accessing [http://localhost:3000](http://localhost:3000) on your browser!
 
-> If you want to check our backend, we have a GraphQL Playground running on [http://localhost:3000/api/graphql](http://localhost:3000/api/graphql). You may also need to login on Musicritic to try some queries and mutations, to do that, you can access [http://localhost:3000/api/auth/signin](http://localhost:3000/api/auth/signin) and click on the `Sign in` button.
+> 💡 If you want to check our backend, we have a GraphQL Playground running on [http://localhost:3000/api/graphql](http://localhost:3000/api/graphql). You may also need to login on Musicritic to try some queries and mutations, to do that, you can access [http://localhost:3000/api/auth/signin](http://localhost:3000/api/auth/signin) and click on the `Sign in` button.
+
+> 💡 You can check an interactive UI for the local firebase database running on [http://localhost:5000/firestore](http://localhost:5000/firestore)
 
 This is it! Now, if you make any modifications on the code, the application should update itself automatically.
 
