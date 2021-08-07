@@ -16,11 +16,11 @@ const AlbumUserReview: FC<Props> = ({ review }) => (
     sx={{
       border: '1px solid',
       borderColor: 'muted.2',
-      padding: 3,
+      padding: 4,
       borderRadius: 4,
     }}
   >
-    <Flex sx={{ marginBottom: 3, alignItems: 'center' }}>
+    <Flex sx={{ marginBottom: 4, alignItems: 'center' }}>
       <Image
         alt={review.author.name}
         src={review.author.image ?? ''}
@@ -41,9 +41,7 @@ const AlbumUserReview: FC<Props> = ({ review }) => (
           />
         </Text>
       </Flex>
-      <Paragraph sx={{ lineHeight: 1.25 }}>
-        <Rating value={review.rating} />
-      </Paragraph>
+      <Rating value={review.rating} />
     </Flex>
     <Paragraph sx={{ lineHeight: 1.25 }}>{review.post}</Paragraph>
     <AlbumReviewReactions upvotes={10} downvotes={2} />

@@ -1,21 +1,11 @@
 import type { FC } from 'react'
-import type { ThemeUIStyleObject } from 'theme-ui'
-import { Text, Button, Flex } from 'theme-ui'
+import { Text, Flex } from 'theme-ui'
+
+import ReactionButton from './ReactionButton'
 
 interface Props {
   upvotes: number
   downvotes: number
-}
-
-const reactionButtonStyles: ThemeUIStyleObject = {
-  padding: 1,
-  gap: 1,
-  color: 'text',
-  backgroundColor: 'transparent',
-  ':hover': {
-    backgroundColor: 'muted.0',
-    cursor: 'pointer',
-  },
 }
 
 const AlbumReviewReactions: FC<Props> = ({ upvotes, downvotes }) => (
@@ -29,20 +19,12 @@ const AlbumReviewReactions: FC<Props> = ({ upvotes, downvotes }) => (
     }}
   >
     <Flex sx={{ alignItems: 'center', gap: 1 }}>
-      <Button sx={reactionButtonStyles}>
-        <span role="img" aria-label="Thumbs up">
-          👍
-        </span>
-      </Button>
-      <Text>{upvotes}</Text>
+      <ReactionButton variant="upvote" />
+      <Text sx={{ color: 'green', lineHeight: 1.25 }}>{upvotes}</Text>
     </Flex>
     <Flex sx={{ alignItems: 'center', gap: 1 }}>
-      <Button sx={reactionButtonStyles}>
-        <span role="img" aria-label="Thumbs down">
-          👎
-        </span>
-      </Button>
-      <Text>{downvotes}</Text>
+      <ReactionButton variant="downvote" />
+      <Text sx={{ color: 'red', lineHeight: 1.25 }}>{downvotes}</Text>
     </Flex>
   </Flex>
 )

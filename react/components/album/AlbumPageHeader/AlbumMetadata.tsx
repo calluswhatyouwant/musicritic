@@ -27,7 +27,7 @@ const AlbumMetadata: FC<Props> = ({ album }) => {
   const artists = album.artists.map((artist) => (
     <Link
       key={artist.id}
-      href="/artist"
+      href={`/artists/${artist.id}`}
       sx={{
         fontWeight: 'bold',
         textDecoration: 'none',
@@ -39,11 +39,7 @@ const AlbumMetadata: FC<Props> = ({ album }) => {
   ))
 
   return (
-    <Flex
-      sx={{
-        flexDirection: 'column',
-      }}
-    >
+    <Flex sx={{ flexDirection: 'column' }}>
       <Text sx={{ fontSize: [3, 5, 6], fontWeight: 'bold', marginBottom: 1 }}>
         {album.name}
       </Text>

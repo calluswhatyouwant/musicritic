@@ -1,4 +1,3 @@
-import React from 'react'
 import type { FC } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import type { Album } from 'spotify-web-sdk'
@@ -36,7 +35,7 @@ const AlbumTracklist: FC<Props> = ({ album }) => (
         >
           <Flex
             sx={{
-              padding: 2,
+              padding: 3,
               alignItems: 'center',
               ':hover': {
                 cursor: 'pointer',

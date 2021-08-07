@@ -17,7 +17,7 @@ const reviewMock = {
 
 export const reviewMocks = [
   { ...reviewMock, id: '1', rating: 5 },
-  { ...reviewMock, id: '2', rating: 3 },
-  { ...reviewMock, id: '3', rating: 2 },
-  { ...reviewMock, id: '4', rating: 4 },
+  { ...reviewMock, id: '2', rating: 3.5 },
+  { ...reviewMock, id: '3', rating: 4.5 },
+  { ...reviewMock, id: '4', rating: 5 },
 ]
