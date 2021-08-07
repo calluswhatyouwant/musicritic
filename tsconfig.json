@@ -17,7 +17,7 @@
     "paths": {
       "@/components/*": ["react/components/*"],
       "@/providers/*": ["react/providers/*"],
-      "@/graphql/*": ["graphql", "graphql/*"],
+      "@/node/*": ["node/*"],
       "@/types/*": ["typings/*"]
     }
   },

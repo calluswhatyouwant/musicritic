@@ -5,9 +5,9 @@ import {
   ApolloServerPluginLandingPageGraphQLPlayground,
 } from 'apollo-server-core'
 
-import typeDefs from '@/graphql/schema.graphql'
-import resolvers from '@/graphql/resolvers'
-import context from '@/graphql/context'
+import typeDefs from '@/node/schema.graphql'
+import resolvers from '@/node/resolvers'
+import context from '@/node/context'
 
 const apolloServer = new ApolloServer({
   typeDefs,

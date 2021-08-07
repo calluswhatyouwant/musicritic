@@ -74,8 +74,37 @@ type TrackReview implements Review {
   updatedAt: Date!
 }
 
+input AlbumReviewFilterInput {
+  post: String
+  rating: Int!
+}
+
+enum OrderBy {
+  recent
+  rating
+}
+
+enum OrderDirection {
+  asc
+  desc
+}
+
 type Query {
   search(q: String!, limit: Int, offset: Int): SearchResult!
+  albumReviews(
+    albumId: ID!
+    limit: Int
+    offset: Int
+    orderBy: OrderBy
+    direction: OrderDirection
+  ): [AlbumReview!]!
+  trackReviews(
+    trackId: ID!
+    limit: Int
+    offset: Int
+    orderBy: OrderBy
+    direction: OrderDirection
+  ): [TrackReview!]!
 }
 
 input ReviewInput {

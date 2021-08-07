@@ -1,9 +1,13 @@
 import type { firestore } from 'firebase-admin'
 
-import type { ReviewInput } from '@/types/graphql-schemas'
+import type {
+  OrderBy,
+  OrderDirection,
+  ReviewInput,
+} from '@/types/graphql-schemas'
 
-import type { collections } from '../clients/firebase-admin'
-import admin from '../clients/firebase-admin'
+import type { collections } from '../lib/firebase-admin'
+import admin from '../lib/firebase-admin'
 
 export type ContentType = 'album' | 'track'
 
@@ -32,6 +36,29 @@ const getReviewFromUser =
       .where('contentType', '==', contentType)
       .get()
   }
+
+const getReviews =
+  (contentType: ContentType) =>
+  async (
+    contentId: string,
+    limit: number,
+    offset: number,
+    orderBy: OrderBy,
+    direction: OrderDirection,
+    reviewsCollection: typeof collections.reviews
+  ) => {
+    return reviewsCollection
+      .where('contentId', '==', contentId)
+      .where('contentType', '==', contentType)
+      .orderBy('post')
+      .orderBy(orderBy === 'rating' ? 'rating' : 'createdAt', direction)
+      .startAt(offset)
+      .limit(limit)
+      .get()
+  }
+
+export const getAlbumReviews = getReviews('album')
+export const getTrackReviews = getReviews('track')
 
 const createReview =
   (contentType: ContentType) =>
@@ -85,7 +112,6 @@ const updateReview = async (
 
   return {
     ...updatedReview,
-    createdAt: oldReview.createdAt.toDate(),
     updatedAt: new Date(),
   }
 }

@@ -1,9 +1,14 @@
 import { GraphQLScalarType, Kind } from 'graphql'
 
+import admin from '../lib/firebase-admin'
+
 export const dateScalar = new GraphQLScalarType({
   name: 'Date',
   description: 'Date scalar type',
   serialize(value) {
+    if (value instanceof admin.firestore.Timestamp)
+      return value.toDate().getTime()
+
     return value.getTime() // Convert outgoing Date to integer for JSON
   },
   parseValue(value) {

@@ -28,6 +28,11 @@ export type AlbumReview = Review & {
   updatedAt: Scalars['Date']
 }
 
+export type AlbumReviewFilterInput = {
+  post?: Maybe<Scalars['String']>
+  rating: Scalars['Int']
+}
+
 export type AlbumSearchResult = {
   __typename?: 'AlbumSearchResult'
   id: Scalars['ID']
@@ -68,15 +73,37 @@ export type MutationReviewTrackArgs = {
   review: ReviewInput
 }
 
+export type OrderBy = 'recent' | 'rating'
+
+export type OrderDirection = 'asc' | 'desc'
+
 export type Query = {
   __typename?: 'Query'
   search: SearchResult
+  albumReviews: Array<AlbumReview>
+  trackReviews: Array<TrackReview>
 }
 
 export type QuerySearchArgs = {
   q: Scalars['String']
   limit?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAlbumReviewsArgs = {
+  albumId: Scalars['ID']
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  orderBy?: Maybe<OrderBy>
+  direction?: Maybe<OrderDirection>
+}
+
+export type QueryTrackReviewsArgs = {
+  trackId: Scalars['ID']
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  orderBy?: Maybe<OrderBy>
+  direction?: Maybe<OrderDirection>
 }
 
 export type Review = {
