@@ -2,35 +2,51 @@ import type { FC } from 'react'
 import { FormattedDate } from 'react-intl'
 import { Box, Flex, Image, Paragraph, Text } from 'theme-ui'
 
+import type { AlbumReview } from '@/types/graphql-schemas'
+import Rating from '@/components/common/Rating'
+
 import AlbumReviewReactions from './AlbumReviewReactions'
 
 interface Props {
-  review: any
+  review: AlbumReview
 }
 
 const AlbumUserReview: FC<Props> = ({ review }) => (
-  <Box sx={{ border: '1px solid black', padding: 3, borderRadius: 4 }}>
+  <Box
+    sx={{
+      border: '1px solid',
+      borderColor: 'muted.2',
+      padding: 3,
+      borderRadius: 4,
+    }}
+  >
     <Flex sx={{ marginBottom: 3, alignItems: 'center' }}>
       <Image
         alt={review.author.name}
-        src={review.author.image}
-        sx={{ borderRadius: '100%', height: 36, width: 36 }}
+        src={review.author.image ?? ''}
+        variant="avatar"
       />
       <Flex
         sx={{ flexDirection: 'column', marginLeft: 2, marginRight: 'auto' }}
       >
-        <Text sx={{ fontWeight: 'bold' }}>{review.author.name}</Text>
-        <FormattedDate
-          value={new Date(review.updatedAt)}
-          day="numeric"
-          month="long"
-          year="numeric"
-        />
+        <Text sx={{ fontWeight: 'bold', marginBottom: '2px' }}>
+          {review.author.name}
+        </Text>
+        <Text sx={{ color: 'muted.3', fontSize: 1 }}>
+          <FormattedDate
+            value={new Date(review.updatedAt)}
+            day="numeric"
+            month="long"
+            year="numeric"
+          />
+        </Text>
       </Flex>
-      <Paragraph sx={{ lineHeight: 1.25 }}>{review.rating}</Paragraph>
+      <Paragraph sx={{ lineHeight: 1.25 }}>
+        <Rating value={review.rating} />
+      </Paragraph>
     </Flex>
     <Paragraph sx={{ lineHeight: 1.25 }}>{review.post}</Paragraph>
-    <AlbumReviewReactions />
+    <AlbumReviewReactions upvotes={10} downvotes={2} />
   </Box>
 )
 

@@ -5,5 +5,6 @@
   "musicritic.album-page.other-albums-by": "Outros álbuns por {artist}",
   "musicritic.album-page.tracklist": "Lista de faixas",
   "musicritic.album-page.reviews": "Avaliações",
-  "musicritic.album-page.link-track-page": "Ir à página da faixa"
+  "musicritic.album-page.reviews.sort-by.recent": "Mais recentes",
+  "musicritic.album-page.reviews.sort-by.rating": "Nota mais alta"
 }

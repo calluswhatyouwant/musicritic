@@ -4,10 +4,9 @@ import type { ThemeUIStyleObject } from 'theme-ui'
 
 const ratingBadgeStyles: ThemeUIStyleObject = {
   border: '4px solid black',
-  padding: [2, 2, 3],
   borderRadius: '100%',
-  minHeight: [60, 60, 120],
-  minWidth: [60, 60, 120],
+  minHeight: [64, 64, 128],
+  minWidth: [64, 64, 128],
   alignItems: 'center',
   justifyContent: 'center',
   display: 'flex',

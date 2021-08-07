@@ -11,7 +11,7 @@ const heading = {
 
 export const theme: Theme = {
   breakpoints: ['40rem', '56rem', '64rem', '72rem', '80rem'],
-  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
+  space: [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64],
   fonts: {
     body: 'sans-serif',
     heading: 'inherit',
@@ -32,7 +32,7 @@ export const theme: Theme = {
     background: '#fff',
     primary: '#07c',
     secondary: '#30c',
-    muted: '#f6f6f6',
+    muted: ['#EBEBEF', '#CBCBCF', '#9C99A0', '#6C6771', '#3B3542', '#0B0313'],
   },
   styles: {
     root: {
@@ -100,5 +100,20 @@ export const theme: Theme = {
     img: {
       maxWidth: '100%',
     },
+  },
+  text: {
+    sectionHeader: {
+      fontSize: 4,
+      lineHeight: 1.5,
+      fontWeight: 'bold',
+      marginBottom: 3,
+      display: 'block',
+    },
+    bold: {
+      fontWeight: 'bold',
+    },
+  },
+  images: {
+    avatar: { borderRadius: 4, height: 36, width: 36 },
   },
 }

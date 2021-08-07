@@ -6,8 +6,9 @@ import { Flex, Link } from 'theme-ui'
 import type { ThemeUIStyleObject } from 'theme-ui'
 
 const spotifyButtonStyles: ThemeUIStyleObject = {
-  border: '1px solid black',
-  borderRadius: 32,
+  border: '1px solid',
+  borderColor: 'muted.5',
+  borderRadius: 8,
   paddingX: 3,
   paddingY: 2,
   width: 'fit-content',

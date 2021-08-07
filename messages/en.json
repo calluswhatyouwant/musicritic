@@ -5,5 +5,6 @@
   "musicritic.album-page.other-albums-by": "Other albums by {artist}",
   "musicritic.album-page.tracklist": "Tracklist",
   "musicritic.album-page.reviews": "Reviews",
-  "musicritic.album-page.link-track-page": "Go to track page"
+  "musicritic.album-page.reviews.sort-by.recent": "Most recent",
+  "musicritic.album-page.reviews.sort-by.rating": "Best ratings"
 }

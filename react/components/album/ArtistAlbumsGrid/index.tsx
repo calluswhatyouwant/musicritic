@@ -3,29 +3,22 @@ import type { FC } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import { Grid, Text, Box } from 'theme-ui'
 import type { ThemeUIStyleObject } from 'theme-ui'
-import type { Album } from 'spotify-web-sdk'
+import type { Album, AlbumSimplified } from 'spotify-web-sdk'
 
 import AlbumCard from './AlbumCard'
-
-const titleStyles: ThemeUIStyleObject = {
-  fontWeight: 'bold',
-  fontSize: 4,
-  marginBottom: 2,
-  display: 'block',
-}
 
 const messages = defineMessages({
   otherAlbumsBy: { id: 'musicritic.album-page.other-albums-by' },
 })
 
 interface Props {
-  albums: Album[]
-  mainArtist?: string
+  albums: AlbumSimplified[]
+  mainArtist: string
 }
 
-const ArtistAlbumGrid: FC<Props> = ({ albums, mainArtist = 'Bleachers' }) => (
+const ArtistAlbumGrid: FC<Props> = ({ albums, mainArtist }) => (
   <Box>
-    <Text sx={titleStyles}>
+    <Text variant="sectionHeader">
       <FormattedMessage
         {...messages.otherAlbumsBy}
         values={{ artist: mainArtist }}
