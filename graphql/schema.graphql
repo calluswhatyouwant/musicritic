@@ -1,3 +1,5 @@
+scalar Date
+
 type Image {
   height: Int!
   url: String!
@@ -34,6 +36,54 @@ type SearchResult {
   artists: [ArtistSearchResult!]!
 }
 
+type Reviewer {
+  id: ID!
+  name: String!
+  image: String
+}
+
+interface Review {
+  id: ID!
+  rating: Int!
+  author: Reviewer!
+  post: String
+  edited: Boolean!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type AlbumReview implements Review {
+  albumId: String!
+  id: ID!
+  rating: Int!
+  author: Reviewer!
+  post: String
+  edited: Boolean!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type TrackReview implements Review {
+  trackId: String!
+  id: ID!
+  rating: Int!
+  author: Reviewer!
+  post: String
+  edited: Boolean!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
 type Query {
   search(q: String!, limit: Int, offset: Int): SearchResult!
+}
+
+input ReviewInput {
+  post: String
+  rating: Int!
+}
+
+type Mutation {
+  reviewAlbum(albumId: ID!, review: ReviewInput!): AlbumReview!
+  reviewTrack(trackId: ID!, review: ReviewInput!): TrackReview!
 }

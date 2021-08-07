@@ -22,6 +22,7 @@
 .idea/
 *.log
 .eslintcache
+.firebase_export
 
 # debug
 npm-debug.log*

@@ -13,6 +13,19 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
+  Date: any
+}
+
+export type AlbumReview = Review & {
+  __typename?: 'AlbumReview'
+  albumId: Scalars['String']
+  id: Scalars['ID']
+  rating: Scalars['Int']
+  author: Reviewer
+  post?: Maybe<Scalars['String']>
+  edited: Scalars['Boolean']
+  createdAt: Scalars['Date']
+  updatedAt: Scalars['Date']
 }
 
 export type AlbumSearchResult = {
@@ -39,6 +52,22 @@ export type Image = {
   isSquared: Scalars['Boolean']
 }
 
+export type Mutation = {
+  __typename?: 'Mutation'
+  reviewAlbum: AlbumReview
+  reviewTrack: TrackReview
+}
+
+export type MutationReviewAlbumArgs = {
+  albumId: Scalars['ID']
+  review: ReviewInput
+}
+
+export type MutationReviewTrackArgs = {
+  trackId: Scalars['ID']
+  review: ReviewInput
+}
+
 export type Query = {
   __typename?: 'Query'
   search: SearchResult
@@ -50,11 +79,45 @@ export type QuerySearchArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type Review = {
+  id: Scalars['ID']
+  rating: Scalars['Int']
+  author: Reviewer
+  post?: Maybe<Scalars['String']>
+  edited: Scalars['Boolean']
+  createdAt: Scalars['Date']
+  updatedAt: Scalars['Date']
+}
+
+export type ReviewInput = {
+  post?: Maybe<Scalars['String']>
+  rating: Scalars['Int']
+}
+
+export type Reviewer = {
+  __typename?: 'Reviewer'
+  id: Scalars['ID']
+  name: Scalars['String']
+  image?: Maybe<Scalars['String']>
+}
+
 export type SearchResult = {
   __typename?: 'SearchResult'
   albums: Array<AlbumSearchResult>
   tracks: Array<TrackSearchResult>
   artists: Array<ArtistSearchResult>
+}
+
+export type TrackReview = Review & {
+  __typename?: 'TrackReview'
+  trackId: Scalars['String']
+  id: Scalars['ID']
+  rating: Scalars['Int']
+  author: Reviewer
+  post?: Maybe<Scalars['String']>
+  edited: Scalars['Boolean']
+  createdAt: Scalars['Date']
+  updatedAt: Scalars['Date']
 }
 
 export type TrackSearchResult = {
