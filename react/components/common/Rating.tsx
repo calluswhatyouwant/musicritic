@@ -14,7 +14,8 @@ const Rating: FC<Props> = ({ value }) => {
     <IconStar key={index} color="#FDE74C" solid />
   ))
 
-  if (fullStars !== value) icons.push(<IconStarHalf color="#FDE74C" solid />)
+  if (fullStars !== value)
+    icons.push(<IconStarHalf key={value} color="#FDE74C" solid />)
 
   return <>{icons}</>
 }
