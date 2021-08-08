@@ -2,11 +2,13 @@ import type { FC } from 'react'
 import { Badge } from 'theme-ui'
 import type { ThemeUIStyleObject } from 'theme-ui'
 
+import Skeleton from '@/components/common/Skeleton'
+
 const ratingBadgeStyles: ThemeUIStyleObject = {
   border: '4px solid black',
   borderRadius: '100%',
-  minHeight: [64, 64, 128],
-  minWidth: [64, 64, 128],
+  height: [64, 64, 128],
+  width: [64, 64, 128],
   alignItems: 'center',
   justifyContent: 'center',
   display: 'flex',
@@ -18,10 +20,13 @@ const ratingBadgeStyles: ThemeUIStyleObject = {
 
 interface Props {
   rating: number
+  loading: boolean
 }
 
-const AlbumRatingBadge: FC<Props> = ({ rating }) => (
-  <Badge sx={ratingBadgeStyles}>{rating}</Badge>
+const AlbumRatingBadge: FC<Props> = ({ rating, loading }) => (
+  <Skeleton loading={loading} sx={{ ...ratingBadgeStyles, border: 'none' }}>
+    <Badge sx={ratingBadgeStyles}>{rating}</Badge>
+  </Skeleton>
 )
 
 export default AlbumRatingBadge

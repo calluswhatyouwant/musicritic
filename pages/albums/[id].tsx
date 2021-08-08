@@ -1,5 +1,5 @@
 import type { Album, AlbumSimplified } from 'spotify-web-sdk'
-import { Flex, Grid, Spinner } from 'theme-ui'
+import { Flex, Grid } from 'theme-ui'
 import Head from 'next/head'
 import type {
   GetStaticPaths,
@@ -7,7 +7,6 @@ import type {
   GetStaticPropsContext,
 } from 'next'
 import type { FC } from 'react'
-import { useRouter } from 'next/dist/client/router'
 
 import AlbumPageHeader from '@/components/album/AlbumPageHeader'
 import AlbumTracklist from '@/components/album/AlbumTracklist'
@@ -60,27 +59,13 @@ export const getStaticProps: GetStaticProps = async (
 interface Props {
   album: Album
   artistAlbums: AlbumSimplified[]
+  loading: boolean
 }
 
-const AlbumPage: FC<Props> = ({ album, artistAlbums }) => {
-  const router = useRouter()
-
-  if (router.isFallback) {
-    return (
-      <Flex
-        sx={{
-          width: '100%',
-          minHeight: '100vh',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Spinner size={256} />
-      </Flex>
-    )
-  }
-
-  const pageTitle = `${album.name} - ${album.stringArtists} | Musicritic`
+const AlbumPage: FC<Props> = ({ album, artistAlbums, loading }) => {
+  const pageTitle = album
+    ? `${album.name} - ${album.stringArtists} | Musicritic`
+    : 'Musicritic'
 
   return (
     <Flex
@@ -93,7 +78,7 @@ const AlbumPage: FC<Props> = ({ album, artistAlbums }) => {
       <Head>
         <title>{pageTitle}</title>
       </Head>
-      <AlbumPageHeader album={album} />
+      <AlbumPageHeader loading={loading} album={album} />
       <Grid
         gap={4}
         columns={[1, 2, '2fr 3fr']}
@@ -103,13 +88,14 @@ const AlbumPage: FC<Props> = ({ album, artistAlbums }) => {
         }}
       >
         <Grid sx={{ flexDirection: 'column', height: 'fit-content', gap: 6 }}>
-          <AlbumTracklist album={album} />
+          <AlbumTracklist loading={loading} album={album} />
           <ArtistAlbumsGrid
+            loading={loading}
             albums={artistAlbums}
-            mainArtist={album.artists[0].name}
+            mainArtist={album?.artists[0].name ?? ''}
           />
         </Grid>
-        <AlbumReviewSection reviews={reviewMocks} />
+        <AlbumReviewSection loading={loading} reviews={reviewMocks} />
       </Grid>
     </Flex>
   )

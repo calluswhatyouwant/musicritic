@@ -9,15 +9,7 @@ interface Props {
 }
 
 const AlbumReviewReactions: FC<Props> = ({ upvotes, downvotes }) => (
-  <Flex
-    sx={{
-      justifyContent: 'flex-end',
-      width: '100%',
-      paddingTop: 2,
-      borderRadius: 4,
-      gap: 3,
-    }}
-  >
+  <>
     <Flex sx={{ alignItems: 'center', gap: 1 }}>
       <ReactionButton variant="upvote" />
       <Text sx={{ color: 'green', lineHeight: 1.25 }}>{upvotes}</Text>
@@ -26,7 +18,7 @@ const AlbumReviewReactions: FC<Props> = ({ upvotes, downvotes }) => (
       <ReactionButton variant="downvote" />
       <Text sx={{ color: 'red', lineHeight: 1.25 }}>{downvotes}</Text>
     </Flex>
-  </Flex>
+  </>
 )
 
 export default AlbumReviewReactions

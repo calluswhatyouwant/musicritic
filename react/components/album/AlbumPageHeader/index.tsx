@@ -3,6 +3,8 @@ import type { Album } from 'spotify-web-sdk'
 import { Flex, Image } from 'theme-ui'
 import type { ThemeUIStyleObject } from 'theme-ui'
 
+import Skeleton from '@/components/common/Skeleton'
+
 import AlbumRatingBadge from './AlbumRatingBadge'
 import AlbumMetadata from './AlbumMetadata'
 
@@ -23,9 +25,10 @@ const detailsContainerStyles: ThemeUIStyleObject = {
 
 interface Props {
   album: Album
+  loading: boolean
 }
 
-const AlbumPageHeader: FC<Props> = ({ album }) => (
+const AlbumPageHeader: FC<Props> = ({ album, loading }) => (
   <Flex
     sx={{
       flexDirection: ['column', 'column', 'row'],
@@ -35,17 +38,19 @@ const AlbumPageHeader: FC<Props> = ({ album }) => (
     }}
   >
     <Flex sx={containerStyles}>
-      <Image
-        alt={album.name}
-        src={album.imageUrl}
-        sx={{ maxHeight: 280, maxWidth: 280 }}
-      />
+      <Skeleton loading={loading} sx={{ height: 280, width: 280 }}>
+        <Image
+          alt={album?.name}
+          src={album?.imageUrl}
+          sx={{ maxHeight: 280, maxWidth: 280 }}
+        />
+      </Skeleton>
     </Flex>
     <Flex sx={detailsContainerStyles}>
-      <AlbumMetadata album={album} />
+      <AlbumMetadata loading={loading} album={album} />
     </Flex>
     <Flex sx={containerStyles}>
-      <AlbumRatingBadge rating={4.9} />
+      <AlbumRatingBadge loading={loading} rating={4.9} />
     </Flex>
   </Flex>
 )
