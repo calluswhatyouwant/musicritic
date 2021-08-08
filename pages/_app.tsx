@@ -4,6 +4,8 @@ import Head from 'next/head'
 import type { FC } from 'react'
 import { useEffect, useState } from 'react'
 import Router from 'next/router'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 import IntlProvider from '@/providers/IntlProvider'
 import ThemeProvider from '@/providers/ThemeProvider'
@@ -20,22 +22,24 @@ const App: FC<Props> = ({ Component, pageProps }) => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const start = () => {
+    const startLoading = () => {
       setLoading(true)
+      NProgress.start()
     }
 
-    const end = () => {
+    const endLoading = () => {
       setLoading(false)
+      NProgress.done()
     }
 
-    Router.events.on('routeChangeStart', start)
-    Router.events.on('routeChangeComplete', end)
-    Router.events.on('routeChangeError', end)
+    Router.events.on('routeChangeStart', startLoading)
+    Router.events.on('routeChangeComplete', endLoading)
+    Router.events.on('routeChangeError', endLoading)
 
     return () => {
-      Router.events.off('routeChangeStart', start)
-      Router.events.off('routeChangeComplete', end)
-      Router.events.off('routeChangeError', end)
+      Router.events.off('routeChangeStart', startLoading)
+      Router.events.off('routeChangeComplete', endLoading)
+      Router.events.off('routeChangeError', endLoading)
     }
   }, [])
 
