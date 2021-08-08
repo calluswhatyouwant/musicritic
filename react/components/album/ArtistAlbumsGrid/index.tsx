@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
-import { Grid, Text, Box } from 'theme-ui'
+import { Grid, Box, Heading } from 'theme-ui'
 import type { AlbumSimplified } from 'spotify-web-sdk'
 
 import Skeleton from '@/components/common/Skeleton'
@@ -12,27 +12,29 @@ const messages = defineMessages({
 })
 
 interface Props {
-  albums: AlbumSimplified[]
+  albums?: AlbumSimplified[]
   mainArtist: string
   loading: boolean
 }
 
-const ArtistAlbumGrid: FC<Props> = ({ albums, mainArtist, loading }) => (
+const ArtistAlbumGrid: FC<Props> = ({
+  albums = [...Array(4)],
+  mainArtist,
+  loading,
+}) => (
   <Box>
-    <Text variant="sectionHeader">
-      <Skeleton loading={loading} sx={{ height: 36, width: '95%' }}>
+    <Heading as="h3" variant="section">
+      <Skeleton loading={loading} variant="text.section" width={256}>
         <FormattedMessage
           {...messages.otherAlbumsBy}
           values={{ artist: mainArtist }}
         />
       </Skeleton>
-    </Text>
+    </Heading>
     <Grid gap={2} columns={[1, 1, 1, 1, 1, 2]}>
-      <Skeleton sx={{ height: 64 }} loading={loading} count={4}>
-        {albums?.map((album) => (
-          <AlbumCard key={album?.id} album={album} />
-        ))}
-      </Skeleton>
+      {albums.map((album, index) => (
+        <AlbumCard key={album?.id ?? index} album={album} loading={loading} />
+      ))}
     </Grid>
   </Box>
 )

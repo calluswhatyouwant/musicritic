@@ -57,15 +57,16 @@ export const getStaticProps: GetStaticProps = async (
 }
 
 interface Props {
-  album: Album
-  artistAlbums: AlbumSimplified[]
+  album?: Album
+  artistAlbums?: AlbumSimplified[]
   loading: boolean
 }
 
 const AlbumPage: FC<Props> = ({ album, artistAlbums, loading }) => {
-  const pageTitle = album
-    ? `${album.name} - ${album.stringArtists} | Musicritic`
-    : 'Musicritic'
+  const pageTitle = `${album?.name} - ${album?.stringArtists} | Musicritic`
+
+  // TODO: Retrieve through a query.
+  const averageRating = 4.5
 
   return (
     <Flex
@@ -75,20 +76,26 @@ const AlbumPage: FC<Props> = ({ album, artistAlbums, loading }) => {
         width: '100%',
       }}
     >
-      <Head>
-        <title>{pageTitle}</title>
-      </Head>
-      <AlbumPageHeader loading={loading} album={album} />
+      {album && (
+        <Head>
+          <title>{pageTitle}</title>
+        </Head>
+      )}
+      <AlbumPageHeader
+        loading={loading}
+        album={album}
+        averageRating={averageRating}
+      />
       <Grid
         gap={4}
         columns={[1, 2, '2fr 3fr']}
         sx={{
-          paddingX: [6, 8, 6, 8, 16],
+          paddingX: [6, 8, 6, 16],
           paddingY: [6, 8, 6, 8],
         }}
       >
         <Grid sx={{ flexDirection: 'column', height: 'fit-content', gap: 6 }}>
-          <AlbumTracklist loading={loading} album={album} />
+          <AlbumTracklist loading={loading} albumTracks={album?.tracks.items} />
           <ArtistAlbumsGrid
             loading={loading}
             albums={artistAlbums}

@@ -4,6 +4,7 @@ import { Card, Image, Text, Flex } from 'theme-ui'
 import type { ThemeUIStyleObject } from 'theme-ui'
 
 import Link from '@/components/common/Link'
+import Skeleton from '@/components/common/Skeleton'
 
 const cardStyles: ThemeUIStyleObject = {
   display: 'flex',
@@ -24,29 +25,43 @@ const truncateTextStyles: ThemeUIStyleObject = {
 }
 
 interface AlbumCardProps {
-  album: AlbumSimplified
+  album?: AlbumSimplified
+  loading: boolean
 }
 
-const AlbumCard: FC<AlbumCardProps> = ({ album }) => (
-  <Link href={`/albums/${album?.id}`} sx={{ textDecoration: 'none' }}>
+const AlbumCard: FC<AlbumCardProps> = ({ album, loading }) => (
+  <Link
+    href={album ? `/albums/${album?.id}` : '/'}
+    sx={{ textDecoration: 'none' }}
+  >
     <Card key={album?.id} sx={cardStyles}>
-      <Image
-        alt={album?.name}
-        src={album?.imageUrl}
-        sx={{ height: '3rem', minWidth: '3rem' }}
-      />
-      <Flex sx={{ flexDirection: 'column', gap: 1 }}>
-        <Text sx={{ ...truncateTextStyles, color: 'muted.4' }}>
-          {album?.name}
-        </Text>
-        <Text
-          sx={{
-            ...truncateTextStyles,
-            color: 'muted.3',
-          }}
+      <Skeleton loading={loading} height={48} width={48}>
+        <Image
+          alt={album?.name}
+          src={album?.imageUrl}
+          sx={{ height: 48, minWidth: 48 }}
+        />
+      </Skeleton>
+      <Flex sx={{ flexDirection: 'column', gap: 2 }}>
+        <Skeleton
+          loading={loading}
+          variant="text.body"
+          count={2}
+          width={[200, 160, 160, 200, 256, 128]}
         >
-          {album?.stringArtists}
-        </Text>
+          <Text variant="body" sx={{ ...truncateTextStyles, color: 'muted.4' }}>
+            {album?.name}
+          </Text>
+          <Text
+            variant="body"
+            sx={{
+              ...truncateTextStyles,
+              color: 'muted.3',
+            }}
+          >
+            {album?.stringArtists}
+          </Text>
+        </Skeleton>
       </Flex>
     </Card>
   </Link>

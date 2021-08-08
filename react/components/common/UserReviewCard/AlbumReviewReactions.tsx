@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import type { ThemeUIStyleObject } from 'theme-ui'
 import { Text, Flex } from 'theme-ui'
 
 import ReactionButton from './ReactionButton'
@@ -8,15 +9,20 @@ interface Props {
   downvotes: number
 }
 
+const buttonContainerStyles: ThemeUIStyleObject = {
+  alignItems: 'center',
+  gap: 1,
+}
+
 const AlbumReviewReactions: FC<Props> = ({ upvotes, downvotes }) => (
   <>
-    <Flex sx={{ alignItems: 'center', gap: 1 }}>
+    <Flex sx={buttonContainerStyles}>
       <ReactionButton variant="upvote" />
-      <Text sx={{ color: 'green', lineHeight: 1.25 }}>{upvotes}</Text>
+      <Text sx={{ color: 'green' }}>{upvotes}</Text>
     </Flex>
-    <Flex sx={{ alignItems: 'center', gap: 1 }}>
+    <Flex sx={buttonContainerStyles}>
       <ReactionButton variant="downvote" />
-      <Text sx={{ color: 'red', lineHeight: 1.25 }}>{downvotes}</Text>
+      <Text sx={{ color: 'red' }}>{downvotes}</Text>
     </Flex>
   </>
 )

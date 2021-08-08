@@ -16,33 +16,43 @@ interface Props {
   loading: boolean
   count?: number
   sx?: ThemeUIStyleObject
+  height?: number | string | Array<number | string>
+  width?: number | string | Array<number | string>
+  shape?: 'rect' | 'circle'
+  variant?: string
 }
 
 const Skeleton: FC<PropsWithChildren<Props>> = ({
-  sx = {},
   children,
   loading,
   count = 1,
-}) =>
-  loading ? (
-    <>
-      {[...Array(count)].map((_, index) => (
-        <Box
-          key={index}
-          css={css`
-            animation: ${loadingAnimation} 1.5s ease-in-out infinite;
-          `}
-          sx={{
-            borderRadius: '4px',
-            width: '100%',
-            height: '100%',
-            ...sx,
-          }}
-        />
-      ))}
-    </>
-  ) : (
-    <>{children}</>
-  )
+  height = 'auto',
+  width = 'auto',
+  sx = {},
+  shape = 'rect',
+  variant = '',
+}) => {
+  const skeleton = [...Array(count)].map((_, index) => (
+    <Box
+      key={index}
+      css={css`
+        animation: ${loadingAnimation} 1.5s ease-in-out infinite;
+      `}
+      sx={{
+        borderRadius: shape === 'rect' ? '4px' : '100%',
+        width,
+        height,
+        minWidth: width,
+        minHeight: height,
+        maxWidth: width,
+        maxHeight: height,
+        variant: `skeleton.${variant}`,
+        ...sx,
+      }}
+    />
+  ))
+
+  return <>{loading ? skeleton : children}</>
+}
 
 export default Skeleton

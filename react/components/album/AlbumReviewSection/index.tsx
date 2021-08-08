@@ -2,13 +2,12 @@ import type { FC } from 'react'
 import { useState } from 'react'
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl'
 import type { ThemeUIStyleObject } from 'theme-ui'
-import { Box, Flex, Grid, Text } from 'theme-ui'
+import { Heading, Box, Grid } from 'theme-ui'
 
 import type { AlbumReview } from '@/types/graphql-schemas'
 import Select from '@/components/common/Select'
 import Skeleton from '@/components/common/Skeleton'
-
-import AlbumUserReview from './AlbumUserReview'
+import UserReviewCard from '@/components/common/UserReviewCard'
 
 const messages = defineMessages({
   reviews: { id: 'musicritic.album-page.reviews' },
@@ -16,33 +15,35 @@ const messages = defineMessages({
   sortByRating: { id: 'musicritic.album-page.reviews.sort-by.rating' },
 })
 
-const styles: ThemeUIStyleObject = {
-  flexDirection: ['column', 'column', 'row'],
-  marginBottom: [3, 3, 0],
-  width: '100%',
+const headerStyles: ThemeUIStyleObject = {
+  display: 'flex',
   justifyContent: 'space-between',
-  paddingRight: 1,
+  width: '100%',
 }
 
 interface Props {
-  reviews: AlbumReview[]
   loading: boolean
+  reviews?: AlbumReview[]
 }
 
-const AlbumReviewSection: FC<Props> = ({ reviews, loading }) => {
+const AlbumReviewSection: FC<Props> = ({
+  reviews = [...Array(6)],
+  loading,
+}) => {
   const [sortBy, setSortBy] = useState('recent')
   const { formatMessage } = useIntl()
   const reviewCount = reviews.length
 
   return (
     <Box>
-      <Flex sx={styles}>
-        <Text variant="sectionHeader">
-          <Skeleton loading={loading} sx={{ height: 36, width: 160 }}>
-            <FormattedMessage {...messages.reviews} /> ({reviewCount})
-          </Skeleton>
-        </Text>
-        <Skeleton loading={loading} sx={{ height: 36, width: 160 }}>
+      <Heading as="h3" variant="section" sx={headerStyles}>
+        <Skeleton
+          loading={loading}
+          variant="text.section"
+          width={160}
+          count={2}
+        >
+          <FormattedMessage {...messages.reviews} /> ({reviewCount})
           <Select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
             <option value="recent">
               {formatMessage(messages.sortByRecent)}
@@ -52,10 +53,10 @@ const AlbumReviewSection: FC<Props> = ({ reviews, loading }) => {
             </option>
           </Select>
         </Skeleton>
-      </Flex>
+      </Heading>
       <Grid columns={[1, 1, 1, 1, 2]} gap={2}>
-        {reviews.map((review) => (
-          <AlbumUserReview key={review.id} review={review} loading={loading} />
+        {reviews.map((review: AlbumReview) => (
+          <UserReviewCard key={review.id} review={review} loading={loading} />
         ))}
       </Grid>
     </Box>
