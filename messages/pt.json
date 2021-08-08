@@ -1,0 +1,10 @@
+{
+  "musicritic.album-page.open-on-spotify": "Abrir no Spotify",
+  "musicritic.album-page.by-artists": "por {artists}",
+  "musicritic.album-page.release-date": "Lançado em {date}",
+  "musicritic.album-page.other-albums-by": "Outros álbuns por {artist}",
+  "musicritic.album-page.tracklist": "Lista de faixas",
+  "musicritic.album-page.reviews": "Avaliações",
+  "musicritic.album-page.reviews.sort-by.recent": "Mais recentes",
+  "musicritic.album-page.reviews.sort-by.rating": "Nota mais alta"
+}
