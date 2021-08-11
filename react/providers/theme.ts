@@ -1,16 +1,7 @@
-// Preset theme
+import type { Theme, ThemeUIStyleObject } from 'theme-ui'
 
-import type { Theme } from 'theme-ui'
-
-const heading = {
-  color: 'text',
-  fontFamily: 'heading',
-  lineHeight: 'heading',
-  fontWeight: 'heading',
-}
-
-export const theme: Theme = {
-  breakpoints: ['40rem', '56rem', '64rem', '72rem', '80rem'],
+export const theme: Theme | Record<string, ThemeUIStyleObject> = {
+  breakpoints: ['40rem', '56rem', '64rem', '80rem', '90rem'],
   space: [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64],
   fonts: {
     body: 'sans-serif',
@@ -24,8 +15,9 @@ export const theme: Theme = {
     bold: 700,
   },
   lineHeights: {
-    body: 1.5,
     heading: 1.125,
+    body: 1.25,
+    paragraph: 1.5,
   },
   colors: {
     text: '#000',
@@ -39,39 +31,6 @@ export const theme: Theme = {
       fontFamily: 'body',
       lineHeight: 'body',
       fontWeight: 'body',
-    },
-    h1: {
-      ...heading,
-      fontSize: 5,
-    },
-    h2: {
-      ...heading,
-      fontSize: 4,
-    },
-    h3: {
-      ...heading,
-      fontSize: 3,
-    },
-    h4: {
-      ...heading,
-      fontSize: 2,
-    },
-    h5: {
-      ...heading,
-      fontSize: 1,
-    },
-    h6: {
-      ...heading,
-      fontSize: 0,
-    },
-    p: {
-      color: 'text',
-      fontFamily: 'body',
-      fontWeight: 'body',
-      lineHeight: 'body',
-    },
-    a: {
-      color: 'primary',
     },
     pre: {
       fontFamily: 'monospace',
@@ -97,23 +56,120 @@ export const theme: Theme = {
       textAlign: 'left',
       borderBottomStyle: 'solid',
     },
-    img: {
-      maxWidth: '100%',
+  },
+  cards: {
+    primary: {
+      border: '1px solid',
+      borderColor: 'muted.2',
+      padding: 4,
+      borderRadius: 4,
+    },
+    compact: {
+      border: '1px solid',
+      borderColor: 'muted.2',
+      padding: 2,
+      borderRadius: 4,
+    },
+  },
+  links: {
+    button: {
+      border: '1px solid',
+      borderColor: 'muted.4',
+      color: 'muted.4',
+      borderRadius: 16,
+      paddingX: 4,
+      paddingY: 2,
+      width: 'fit-content',
+      textDecoration: 'none',
+      ':hover': {
+        borderColor: 'black',
+        color: 'black',
+        textDecoration: 'underline',
+      },
+    },
+    'plain-hover': {
+      textDecoration: 'none',
+      color: 'inherit',
+      ':hover': {
+        textDecoration: 'underline',
+      },
+    },
+    plain: {
+      textDecoration: 'none',
+      color: 'inherit',
     },
   },
   text: {
-    sectionHeader: {
-      fontSize: 4,
-      lineHeight: 1.5,
+    title: {
+      fontSize: [4, 5, 6],
       fontWeight: 'bold',
+      marginBottom: 2,
+      lineHeight: 'heading',
+    },
+    subtitle: {
+      fontSize: [2, 3, 4],
+      marginBottom: 2,
+      lineHeight: 'heading',
+    },
+    section: {
+      fontSize: [3, 3, 4],
+      lineHeight: 'heading',
       marginBottom: 3,
-      display: 'block',
+    },
+    content: {
+      fontSize: [1, 1, 2],
+      marginBottom: 2,
+      lineHeight: 'body',
+    },
+    body: {
+      fontSize: 2,
+      lineHeight: 'body',
+    },
+    small: {
+      fontSize: 1,
+      lineHeight: 'body',
+    },
+    paragraph: {
+      fontSize: 2,
+      lineHeight: 'paragraph',
     },
     bold: {
+      fontSize: 2,
+      lineHeight: 'body',
       fontWeight: 'bold',
     },
   },
   images: {
-    avatar: { borderRadius: 4, height: 36, width: 36 },
+    avatar: { borderRadius: 4, height: 40, width: 40 },
+  },
+  skeleton: {
+    button: {
+      height: 36,
+      borderRadius: 16,
+    },
+    text: {
+      title: {
+        height: [27, 36, 54],
+      },
+      subtitle: {
+        height: [18, 22, 27],
+      },
+      section: {
+        height: [22, 22, 27],
+      },
+      content: {
+        height: [21, 21, 24],
+      },
+      body: {
+        height: 20,
+      },
+      small: {
+        height: 17,
+      },
+      paragraph: {
+        height: 20,
+        marginBottom: 1,
+      },
+    },
   },
 }

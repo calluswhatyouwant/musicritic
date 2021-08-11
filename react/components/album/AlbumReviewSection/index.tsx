@@ -2,12 +2,12 @@ import type { FC } from 'react'
 import { useState } from 'react'
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl'
 import type { ThemeUIStyleObject } from 'theme-ui'
-import { Box, Flex, Grid, Text } from 'theme-ui'
+import { Heading, Box, Grid } from 'theme-ui'
 
 import type { AlbumReview } from '@/types/graphql-schemas'
 import Select from '@/components/common/Select'
-
-import AlbumUserReview from './AlbumUserReview'
+import Skeleton from '@/components/common/Skeleton'
+import UserReviewCard from '@/components/common/UserReviewCard'
 
 const messages = defineMessages({
   reviews: { id: 'musicritic.album-page.reviews' },
@@ -15,37 +15,48 @@ const messages = defineMessages({
   sortByRating: { id: 'musicritic.album-page.reviews.sort-by.rating' },
 })
 
-const styles: ThemeUIStyleObject = {
-  flexDirection: ['column', 'column', 'row'],
-  marginBottom: [3, 3, 0],
-  width: '100%',
+const headerStyles: ThemeUIStyleObject = {
+  display: 'flex',
   justifyContent: 'space-between',
-  paddingRight: 1,
+  width: '100%',
 }
 
 interface Props {
-  reviews: AlbumReview[]
+  loading: boolean
+  reviews?: AlbumReview[]
 }
 
-const AlbumReviewSection: FC<Props> = ({ reviews }) => {
+const AlbumReviewSection: FC<Props> = ({
+  reviews = [...Array(6)],
+  loading,
+}) => {
   const [sortBy, setSortBy] = useState('recent')
   const { formatMessage } = useIntl()
   const reviewCount = reviews.length
 
   return (
     <Box>
-      <Flex sx={styles}>
-        <Text variant="sectionHeader">
+      <Heading as="h3" variant="section" sx={headerStyles}>
+        <Skeleton
+          loading={loading}
+          variant="text.section"
+          width={160}
+          count={2}
+        >
           <FormattedMessage {...messages.reviews} /> ({reviewCount})
-        </Text>
-        <Select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-          <option value="recent">{formatMessage(messages.sortByRecent)}</option>
-          <option value="rating">{formatMessage(messages.sortByRating)}</option>
-        </Select>
-      </Flex>
+          <Select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+            <option value="recent">
+              {formatMessage(messages.sortByRecent)}
+            </option>
+            <option value="rating">
+              {formatMessage(messages.sortByRating)}
+            </option>
+          </Select>
+        </Skeleton>
+      </Heading>
       <Grid columns={[1, 1, 1, 1, 2]} gap={2}>
-        {reviews.map((review) => (
-          <AlbumUserReview key={review.id} review={review} />
+        {reviews.map((review: AlbumReview) => (
+          <UserReviewCard key={review.id} review={review} loading={loading} />
         ))}
       </Grid>
     </Box>

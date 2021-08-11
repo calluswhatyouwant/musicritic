@@ -5,16 +5,20 @@ import type { ThemeUIStyleObject } from 'theme-ui'
 import { Link as ThemeUILink } from 'theme-ui'
 
 interface Props extends LinkProps {
+  variant?: string
   sx?: ThemeUIStyleObject
 }
 
 const Link: FC<PropsWithChildren<Props>> = ({
   children,
+  variant,
   sx = {},
   ...props
 }) => (
   <NextLink {...props} passHref>
-    <ThemeUILink sx={sx}>{children}</ThemeUILink>
+    <ThemeUILink variant={variant} sx={sx}>
+      {children}
+    </ThemeUILink>
   </NextLink>
 )
 

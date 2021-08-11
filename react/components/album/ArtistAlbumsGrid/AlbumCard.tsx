@@ -1,17 +1,16 @@
 import type { FC } from 'react'
 import type { AlbumSimplified } from 'spotify-web-sdk'
-import { Card, Image, Text, Flex } from 'theme-ui'
+import { Card, Text, Flex } from 'theme-ui'
 import type { ThemeUIStyleObject } from 'theme-ui'
 
 import Link from '@/components/common/Link'
+import Skeleton from '@/components/common/Skeleton'
+import SkeletonImage from '@/components/common/SkeletonImage'
 
 const cardStyles: ThemeUIStyleObject = {
   display: 'flex',
-  border: '1px solid black',
-  padding: 2,
   alignItems: 'center',
   gap: 2,
-  borderRadius: 4,
   ':hover': {
     backgroundColor: 'muted.0',
   },
@@ -24,29 +23,40 @@ const truncateTextStyles: ThemeUIStyleObject = {
 }
 
 interface AlbumCardProps {
-  album: AlbumSimplified
+  album?: AlbumSimplified
+  loading: boolean
 }
 
-const AlbumCard: FC<AlbumCardProps> = ({ album }) => (
-  <Link href={`/albums/${album.id}`} sx={{ textDecoration: 'none' }}>
-    <Card key={album.id} sx={cardStyles}>
-      <Image
-        alt={album.name}
-        src={album.imageUrl}
-        sx={{ height: '3rem', minWidth: '3rem' }}
+const AlbumCard: FC<AlbumCardProps> = ({ album, loading }) => (
+  <Link href={album ? `/albums/${album?.id}` : '/'} variant="plain">
+    <Card key={album?.id} sx={cardStyles} variant="compact">
+      <SkeletonImage
+        loading={loading}
+        alt={album?.name ?? ''}
+        src={album?.imageUrl ?? ''}
+        height={48}
+        width={48}
       />
-      <Flex sx={{ flexDirection: 'column', gap: 1 }}>
-        <Text sx={{ ...truncateTextStyles, color: 'muted.4' }}>
-          {album.name}
-        </Text>
-        <Text
-          sx={{
-            ...truncateTextStyles,
-            color: 'muted.3',
-          }}
+      <Flex sx={{ flexDirection: 'column', gap: 2 }}>
+        <Skeleton
+          loading={loading}
+          variant="text.body"
+          count={2}
+          width={[200, 160, 160, 200, 256, 128]}
         >
-          {album.stringArtists}
-        </Text>
+          <Text variant="body" sx={{ ...truncateTextStyles, color: 'muted.4' }}>
+            {album?.name}
+          </Text>
+          <Text
+            variant="body"
+            sx={{
+              ...truncateTextStyles,
+              color: 'muted.3',
+            }}
+          >
+            {album?.stringArtists}
+          </Text>
+        </Skeleton>
       </Flex>
     </Card>
   </Link>
