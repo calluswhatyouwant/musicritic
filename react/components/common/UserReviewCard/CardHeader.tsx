@@ -1,11 +1,12 @@
 import type { FC } from 'react'
 import { FormattedDate } from 'react-intl'
-import type { ThemeUICSSObject } from 'theme-ui'
-import { Flex, Image, Text } from 'theme-ui'
+import { Flex, Text } from 'theme-ui'
 
 import type { AlbumReview } from '@/types/graphql-schemas'
 import Rating from '@/components/common/Rating'
 import Skeleton from '@/components/common/Skeleton'
+
+import SkeletonImage from '../SkeletonImage'
 
 interface Props {
   loading: boolean
@@ -14,13 +15,13 @@ interface Props {
 
 const CardHeader: FC<Props> = ({ review, loading }) => (
   <Flex sx={{ marginBottom: 4, alignItems: 'center' }}>
-    <Skeleton loading={loading} height={40} width={40}>
-      <Image
-        alt={review?.author.name}
-        src={review?.author.image ?? ''}
-        variant="avatar"
-      />
-    </Skeleton>
+    <SkeletonImage
+      loading={loading}
+      alt={review?.author.name ?? ''}
+      src={review?.author.image ?? ''}
+      height={40}
+      width={40}
+    />
     <Flex
       sx={{
         flexDirection: 'column',

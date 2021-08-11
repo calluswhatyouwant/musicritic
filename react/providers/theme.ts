@@ -64,6 +64,12 @@ export const theme: Theme | Record<string, ThemeUIStyleObject> = {
       padding: 4,
       borderRadius: 4,
     },
+    compact: {
+      border: '1px solid',
+      borderColor: 'muted.2',
+      padding: 2,
+      borderRadius: 4,
+    },
   },
   links: {
     button: {

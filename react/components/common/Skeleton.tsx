@@ -12,17 +12,31 @@ const loadingAnimation = keyframes(`
   }
 `)
 
-interface Props {
+type Dimension = number | string | Array<number | string>
+
+export const setSkeletonDimensions = (
+  height: Dimension,
+  width: Dimension
+): ThemeUIStyleObject => ({
+  width,
+  height,
+  minWidth: width,
+  minHeight: height,
+  maxWidth: width,
+  maxHeight: height,
+})
+
+export interface SkeletonProps {
   loading: boolean
   count?: number
   sx?: ThemeUIStyleObject
-  height?: number | string | Array<number | string>
-  width?: number | string | Array<number | string>
+  height?: Dimension
+  width?: Dimension
   shape?: 'rect' | 'circle'
   variant?: string
 }
 
-const Skeleton: FC<PropsWithChildren<Props>> = ({
+const Skeleton: FC<PropsWithChildren<SkeletonProps>> = ({
   children,
   loading,
   count = 1,
@@ -40,12 +54,7 @@ const Skeleton: FC<PropsWithChildren<Props>> = ({
       `}
       sx={{
         borderRadius: shape === 'rect' ? '4px' : '100%',
-        width,
-        height,
-        minWidth: width,
-        minHeight: height,
-        maxWidth: width,
-        maxHeight: height,
+        ...setSkeletonDimensions(height, width),
         variant: `skeleton.${variant}`,
         ...sx,
       }}

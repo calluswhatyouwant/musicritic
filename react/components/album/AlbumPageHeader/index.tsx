@@ -1,9 +1,10 @@
 import type { FC } from 'react'
 import type { Album } from 'spotify-web-sdk'
-import { Flex, Image } from 'theme-ui'
+import { Flex } from 'theme-ui'
 import type { ThemeUIStyleObject } from 'theme-ui'
 
 import Skeleton from '@/components/common/Skeleton'
+import SkeletonImage from '@/components/common/SkeletonImage'
 
 import AlbumRatingBadge from './AlbumRatingBadge'
 import AlbumMetadata from './AlbumMetadata'
@@ -39,13 +40,13 @@ interface Props {
 const AlbumPageHeader: FC<Props> = ({ album, loading, averageRating }) => (
   <Flex sx={containerStyles}>
     <Flex sx={columnStyles}>
-      <Skeleton loading={loading} height={280} width={280}>
-        <Image
-          alt={album?.name}
-          src={album?.imageUrl}
-          sx={{ maxHeight: 280, maxWidth: 280 }}
-        />
-      </Skeleton>
+      <SkeletonImage
+        loading={loading}
+        alt={album?.name ?? ''}
+        src={album?.imageUrl ?? ''}
+        height={280}
+        width={280}
+      />
     </Flex>
     <Flex sx={detailsContainerStyles}>
       <AlbumMetadata loading={loading} album={album} />

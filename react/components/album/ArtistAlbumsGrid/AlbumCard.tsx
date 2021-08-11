@@ -1,18 +1,16 @@
 import type { FC } from 'react'
 import type { AlbumSimplified } from 'spotify-web-sdk'
-import { Card, Image, Text, Flex } from 'theme-ui'
+import { Card, Text, Flex } from 'theme-ui'
 import type { ThemeUIStyleObject } from 'theme-ui'
 
 import Link from '@/components/common/Link'
 import Skeleton from '@/components/common/Skeleton'
+import SkeletonImage from '@/components/common/SkeletonImage'
 
 const cardStyles: ThemeUIStyleObject = {
   display: 'flex',
-  border: '1px solid black',
-  padding: 2,
   alignItems: 'center',
   gap: 2,
-  borderRadius: 4,
   ':hover': {
     backgroundColor: 'muted.0',
   },
@@ -30,18 +28,15 @@ interface AlbumCardProps {
 }
 
 const AlbumCard: FC<AlbumCardProps> = ({ album, loading }) => (
-  <Link
-    href={album ? `/albums/${album?.id}` : '/'}
-    sx={{ textDecoration: 'none' }}
-  >
-    <Card key={album?.id} sx={cardStyles}>
-      <Skeleton loading={loading} height={48} width={48}>
-        <Image
-          alt={album?.name}
-          src={album?.imageUrl}
-          sx={{ height: 48, minWidth: 48 }}
-        />
-      </Skeleton>
+  <Link href={album ? `/albums/${album?.id}` : '/'} variant="plain">
+    <Card key={album?.id} sx={cardStyles} variant="compact">
+      <SkeletonImage
+        loading={loading}
+        alt={album?.name ?? ''}
+        src={album?.imageUrl ?? ''}
+        height={48}
+        width={48}
+      />
       <Flex sx={{ flexDirection: 'column', gap: 2 }}>
         <Skeleton
           loading={loading}
