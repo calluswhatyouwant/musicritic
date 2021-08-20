@@ -93,15 +93,11 @@ type Query {
   search(q: String!, limit: Int, offset: Int): SearchResult!
   albumReviews(
     albumId: ID!
-    limit: Int
-    offset: Int
     orderBy: OrderBy
     direction: OrderDirection
   ): [AlbumReview!]!
   trackReviews(
     trackId: ID!
-    limit: Int
-    offset: Int
     orderBy: OrderBy
     direction: OrderDirection
   ): [TrackReview!]!

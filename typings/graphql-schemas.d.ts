@@ -92,16 +92,12 @@ export type QuerySearchArgs = {
 
 export type QueryAlbumReviewsArgs = {
   albumId: Scalars['ID']
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
   orderBy?: Maybe<OrderBy>
   direction?: Maybe<OrderDirection>
 }
 
 export type QueryTrackReviewsArgs = {
   trackId: Scalars['ID']
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
   orderBy?: Maybe<OrderBy>
   direction?: Maybe<OrderDirection>
 }

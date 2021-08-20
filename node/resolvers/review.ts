@@ -19,14 +19,12 @@ import { getUserById } from '../business/users'
 export const Query = {
   albumReviews: async (
     _: unknown,
-    { albumId, limit, offset, orderBy, direction }: QueryAlbumReviewsArgs,
+    { albumId, orderBy, direction }: QueryAlbumReviewsArgs,
     { firestore: { reviews } }: Context
   ) =>
     (
       await getAlbumReviews(
         albumId,
-        limit ?? 10,
-        offset ?? 0,
         orderBy ?? 'recent',
         direction ?? 'desc',
         reviews
@@ -34,14 +32,12 @@ export const Query = {
     ).docs.map((review) => review.data()),
   trackReviews: async (
     _: unknown,
-    { trackId, limit, offset, orderBy, direction }: QueryTrackReviewsArgs,
+    { trackId, orderBy, direction }: QueryTrackReviewsArgs,
     { firestore: { reviews } }: Context
   ) =>
     (
       await getTrackReviews(
         trackId,
-        limit ?? 10,
-        offset ?? 0,
         orderBy ?? 'recent',
         direction ?? 'desc',
         reviews

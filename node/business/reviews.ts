@@ -29,33 +29,27 @@ const getReviewFromUser =
     contentId: string,
     authorUid: string,
     reviewsCollection: typeof collections.reviews
-  ) => {
-    return reviewsCollection
+  ) =>
+    reviewsCollection
       .where('author', '==', authorUid)
       .where('contentId', '==', contentId)
       .where('contentType', '==', contentType)
       .get()
-  }
 
 const getReviews =
   (contentType: ContentType) =>
   async (
     contentId: string,
-    limit: number,
-    offset: number,
     orderBy: OrderBy,
     direction: OrderDirection,
     reviewsCollection: typeof collections.reviews
-  ) => {
-    return reviewsCollection
+  ) =>
+    reviewsCollection
       .where('contentId', '==', contentId)
       .where('contentType', '==', contentType)
       .orderBy('post')
       .orderBy(orderBy === 'rating' ? 'rating' : 'createdAt', direction)
-      .startAt(offset)
-      .limit(limit)
       .get()
-  }
 
 export const getAlbumReviews = getReviews('album')
 export const getTrackReviews = getReviews('track')
