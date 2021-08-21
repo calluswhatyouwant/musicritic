@@ -1,5 +1,5 @@
 module.exports = {
-  target: 'experimental-serverless-trace',
+  target: 'serverless',
   reactStrictMode: true,
   webpack5: false,
   webpack: (config) => {
