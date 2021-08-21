@@ -2,6 +2,7 @@ import type { Session } from 'next-auth'
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 import { FirebaseAdapter } from '@next-auth/firebase-adapter'
+import type firebase from 'firebase'
 
 import { firestore } from '@/node/lib/firebase-admin'
 
@@ -28,5 +29,7 @@ export default NextAuth({
     },
   },
 
-  adapter: FirebaseAdapter(firestore),
+  adapter: FirebaseAdapter(
+    firestore as unknown as firebase.firestore.Firestore
+  ),
 })
