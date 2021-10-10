@@ -3,8 +3,8 @@ import { getSession } from 'next-auth/client'
 
 import type { SessionWithId } from 'pages/api/auth/[...nextauth]'
 
-import spotify from './clients/spotify'
-import admin, { collections } from './clients/firebase-admin'
+import spotify from './lib/spotify'
+import admin, { collections } from './lib/firebase-admin'
 
 export interface Context {
   auth: SessionWithId | null

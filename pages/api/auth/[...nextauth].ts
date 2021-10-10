@@ -3,7 +3,7 @@ import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 import { FirebaseAdapter } from '@next-auth/firebase-adapter'
 
-import { firestore } from '@/graphql/clients/firebase-admin'
+import { firestore } from '@/node/lib/firebase-admin'
 
 export type SessionWithId = Session & { user: { id?: string } }
 

@@ -1,8 +1,10 @@
 generates:
   ./typings/graphql-schemas.d.ts:
-    schema: 'graphql/**/*.graphql'
+    schema: 'node/**/*.graphql'
     plugins:
       - typescript
+    config:
+      enumsAsTypes: true
 hooks:
   afterOneFileWrite:
     - prettier --write

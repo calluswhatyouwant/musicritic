@@ -8,11 +8,11 @@ import type {
 } from 'next'
 import type { FC } from 'react'
 
+import spotify from '@/node/lib/spotify'
 import AlbumPageHeader from '@/components/album/AlbumPageHeader'
 import AlbumTracklist from '@/components/album/AlbumTracklist'
 import ArtistAlbumsGrid from '@/components/album/ArtistAlbumsGrid'
 import AlbumReviewSection from '@/components/album/AlbumReviewSection/index'
-import spotify from '@/graphql/clients/spotify'
 
 import { reviewMocks } from './mock'
 

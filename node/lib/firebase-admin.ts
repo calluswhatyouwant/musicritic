@@ -11,6 +11,7 @@ export const auth = admin.auth()
 
 export const collections = {
   reviews: firestore.collection('reviews'),
+  users: firestore.collection('users'),
 }
 
 export default admin
