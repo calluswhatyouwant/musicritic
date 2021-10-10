@@ -1,6 +1,7 @@
 module.exports = {
   target: 'serverless',
   reactStrictMode: true,
+  webpack5: false,
   webpack: (config) => {
     config.module.rules.push({
       test: /\.(graphql|gql)$/,

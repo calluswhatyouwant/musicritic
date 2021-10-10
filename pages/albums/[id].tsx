@@ -14,7 +14,7 @@ import AlbumTracklist from '@/components/album/AlbumTracklist'
 import ArtistAlbumsGrid from '@/components/album/ArtistAlbumsGrid'
 import AlbumReviewSection from '@/components/album/AlbumReviewSection/index'
 
-import { reviewMocks } from './mock'
+import { reviewMocks } from '../../react/mock'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
