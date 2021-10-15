@@ -1,0 +1,13 @@
+query AlbumReviews($id: ID!) {
+  albumReviews(albumId: $id) {
+    id
+    rating
+    post
+    createdAt
+    updatedAt
+    author {
+      name
+      image
+    }
+  }
+}
