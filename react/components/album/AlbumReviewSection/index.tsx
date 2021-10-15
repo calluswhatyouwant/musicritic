@@ -55,8 +55,12 @@ const AlbumReviewSection: FC<Props> = ({
         </Skeleton>
       </Heading>
       <Grid columns={[1, 1, 1, 1, 2]} gap={2}>
-        {reviews.map((review: AlbumReview) => (
-          <UserReviewCard key={review.id} review={review} loading={loading} />
+        {reviews.map((review: AlbumReview, index: number) => (
+          <UserReviewCard
+            key={review?.id ?? index}
+            review={review}
+            loading={loading}
+          />
         ))}
       </Grid>
     </Box>
