@@ -9,6 +9,8 @@ import Select from '@/components/common/Select'
 import Skeleton from '@/components/common/Skeleton'
 import UserReviewCard from '@/components/common/UserReviewCard'
 
+import EmptyState from './EmptyState'
+
 const messages = defineMessages({
   reviews: { id: 'musicritic.album-page.reviews' },
   sortByRecent: { id: 'musicritic.album-page.reviews.sort-by.recent' },
@@ -33,6 +35,10 @@ const AlbumReviewSection: FC<Props> = ({
   const [sortBy, setSortBy] = useState('recent')
   const { formatMessage } = useIntl()
   const reviewCount = reviews.length
+
+  if (!loading && reviewCount === 0) {
+    return <EmptyState />
+  }
 
   return (
     <Box>
