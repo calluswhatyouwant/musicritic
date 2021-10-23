@@ -24,7 +24,15 @@ export const theme: Theme | Record<string, ThemeUIStyleObject> = {
     background: '#fff',
     primary: '#07c',
     secondary: '#30c',
-    muted: ['#EBEBEF', '#CBCBCF', '#9C99A0', '#6C6771', '#3B3542', '#0B0313'],
+    muted: [
+      '#FEFEFE',
+      '#EBEBEF',
+      '#CBCBCF',
+      '#9C99A0',
+      '#6C6771',
+      '#3B3542',
+      '#0B0313',
+    ],
   },
   styles: {
     root: {
@@ -60,13 +68,13 @@ export const theme: Theme | Record<string, ThemeUIStyleObject> = {
   cards: {
     primary: {
       border: '1px solid',
-      borderColor: 'muted.2',
+      borderColor: 'muted.3',
       padding: 4,
       borderRadius: 4,
     },
     compact: {
       border: '1px solid',
-      borderColor: 'muted.2',
+      borderColor: 'muted.3',
       padding: 2,
       borderRadius: 4,
     },
@@ -74,8 +82,8 @@ export const theme: Theme | Record<string, ThemeUIStyleObject> = {
   links: {
     button: {
       border: '1px solid',
-      borderColor: 'muted.4',
-      color: 'muted.4',
+      borderColor: 'muted.5',
+      color: 'muted.5',
       borderRadius: 16,
       paddingX: 4,
       paddingY: 2,

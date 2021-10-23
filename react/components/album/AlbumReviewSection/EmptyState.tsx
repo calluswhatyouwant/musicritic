@@ -15,7 +15,7 @@ const styles: ThemeUIStyleObject = {
   textAlign: 'center',
   flexDirection: 'column',
   padding: 12,
-  backgroundColor: 'rgb(0, 0, 0, 0.01)',
+  backgroundColor: 'muted.0',
 }
 
 const EmptyState: FC = () => (

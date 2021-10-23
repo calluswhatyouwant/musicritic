@@ -11,7 +11,7 @@ import AlbumMetadata from './AlbumMetadata'
 
 const containerStyles: ThemeUIStyleObject = {
   flexDirection: ['column', 'column', 'row'],
-  backgroundColor: 'muted.0',
+  backgroundColor: 'muted.1',
   width: '100%',
   padding: [3, 4, 6, 16],
 }
