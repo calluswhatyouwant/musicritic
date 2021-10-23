@@ -45,7 +45,7 @@ const App: FC<Props> = ({ Component, pageProps }) => {
   }, [])
 
   const client = new ApolloClient({
-    uri: 'http://localhost:3000/api/graphql',
+    uri: '/api/graphql',
     cache: new InMemoryCache(),
   })
 
