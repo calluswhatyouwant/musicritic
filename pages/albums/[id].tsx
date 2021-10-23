@@ -1,4 +1,4 @@
-import type { Album, AlbumSimplified } from 'spotify-web-sdk'
+import { useQuery } from '@apollo/client'
 import { Flex, Grid } from 'theme-ui'
 import Head from 'next/head'
 import type {
@@ -6,6 +6,7 @@ import type {
   GetStaticProps,
   GetStaticPropsContext,
 } from 'next'
+import type { Album, AlbumSimplified } from 'spotify-web-sdk'
 import type { FC } from 'react'
 
 import spotify from '@/node/lib/spotify'
@@ -13,8 +14,9 @@ import AlbumPageHeader from '@/components/album/AlbumPageHeader'
 import AlbumTracklist from '@/components/album/AlbumTracklist'
 import ArtistAlbumsGrid from '@/components/album/ArtistAlbumsGrid'
 import AlbumReviewSection from '@/components/album/AlbumReviewSection/index'
+import type { AlbumReview } from '@/types/graphql-schemas'
 
-import { reviewMocks } from '../../react/mock'
+import ALBUM_REVIEWS from './albumReviews.graphql'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -65,8 +67,25 @@ interface Props {
 const AlbumPage: FC<Props> = ({ album, artistAlbums, loading }) => {
   const pageTitle = `${album?.name} - ${album?.stringArtists} | Musicritic`
 
+  const { loading: loadingQuery, data } = useQuery<{
+    albumReviews: AlbumReview[]
+  }>(ALBUM_REVIEWS, {
+    variables: {
+      id: album?.id,
+    },
+    notifyOnNetworkStatusChange: true,
+  })
+
+  const albumReviews = data?.albumReviews ?? []
+
   // TODO: Retrieve through a query.
-  const averageRating = 4.5
+  const averageRating =
+    albumReviews.length > 0
+      ? albumReviews.reduce(
+          (prevCount, review) => prevCount + review.rating,
+          0
+        ) / albumReviews.length
+      : undefined
 
   return (
     <Flex
@@ -102,7 +121,10 @@ const AlbumPage: FC<Props> = ({ album, artistAlbums, loading }) => {
             mainArtist={album?.artists[0].name ?? ''}
           />
         </Grid>
-        <AlbumReviewSection loading={loading} reviews={reviewMocks} />
+        <AlbumReviewSection
+          loading={loading || loadingQuery}
+          reviews={data?.albumReviews}
+        />
       </Grid>
     </Flex>
   )

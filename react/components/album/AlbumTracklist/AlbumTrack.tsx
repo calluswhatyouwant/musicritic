@@ -15,12 +15,12 @@ const AlbumTrack: FC<Props> = ({ track, loading }) => (
     <Flex
       sx={{
         borderTop: '1px solid',
-        borderColor: 'muted.1',
+        borderColor: 'muted.2',
         padding: 2,
         alignItems: 'center',
         ':hover': {
           cursor: 'pointer',
-          backgroundColor: 'muted.0',
+          backgroundColor: 'muted.1',
         },
       }}
     >
@@ -30,7 +30,7 @@ const AlbumTrack: FC<Props> = ({ track, loading }) => (
         width={16}
         sx={{ marginRight: 4 }}
       >
-        <Text variant="body" sx={{ minWidth: '2rem', color: 'muted.3' }}>
+        <Text variant="body" sx={{ minWidth: '2rem', color: 'muted.4' }}>
           {track?.trackNumber}
         </Text>
       </Skeleton>

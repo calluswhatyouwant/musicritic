@@ -12,7 +12,7 @@ const cardStyles: ThemeUIStyleObject = {
   alignItems: 'center',
   gap: 2,
   ':hover': {
-    backgroundColor: 'muted.0',
+    backgroundColor: 'muted.1',
   },
 }
 
@@ -44,14 +44,14 @@ const AlbumCard: FC<AlbumCardProps> = ({ album, loading }) => (
           count={2}
           width={[200, 160, 160, 200, 256, 128]}
         >
-          <Text variant="body" sx={{ ...truncateTextStyles, color: 'muted.4' }}>
+          <Text variant="body" sx={{ ...truncateTextStyles, color: 'muted.5' }}>
             {album?.name}
           </Text>
           <Text
             variant="body"
             sx={{
               ...truncateTextStyles,
-              color: 'muted.3',
+              color: 'muted.4',
             }}
           >
             {album?.stringArtists}

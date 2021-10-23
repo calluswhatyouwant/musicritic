@@ -6,5 +6,6 @@
   "musicritic.album-page.tracklist": "Tracklist",
   "musicritic.album-page.reviews": "Reviews",
   "musicritic.album-page.reviews.sort-by.recent": "Most recent",
-  "musicritic.album-page.reviews.sort-by.rating": "Best ratings"
+  "musicritic.album-page.reviews.sort-by.rating": "Best ratings",
+  "musicritic.album-page.empty-state": "No reviews yet"
 }

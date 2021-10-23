@@ -35,7 +35,7 @@ const CardHeader: FC<Props> = ({ review, loading }) => (
           {review?.author.name}
         </Skeleton>
       </Text>
-      <Text variant="small" sx={{ color: 'muted.3' }}>
+      <Text variant="small" sx={{ color: 'muted.4' }}>
         <Skeleton loading={loading} variant="text.small" width={128}>
           <FormattedDate
             value={new Date(review?.updatedAt)}

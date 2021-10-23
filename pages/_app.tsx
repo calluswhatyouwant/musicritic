@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import Router from 'next/router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 
 import IntlProvider from '@/providers/IntlProvider'
 import ThemeProvider from '@/providers/ThemeProvider'
@@ -43,22 +44,29 @@ const App: FC<Props> = ({ Component, pageProps }) => {
     }
   }, [])
 
+  const client = new ApolloClient({
+    uri: '/api/graphql',
+    cache: new InMemoryCache(),
+  })
+
   return (
-    <AuthProvider session={pageProps.session}>
-      <IntlProvider locale="pt">
-        <ThemeProvider>
-          <Head>
-            <title>Musicritic</title>
-            <meta
-              name="description"
-              content="Your personal music-specific Metacritic"
-            />
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
-          {getLayout(<Component loading={loading} {...pageProps} />)}
-        </ThemeProvider>
-      </IntlProvider>
-    </AuthProvider>
+    <ApolloProvider client={client}>
+      <AuthProvider session={pageProps.session}>
+        <IntlProvider locale="pt">
+          <ThemeProvider>
+            <Head>
+              <title>Musicritic</title>
+              <meta
+                name="description"
+                content="Your personal music-specific Metacritic"
+              />
+              <link rel="icon" href="/favicon.ico" />
+            </Head>
+            {getLayout(<Component loading={loading} {...pageProps} />)}
+          </ThemeProvider>
+        </IntlProvider>
+      </AuthProvider>
+    </ApolloProvider>
   )
 }
 

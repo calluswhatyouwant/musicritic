@@ -9,6 +9,8 @@ import Select from '@/components/common/Select'
 import Skeleton from '@/components/common/Skeleton'
 import UserReviewCard from '@/components/common/UserReviewCard'
 
+import EmptyState from './EmptyState'
+
 const messages = defineMessages({
   reviews: { id: 'musicritic.album-page.reviews' },
   sortByRecent: { id: 'musicritic.album-page.reviews.sort-by.recent' },
@@ -34,6 +36,10 @@ const AlbumReviewSection: FC<Props> = ({
   const { formatMessage } = useIntl()
   const reviewCount = reviews.length
 
+  if (!loading && reviewCount === 0) {
+    return <EmptyState />
+  }
+
   return (
     <Box>
       <Heading as="h3" variant="section" sx={headerStyles}>
@@ -55,8 +61,12 @@ const AlbumReviewSection: FC<Props> = ({
         </Skeleton>
       </Heading>
       <Grid columns={[1, 1, 1, 1, 2]} gap={2}>
-        {reviews.map((review: AlbumReview) => (
-          <UserReviewCard key={review.id} review={review} loading={loading} />
+        {reviews.map((review: AlbumReview, index: number) => (
+          <UserReviewCard
+            key={review?.id ?? index}
+            review={review}
+            loading={loading}
+          />
         ))}
       </Grid>
     </Box>
