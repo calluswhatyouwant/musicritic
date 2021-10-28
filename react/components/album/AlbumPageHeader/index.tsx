@@ -6,7 +6,7 @@ import type { ThemeUIStyleObject } from 'theme-ui'
 import Skeleton from '@/components/common/Skeleton'
 import SkeletonImage from '@/components/common/SkeletonImage'
 
-import AlbumRatingBadge from './AlbumRatingBadge'
+import AlbumRatingBadge from '../../common/RatingBadge'
 import AlbumMetadata from './AlbumMetadata'
 
 const containerStyles: ThemeUIStyleObject = {

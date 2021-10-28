@@ -5,8 +5,10 @@ import type {
 } from 'next'
 import type { FC } from 'react'
 import type { Track } from 'spotify-web-sdk'
+import { useRouter } from 'next/router'
 
 import spotify from '@/node/lib/spotify'
+import TrackHeader from '@/components/track/TrackHeader'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -31,7 +33,14 @@ interface Props {
 }
 
 const TrackPage: FC<Props> = ({ trackInfo }) => {
-  return <>{JSON.stringify(trackInfo)}</>
+  const router = useRouter()
+  const isLoading = router.isFallback
+
+  return (
+    <>
+      <TrackHeader track={trackInfo} loading={isLoading} />
+    </>
+  )
 }
 
 export default TrackPage
