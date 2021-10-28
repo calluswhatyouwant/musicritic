@@ -4,6 +4,7 @@ import type {
   GetStaticPropsContext,
 } from 'next'
 import type { FC } from 'react'
+import type { Track } from 'spotify-web-sdk'
 
 import spotify from '@/node/lib/spotify'
 
@@ -20,11 +21,17 @@ export const getStaticProps: GetStaticProps = async (
   const trackId = (context.params?.id as string) ?? ''
   const trackInfo = await spotify.getTrack(trackId)
 
-  return { props: { trackInfo } }
+  return {
+    props: { trackInfo: JSON.parse(JSON.stringify(trackInfo.toJSON())) },
+  }
 }
 
-const TrackPage: FC = () => {
-  return <></>
+interface Props {
+  trackInfo: Track
+}
+
+const TrackPage: FC<Props> = ({ trackInfo }) => {
+  return <>{JSON.stringify(trackInfo)}</>
 }
 
 export default TrackPage
