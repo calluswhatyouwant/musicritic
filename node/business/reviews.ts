@@ -1,10 +1,6 @@
 import type { firestore } from 'firebase-admin'
 
-import type {
-  OrderBy,
-  OrderDirection,
-  ReviewInput,
-} from '@/types/graphql-schemas'
+import type { OrderBy, OrderDirection, ReviewInput } from '@/types/graphql'
 
 import type { collections } from '../lib/firebase-admin'
 import admin from '../lib/firebase-admin'

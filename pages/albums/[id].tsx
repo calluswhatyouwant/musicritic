@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import { Flex, Grid } from 'theme-ui'
 import Head from 'next/head'
 import type {
@@ -14,9 +13,7 @@ import AlbumPageHeader from '@/components/album/AlbumPageHeader'
 import AlbumTracklist from '@/components/album/AlbumTracklist'
 import ArtistAlbumsGrid from '@/components/album/ArtistAlbumsGrid'
 import AlbumReviewSection from '@/components/album/AlbumReviewSection/index'
-import type { AlbumReview } from '@/types/graphql-schemas'
-
-import ALBUM_REVIEWS from './albumReviews.graphql'
+import { useAlbumReviewsQuery } from '@/types/graphql'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -67,11 +64,9 @@ interface Props {
 const AlbumPage: FC<Props> = ({ album, artistAlbums, loading }) => {
   const pageTitle = `${album?.name} - ${album?.stringArtists} | Musicritic`
 
-  const { loading: loadingQuery, data } = useQuery<{
-    albumReviews: AlbumReview[]
-  }>(ALBUM_REVIEWS, {
+  const { loading: loadingQuery, data } = useAlbumReviewsQuery({
     variables: {
-      id: album?.id,
+      id: album?.id ?? '',
     },
     notifyOnNetworkStatusChange: true,
   })
