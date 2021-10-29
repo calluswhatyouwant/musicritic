@@ -1,10 +1,15 @@
 generates:
-  ./typings/graphql-schemas.d.ts:
+  ./typings/graphql.ts:
     schema: 'node/**/*.graphql'
+    documents: '{pages,react}/**/*.graphql'
     plugins:
       - typescript
+      - typescript-operations
+      - typescript-react-apollo
     config:
       enumsAsTypes: true
+      scalars:
+        Date: 'Date'
 hooks:
   afterOneFileWrite:
     - prettier --write

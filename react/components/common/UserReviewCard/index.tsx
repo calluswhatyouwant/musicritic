@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 import { Card, Flex, Paragraph } from 'theme-ui'
 
-import type { AlbumReview } from '@/types/graphql-schemas'
+import type { AlbumReview } from '@/types/graphql'
 import Skeleton from '@/components/common/Skeleton'
 
 import AlbumReviewReactions from './AlbumReviewReactions'

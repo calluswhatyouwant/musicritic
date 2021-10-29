@@ -4,7 +4,7 @@ import { defineMessages, FormattedMessage, useIntl } from 'react-intl'
 import type { ThemeUIStyleObject } from 'theme-ui'
 import { Heading, Box, Grid } from 'theme-ui'
 
-import type { AlbumReview } from '@/types/graphql-schemas'
+import type { AlbumReview, AlbumReviewsQuery } from '@/types/graphql'
 import Select from '@/components/common/Select'
 import Skeleton from '@/components/common/Skeleton'
 import UserReviewCard from '@/components/common/UserReviewCard'
@@ -25,7 +25,7 @@ const headerStyles: ThemeUIStyleObject = {
 
 interface Props {
   loading: boolean
-  reviews?: AlbumReview[]
+  reviews?: AlbumReviewsQuery['albumReviews']
 }
 
 const AlbumReviewSection: FC<Props> = ({

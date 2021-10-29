@@ -1,6 +1,6 @@
 import type { AlbumSimplified, Track } from 'spotify-web-sdk'
 
-import type { QuerySearchArgs } from '@/types/graphql-schemas'
+import type { QuerySearchArgs } from '@/types/graphql'
 
 import type { Context } from '../context'
 

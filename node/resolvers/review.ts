@@ -3,7 +3,7 @@ import type {
   MutationReviewTrackArgs,
   QueryAlbumReviewsArgs,
   QueryTrackReviewsArgs,
-} from '@/types/graphql-schemas'
+} from '@/types/graphql'
 
 import type { ReviewModel } from '../business/reviews'
 import {

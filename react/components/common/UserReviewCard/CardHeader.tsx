@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import { FormattedDate } from 'react-intl'
 import { Flex, Text } from 'theme-ui'
 
-import type { AlbumReview } from '@/types/graphql-schemas'
+import type { AlbumReview } from '@/types/graphql'
 import Rating from '@/components/common/Rating'
 import Skeleton from '@/components/common/Skeleton'
 
@@ -38,7 +38,7 @@ const CardHeader: FC<Props> = ({ review, loading }) => (
       <Text variant="small" sx={{ color: 'muted.4' }}>
         <Skeleton loading={loading} variant="text.small" width={128}>
           <FormattedDate
-            value={new Date(review?.updatedAt)}
+            value={review?.updatedAt}
             day="numeric"
             month="long"
             year="numeric"
