@@ -15,10 +15,10 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["react/components/*"],
-      "@/providers/*": ["react/providers/*"],
-      "@/node/*": ["node/*"],
-      "@/types/*": ["typings/*"]
+      "@/components/*": ["src/react/components/*"],
+      "@/providers/*": ["src/react/providers/*"],
+      "@/node/*": ["src/node/*"],
+      "@/types/*": ["src/typings/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
