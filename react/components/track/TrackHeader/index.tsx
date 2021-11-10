@@ -45,7 +45,12 @@ const TrackHeader = ({ track, rating = 5, loading = false }: Props) => {
         </Flex>
         <Box>
           <Heading variant="title">{track?.name ?? ''}</Heading>
-          <Box>por {track?.mainArtists[0].name}</Box>
+          <Heading variant="subtitle">
+            <FormattedMessage
+              {...messages.byArtists}
+              values={{ artists: track?.mainArtists[0].name }}
+            />
+          </Heading>
           <Box>{track?.album?.name ?? ''}</Box>
           <Box sx={{ marginBottom: 4 }}>
             <FormattedMessage
