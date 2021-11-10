@@ -39,18 +39,18 @@ const TrackPage: FC<Props> = ({ trackInfo }) => {
 
   return (
     <PageHeader
-      imgURL={trackInfo.album?.imageUrl}
-      imgALT={trackInfo.albumName}
+      imgURL={trackInfo?.album?.imageUrl}
+      imgALT={trackInfo?.albumName}
       rating={10}
       loading={isLoading}
     >
       <TrackMetadata
-        name="Nome"
-        artist={trackInfo.mainArtists[0].name}
-        album={trackInfo.albumName}
-        length={trackInfo.length}
-        releaseDate={trackInfo.album.releaseDate}
-        spotifyURL={trackInfo.uri}
+        name={trackInfo?.name}
+        artist={trackInfo?.mainArtists[0].name}
+        album={trackInfo?.albumName}
+        length={trackInfo?.length}
+        releaseDate={trackInfo?.album.releaseDate}
+        spotifyURL={trackInfo?.uri}
       />
     </PageHeader>
   )
