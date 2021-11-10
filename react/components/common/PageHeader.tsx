@@ -1,18 +1,9 @@
-import { Box, Button, Flex, Heading, Link } from '@theme-ui/components'
-import type { Track } from 'spotify-web-sdk'
-import { defineMessages, FormattedMessage } from 'react-intl'
+import { Flex } from '@theme-ui/components'
 import type { ThemeUIStyleObject } from 'theme-ui'
 import type { PropsWithChildren } from 'hoist-non-react-statics/node_modules/@types/react'
 
 import RatingBadge from '@/components/common/RatingBadge'
 import SkeletonImage from '@/components/common/SkeletonImage'
-import Skeleton from '@/components/common/Skeleton'
-
-const messages = defineMessages({
-  byArtists: { id: 'musicritic.album-page.by-artists' },
-  releaseDate: { id: 'musicritic.album-page.release-date' },
-  openOnSpotify: { id: 'musicritic.album-page.open-on-spotify' },
-})
 
 const containerStyles: ThemeUIStyleObject = {
   flexDirection: ['column', 'column', 'row'],
