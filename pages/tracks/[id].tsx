@@ -8,7 +8,7 @@ import type { Track } from 'spotify-web-sdk'
 import { useRouter } from 'next/router'
 
 import spotify from '@/node/lib/spotify'
-import TrackHeader from '@/components/track/TrackHeader'
+import PageHeader from '@/components/common/PageHeader'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -38,7 +38,7 @@ const TrackPage: FC<Props> = ({ trackInfo }) => {
 
   return (
     <>
-      <TrackHeader track={trackInfo} loading={isLoading} />
+      <PageHeader track={trackInfo} loading={isLoading} />
     </>
   )
 }
