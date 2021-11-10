@@ -20,7 +20,7 @@ interface Props {
 
 const TrackHeader = ({ track, rating = 5, loading = false }: Props) => {
   return (
-    <Flex sx={{ justifyContent: 'space-between', p: 6 }}>
+    <Flex sx={{ justifyContent: 'space-between', alignItems: 'center', p: 6 }}>
       <Flex sx={{ alignItems: 'center' }}>
         <Flex sx={{ marginRight: 4 }}>
           <SkeletonImage
@@ -35,14 +35,15 @@ const TrackHeader = ({ track, rating = 5, loading = false }: Props) => {
           <Heading variant="title">{track?.name ?? ''}</Heading>
           <Box>por {track?.mainArtists[0].name}</Box>
           <Box>{track?.album?.name ?? ''}</Box>
+          <Box>
+            {track?.album?.releaseYear ?? ''} · {track?.length ?? ''}
+          </Box>
           <Link href={track?.uri ?? '/'} variant="button">
             <FormattedMessage {...messages.openOnSpotify} />
           </Link>
         </Box>
       </Flex>
-      <div>
-        <RatingBadge rating={rating} />
-      </div>
+      <RatingBadge rating={rating} />
     </Flex>
   )
 }
