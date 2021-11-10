@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 
 import spotify from '@/node/lib/spotify'
 import PageHeader from '@/components/common/PageHeader'
+import TrackMetadata from '@/components/track/TrackMetadata'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -37,9 +38,21 @@ const TrackPage: FC<Props> = ({ trackInfo }) => {
   const isLoading = router.isFallback
 
   return (
-    <>
-      <PageHeader track={trackInfo} loading={isLoading} />
-    </>
+    <PageHeader
+      imgURL={trackInfo.album?.imageUrl}
+      imgALT={trackInfo.albumName}
+      rating={10}
+      loading={isLoading}
+    >
+      <TrackMetadata
+        name="Nome"
+        artist={trackInfo.mainArtists[0].name}
+        album={trackInfo.albumName}
+        length={trackInfo.length}
+        releaseDate={trackInfo.album.releaseDate}
+        spotifyURL={trackInfo.uri}
+      />
+    </PageHeader>
   )
 }
 

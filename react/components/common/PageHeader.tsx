@@ -24,58 +24,36 @@ const containerStyles: ThemeUIStyleObject = {
 }
 
 interface Props {
-  track?: Track
+  imgURL?: string
+  imgALT?: string
   loading?: boolean
   rating?: number
-  variant?: 'album' | 'track'
 }
 
-const TrackHeader = ({
-  track,
+const PageHeader = ({
+  imgURL,
+  imgALT,
   rating = 5,
   loading = false,
-  variant = 'track',
   children,
 }: PropsWithChildren<Props>) => {
-  const releaseYear = track?.releaseYear ?? ''
-
   return (
     <Flex sx={containerStyles}>
       <Flex sx={{ alignItems: 'center' }}>
         <Flex sx={{ marginRight: 4 }}>
           <SkeletonImage
             loading={loading}
-            alt={track?.album?.name ?? ''}
-            src={track?.album?.imageUrl ?? ''}
+            alt={imgALT ?? ''}
+            src={imgURL ?? ''}
             height={280}
             width={280}
           />
         </Flex>
         {children}
-        <Box>
-          <Heading variant="title">{track?.name ?? ''}</Heading>
-          <Heading variant="subtitle">
-            <FormattedMessage
-              {...messages.byArtists}
-              values={{ artists: track?.mainArtists[0].name }}
-            />
-          </Heading>
-          {variant === 'track' && <Box>{track?.album?.name ?? ''}</Box>}
-          <Box sx={{ marginBottom: 4 }}>
-            <FormattedMessage
-              {...messages.releaseDate}
-              values={{ date: releaseYear }}
-            />{' '}
-            · {track?.length ?? ''}
-          </Box>
-          <Link href={track?.uri ?? '/'} variant="button">
-            <FormattedMessage {...messages.openOnSpotify} />
-          </Link>
-        </Box>
       </Flex>
       <RatingBadge rating={rating} />
     </Flex>
   )
 }
 
-export default TrackHeader
+export default PageHeader
