@@ -39,8 +39,8 @@ const TrackPage: FC<Props> = ({ trackInfo }) => {
 
   return (
     <PageHeader
-      imgUrl={trackInfo?.album?.imageUrl}
-      imgAlt={trackInfo?.albumName}
+      imgUrl={trackInfo?.album?.imageUrl ?? ''}
+      imgAlt={trackInfo?.albumName ?? ''}
       rating={10}
       loading={isLoading}
     >
