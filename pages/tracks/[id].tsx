@@ -34,8 +34,7 @@ interface Props {
 }
 
 const TrackPage: FC<Props> = ({ trackInfo }) => {
-  const router = useRouter()
-  const isLoading = router.isFallback
+  const { isFallback: isLoading } = useRouter()
 
   return (
     <PageHeader
