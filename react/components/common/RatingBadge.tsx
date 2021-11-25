@@ -19,8 +19,8 @@ interface Props {
   rating: number
 }
 
-const AlbumRatingBadge: FC<Props> = ({ rating }) => (
+const RatingBadge: FC<Props> = ({ rating }) => (
   <Badge sx={ratingBadgeStyles}>{rating}</Badge>
 )
 
-export default AlbumRatingBadge
+export default RatingBadge

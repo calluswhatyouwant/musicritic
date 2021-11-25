@@ -81,6 +81,7 @@ export const theme: Theme | Record<string, ThemeUIStyleObject> = {
   },
   links: {
     button: {
+      display: 'inline-block',
       border: '1px solid',
       borderColor: 'muted.5',
       color: 'muted.5',
