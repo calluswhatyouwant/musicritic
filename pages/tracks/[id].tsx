@@ -49,7 +49,7 @@ const TrackPage: FC<Props> = ({ trackInfo }) => {
         album={trackInfo?.albumName}
         length={trackInfo?.length}
         releaseDate={trackInfo?.album.releaseDate}
-        spotifyURL={trackInfo?.uri}
+        spotifyUrl={trackInfo?.uri}
       />
     </PageHeader>
   )

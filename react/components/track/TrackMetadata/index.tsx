@@ -13,7 +13,7 @@ interface Props {
   album: string
   length: string
   releaseDate: string
-  spotifyURL: string
+  spotifyUrl: string
 }
 
 const TrackMetadata = ({
@@ -22,7 +22,7 @@ const TrackMetadata = ({
   album,
   length,
   releaseDate,
-  spotifyURL,
+  spotifyUrl,
 }: Props) => {
   const formattedReleaseDate = (
     <FormattedDate
@@ -50,7 +50,7 @@ const TrackMetadata = ({
         />{' '}
         · {length}
       </Box>
-      <Link href={spotifyURL ?? '/'} variant="button">
+      <Link href={spotifyUrl ?? '/'} variant="button">
         <FormattedMessage {...messages.openOnSpotify} />
       </Link>
     </Box>
