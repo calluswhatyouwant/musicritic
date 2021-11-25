@@ -15,15 +15,15 @@ const containerStyles: ThemeUIStyleObject = {
 }
 
 interface Props {
-  imgURL?: string
-  imgALT?: string
+  imgUrl: string
+  imgAlt: string
   loading?: boolean
   rating?: number
 }
 
 const PageHeader = ({
-  imgURL,
-  imgALT,
+  imgUrl,
+  imgAlt,
   rating = 5,
   loading = false,
   children,
@@ -34,8 +34,8 @@ const PageHeader = ({
         <Flex sx={{ marginRight: 4 }}>
           <SkeletonImage
             loading={loading}
-            alt={imgALT ?? ''}
-            src={imgURL ?? ''}
+            alt={imgAlt}
+            src={imgUrl}
             height={280}
             width={280}
           />
