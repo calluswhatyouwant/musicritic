@@ -45,7 +45,7 @@ const TrackPage: FC<Props> = ({ trackInfo }) => {
     >
       <TrackMetadata
         name={trackInfo?.name}
-        artist={trackInfo?.mainArtists[0].name}
+        artist={trackInfo.album.stringArtists}
         album={trackInfo?.albumName}
         length={trackInfo?.length}
         releaseDate={trackInfo?.album.releaseDate}
