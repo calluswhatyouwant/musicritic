@@ -36,10 +36,6 @@ interface Props {
 const TrackPage: FC<Props> = ({ trackInfo }) => {
   const { isFallback: isLoading } = useRouter()
 
-  const artistsName = trackInfo?.album?.artists.map((artist) => (
-    <>{artist.name}</>
-  ))
-
   return (
     <PageHeader
       imgUrl={trackInfo?.album?.imageUrl ?? ''}
